@@ -1,0 +1,205 @@
+<head>
+<title>Real : Mobile</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Real.html">Real</a> : Mobile</h2>
+This class is included as part of the file Mobile.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Mobile.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Mobile objects are objects in the simulated world which move around and interact with other objects.  This is in contrast to <a href="Stationary.html">Stationary</a> objects which can collide and interact with other objects but which never move. <P> When a Mobile object is created, it will be by default a simple sphere.  You can change the appearence of this sphere by using methods in this class, or its parent class <a href="Real.html">Real</a>.  Or you can change the shape altogether with the method <a href="#set-shape">set-shape</a>.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Configuring Physics Parameters</B><UL>
+<li><a href="#disable-physics">disable-physics</a></li>
+<li><a href="#enable-physics">enable-physics</a></li>
+<li><a href="#get-mass">get-mass</a></li>
+</UL>
+<P><B>Controlling the Agent's Motion and Position (see also methods in the parent class, OBJECT(Real))</B><UL>
+<li><a href="#get-acceleration">get-acceleration</a></li>
+<li><a href="#get-bound-maximum">get-bound-maximum</a></li>
+<li><a href="#get-bound-minimum">get-bound-minimum</a></li>
+<li><a href="#get-distance">get-distance</a></li>
+<li><a href="#get-force">get-force</a></li>
+<li><a href="#get-rotational-velocity">get-rotational-velocity</a></li>
+<li><a href="#get-torque">get-torque</a></li>
+<li><a href="#get-velocity">get-velocity</a></li>
+<li><a href="#offset">offset</a></li>
+<li><a href="#relative-rotate">relative-rotate</a></li>
+<li><a href="#set-acceleration">set-acceleration</a></li>
+<li><a href="#set-force">set-force</a></li>
+<li><a href="#set-rotational-acceleration">set-rotational-acceleration</a></li>
+<li><a href="#set-rotational-velocity">set-rotational-velocity</a></li>
+<li><a href="#set-torque">set-torque</a></li>
+<li><a href="#set-velocity">set-velocity</a></li>
+<li><a href="#transform">transform</a></li>
+</UL>
+<P><B>Changing an Object's Appearence</B><UL>
+<li><a href="#remove-label">remove-label</a></li>
+<li><a href="#set-label">set-label</a></li>
+</UL>
+<P><B>Determining Whether an Object is Colliding</B><UL>
+<li><a href="#check-for-self-penetrations">check-for-self-penetrations</a></li>
+<li><a href="#get-colliding-objects">get-colliding-objects</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="check-for-self-penetrations"><font size=+1><tt>check-for-self-penetrations </tt></font><p></a>
+<blockquote>
+<p> Determines whether this link is currently penetrating with other links in the same multibody.  This is not meant as a general purpose collision detection tool -- it is meant to detect potentially troublesome configurations of links when they are created.<p>
+</blockquote>
+<hr>
+<a name="disable-physics"><font size=+1><tt>disable-physics </tt></font><p></a>
+<blockquote>
+<p> Disables the physical simulation for a <a href="Mobile.html">Mobile</a> object. <p>
+</blockquote>
+<hr>
+<a name="enable-physics"><font size=+1><tt>enable-physics </tt></font><p></a>
+<blockquote>
+<p> Enables physical simulation for a <a href="Mobile.html">Mobile</a> object. This must be used in conjunction with a <a href="PhysicalControl.html">PhysicalControl</a> object which sets up physical simulation for the entire world. <p> When physics is enabled for an object, the acceleration can no longer be assigned manually--it will be computed from the forces applied to the object. <p>
+</blockquote>
+<hr>
+<a name="get-acceleration"><font size=+1><tt>get-acceleration </tt></font><p></a>
+<blockquote>
+<p> Returns the vector acceleration of this object. <p>
+</blockquote>
+<hr>
+<a name="get-bound-maximum"><font size=+1><tt>get-bound-maximum </tt></font><p></a>
+<blockquote>
+<p> Returns the vector representing the maximum X, Y and Z locations of points on this link. <p>
+</blockquote>
+<hr>
+<a name="get-bound-minimum"><font size=+1><tt>get-bound-minimum </tt></font><p></a>
+<blockquote>
+<p> Returns the vector representing the minimum X, Y and Z locations of points on this link. <p>
+</blockquote>
+<hr>
+<a name="get-colliding-objects"><font size=+1><tt>get-colliding-objects </tt></font><p></a>
+<blockquote>
+<p> Returns a list of objects currently colliding with this object. This is not meant as a general purpose collision detection tool -- it is meant to detect potentially troublesome configurations of links when they are created. <p>
+</blockquote>
+<hr>
+<a name="get-distance"><font size=+1><tt>get-distance from <i>otherObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Returns the scalar distance from this object's center to <i>otherObject</i>. <p>
+</blockquote>
+<hr>
+<a name="get-force"><font size=+1><tt>get-force </tt></font><p></a>
+<blockquote>
+<p> Returns the force acting on the object, which was previously set using <a href="#set-force">set-force</a>. <p>
+</blockquote>
+<hr>
+<a name="get-mass"><font size=+1><tt>get-mass </tt></font><p></a>
+<blockquote>
+<p> Returns the mass of the object. <p>
+</blockquote>
+<hr>
+<a name="get-rotational-velocity"><font size=+1><tt>get-rotational-velocity </tt></font><p></a>
+<blockquote>
+<p> Returns the vector angular velocity of this object. <p>
+</blockquote>
+<hr>
+<a name="get-torque"><font size=+1><tt>get-torque </tt></font><p></a>
+<blockquote>
+<p> Returns the torque acting on the object, which was previously set using <a href="#set-torque">set-torque</a>. <p>
+</blockquote>
+<hr>
+<a name="get-velocity"><font size=+1><tt>get-velocity </tt></font><p></a>
+<blockquote>
+<p> Returns the vector velocity of this object. <p>
+</blockquote>
+<hr>
+<a name="offset"><font size=+1><tt>offset by <i>amount</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Moves this object by <i>amount</i>, relative to its current position. <p>
+</blockquote>
+<hr>
+<a name="relative-rotate"><font size=+1><tt>relative-rotate around-axis <i>thisAxis</i> (vector) by <i>amount</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotation of this object around vector axis <i>thisAxis</i> by scalar <i>amount</i> (in radians).  This is a rotation relative to the current position. <p>
+</blockquote>
+<hr>
+<a name="remove-label"><font size=+1><tt>remove-label </tt></font><p></a>
+<blockquote>
+<p> Removes the label that would be drawn next to an object. <p>
+</blockquote>
+<hr>
+<a name="set-acceleration"><font size=+1><tt>set-acceleration to <i>newAcceleration</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the acceleration of this object to <i>newAcceleration</i>. This method has no effect if physical simulation is turned on for the object, in which case the physical simulation engine computes acceleration. <p>
+</blockquote>
+<hr>
+<a name="set-force"><font size=+1><tt>set-force to <i>newForce</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the velocity acting on the object to <i>newForce</i>.  This force will remain in effect until it is disabled with a new call to <a href="#set-force">set-force</a>. <p>
+</blockquote>
+<hr>
+<a name="set-label"><font size=+1><tt>set-label to <i>theLabel</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Sets the label to be drawn along side the object. <p>
+</blockquote>
+<hr>
+<a name="set-rotational-acceleration"><font size=+1><tt>set-rotational-acceleration to <i>newAcceleration</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotational acceleration of this object to <i>newAcceleration</i>.  This method has no effect if physical simulation is turned on for the object, in which case the physical simulation engine computes acceleration. <p>
+</blockquote>
+<hr>
+<a name="set-rotational-velocity"><font size=+1><tt>set-rotational-velocity to <i>angularVelocity</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotational velocity of this object to <i>angularVelocity</i>. <p>
+</blockquote>
+<hr>
+<a name="set-torque"><font size=+1><tt>set-torque to <i>newTorque</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the torque acting on the object to <i>newTorque</i>.  This torque will remain in effect until it is disabled with a new call to <a href="#set-torque">set-torque</a>. <p>
+</blockquote>
+<hr>
+<a name="set-velocity"><font size=+1><tt>set-velocity to <i>newVelocity</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the velocity of this object to <i>newVelocity</i>. <p>
+</blockquote>
+<hr>
+<a name="transform"><font size=+1><tt>transform world-vector <i>theVector</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Transforms <i>theVector</i> in the world coordinate frame to a vector in the frame of this object. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

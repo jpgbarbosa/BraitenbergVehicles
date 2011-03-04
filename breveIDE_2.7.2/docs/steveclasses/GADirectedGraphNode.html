@@ -1,0 +1,95 @@
+<head>
+<title>GADirectedGraphParameterObject : GADirectedGraphNode</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="GADirectedGraphParameterObject.html">GADirectedGraphParameterObject</a> : GADirectedGraphNode</h2>
+This class is included as part of the file DirectedGraph.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use DirectedGraph.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ <a href="GADirectedGraphNode.html">GADirectedGraphNode</a> is a node in a directed graph.  It is a subclass of <a href="GADirectedGraphParameterObject.html">GADirectedGraphParameterObject</a> which can be used to associate it with a set of parameters.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#connect">connect</a></li>
+<li><a href="#destroy-connected-objects">destroy-connected-objects</a></li>
+<li><a href="#duplicate">duplicate</a></li>
+<li><a href="#get-connected-nodes">get-connected-nodes</a></li>
+<li><a href="#get-connections">get-connections</a></li>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#print-connected-objects">print-connected-objects</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="connect"><font size=+1><tt>connect to <i>child</i> (object) with-parameters <i>plist</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Makes a connection to <i>child</i> with the parameter list <i>plist</i>. <p>
+</blockquote>
+<hr>
+<a name="destroy-connected-objects"><font size=+1><tt>destroy-connected-objects </tt></font><p></a>
+<blockquote>
+<p> Initiates a recursive freeing of this object and all connected objects, both directly and indiretly connected. <p>
+</blockquote>
+<hr>
+<a name="duplicate"><font size=+1><tt>duplicate </tt></font><p></a>
+<blockquote>
+<p> Duplicates the object, which triggers recursive duplication of all connected objects.  To be used on root nodes only. <p>
+</blockquote>
+<hr>
+<a name="get-connected-nodes"><font size=+1><tt>get-connected-nodes </tt></font><p></a>
+<blockquote>
+<p> Recursively generates a list of all nodes connected to this root node, both directly and indirectly. <p>
+</blockquote>
+<hr>
+<a name="get-connections"><font size=+1><tt>get-connections </tt></font><p></a>
+<blockquote>
+<p> Returns the list of connections from this node. <p>
+</blockquote>
+<hr>
+<a name="mutate"><font size=+1><tt>mutate </tt></font><p></a>
+<blockquote>
+<p> Mutates the object, which triggers recursive mutation of all connected objects.  To be used on root nodes only. <p>
+</blockquote>
+<hr>
+<a name="print-connected-objects"><font size=+1><tt>print-connected-objects </tt></font><p></a>
+<blockquote>
+<p> Initiates a recursive printing of all connected objects in the graph. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

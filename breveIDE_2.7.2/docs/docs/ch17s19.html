@@ -1,0 +1,34 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>GADirectedGraph</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs"><link rel="prev" href="ch17s18.html" title="Floor"><link rel="next" href="ch17s20.html" title="GADirectedGraphConnection"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">GADirectedGraph</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s18.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 17. The Built-In breve Class APIs</th><td width="20%" align="right"> <a accesskey="n" href="ch17s20.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2814"></a>GADirectedGraph</h2></div></div></div><p>
+      Description for class <span class="bold"><strong>GADirectedGraph</strong></span>:
+    </p><div class="blockquote"><blockquote class="blockquote"><p>
+      GADirectedGraph is a special subclass of GeneticAlgorithmIndividual which
+      maages directed networks of nodes for evolution. The primary use of these
+      networks is to evolve creature morphologies. The networks are based on
+      the the directed graphs used by Karl Sims in "Evolving Virtual Creatures"
+      (1994). Multiple connections may exist between nodes, and nodes may have
+      connections back to themselves.
+      </p><p>
+        GAGraph makes use of a number of other classes. The GAGraph itself
+        holds a reference to the graph's root node, which is an object of
+        GADirectedGraphNode. This root node may be connected directly or
+        indirectly to any other number of GADirectedGraphNode objects, using
+        the connection class GADirectedGraphConnection.
+      </p><p>
+        Because GADirectedGraphNode and GADirectedGraphConnection are intended
+        to be used as general evolutionary objects, it is often neccessary to
+        associate a set of parameters with these objects, above and beyond the
+        information coded in the connected graph. For this reason, both classes
+        are subclasses of an object which can hold a list of parameters,
+        GADirectedGraphParameterObject.
+      </p><p>
+        GADirectedGraphParameterObject holds a list of float values between
+        -1.0 and 1.0. These parameters can be interpreted in whatever way the
+        user desires. In the example of directed graphs being used to specify
+        creature morphologies, the parameters hold information about the size
+        and orientation of limbs relative to one another.
+      </p></blockquote></div><p>
+      Inherits from <span class="bold"><strong>GeneticAlgorithmIndividual</strong></span></p><p>
+      Full API documentation for the class <span class="bold"><strong>GADirectedGraph</strong></span>:
+    </p><div class="itemizedlist"><ul type="disc"><li><p><a class="ulink" href="../steveclasses/GADirectedGraph.html" target="_top">steve
+        language documentation</a></p></li><li><p><a class="ulink" href="../pythonclasses/GADirectedGraph.html" target="_top">Python
+        language documentation</a></p></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s18.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch17.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s20.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Floor </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> GADirectedGraphConnection</td></tr></table></div></body></html>

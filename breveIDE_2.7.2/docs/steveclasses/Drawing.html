@@ -1,0 +1,121 @@
+<head>
+<title>Abstract : Drawing</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Drawing</h2>
+This class is included as part of the file Drawing.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Drawing.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A basic class to draw custom images using polygons and lines.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Managing the list of drawing instructions</B><UL>
+<li><a href="#add-line-point">add-line-point</a></li>
+<li><a href="#add-polygon-point">add-polygon-point</a></li>
+<li><a href="#clear">clear</a></li>
+<li><a href="#draw-line">draw-line</a></li>
+<li><a href="#end-polygon">end-polygon</a></li>
+<li><a href="#get-size">get-size</a></li>
+<li><a href="#move">move</a></li>
+<li><a href="#set-color">set-color</a></li>
+<li><a href="#set-instruction-limit">set-instruction-limit</a></li>
+<li><a href="#set-line-style">set-line-style</a></li>
+<li><a href="#set-line-width">set-line-width</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-line-point"><font size=+1><tt>add-line-point at <i>endPoint</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Adds a line segment from the last point defined (by <a href="#draw-line">draw-line</a> or <a href="#add-line-point">add-line-point</a> to <i>endPoint</i>. <p>
+</blockquote>
+<hr>
+<a name="add-polygon-point"><font size=+1><tt>add-polygon-point at <i>polygonPoint</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Adds a polygon vertex at <i>polygonPoint</i>.  Repeated calls to this method add vertices to the same polygon until no new points are added, or until the method <a href="#end-polygon">end-polygon</a> or the method <a href="#draw-line">draw-line</a> is called. <P> In order to accurately render a polygon, all of the points on the polygon must be coplanar.  If the points do not lie on the same plane, visual artifacts may occur. <p>
+</blockquote>
+<hr>
+<a name="clear"><font size=+1><tt>clear </tt></font><p></a>
+<blockquote>
+<p> Clears the drawing by removing all of its instructions. <p>
+</blockquote>
+<hr>
+<a name="draw-line"><font size=+1><tt>draw-line from <i>startPoint</i> (vector) to <i>endPoint</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Adds a line segment from <i>startPoint</i> to <i>endPoint</i>. <p>
+</blockquote>
+<hr>
+<a name="end-polygon"><font size=+1><tt>end-polygon </tt></font><p></a>
+<blockquote>
+<p> This method ends the polygon currently being drawn. <p>
+</blockquote>
+<hr>
+<a name="get-size"><font size=+1><tt>get-size </tt></font><p></a>
+<blockquote>
+<p> Returns the current number of instructions in the drawing. <p>
+</blockquote>
+<hr>
+<a name="move"><font size=+1><tt>move to <i>location</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Moves the entire drawing to <i>location</i>.  Additional points and polygon vertices added to the drawing are still interpreted as relative to the drawing's origin. <p>
+</blockquote>
+<hr>
+<a name="set-color"><font size=+1><tt>set-color to <i>newColor</i> (vector) with-transparency transparencyValue = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Changes this drawing's current color to <i>newColor</i>.  The optional value transparencyValue specifies the transparency level between <i>0</i>.0 (fully transparent) and 1.<i>0</i> (fully opaque). <p>
+</blockquote>
+<hr>
+<a name="set-instruction-limit"><font size=+1><tt>set-instruction-limit to <i>limit</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Limits to <i>limit</i> the number of instructions that may be added to the drawing.  When instructions are added beyond the instruction <i>limit</i>, instructions will be removed from the beginning of the instruction list. <p> This may be useful in creating drawings which act as arbitrarily long trails on objects.  If no <i>limit</i> were used, the trail would consume more and more resources. <p>
+</blockquote>
+<hr>
+<a name="set-line-style"><font size=+1><tt>set-line-style to <i>lineStyle</i> (string) </tt></font><p></a>
+<blockquote>
+<p> <i>lineStyle</i> is a string of 16 spaces and/or dashes which specify the line pattern to be drawn.  A dotted line, for example, would use the pattern "- - - - - - - - ".  A thickly dashed line would use the pattern "--------        ". <p>
+</blockquote>
+<hr>
+<a name="set-line-width"><font size=+1><tt>set-line-width to <i>lineWidth</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Specifies the width of the line to be drawn. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

@@ -1,0 +1,59 @@
+<head>
+<title>Joint : FixedJoint</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Joint.html">Joint</a> : FixedJoint</h2>
+This class is included as part of the file Joint.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Joint.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ This subclass of <a href="Joint.html">Joint</a> is used to link two <a href="Link.html">Link</a> objects together using a static, or fixed, joint. <P> <CENTER><IMG SRC="../images/FixedJoint.jpg" BORDER=1></CENTER> <P> <b>Fixed joints do not currently support a relative rotation the way other joint types do.</b>  I'm so sorry.  </blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#link">link</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="link"><font size=+1><tt>link with-parent-point <i>parentPoint</i> (vector) with-child-point <i>childPoint</i> (vector) to-child <i>childLink</i> (object) parent parentLink = <i><i>0</i></i> (object) use-current-relative-rotation currentRotation = <i><i>0</i></i> (int) </tt></font><p></a>
+<blockquote>
+<p> Creates a fixed joint between parentLink and <i>childLink</i>. The joint will be located at <i>parentPoint</i> on the parent's body, and at <i>childPoint</i> on the child's body. <P> Unfortunately, FixedJoints do not use the relative joint orientation that can be set in <a href="Joint.html">Joint</a>.  This means that the rotation of the child is always the same as the rotation of the parent. <P> If parentLink is the value <i><i>0</i></i>, then the joint will be attached to a fixed point in the world, specified with <i>parentPoint</i>. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

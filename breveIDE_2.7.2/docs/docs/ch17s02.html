@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>BallJoint</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs"><link rel="prev" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs"><link rel="next" href="ch17s03.html" title="BraitenbergControl"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">BallJoint</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 17. The Built-In breve Class APIs</th><td width="20%" align="right"> <a accesskey="n" href="ch17s03.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2797"></a>BallJoint</h2></div></div></div><p>
+      Description for class <span class="bold"><strong>BallJoint</strong></span>:
+    </p><div class="blockquote"><blockquote class="blockquote"><p>
+      This subclass of Joint is used to link two Link objects together using a
+      ball joint.
+      </p><p>
+        A BallJoint has three degrees of freedom. It can tilt "up-and-down" and
+        "side-to-side", and can "twist". Your neck is basically a ball
+        joint--your head tilt up-and-down, side-to-side, and can twist
+        (although not all the way around--if your head turns all the way
+        around, please consult the user manual for repair).
+      </p><div class="mediaobject" align="center"><img src="../images/BallJoint.jpg" align="middle"></div><p>
+        This joint uses a scheme of 3 Euler angles to represent the relative
+        rotation between two objects. The Z-axis of rotation is automatically
+        derived from the parent link point, meaning that the Z-axis rotation is
+        always a "twist" relative to the link point. The X-axis of rotation is
+        specified by the user with the normal argument. The Y-axis is
+        automatically derived from the other two.
+      </p><p>
+        Because of a limitation of the physics engine, the Y-axis rotation is
+        limited to a range of approximately +/- 80 degrees of rotation.
+      </p><p>
+        If versions of breve prior to 2.3, there was no normal argument because
+        the axes of rotation were automatically defined. The argument is
+        therefore optional for backwards compatibility <span class="bold"><strong>only</strong></span>, and should
+        <span class="bold"><strong>always</strong></span> be specified when writing new code.
+      </p></blockquote></div><p>
+      Inherits from <span class="bold"><strong>Joint</strong></span></p><p>
+      Full API documentation for the class <span class="bold"><strong>BallJoint</strong></span>:
+    </p><div class="itemizedlist"><ul type="disc"><li><p><a class="ulink" href="../steveclasses/BallJoint.html" target="_top">steve language
+        documentation</a></p></li><li><p><a class="ulink" href="../pythonclasses/BallJoint.html" target="_top">Python language
+        documentation</a></p></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch17.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s03.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 17. The Built-In breve Class APIs </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> BraitenbergControl</td></tr></table></div></body></html>

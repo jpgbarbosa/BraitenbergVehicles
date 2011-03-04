@@ -1,0 +1,158 @@
+@use Object.
+
+Object : Spring (aka Springs) {
+	% A Spring is used to create an elastic connection between two OBJECT(Real) 
+	% objects.  Springs define only a connection between objects and are not 
+	% physical objects themselves.  Thus, <b>Springs can pass through each other 
+	% without colliding</b>.  
+	% <P>
+	% A number of paramters can be specified for springs.  The length parameter
+	% specifies the length of the spring when it is completely relaxed.  The 
+	% spring will always apply a force to attempt to expand or contract to the	
+	% specified length.  The strength parameter specifies the amount of force
+	% that is applied to try to attain the spring's natural length.  Finally,
+	% the damping parameter specifies the friction or damping proportional to
+	% the spring's velocity.
+	% <P>
+	% If physical realism is important, springs should be used with caution.
+	% As the strength and damping constants of the spring increase, springs 
+	% can generate enormous forces that will cause numerical overflows or 
+	% other undesirable behavior.  Keep spring strength and damping constants
+	% as low as possible to avoid this behavior.
+	% <P>
+	% The Spring class is new as of version 2.1.
+
+	+ variables:
+		springPointer (pointer).
+		maxForce, length, strength, damping (float).
+		mode (int).
+		start, end (object).
+
+	+ section "Connecting Real Objects Using a Spring"
+
+	+ to connect from springLink1 (object) to springLink2 (object) 
+				from-point point1 = (0, 0, 0) (vector) 
+				to-point point2 = (0, 0, 0) (vector)
+				with-length springLength = 0 (float)
+				with-strength springStrength = 100 (float)
+				with-damping springDamping = 0.01 (float):
+
+		% Connects the spring from springLink1 to springLink2.  
+		% <p>
+		% The optional arguments point1 and point2 specify the locations
+		% on the objects to which the springs are attached.  The default
+		% values are (0, 0, 0).
+		% <p>
+		% If the length arugment is omitted, length defaults to 0.
+
+		if springLink1 == springLink2: return.
+
+		start = springLink1.
+		end = springLink2.
+
+		length = springLength.
+		strength = springStrength.
+		damping = springDamping.
+
+		springPointer = springNew((start get-link-pointer), 
+				(end get-link-pointer), 
+				point1, point2, length, strength, damping).
+
+		self add-dependency on start.
+		self add-dependency on end.
+
+		return springPointer.
+
+	+ to get-current-length:
+		% This method returns the <i>current</i> (stretched or compressed) 
+		% length of the spring, as opposed to the "natural" length.
+		if springPointer: return springGetCurrentLength(springPointer).
+		return 0.
+
+	+ section "Getting and Setting Spring Parameters"
+
+	+ to set-pattern to patternString (string):
+ 		% Sets the drawing style of this spring.  patternString is a string of 
+		% 16 spaces and/or dashes which specify the line pattern to be drawn.
+		% A thickly dashed spring, for example, would use the pattern 
+		% "--------        ".  The string " " can be used to make the spring
+		% invisible.  If no style is given, a dotted line is drawn.
+
+		objectLineSetStipple(springPointer, patternString).
+
+	+ to get-length:
+		% This method returns the natural length of the spring.  See also
+		% METHOD(get-current-length) which returns the current (stretched
+		% or compressed) length of the spring.
+		return length.
+
+	+ to get-force:
+		% Returns the amount of force applied by this spring at the last 
+		% timestep.  The returned value is a double representing the 
+		% magnitude of the force.  The direction of the force is determined
+		% by the locations of the links to which the spring is attached.
+
+        if springPointer: return springGetForce(springPointer).
+		return 0.
+
+	+ to set-length to newLength (double):
+		% Sets the spring's length to newLength.
+		length = newLength.
+		if springPointer: springSetLength(springPointer, newLength).
+
+	+ to set-strength to newStrength (double):
+		% Sets the spring's strength to newStrength.
+		strength = newStrength.
+		if springPointer: springSetStrength(springPointer, newStrength).
+
+	+ to set-damping to newDamping (double):
+		% Sets the spring's damping to newDamping.
+		damping = newDamping.
+		if springPointer: springSetDamping(springPointer, newDamping).
+
+	+ to set-maximum-force to newMax (double): 
+		% Sets an optional maximum force that the spring can apply.  This can 
+		% be used as a safegaurd to prevent unrealistically large forces from
+		% causing instability in simulations. 
+		% <p>
+		% If the maximum force value is set to 0, which is the default, then
+		% the springs forces are unlimited.
+		
+		maxForce = newMax.
+		if springPointer: springSetMaxForce(springPointer, newMax).
+
+	+ to set-expand-and-contract:
+		% This sets a spring to apply forces to expand when the spring is pushed
+		% smaller than the natural length, and contract when the spring is pulled
+		% to be larger than the natural length.  This is the default behavior of 
+		% a spring.
+
+		mode = 0.
+		if springPointer: springSetMode(springPointer, 0).
+
+	+ to set-expand-only:
+		% Setting a spring as "expand only" means that the spring will expand
+		% if it is pushed smaller than its natural length, but will not contract
+		% if it is stretched to be larger.
+
+		mode = 1.
+		if springPointer: springSetMode(springPointer, 1).
+
+	+ to set-contract-only:
+		% Setting a spring as "contract only" means that the spring will contract
+		% if it is expanded larger than its natural length, but will not expand 
+		% if it is pushed to smaller lengths.  This makes the spring behavior 
+		% more like a rope.  See also METHOD(set-expand-only) and 
+		% METHOD(set-expand-and-contract).
+
+		mode = 2.
+		if springPointer: springSetMode(springPointer, 2).
+
+	+ to destroy: 
+		if springPointer: springRemove(springPointer).
+
+	+ to get-links:
+		% Returns a list with two items, the links which are joined by this spring.
+
+		return { start, end }.
+}

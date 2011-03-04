@@ -1,0 +1,135 @@
+<head>
+<title>Abstract : File</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : File</h2>
+This class is included as part of the file File.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use File.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A File is an object used for creating textual output of your <b>breve</b> simulation, or for reading in data from text files. <p> Though some File methods can be used to encode or decode simulation objects, it is not the preferred method for archiving and dearchiving objects--for a discussion of archiving and dearchiving objects, see the <a href="http://www.spiderland.org/breve/docs/docs/archiving.html">Archiving and Dearchiving section</a> of the <b>breve</b> documentation.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Checking For the End of a File</B><UL>
+<li><a href="#is-end-of-file">is-end-of-file</a></li>
+</UL>
+<P><B>Opening Files</B><UL>
+<li><a href="#open-for-appending">open-for-appending</a></li>
+<li><a href="#open-for-reading">open-for-reading</a></li>
+<li><a href="#open-for-writing">open-for-writing</a></li>
+</UL>
+<P><B>Reading from an Open File</B><UL>
+<li><a href="#read-as-data">read-as-data</a></li>
+<li><a href="#read-as-string">read-as-string</a></li>
+<li><a href="#read-line">read-line</a></li>
+<li><a href="#read-line-as-list">read-line-as-list</a></li>
+<li><a href="#read-line-as-whitespace-delimited-list">read-line-as-whitespace-delimited-list</a></li>
+</UL>
+<P><B>Writing to an Open File</B><UL>
+<li><a href="#write">write</a></li>
+<li><a href="#write-line">write-line</a></li>
+</UL>
+<P><B>Closing a File</B><UL>
+<li><a href="#close">close</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="close"><font size=+1><tt>close </tt></font><p></a>
+<blockquote>
+<p> Closes the file.  This should be done when you're finished reading from or writing to a file.<p>
+</blockquote>
+<hr>
+<a name="is-end-of-file"><font size=+1><tt>is-end-of-file </tt></font><p></a>
+<blockquote>
+<p> Returns whether the file pointer is at the end of the file. <p>
+</blockquote>
+<hr>
+<a name="open-for-appending"><font size=+1><tt>open-for-appending with-file <i>fileName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Opens <i>fileName</i> for appending.  If the file already exists, future writes will append text to the end of the file instead of overwriting it. If the file does not exist, it is created. <p> To be used with the methods <a href="#write">write</a>, <a href="#write-line">write-line</a> and <a href="#write-data">write-data</a> below. <p>
+</blockquote>
+<hr>
+<a name="open-for-reading"><font size=+1><tt>open-for-reading with-file <i>fileName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Opens <i>fileName</i> for reading.  To be used with the methods <a href="#read-as-string">read-as-string</a>, <a href="#read-as-data">read-as-data</a> and <a href="#read-line">read-line</a> below. <p>
+</blockquote>
+<hr>
+<a name="open-for-writing"><font size=+1><tt>open-for-writing with-file <i>fileName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Opens <i>fileName</i> for writing.  If the file already exists, it is truncated to length zero so that this method effectively overwrites files. If the file does not exist, it is created. <p> To be used with the methods <a href="#write">write</a>, <a href="#write-line">write-line</a> and <a href="#write-data">write-data</a> below. <p>
+</blockquote>
+<hr>
+<a name="read-as-data"><font size=+1><tt>read-as-data </tt></font><p></a>
+<blockquote>
+<p> Reads the entire file as binary data and returns a "data" type (not to be confused with a <a href="Data.html">Data</a> object). <p>
+</blockquote>
+<hr>
+<a name="read-as-string"><font size=+1><tt>read-as-string </tt></font><p></a>
+<blockquote>
+<p> Reads the entire file and returns it as a string. <p>
+</blockquote>
+<hr>
+<a name="read-line"><font size=+1><tt>read-line </tt></font><p></a>
+<blockquote>
+<p> Reads a single line of text from the file (ending with a newline). The size of the line read is limited to 10239. <p>
+</blockquote>
+<hr>
+<a name="read-line-as-list"><font size=+1><tt>read-line-as-list with-delimiter <i>delimiterString</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Reads a line from the file and returns the results as a list of elements delimited by <i>delimiterString</i>. The size of the line read is limited to 10239. <p>
+</blockquote>
+<hr>
+<a name="read-line-as-whitespace-delimited-list"><font size=+1><tt>read-line-as-whitespace-delimited-list </tt></font><p></a>
+<blockquote>
+<p> Reads a line from the file and returns the results as a list of elements delimited by whitespace. The size of the line read is limited to 10239. <p>
+</blockquote>
+<hr>
+<a name="write"><font size=+1><tt>write text <i>theText</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Writes the string <i>theText</i> to the file.  This method does not write a newline character to the end of the string.  See <a href="#write-line">write-line</a> for writing a string with a newline character. <p>
+</blockquote>
+<hr>
+<a name="write-line"><font size=+1><tt>write-line text <i>theText</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Writes the string <i>theText</i> to the file, with a newline character at the end.  Like <a href="#write">write</a>, but includes a newline character. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

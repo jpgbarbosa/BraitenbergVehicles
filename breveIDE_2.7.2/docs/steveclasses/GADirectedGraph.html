@@ -1,0 +1,95 @@
+<head>
+<title>GeneticAlgorithmIndividual : GADirectedGraph</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="GeneticAlgorithmIndividual.html">GeneticAlgorithmIndividual</a> : GADirectedGraph</h2>
+This class is included as part of the file DirectedGraph.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use DirectedGraph.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ GADirectedGraph is a special subclass of <a href="GeneticAlgorithmIndividual.html">GeneticAlgorithmIndividual</a> which maages directed networks of nodes for evolution.  The primary use of these networks is to evolve creature morphologies.  The networks are based on the the directed graphs used by Karl Sims in "Evolving Virtual Creatures" (1994).  Multiple connections may exist between nodes, and nodes may have connections back to themselves. <P> GAGraph makes use of a number of other classes.  The GAGraph itself holds a reference to the graph's root node, which is an object of <a href="GADirectedGraphNode.html">GADirectedGraphNode</a>.  This root node may be connected directly or indirectly to any other number of <a href="GADirectedGraphNode.html">GADirectedGraphNode</a> objects, using the connection class <a href="GADirectedGraphConnection.html">GADirectedGraphConnection</a>. <P> Because <a href="GADirectedGraphNode.html">GADirectedGraphNode</a> and <a href="GADirectedGraphConnection.html">GADirectedGraphConnection</a> are intended to be used as general evolutionary objects, it is often neccessary to associate a set of parameters with these objects, above and beyond the information coded in the connected graph.  For this reason, both classes are subclasses of an object which can hold a list of parameters, <a href="GADirectedGraphParameterObject.html">GADirectedGraphParameterObject</a>. <P> <a href="GADirectedGraphParameterObject.html">GADirectedGraphParameterObject</a> holds a list of float values between -1.0 and 1.0.  These parameters can be interpreted in whatever way the user desires.  In the example of directed graphs being used to specify creature morphologies, the parameters hold information about the size and orientation of limbs relative to one another.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#copy">copy</a></li>
+<li><a href="#crossover">crossover</a></li>
+<li><a href="#delete-root-node">delete-root-node</a></li>
+<li><a href="#get-root">get-root</a></li>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#print-graph">print-graph</a></li>
+<li><a href="#randomize">randomize</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="copy"><font size=+1><tt>copy from <i>other</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of the directed graph <i>other</i>. <p>
+</blockquote>
+<hr>
+<a name="crossover"><font size=+1><tt>crossover from-parent1 <i>p1</i> (object) from-parent2 <i>p2</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Sets this child's genome to be a genetic crossover of <i>p1</i> and <i>p2</i>. <p>
+</blockquote>
+<hr>
+<a name="delete-root-node"><font size=+1><tt>delete-root-node </tt></font><p></a>
+<blockquote>
+<p> Deletes the root node and all connected objects.  This method "clears" the GADirectedGraph so that it may be reused.<p>
+</blockquote>
+<hr>
+<a name="get-root"><font size=+1><tt>get-root </tt></font><p></a>
+<blockquote>
+<p> Returns the root node of the directed graph. <p>
+</blockquote>
+<hr>
+<a name="mutate"><font size=+1><tt>mutate </tt></font><p></a>
+<blockquote>
+<p> Mutates the directed graph. <p>
+</blockquote>
+<hr>
+<a name="print-graph"><font size=+1><tt>print-graph </tt></font><p></a>
+<blockquote>
+<p> Prints out a text representation of the network. <p>
+</blockquote>
+<hr>
+<a name="randomize"><font size=+1><tt>randomize with-max-nodes <i>nMax</i> (int) with-node-parameters <i>np</i> (int) with-connection-parameters <i>cp</i> (int) with-connection-probability p = 0.<i>5</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Randomizes this genome by creating a directed graph containing up to <i>nMax</i> nodes.  Sets the number of node and connection parameters to <i>np</i> and <i>cp</i>, respectively.  The optional connection probability, p, specifies the probability that a connection will be made from one node to another. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

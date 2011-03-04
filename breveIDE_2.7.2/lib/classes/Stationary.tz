@@ -1,0 +1,99 @@
+@include "Real.tz"
+# @include "MenuItem.tz"
+
+Real : Stationary (aka Stationaries) [version 2.4] {
+	% Stationary objects are objects such as floors and walls that may 
+	% collide with other objects but which do not move in response to 
+	% collisions.  Stationary objects do not have their own velocities
+	% or acceleration.
+	% <p>
+	% Starting in breve 2.6, stationary objects can be moved and 
+	% rotated after being created using methods in OBJECT(Real).  
+	% The shapes can also be changed dynamically using the set-shape 
+	% method in OBJECT(Real).
+
+	+ variables:
+		shadowCatcher (int).
+
+  + section "Setting Up the Stationary Object"
+
+	- to register with-shape theShape (object) at-location theLocation = (0, 0, 0) (vector) with-rotation theRotation = [ ( 1, 0, 0 ), ( 0, 1, 0 ), ( 0, 0, 1 ) ] (matrix) :
+		% Registers a stationary object using shape theShape at the location
+		% specified by theLocation.
+
+		self set-shape to theShape.
+		self move to theLocation.
+		self set-rotation-matrix to theRotation.
+
+		return self.
+
+	+ to init:
+		realWorldPointer = addStationary( ( ( controller get-generic-shape ) get-pointer ), ( 0, 0, 0 ), [ ( 1, 0, 0 ), ( 0, 1, 0 ), ( 0, 0, 1 ) ] ).
+
+		self set-texture-image to (controller get-stationary-texture).
+		self set-shape to (controller get-generic-shape).
+
+		return self.
+
+	- to get-world-object:
+		% Used internally to get the pointer to the world.  Do not use this method
+		% in user simulations.
+
+		return realWorldPointer.
+
+  + section "Changing the Appearence of the Object"
+
+	+ to catch-shadows:
+		% Informs this object that it should display shadows (and/or reflections) 
+		% of Mobile objects.  The shadows and reflections will always be shown on
+		% the plane of the object pointing upwards on the Y axis--that is to say,
+		% the plane with normal (0, 1, 0).  If the object does not have a plane
+		% with normal (0, 1, 0), the shadows and reflections will not be displayed
+		% correctly.  This method must be used in conjunction with the method 
+		% OBJECTMETHOD(Control:enable-shadows).
+		% <P>
+		% Before using this method, you should also refer to an improved shadowing
+		% technique outlined in OBJECTMETHOD(Control.tz:enable-shadow-volumes).  
+
+		if !realWorldPointer: 
+			die "method 'catch-shadows' cannot be called before Stationary object is registered.".
+
+		shadowCatcher = 1.
+
+		setShadowCatcher(realWorldPointer, (0, 1, 0)).
+		controller set-shadow-catcher.
+
+	+ to dearchive:
+		if !realWorldPointer:
+			realWorldPointer = addStationary( ( ( controller get-generic-shape ) get-pointer ), ( 0, 0, 0 ), [ ( 1, 0, 0 ), ( 0, 1, 0 ), ( 0, 0, 1 ) ] ).
+
+		if shadowCatcher: 
+			self catch-shadows.
+
+		return ( super dearchive ).
+}
+
+Stationary : Floor {
+	% A floor is a special case of the class OBJECT(Stationary).  It is a box 
+	% of size (1000, 5, 1000) with location (0, -2.5, 0), such that the ground 
+	% plane is placed at Y = 0.
+
+	+ variables:
+		shape (object).
+
+	+ to init:
+		shape = ( new Cube init-with size (1000, 5, 1000 )).
+		self move to (0, -2.5, 0).
+		self set-shape to shape.
+		self set-color to ( .35, .8, .45 ).
+		self catch-shadows.
+		self set-texture-image to (new Image load from "images/noise.png").
+
+	+ to set-size to newSize (vector):
+		% Changes the size of the floor to newSize.
+		if shape:
+			free shape.
+
+		shape = ( new Cube init-with size newSize ).
+		self set-shape to shape.
+}

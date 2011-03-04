@@ -1,0 +1,59 @@
+<head>
+<title>Object : QSystem</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : QSystem</h2>
+This class is included as part of the file QGAME.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use QGAME.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ The main interface to the qgame++ Quantum Gate And Measurement Emulator, a quantum computing simulator. <p><b>Note: the QGAME library is not built-in to the standard <b>breve</b> distribution.  Use of this class may require compiling <b>breve</b> from the source code with support for QGAME.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#test">test</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="test"><font size=+1><tt>test program <i>theProgram</i> (object) cases <i>testCases</i> (list) threshold <i>t</i> (double) qubits <i>qb</i> (int) measurement-qubits <i>finalQB</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Runs a series of test cases using <i>qb</i> qubits, specified by <i>testCases</i>, on <i>theProgram</i> with <i>qb</i> qubits and a threshold of <i>t</i>. <P> This call returns a list of 5 items, which are to be interpreted as: <li> Number of misses <li> Maximum error <li> Average error <li> Maximum number of oracle calls <li> Average number of oracle calls <P> If an error occurs during the execution of the program, all of the elements of the returned list are set to -1. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

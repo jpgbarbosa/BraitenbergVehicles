@@ -1,0 +1,118 @@
+@use Real.
+
+Real : Terrain [version 2.2] {
+	% Terrain is an experimental class to add terrains to simulations.  
+
+	+ variables:
+		location (vector).
+		peakColor, valleyColor (vector).
+
+	+ to init:
+		realWorldPointer = terrainNew(1).
+
+		self set-peak-color to (1, 1, 1).
+		self set-valley-color to (0, .8, .1).
+        self set-texture-image to (controller get-stationary-texture).
+
+
+	- to load-geo-tiff from geoTIFFFile (string):
+		if realWorldPointer: terrainLoadGeoTIFF(realWorldPointer, geoTIFFFile).
+
+	+ to set-scale to value (double):
+		% Changes the size of a single tile in the terrain.  This does not change
+		% the number of elevation points in the terrain.
+
+		terrainSetScale(realWorldPointer, value).
+
+	- to generate with-ruggedness ruggedness = 0.2 (float) with-height terrainHeight = 5.0 (float):
+		self generate-fractal-terrain with-ruggedness ruggedness with-height terrainHeight.
+
+	+ to generate-fractal-terrain with-ruggedness ruggedness = 0.2 (float) with-height terrainHeight = 5.0 (float):
+		% Generates a fractal landscape with a ruggedness (between 0.0 and 1.0),
+		% and maximum height terrainHeight.
+	
+		terrainGenerateFractalTerrain(realWorldPointer, 1.0 - ruggedness, terrainHeight).
+
+	+ to get-location:
+		% Returns the location of this Terrain object.
+
+		return location.
+
+	+ to move to newLocation (vector):
+		% Sets the location of the terrain to location.  This method can be used to 
+		% set the location of the terrain when setting up the world, but should not
+		% generally be used to dynamically over the course of the simulation.
+
+		location = newLocation.
+
+		terrainSetPosition(realWorldPointer, newLocation).
+
+	+ to set-height at-x xCoordinate (int) at-y yCoordinate (int) to height (double):
+		% Sets the height of the terrain at (xCoordinate, yCoordinate) to height.
+		% The coordinates refer to the polygons on the terrain, not to the real
+		% world location of points on the terrain.
+
+		terrainSetHeight(realWorldPointer, xCoordinate, yCoordinate, height).
+
+	+ to get-height at-x xCoordinate (int) at-y yCoordinate (int):
+		% Returns the height of the terrain at (xCoordinate, yCoordinate).
+		% The coordinates refer to the polygons on the terrain, not to the real
+		% world location of points on the terrain.
+
+		return terrainGetHeight(realWorldPointer, xCoordinate, yCoordinate).
+
+	+ to get-height-in-world at-x xCoordinate (double) at-z zCoordinate (double):
+		% This method returns the height of the terrain at the <b>real world</b> 
+		% (xCoordinate, zCoodinate) location.  This is in contrast to the height
+		% in terrain grid coordinates given give with METHOD(get-height)
+
+		return terrainGetHeightAtLocation(realWorldPointer, xCoordinate, zCoordinate).
+
+	+ to draw-solid:
+		% Draws the terrain as solid polygons.  This is the default mode.  
+		% Alternatively, the terrain can be drawn as wireframe only using 
+		% the method METHOD(draw-wireframe).
+
+		terrainSetDrawMode(realWorldPointer, 1).
+
+	+ to draw-wireframe:
+		% Draws the terrain as a wireframe outline only.  See also METHOD(draw-solid).
+
+		terrainSetDrawMode(realWorldPointer, 0).
+
+	+ to set-peak-color to color (vector):
+		% Sets the color of the highest regions of the terrain to color.
+		% As the height of the terrain decreases, There will be a gradient 
+		% towards the color specified with METHOD(set-valley-color).
+
+		peakColor = color.
+		terrainSetPeakColor(realWorldPointer, color).
+
+	+ to set-valley-color to color (vector):
+		% Sets the color of the lowest regions of the terrain to color.
+		% As the height of the terrain increases, There will be a gradient 
+		% towards the color specified with METHOD(set-peak-color).
+
+		valleyColor = color.
+		terrainSetValleyColor(realWorldPointer, color).
+
+	+ to set-color to color (vector):
+		% Sets the color of this terrain object.  The peak and valley colors
+		% can also be set independently using METHOD(set-peak-color) and
+		% METHOD(set-valley-color).
+
+		if realWorldPointer: {
+			self set-peak-color to color.
+			self set-valley-color to color.
+		}
+
+	+ to archive:
+		return 1.
+
+	+ to dearchive:
+		realWorldPointer = terrainNew(1).
+		self set-peak-color to peakColor.
+		self set-valley-color to valleyColor.
+
+		return 1.
+}

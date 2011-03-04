@@ -1,0 +1,281 @@
+<head>
+<title>Abstract : Patch</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Patch</h2>
+This class is included as part of the file Patch.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Patch.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A patch is a non-physical object which is associated with a specific location in space.  A patch can hold information about the state of the world in that location, such as the presence of a nutrient, for example.  See the object <a href="PatchGrid.html">PatchGrid</a> for more information on setting up patches.  Patches must be set up as part of a <a href="PatchGrid.html">PatchGrid</a>. <p> Because patches are not physical, they cannot move and they cannot collide with other objects.  Though you can find the patch that an object is in, there is no collision callback when an object enters the patch.  Patches can track the concentration of objects in their space.  Currently this is limited to <a href="PatchChemical.html">PatchChemical</a> objects which are used to track information about abstract diffusable elements in the world.  You can get the concentration, set the concentration, add and remove PatchChemcicals through the patch.  See <a href="PatchGrid.html">PatchGrid</a> for adding PatchChemcials to the simulation and to iterate the diffusion.  It is important to note that concentrations are stored in single precision floats currently to improve performance on hardware that supports SIMD processing. <p> The methods used to find neighboring patches depends on the type of simulation you're running.  Though many of the "get-patch" methods described below behave the same as one another, they are named differently to be consistent with different types of simulations. <p> <b>The neighbors are not fully initialized at the time that the init method is called.</b>  This is because the CLASS(PatchGrid) must create all of the patches before it can initialize the neighbors.  Instead of accessing the neighbors in the init method, you should implement your own <a href="#init-patch">init-patch</a> and place all initialization inside this method.  The neighbors for the patch will be fully initialized by the time the init-patch method is called. <p> When using a 2D XY style simulation, use the following methods to get the four cardinal directions: <a href="#get-patch-to-left">get-patch-to-left</a>, <a href="#get-patch-to-right">get-patch-to-right</a>, <a href="#get-patch-above">get-patch-above</a> and <a href="#get-patch-below">get-patch-below</a>. <p> When using a 3D style simulation with and XZ ground plane (such that the vector (0, 1, 0) is pointing up, use the following methods to get the six cardinal directions: <a href="#get-patch-to-north">get-patch-to-north</a>, <a href="#get-patch-to-east">get-patch-to-east</a>, <a href="#get-patch-to-south">get-patch-to-south</a>, <a href="#get-patch-to-west">get-patch-to-west</a>, <a href="#get-patch-above">get-patch-above</a> and <a href="#get-patch-below">get-patch-below</a>. <p> These two groups of methods should suffice for most simulations, but if for some reason you use another orientation for your simulation which doesn't fit well with the vocabulary of these methods, you can use the following methods: <a href="#get-patch-towards-plus-x">get-patch-towards-plus-x</a>, <a href="#get-patch-towards-minus-x">get-patch-towards-minus-x</a>, <a href="#get-patch-towards-plus-y">get-patch-towards-plus-y</a>, <a href="#get-patch-towards-minus-y">get-patch-towards-minus-y</a>, <a href="#get-patch-towards-plus-z">get-patch-towards-plus-z</a> and <a href="#get-patch-towards-minus-z">get-patch-towards-minus-z</a>.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Getting Information About a Patch</B><UL>
+<li><a href="#get-index-vector">get-index-vector</a></li>
+<li><a href="#get-location">get-location</a></li>
+<li><a href="#get-x-index">get-x-index</a></li>
+<li><a href="#get-y-index">get-y-index</a></li>
+<li><a href="#get-z-index">get-z-index</a></li>
+</UL>
+<P><B>Methods to Initialize Patches</B><UL>
+<li><a href="#init-patch">init-patch</a></li>
+</UL>
+<P><B>Changing the Appearence of Patches</B><UL>
+<li><a href="#get-color">get-color</a></li>
+<li><a href="#get-transparency">get-transparency</a></li>
+<li><a href="#set-color">set-color</a></li>
+<li><a href="#set-transparency">set-transparency</a></li>
+</UL>
+<P><B>Getting Groups of Neighbor Patches</B><UL>
+<li><a href="#get-3d-moore-neighborhood">get-3d-moore-neighborhood</a></li>
+<li><a href="#get-3d-von-neumann-neighborhood">get-3d-von-neumann-neighborhood</a></li>
+<li><a href="#get-moore-neighborhood">get-moore-neighborhood</a></li>
+<li><a href="#get-von-neumann-neighborhood">get-von-neumann-neighborhood</a></li>
+</UL>
+<P><B>Getting Specific Patch Neighbors</B><UL>
+<li><a href="#get-patch-above">get-patch-above</a></li>
+<li><a href="#get-patch-below">get-patch-below</a></li>
+<li><a href="#get-patch-to-east">get-patch-to-east</a></li>
+<li><a href="#get-patch-to-left">get-patch-to-left</a></li>
+<li><a href="#get-patch-to-lower-left">get-patch-to-lower-left</a></li>
+<li><a href="#get-patch-to-lower-right">get-patch-to-lower-right</a></li>
+<li><a href="#get-patch-to-north">get-patch-to-north</a></li>
+<li><a href="#get-patch-to-right">get-patch-to-right</a></li>
+<li><a href="#get-patch-to-south">get-patch-to-south</a></li>
+<li><a href="#get-patch-to-upper-left">get-patch-to-upper-left</a></li>
+<li><a href="#get-patch-to-upper-right">get-patch-to-upper-right</a></li>
+<li><a href="#get-patch-to-west">get-patch-to-west</a></li>
+<li><a href="#get-patch-towards-minus-x">get-patch-towards-minus-x</a></li>
+<li><a href="#get-patch-towards-minus-x-minus-y">get-patch-towards-minus-x-minus-y</a></li>
+<li><a href="#get-patch-towards-minus-x-plus-y">get-patch-towards-minus-x-plus-y</a></li>
+<li><a href="#get-patch-towards-minus-y">get-patch-towards-minus-y</a></li>
+<li><a href="#get-patch-towards-minus-z">get-patch-towards-minus-z</a></li>
+<li><a href="#get-patch-towards-plus-x">get-patch-towards-plus-x</a></li>
+<li><a href="#get-patch-towards-plus-x-minus-y">get-patch-towards-plus-x-minus-y</a></li>
+<li><a href="#get-patch-towards-plus-x-plus-y">get-patch-towards-plus-x-plus-y</a></li>
+<li><a href="#get-patch-towards-plus-y">get-patch-towards-plus-y</a></li>
+<li><a href="#get-patch-towards-plus-z">get-patch-towards-plus-z</a></li>
+</UL>
+<P><B>Getting Information About a PatchChemicals in the Patch</B><UL>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="get-3d-moore-neighborhood"><font size=+1><tt>get-3d-moore-neighborhood </tt></font><p></a>
+<blockquote>
+<p> Returns a list of the 3D Moore neighbors of this patch.  The 3D Moore neighborhood consists of the 26 patches adjacent to this patch, including diagonally, in three dimensions. <P> If you intend to use the neighborhood frequently, you should call this method once and keep a copy of the list. <p>
+</blockquote>
+<hr>
+<a name="get-3d-von-neumann-neighborhood"><font size=+1><tt>get-3d-von-neumann-neighborhood </tt></font><p></a>
+<blockquote>
+<p> Returns a list of the 3D Von Neumann neighbors of this patch.  The 3D Von Neumann neighborhood consists of the 6 patches directly adjacent to the faces of this patch, in three dimensions. <P> If you intend to use the neighborhood frequently, you should call this method once and keep a copy of the list. <p>
+</blockquote>
+<hr>
+<a name="get-color"><font size=+1><tt>get-color </tt></font><p></a>
+<blockquote>
+<p> Returns the color of the patch. <p>
+</blockquote>
+<hr>
+<a name="get-index-vector"><font size=+1><tt>get-index-vector </tt></font><p></a>
+<blockquote>
+<p> Returns the x, y and z indices of this patch as a vector. <p>
+</blockquote>
+<hr>
+<a name="get-location"><font size=+1><tt>get-location </tt></font><p></a>
+<blockquote>
+<p> Returns the location of the patch. <p>
+</blockquote>
+<hr>
+<a name="get-moore-neighborhood"><font size=+1><tt>get-moore-neighborhood </tt></font><p></a>
+<blockquote>
+<p> Returns a list of the 2D Moore neighbors of this patch.  The 2D Moore neighbors are the 8 patches adjacent to this patch, including diagonally, on the X/Y plane. <P> If you intend to use the neighborhood frequently, you should call this method once and keep a copy of the list. <p>
+</blockquote>
+<hr>
+<a name="get-patch-above"><font size=+1><tt>get-patch-above </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (0, 1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-below"><font size=+1><tt>get-patch-below </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (0, -1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-east"><font size=+1><tt>get-patch-to-east </tt></font><p></a>
+<blockquote>
+<p> Assumes that the patches are being observed from an XZ-plane. Returns the patch towards (1, 0, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-left"><font size=+1><tt>get-patch-to-left </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (-1, 0, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-lower-left"><font size=+1><tt>get-patch-to-lower-left </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (-1, -1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-lower-right"><font size=+1><tt>get-patch-to-lower-right </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (1, -1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-north"><font size=+1><tt>get-patch-to-north </tt></font><p></a>
+<blockquote>
+<p> Assumes that the patches are being observed from an XZ-plane. Returns the patch towards (0, 0, -1). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-right"><font size=+1><tt>get-patch-to-right </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (1, 0, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-south"><font size=+1><tt>get-patch-to-south </tt></font><p></a>
+<blockquote>
+<p> Assumes that the patches are being observed from an XZ-plane. Returns the patch towards (0, 0, 1). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-upper-left"><font size=+1><tt>get-patch-to-upper-left </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (-1, 1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-upper-right"><font size=+1><tt>get-patch-to-upper-right </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (1, 1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-to-west"><font size=+1><tt>get-patch-to-west </tt></font><p></a>
+<blockquote>
+<p> Assumes that the patches are being observed from an XZ-plane. Returns the patch towards (-1, 0, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-minus-x"><font size=+1><tt>get-patch-towards-minus-x </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (-1, 0, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-minus-x-minus-y"><font size=+1><tt>get-patch-towards-minus-x-minus-y </tt></font><p></a>
+<blockquote>
+<p> returns the patch towards (-1, -1, 0) <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-minus-x-plus-y"><font size=+1><tt>get-patch-towards-minus-x-plus-y </tt></font><p></a>
+<blockquote>
+<p> returns the patch towards (-1, 1, 0) <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-minus-y"><font size=+1><tt>get-patch-towards-minus-y </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (0, -1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-minus-z"><font size=+1><tt>get-patch-towards-minus-z </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (0, 0, -1). <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-plus-x"><font size=+1><tt>get-patch-towards-plus-x </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (1, 0, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-plus-x-minus-y"><font size=+1><tt>get-patch-towards-plus-x-minus-y </tt></font><p></a>
+<blockquote>
+<p> returns the patch towards (1, -1, 0) <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-plus-x-plus-y"><font size=+1><tt>get-patch-towards-plus-x-plus-y </tt></font><p></a>
+<blockquote>
+<p> returns the patch towards (1, 1, 0) <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-plus-y"><font size=+1><tt>get-patch-towards-plus-y </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (0, 1, 0). <p>
+</blockquote>
+<hr>
+<a name="get-patch-towards-plus-z"><font size=+1><tt>get-patch-towards-plus-z </tt></font><p></a>
+<blockquote>
+<p> Returns the patch towards (0, 0, 1). <p>
+</blockquote>
+<hr>
+<a name="get-transparency"><font size=+1><tt>get-transparency </tt></font><p></a>
+<blockquote>
+<p> Returns the transparency value of the patch. <p>
+</blockquote>
+<hr>
+<a name="get-von-neumann-neighborhood"><font size=+1><tt>get-von-neumann-neighborhood </tt></font><p></a>
+<blockquote>
+<p> Returns a list of the 2D Von Neumann neighbors of this patch.  The 2D Von Neumann neighbors are the 8 patches located above, below, to the left of and to the right of this patch on the X/Y plane. <P> If you intend to use the neighborhood frequently, you should call this method once and keep a copy of the list. <p>
+</blockquote>
+<hr>
+<a name="get-x-index"><font size=+1><tt>get-x-index </tt></font><p></a>
+<blockquote>
+<p> Returns the x index of the patch. <p>
+</blockquote>
+<hr>
+<a name="get-y-index"><font size=+1><tt>get-y-index </tt></font><p></a>
+<blockquote>
+<p> Returns the y index of the patch. <p>
+</blockquote>
+<hr>
+<a name="get-z-index"><font size=+1><tt>get-z-index </tt></font><p></a>
+<blockquote>
+<p> Returns the z index of the patch. <p>
+</blockquote>
+<hr>
+<a name="init-patch"><font size=+1><tt>init-patch </tt></font><p></a>
+<blockquote>
+<p> This method does nothing in its default implementation.  You can implement your own init-patch method in your patch class in order to perform initialization on the patch.  This method is called after all the neighbor objects have been created--if you do initialization in the init method, the neighbors will not be initialized. <p>
+</blockquote>
+<hr>
+<a name="set-color"><font size=+1><tt>set-color to <i>newColor</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the color of the patch to <i>newColor</i>.  Bear in mind that you'll also need to set the transparency of the patch if you want the patch to be displayed.  See the method <a href="#set-transparency">set-transparency</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="set-transparency"><font size=+1><tt>set-transparency to <i>alphaValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the transparency of the patch to <i>alphaValue</i>.  <i>alphaValue</i> is a number between 0.0 (fully transparent) and 1.0 (fully opaque).  The default value is 0.5, semi-transparent. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

@@ -1,0 +1,65 @@
+<head>
+<title>Abstract : Movie</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Movie</h2>
+This class is included as part of the file Movie.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Movie.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Records MPEG movies of <b>breve</b> runs. <P> The dimensions of the movie are determined by the size of the simulation viewing area when the movie export begins.  Resizing the viewing area while the movie is exporting will produce undesirable results. <P> The Movie class does not work when using the non-graphical ("breve_cli") <b>breve</b>.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#close">close</a></li>
+<li><a href="#record">record</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="close"><font size=+1><tt>close </tt></font><p></a>
+<blockquote>
+<p> Closes the MPEG file and stops recording. <p>
+</blockquote>
+<hr>
+<a name="record"><font size=+1><tt>record to <i>filename</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Create a new MPEG movie file with the name <i>filename</i>. New frames will be automatically added to the movie as the simulation runs until the object is released or <a href="#close">close</a> is called.  <i>filename</i> should end with ".mpg" or ".mpeg". <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

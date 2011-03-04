@@ -1,0 +1,77 @@
+<head>
+<title>Object : PushDiversityPool</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : PushDiversityPool</h2>
+This class is included as part of the file Push.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Push.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Summary: a tool to test diversity in populations of PushProgram objects. <P> The PushDiversityPool allows you to determine the level of genotypic diversity of PushProgram objects, typically individuals in a genetic programming or artificial life experiment. <P> Diversity is detemined as the number of unique species which differ from one another by at least a certain tolerance value.  "Difference" is defined by the algorithm outlined in <a href="PushProgram.html#get-discrepancy">get-discrepancy (PushProgram)</a>.  No single species will contain any two individuals which differ by more than the specified tolerance. <P> The tolerance can be set with the method <a href="#set-tolerance">set-tolerance</a>. Programs can then be added using <a href="#add">add</a>.  The number of species can then be retreived using <a href="#get-size">get-size</a>.  The method <a href="#clear">clear</a> allows the diversity pool to be emptied and reused.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#add">add</a></li>
+<li><a href="#clear">clear</a></li>
+<li><a href="#get-size">get-size</a></li>
+<li><a href="#set-tolerance">set-tolerance</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add"><font size=+1><tt>add program <i>p</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Adds a program to the diversity pool. <p>
+</blockquote>
+<hr>
+<a name="clear"><font size=+1><tt>clear </tt></font><p></a>
+<blockquote>
+<p> Clears the diversity pool so that it may be reused. <p>
+</blockquote>
+<hr>
+<a name="get-size"><font size=+1><tt>get-size </tt></font><p></a>
+<blockquote>
+<p> Returns the number of unique diversity "species" in the pool. <p>
+</blockquote>
+<hr>
+<a name="set-tolerance"><font size=+1><tt>set-tolerance to <i>t</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the tolerance of the diversity pool to <i>t</i>.  When the tolerance is set, it does not effect species counts for programs already added.  When you change the tolerance, you must remove all program objects (using <a href="#clear">clear</a>) and add them again. <P> The default tolerance level is 10. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

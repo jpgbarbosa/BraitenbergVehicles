@@ -1,0 +1,125 @@
+<head>
+<title>Real : Terrain</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Real.html">Real</a> : Terrain</h2>
+This class is included as part of the file Terrain.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Terrain.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Terrain is an experimental class to add terrains to simulations.  </blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#draw-solid">draw-solid</a></li>
+<li><a href="#draw-wireframe">draw-wireframe</a></li>
+<li><a href="#generate-fractal-terrain">generate-fractal-terrain</a></li>
+<li><a href="#get-height">get-height</a></li>
+<li><a href="#get-height-in-world">get-height-in-world</a></li>
+<li><a href="#get-location">get-location</a></li>
+<li><a href="#move">move</a></li>
+<li><a href="#set-color">set-color</a></li>
+<li><a href="#set-height">set-height</a></li>
+<li><a href="#set-peak-color">set-peak-color</a></li>
+<li><a href="#set-scale">set-scale</a></li>
+<li><a href="#set-valley-color">set-valley-color</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="draw-solid"><font size=+1><tt>draw-solid </tt></font><p></a>
+<blockquote>
+<p> Draws the terrain as solid polygons.  This is the default mode. Alternatively, the terrain can be drawn as wireframe only using the method <a href="#draw-wireframe">draw-wireframe</a>. <p>
+</blockquote>
+<hr>
+<a name="draw-wireframe"><font size=+1><tt>draw-wireframe </tt></font><p></a>
+<blockquote>
+<p> Draws the terrain as a wireframe outline only.  See also <a href="#draw-solid">draw-solid</a>. <p>
+</blockquote>
+<hr>
+<a name="generate-fractal-terrain"><font size=+1><tt>generate-fractal-terrain with-ruggedness ruggedness = <i>0</i>.<i>2</i> (float) with-height terrainHeight = 5.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Generates a fractal landscape with a ruggedness (between <i>0</i>.0 and 1.<i>0</i>), and maximum height terrainHeight. <p>
+</blockquote>
+<hr>
+<a name="get-height"><font size=+1><tt>get-height at-x <i>xCoordinate</i> (int) at-y <i>yCoordinate</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the height of the terrain at (<i>xCoordinate</i>, <i>yCoordinate</i>). The coordinates refer to the polygons on the terrain, not to the real world location of points on the terrain. <p>
+</blockquote>
+<hr>
+<a name="get-height-in-world"><font size=+1><tt>get-height-in-world at-x <i>xCoordinate</i> (double) at-z <i>zCoordinate</i> (double) </tt></font><p></a>
+<blockquote>
+<p> This method returns the height of the terrain at the <b>real world</b> (<i>xCoordinate</i>, zCoodinate) location.  This is in contrast to the height in terrain grid coordinates given give with <a href="#get-height">get-height</a> <p>
+</blockquote>
+<hr>
+<a name="get-location"><font size=+1><tt>get-location </tt></font><p></a>
+<blockquote>
+<p> Returns the location of this Terrain object. <p>
+</blockquote>
+<hr>
+<a name="move"><font size=+1><tt>move to <i>newLocation</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the location of the terrain to location.  This method can be used to set the location of the terrain when setting up the world, but should not generally be used to dynamically over the course of the simulation. <p>
+</blockquote>
+<hr>
+<a name="set-color"><font size=+1><tt>set-color to <i>color</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the <i>color</i> of this terrain object.  The peak and valley colors can also be set independently using <a href="#set-peak-color">set-peak-color</a> and <a href="#set-valley-color">set-valley-color</a>. <p>
+</blockquote>
+<hr>
+<a name="set-height"><font size=+1><tt>set-height at-x <i>xCoordinate</i> (int) at-y <i>yCoordinate</i> (int) to <i>height</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the <i>height</i> of the terrain at (<i>xCoordinate</i>, <i>yCoordinate</i>) to <i>height</i>. The coordinates refer to the polygons on the terrain, not to the real world location of points on the terrain. <p>
+</blockquote>
+<hr>
+<a name="set-peak-color"><font size=+1><tt>set-peak-color to <i>color</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the <i>color</i> of the highest regions of the terrain to <i>color</i>. As the height of the terrain decreases, There will be a gradient towards the <i>color</i> specified with <a href="#set-valley-color">set-valley-color</a>. <p>
+</blockquote>
+<hr>
+<a name="set-scale"><font size=+1><tt>set-scale to <i>value</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Changes the size of a single tile in the terrain.  This does not change the number of elevation points in the terrain. <p>
+</blockquote>
+<hr>
+<a name="set-valley-color"><font size=+1><tt>set-valley-color to <i>color</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the <i>color</i> of the lowest regions of the terrain to <i>color</i>. As the height of the terrain increases, There will be a gradient towards the <i>color</i> specified with <a href="#set-peak-color">set-peak-color</a>. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

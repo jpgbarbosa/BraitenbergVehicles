@@ -1,0 +1,91 @@
+<head>
+<title>Object : GeneticAlgorithmIndividual</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : GeneticAlgorithmIndividual</h2>
+This class is included as part of the file GeneticAlgorithm.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use GeneticAlgorithm.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ This object represents a single individual in a <a href="GeneticAlgorithm.html">GeneticAlgorithm</a>. To use the class <a href="GeneticAlgorithm.html">GeneticAlgorithm</a>, you must also implement a custom subclass of this class.  Your custom subclass should contain the variables which will represent the genes for the genetic algorithm, and must also implement a few methods used for genetic operators. <P> At a very minimum, you must implement your own versions of the methods <a href="#compute-fitness">compute-fitness</a>, <a href="#copy">copy</a> and <a href="#mutate">mutate</a>.  If you intend to use the crossover genetic operator, you must also implement the method <a href="#crossover">crossover</a>. If these methods are not implemented by your subclass, the object will trigger a runtime error.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#get-fitness">get-fitness</a></li>
+<li><a href="#set-fitness">set-fitness</a></li>
+</UL>
+<P><B>Methods to Override in Custom Subclasses</B><UL>
+<li><a href="#copy">copy</a></li>
+<li><a href="#crossover">crossover</a></li>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#randomize">randomize</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="copy"><font size=+1><tt>copy from <i>otherIndividual</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Implement this method to copy the genes from <i>otherIndividual</i>.  This method must be implemented by your subclass. <p>
+</blockquote>
+<hr>
+<a name="crossover"><font size=+1><tt>crossover from-parent1 <i>parent1</i> (object) from-parent2 <i>parent2</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Implement this method to make this object become a crossover of <i>parent1</i> and <i>parent2</i>.  This method must be implemented by your subclass if crossover is enabled.<p>
+</blockquote>
+<hr>
+<a name="get-fitness"><font size=+1><tt>get-fitness </tt></font><p></a>
+<blockquote>
+<p> Returns the fitness value associated with this individual, which has been previously assigned using <a href="#set-fitness">set-fitness</a>. <p>
+</blockquote>
+<hr>
+<a name="mutate"><font size=+1><tt>mutate </tt></font><p></a>
+<blockquote>
+<p> Implement this method to mutate the genes of this object.  This method must be implemented by your subclass. <p>
+</blockquote>
+<hr>
+<a name="randomize"><font size=+1><tt>randomize </tt></font><p></a>
+<blockquote>
+<p> Implement this method to randomize the genes of this object.  This method must be implemented by your subclass. <p>
+</blockquote>
+<hr>
+<a name="set-fitness"><font size=+1><tt>set-fitness to <i>fitnessValue</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Assigns a fitness value to this individual.  This method should be called by the user at the end of the fitness test. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

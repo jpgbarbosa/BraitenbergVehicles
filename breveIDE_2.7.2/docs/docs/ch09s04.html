@@ -1,0 +1,91 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Loading ".nib" Files for Customized Interfaces</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch09.html" title="Chapter 9. Graphical User Interface"><link rel="prev" href="ch09s03.html" title="Displaying a Dialog Box"><link rel="next" href="ch10.html" title="Chapter 10. Saving Movies and Snapshots"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Loading ".nib" Files for Customized Interfaces</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch09s03.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 9. Graphical User Interface</th><td width="20%" align="right"> <a accesskey="n" href="ch10.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2742"></a>Loading ".nib" Files for Customized Interfaces</h2></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              Mac OS X only
+            </h3><p>
+                This feature is available under Mac OS X only.
+              </p></div><p> breve offers basic support for loading customized
+        ".nib" files to give more customized interfaces to simulations. Users
+        can design a customized window of controls (like buttons, sliders,
+        checkboxes, etc.) and load it when the simulation is run. This feature
+        is only available on the Mac OS X version of breve.
+      </p><p>
+        In order to build customized interfaces, the Mac OS X development tools
+        including "Interface Builder", must be installed. A basic understanding
+        of Interface Builder is also very helpful.
+      </p><p>
+        To implement a customized interface for your simulation, follow the
+        following steps:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              Make a copy of the interface template file included with the
+              breve distribution.
+            </p></li><li><p>
+              Open the new template file with Interface Builder.
+            </p></li><li><p>
+              In the Instances tab of the interface window, open the
+              "InterfaceWindow" instance.
+            </p></li><li><p>
+              Add interface elements from the included palette to the window.
+            </p></li><li><p>
+              For each interface element you add, you should give it a unique
+              "tag" number in it's inspector window (select the object, press
+              command-1).
+            </p></li><li><p>
+              Save the file.
+            </p></li><li><p>
+              At the top of your simulation file, add a line for the file:
+              <code class="literal">@nib_file "<span class="emphasis"><em><code class="function">filename</code></em></span>"</code>.
+            </p></li><li><p>
+              For each interface action you wish to catch, you'll need a method
+              with the corresponding tag number:
+            </p><pre class="programlisting">
++ to catch-interface-id-<span class="emphasis"><em><code class="function">xxx</code></em></span> with-string s (string):  
+</pre><p>
+              You can also set the values of interface with the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#set-interface-item" target="_top">set-interface-item</a> in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control.tz</a>. In both cases&#8212;for both
+              catching and setting interface values&#8212;note that even though
+              the interface value is expressed as a string, the actual value is
+              often a number. A slider interface element, for example, will
+              actually give (and expect) a number value, but on the breve side,
+              it will be expressed as a string. steve's automatic conversion
+              between <code class="literal">ints</code>, <code class="literal">floats</code> and <code class="literal">strings</code> typically takes care of this
+              automatically.
+            </p></li></ul></div><p>
+        When the user interface element with the corresponding tag is
+        activated, these methods will be called with the string value of the
+        interface element. In the case of most types of controls, like buttons
+        or sliders, you'll generally want to use the string value as a number
+        to set some parameter.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2743"></a>Creating ".nib" Files Without Using the Included Template</h3></div></div></div><p> It is best to
+        use the included template for creating your own custom nib files
+        because the process for creating them from scratch can be a bit
+        confusing. Nevertheless the process is described below for those who
+        are curious:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              Launch interface builder
+            </p></li><li><p>
+              Create a new "Cocoa, Empty" nib file
+            </p></li><li><p>
+              In the document window, click on the "Classes" tab
+            </p></li><li><p>
+              Control-click on "NSObject", select the menu entry "subclass
+              NSObject". A new object called "MyObject" will appear--rename
+              this object to "slBreveNibLoader"
+            </p></li><li><p>
+              With the slBreveNibLoader object selected, bring up the info
+              window with Command-1
+            </p></li><li><p>
+              In the "Outlet" tab of this window, click add. Name the new
+              outlet "window".
+            </p></li><li><p>
+              Click back to the "Instances" tab of the project. Click on
+              "File's Owner", and type Command-5 to bring up the "Custom Class"
+              inspector. Find the object "slBreveNibLoader" from this list and
+              select it.
+            </p></li><li><p>
+              Go back to the "Instances" tab of the project. From the "Cocoa
+              Views" palette, drag a "Window" object to the "Instances" area.
+            </p></li><li><p>
+              Select the "File's Owner" icon. Control-click and drag from the
+              "File's Owner" icon to the icon of the newly created window.
+            </p></li><li><p>
+              In the "File's Owner" info window that appears, select the item
+              "window" and then click on the connect button.
+            </p></li></ul></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch09s03.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch09.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch10.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Displaying a Dialog Box </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 10. Saving Movies and Snapshots</td></tr></table></div></body></html>

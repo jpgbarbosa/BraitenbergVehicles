@@ -1,0 +1,49 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Displaying Objects as Bitmaps</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch06.html" title="Chapter 6. Graphics and Sound"><link rel="prev" href="ch06s03.html" title="Loading Image Files"><link rel="next" href="ch06s05.html" title="Texturing Objects"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Displaying Objects as Bitmaps</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s03.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 6. Graphics and Sound</th><td width="20%" align="right"> <a accesskey="n" href="ch06s05.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2710"></a>Displaying Objects as Bitmaps</h2></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              Changed in breve 2.0
+            </h3><p>
+                The methods used for bitmapping have been changed from breve
+                1.x, so pay close attention to this section if you're updating
+                your simulation from a previous version of breve.
+              </p></div><p> Agents in <span class="emphasis"><em>breve</em></span> can be displayed as user-specified
+        image files. This technique is referred to as <span class="emphasis"><em>bitmapping</em></span>. If an object is set up for
+        bitmapping, the bitmap image is shown instead of the 3D object and will
+        always face forward, regardless of the viewer's perspective. This is in
+        contrast to <span class="emphasis"><em>texturing</em></span>, in which
+        the image is used as a surface for a 3D shape. Texturing is described
+        in the next section, Texturing Objects <a class="xref" href="ch06s05.html" title="Texturing Objects">the section called &#8220;Texturing Objects&#8221;</a>.
+      </p><p>
+        To set a bitmap image for an object in breve, the image must be loaded
+        into breve as described in the previous section, Loading Image Files
+        <a class="xref" href="ch06s03.html" title="Loading Image Files">the section called &#8220;Loading Image Files&#8221;</a>. Once
+        the image has been loaded, you can set the bitmap image of an object by
+        passing the image to the method "set-bitmap-image" found in <a class="ulink" href="http://www.spiderland.org/documentation/classes/Real.html" target="_top">Real.tz</a></p><p>
+        The following code loads an image and uses it as the bitmap image for
+        an instance of the class Bird (this example is taken from the Swarm
+        demo):
+      </p><pre class="programlisting">
+        breveTexture = (new Image load from "breve.png"). 
+        bird = new Bird. 
+        bird set-bitmap-image to breveTexture.
+</pre><p>
+        This technique is used in the Swarm demo to generate the flying
+        <span class="emphasis"><em>breve</em></span> logos shown below.
+      </p><div class="mediaobject" align="center"><img src="../images/billboard.jpg" align="middle"></div><p>
+        Don't forget that the bitmap is set on an instance by instance basis,
+        so you should call these methods explicitly for each instance you want
+        to bitmap.
+      </p><p>
+        Also note that loading multiple images uses up a lot of memory and
+        hurts performance, <span class="emphasis"><em>even if you are loading
+        the same image multiple times</em></span>. It is therefore preferable
+        to share the same image among many agents when possible. This may
+        require the controller to load the image and pass it out to the agents,
+        instead of having the agents load it themselves:
+      </p><pre class="programlisting">
+        # bad idea!
+        
+        self set-bitmap-image to (new Image load from "picture.png").
+        
+        # good idea!
+        
+        self set-bitmap-image to (controller get-shared-image).
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s03.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s05.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Loading Image Files </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Texturing Objects</td></tr></table></div></body></html>

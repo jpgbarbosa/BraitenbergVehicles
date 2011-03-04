@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Loading Image Files</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch06.html" title="Chapter 6. Graphics and Sound"><link rel="prev" href="ch06s02.html" title="Shadows and Reflections"><link rel="next" href="ch06s04.html" title="Displaying Objects as Bitmaps"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Loading Image Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 6. Graphics and Sound</th><td width="20%" align="right"> <a accesskey="n" href="ch06s04.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2709"></a>Loading Image Files</h2></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              Changed in breve 2.0
+            </h3><p>
+                The methods used for loading images have been changed from
+                breve 1.x, so pay close attention to this section if you're
+                updating your simulation from a previous version of breve.
+              </p></div><p> breve can use image files to
+        display objects as bitmaps, texture objects, and to display objects as
+        lightmaps. These techniques are described later in the chapter. This
+        section describes how image files can be loaded into breve.
+      </p><p><span class="emphasis"><em>breve</em></span> supports loading images in
+        PNG, JPEG or SGI format. PNG is the preferred file format because it
+        supports transparency, which is useful for image textures and bitmaps.
+      </p><p>
+        Prior to version 2.0, breve required all images loaded into breve to be
+        square, and for the dimensions of the images to be a power-of-two (for
+        example, 256x256 or 128x128 pixels). This is no longer strictly
+        required, though it is still preferable when using images as object
+        textures. breve will automatically surround the image with a
+        transparent border in order to fulfill the power-of-two size
+        requirements, so images that are not powers of two may not appear as
+        intended.
+      </p><p>
+        Images are loaded using the class Image. To load an image file, create
+        a new instance of the class Image, and load a file with the load
+        method:
+      </p><pre class="programlisting">
+        image = new Image.
+        image load file "myimage.png".
+</pre><p>
+        Once an image file has been loaded, it can be used as a bitmap, texture
+        or lightmap, as described later in this chapter.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s04.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Shadows and Reflections </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Displaying Objects as Bitmaps</td></tr></table></div></body></html>

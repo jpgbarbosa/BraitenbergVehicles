@@ -1,0 +1,39 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Saving and Loading the Entire State of a Simulation</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch11.html" title="Chapter 11. Archiving, Dearchiving and Networking Objects and Simulations"><link rel="prev" href="ch11s02.html" title="Saving and Loading Individual Objects"><link rel="next" href="ch12.html" title="Chapter 12. Networking"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Saving and Loading the Entire State of a Simulation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch11s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 11. Archiving, Dearchiving and Networking Objects and Simulations</th><td width="20%" align="right"> <a accesskey="n" href="ch12.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2752"></a>Saving and Loading the Entire State of a Simulation</h2></div></div></div><p> This technique allows you to save
+        a simulation, and resume it later. In this case, all objects are
+        archived and their states are archived entirely (except for objects
+        containing variables of type pointer, which should apply only to those
+        developing their own breve plug-ins). <span class="emphasis"><em>You
+        must have the original simulation source file in order to restart a
+        saved simulation</em></span>.
+      </p><p>
+        As with the archiving discussed in the previous section (<a class="xref" href="ch11s02.html" title="Saving and Loading Individual Objects">the section called &#8220;Saving and Loading Individual Objects&#8221;</a>,
+        dependencies can also be used when archiving entire simulations. In
+        this case, the dependencies effect only the order in which objects are
+        dearchived, an issue that should not effect most users.
+      </p><p>
+        When an object is to be archived using this technique, the method
+        "archive" is executed for the object. In your archive method, you
+        should include code that might be needed to prepare the object for
+        archiving such as updating variables which will be required when the
+        object is dearchived. <span class="emphasis"><em>Your archive method
+        must, on success, return 1</em></span>. Any other return value is
+        considered failure and will abort the archive.
+      </p><p>
+        When an object is to be dearchived using this method, the method
+        "dearchive" is executed for the object. In your dearchive method, you
+        should include code that might be needed to restore the state of the
+        object, or to inform the rest of the simulation of its presence if
+        necessary. <span class="emphasis"><em>Your dearchive method must, on
+        success, return 1</em></span>. Any other return value is considered
+        failure and will abort the archive.
+      </p><p>
+        To initiate a "whole simulation archive", use the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#save-as-xml" target="_top">save-as-xml</a>.
+      </p><p>
+        An archived world cannot be loaded into a running simulation&#8212;to
+        dearchive a simulation saved with this technique, you have to start the
+        simulation with the archive. In the OS X version of <span class="emphasis"><em>breve</em></span>, this is done from the "File" menu. In
+        command-line versions of the software, this is done by using the "-l"
+        flag, along with the name of the saved simulation file, for example:
+      </p><pre class="programlisting">
+        breve -l "myWorld.xml" myWorld.tz
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch11s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch11.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch12.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Saving and Loading Individual Objects </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 12. Networking</td></tr></table></div></body></html>

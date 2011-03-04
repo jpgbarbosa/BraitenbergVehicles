@@ -1,0 +1,131 @@
+<head>
+<title>Abstract : PatchGrid</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : PatchGrid</h2>
+This class is included as part of the file PatchGrid.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use PatchGrid.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ <a href="PatchGrid.html">PatchGrid</a> is a class which allows you to create "patches". A <a href="Patch.html">Patch</a> is a non-physical object which is associated with a specific area in the 3D world.  This allows you to associate information or actions with specific areas in space, such as the presence of a chemical or nutrient at that area. <p> Use <a href="#init-with">init-with</a> to create a PatchGrid.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#disable-smooth-drawing">disable-smooth-drawing</a></li>
+<li><a href="#disable-volumetric-drawing">disable-volumetric-drawing</a></li>
+<li><a href="#enable-smooth-drawing">enable-smooth-drawing</a></li>
+<li><a href="#enable-volumetric-drawing">enable-volumetric-drawing</a></li>
+<li><a href="#get-location">get-location</a></li>
+<li><a href="#get-patch">get-patch</a></li>
+<li><a href="#get-patch-at">get-patch-at</a></li>
+<li><a href="#get-patch-size">get-patch-size</a></li>
+<li><a href="#get-patches">get-patches</a></li>
+<li><a href="#get-x-count">get-x-count</a></li>
+<li><a href="#get-y-count">get-y-count</a></li>
+<li><a href="#get-z-count">get-z-count</a></li>
+<li><a href="#init-with">init-with</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="disable-smooth-drawing"><font size=+1><tt>disable-smooth-drawing </tt></font><p></a>
+<blockquote>
+<p> Disables smooth drawing for this PatchGrid.  This is the default. See <a href="#enable-smooth-drawing">enable-smooth-drawing</a> for details on smooth drawing. <p>
+</blockquote>
+<hr>
+<a name="disable-volumetric-drawing"><font size=+1><tt>disable-volumetric-drawing </tt></font><p></a>
+<blockquote>
+<p> Disables volumetric drawing for this PatchGrid.  The grid is drawn as individual cubes.  This technique may produce better results visually, but is far slower than the volumetric rendering.  See <a href="#enable-volumetric-drawing">enable-volumetric-drawing</a> for more details. <p>
+</blockquote>
+<hr>
+<a name="enable-smooth-drawing"><font size=+1><tt>enable-smooth-drawing </tt></font><p></a>
+<blockquote>
+<p> Enables smooth drawing for this PatchGrid.  When smooth drawing is enabled, colors are blended smoothly between patches.  Smooth drawing is disabled by default. <P> Smooth drawing is desirable when a PatchGrid's colors display continuous gradients as with chemicals or temperature, but is undesirable when dealing with discrete states, as in cellular automata simulations. <P> The method <a href="#disable-smooth-drawing">disable-smooth-drawing</a> can be used to disable smooth drawing. <p>
+</blockquote>
+<hr>
+<a name="enable-volumetric-drawing"><font size=+1><tt>enable-volumetric-drawing </tt></font><p></a>
+<blockquote>
+<p> Enables texture drawing for this PatchGrid.  This is the default. With volumetric rendering, the grid is drawn as a series of overlapping textured planes.  The rendering is fast, but the overlapping planes may leave some visual artifacts.  To revert to the older style of cube rendering, see the method <a href="#disable-volumetric-drawing">disable-volumetric-drawing</a>. <p>
+</blockquote>
+<hr>
+<a name="get-location"><font size=+1><tt>get-location </tt></font><p></a>
+<blockquote>
+<p> returns the center of the grid. <p>
+</blockquote>
+<hr>
+<a name="get-patch"><font size=+1><tt>get-patch at-location <i>theLocation</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Returns the <a href="Patch.html">Patch</a> in which <i>theLocation</i> resides.  Make sure you test for the validity of the returned object, since it is possible that there is no patch at the specified location. <p>
+</blockquote>
+<hr>
+<a name="get-patch-at"><font size=+1><tt>get-patch-at x <i>xind</i> (int) y <i>yind</i> (int) z <i>zind</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the patch object associated with the specified indices.  Note that this method may return a NULL object in the case that the indices given are out of bounds. <p>
+</blockquote>
+<hr>
+<a name="get-patch-size"><font size=+1><tt>get-patch-size </tt></font><p></a>
+<blockquote>
+<p> Returns the vector size of a single patch. <p>
+</blockquote>
+<hr>
+<a name="get-patches"><font size=+1><tt>get-patches </tt></font><p></a>
+<blockquote>
+<p> Returns a list of all patch objects. <p>
+</blockquote>
+<hr>
+<a name="get-x-count"><font size=+1><tt>get-x-count </tt></font><p></a>
+<blockquote>
+<p> If the grid is initialized, returns the size of the grid on the X-axis. <p>
+</blockquote>
+<hr>
+<a name="get-y-count"><font size=+1><tt>get-y-count </tt></font><p></a>
+<blockquote>
+<p> If the grid is initialized, returns the size of the grid on the Y-axis. <p>
+</blockquote>
+<hr>
+<a name="get-z-count"><font size=+1><tt>get-z-count </tt></font><p></a>
+<blockquote>
+<p> If the grid is initialized, returns the size of the grid on the Z-axis. <p>
+</blockquote>
+<hr>
+<a name="init-with"><font size=+1><tt>init-with x-count <i>x</i> (int) y-count <i>y</i> (int) z-count <i>z</i> (int) location center = (0, 0, 0) (vector) patch-size pSize = (1, 1, 1) (vector) patch-class patchclass = "Patch" (string) </tt></font><p></a>
+<blockquote>
+<p> Creates a PatchGrid centered at center, in which each <a href="Patch.html">Patch</a> is a member of patchclass and is the size pSize and in which the total grid dimensions are <i>x</i> by <i>y</i> by <i>z</i>. <p> Bear in mind that this will create a large number of objects: <i>x</i> * <i>y</i> * <i>z</i>.  If you have an iterate method in your patch-class, then this can amount to a great deal of computation which can slow down your simulation. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

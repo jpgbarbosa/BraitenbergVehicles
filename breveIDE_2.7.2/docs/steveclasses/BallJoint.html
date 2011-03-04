@@ -1,0 +1,77 @@
+<head>
+<title>Joint : BallJoint</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Joint.html">Joint</a> : BallJoint</h2>
+This class is included as part of the file Joint.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Joint.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ This subclass of <a href="Joint.html">Joint</a> is used to link two <a href="Link.html">Link</a> objects together using a ball joint. <p> A BallJoint has three degrees of freedom.  It can tilt "up-and-down" and "side-to-side", and can "twist".  Your neck is basically a ball joint--your head tilt up-and-down, side-to-side, and can twist (although not all the way around--if your head turns all the way around, please consult the user manual for repair). <P> <CENTER><IMG SRC="../images/BallJoint.jpg" BORDER=1></CENTER> <P> This joint uses a scheme of 3 Euler angles to represent the relative rotation between two objects.  The Z-axis of rotation is automatically derived from the parent link point, meaning that the Z-axis rotation is always a "twist" relative to the link point.  The X-axis of rotation is specified by the user with the normal argument.  The Y-axis is automatically derived from the other two. <P> Because of a limitation of the physics engine, the Y-axis rotation is limited to a range of approximately +/- 80 degrees of rotation. <P> If versions of <b>breve</b> prior to 2.3, there was no normal argument because the axes of rotation were automatically defined.  The argument is therefore optional for backwards compatibility <b>only</b>, and should <b>always</b> be specified when writing new code.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#get-joint-angles">get-joint-angles</a></li>
+<li><a href="#link">link</a></li>
+<li><a href="#set-joint-limits">set-joint-limits</a></li>
+<li><a href="#set-joint-velocity">set-joint-velocity</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="get-joint-angles"><font size=+1><tt>get-joint-angles </tt></font><p></a>
+<blockquote>
+<p> Returns a vector indicating how the angle of this joint is from its natural position (which corresponds to a values of 0 on all axes). <p>
+</blockquote>
+<hr>
+<a name="link"><font size=+1><tt>link with-parent-point <i>parentPoint</i> (vector) with-child-point <i>childPoint</i> (vector) to-child <i>childLink</i> (object) parent parentLink = <i><i>0</i></i> (object) with-normal normal = (1, <i><i>0</i></i>, <i><i>0</i></i>) (vector) use-current-relative-rotation currentRotation = <i><i>0</i></i> (int) </tt></font><p></a>
+<blockquote>
+<p> Creates a ball (rotation on three axes) joint between parentLink and <i>childLink</i>. The joint will be lcoated at <i>parentPoint</i> on the parent's body, and at <i>childPoint</i> on the child's body. <P> If parentLink is the value <i><i>0</i></i>, then the joint will be attached to a fixed point in the world, specified with <i>parentPoint</i>. <p>
+</blockquote>
+<hr>
+<a name="set-joint-limits"><font size=+1><tt>set-joint-limits a1-min <i>min1</i> (double) a1-max <i>max1</i> (double) a2-min <i>min2</i> (double) a2-max <i>max2</i> (double) a3-min <i>min3</i> (double) a3-max <i>max3</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the minimum and maximum allowed rotations (in radians) for this joint on all three of the joint's axes. <p>
+</blockquote>
+<hr>
+<a name="set-joint-velocity"><font size=+1><tt>set-joint-velocity to <i>rotationalVelocity</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the desired joint velocity to <i>rotationalVelocity</i>.  As a ball joint allows rotation on three axes, <i>rotationalVelocity</i> is a vector. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

@@ -1,0 +1,233 @@
+<head>
+<title>Object : PushGP</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : PushGP</h2>
+This class is included as part of the file PushGP.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use PushGP.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ This class is a special control class used to implement experiments using the Push Genetic Programming (PushGP) system.  PushGP is a system which uses genetic programming and the Push programming language to attempt to evolve solutions to a wide variety of problems.  For more information on Push and PushGP, see the class <a href="PushInterpreter.html">PushInterpreter</a>. <p> This class is appropriate for evolving Push programs which are only run once per fitness case. <p> To implement a PushGP experiment you will need to setup a PushGP object which overrides two methods: <a href="#setup-fitness-test">setup-fitness-test</a>, which sets up a fitness test and <a href="#compute-error">compute-error</a>, which is used to compute the fitness of an individual. <p> Additionally, other methods in this class are useful for configuring the genetic programming environment and a variety of parameters including population size, mutation rate, crossover rate, and the Push language interpreter set. <p> Finally, you may also wish to add custom instructions to the Push interpreter objects which manipulate data or trigger actions in the simulated world.  The Push interpreter can be retrieved using the method <a href="#get-interpreter">get-interpreter</a>, and adding instructions is documented in <a href="PushInterpreter.html">PushInterpreter</a>.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Setting and Retrieving GP Parameters</B><UL>
+<li><a href="#get-crossover-percent">get-crossover-percent</a></li>
+<li><a href="#get-deletion-percent">get-deletion-percent</a></li>
+<li><a href="#get-generation-limit">get-generation-limit</a></li>
+<li><a href="#get-mutation-percent">get-mutation-percent</a></li>
+<li><a href="#get-population-size">get-population-size</a></li>
+<li><a href="#get-tournament-size">get-tournament-size</a></li>
+<li><a href="#read-interpreter-config">read-interpreter-config</a></li>
+<li><a href="#seed-population">seed-population</a></li>
+<li><a href="#set-crossover-percent">set-crossover-percent</a></li>
+<li><a href="#set-deletion-percent">set-deletion-percent</a></li>
+<li><a href="#set-generation-limit">set-generation-limit</a></li>
+<li><a href="#set-mutation-percent">set-mutation-percent</a></li>
+<li><a href="#set-population-size">set-population-size</a></li>
+<li><a href="#set-spatial-radius">set-spatial-radius</a></li>
+<li><a href="#set-tournament-size">set-tournament-size</a></li>
+</UL>
+<P><B>Getting the Push Interpreter Used During Evolution</B><UL>
+<li><a href="#abort-fitness-test">abort-fitness-test</a></li>
+<li><a href="#auto-simplify">auto-simplify</a></li>
+<li><a href="#compute-diversity">compute-diversity</a></li>
+<li><a href="#get-current-individual">get-current-individual</a></li>
+<li><a href="#get-interpreter">get-interpreter</a></li>
+<li><a href="#get-program-limit-penalty">get-program-limit-penalty</a></li>
+<li><a href="#run-tournament">run-tournament</a></li>
+</UL>
+<P><B>Methods Overridden by the User To Set Up PushGP Experiments</B><UL>
+<li><a href="#compute-error">compute-error</a></li>
+<li><a href="#compute-error-vector-fitness">compute-error-vector-fitness</a></li>
+<li><a href="#count-fitness-cases">count-fitness-cases</a></li>
+<li><a href="#examine">examine</a></li>
+<li><a href="#report">report</a></li>
+<li><a href="#reproduce">reproduce</a></li>
+<li><a href="#setup-fitness-test">setup-fitness-test</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="abort-fitness-test"><font size=+1><tt>abort-fitness-test with-fitness fitness = <i>99999999</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Aborts the currently running fitness <p>
+</blockquote>
+<hr>
+<a name="auto-simplify"><font size=+1><tt>auto-simplify program <i>p</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Programs generated through genetic programming are often complicated and difficult to understand.  This method attempts to simplify an evolved push program while maintaining the same fitness. <P> Each time this method is invoked, a random simplification is preformed on the program <i>p</i>.  If the simplification does not harm the fitness, <i>p</i> is modified to contain the simplification, otherwise, nothing happens. This method should be called repeatedly -- perhaps 100 times or more to aggressively simplify an unweildy program. <p>
+</blockquote>
+<hr>
+<a name="compute-diversity"><font size=+1><tt>compute-diversity for-tolerance <i>t</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Computes the diversity of the current population, as defined by the <a href="PushDiversityPool.html">PushDiversityPool</a> object.  Returns the number of unique "species" which differ by less than <i>t</i> points. <p>
+</blockquote>
+<hr>
+<a name="compute-error"><font size=+1><tt>compute-error for-fitness-case <i>n</i> (int) with-interpreter <i>interpreter</i> (object) </tt></font><p></a>
+<blockquote>
+<p> This method must be overridden by the user in order to run a PushGP experiment.  The job of this method is to inspect the state of the <a href="PushInterpreter.html">PushInterpreter</a> object and determine the fitness (in terms of error) of the specified fitness case. This typically involves comparing values from the <i>interpreter</i>'s stacks against desired values. <p> For example, with a symbolic regression problem, this method might return the difference between the top of the float stack, and the predetermined "correct" answer for the specified fitness case.  For example: <pre> return (<i>interpreter</i> get-float-stack-top) - desiredOutputs{ <i>n</i> }. </pre> <p>
+</blockquote>
+<hr>
+<a name="compute-error-vector-fitness"><font size=+1><tt>compute-error-vector-fitness for-errors <i>errorList</i> (list) </tt></font><p></a>
+<blockquote>
+<p> This method takes a list of errors returned by <a href="#compute-error">compute-error</a> for all fitness cases, and produces a fitness value.  The default implementation of this method computes the fitness by summing the absolute values of the errors, which should suffice for most applications. <P> Overriding this method is optional. <p>
+</blockquote>
+<hr>
+<a name="count-fitness-cases"><font size=+1><tt>count-fitness-cases </tt></font><p></a>
+<blockquote>
+<p> This method must be overriden by the user in order to run a PushGP experiment.  This method should return the number of fitness cases to be run. <p>
+</blockquote>
+<hr>
+<a name="examine"><font size=+1><tt>examine program <i>p</i> (object) </tt></font><p></a>
+<blockquote>
+<p> This method is called when a solution is found.  You should override this method to preform any additional analysis you'd like.  Typically this involves examining the program for generalization. <P> The default implementation simplifies the program <i>p</i> for 1000 iteration using <a href="#auto-simplify">auto-simplify</a> and prints out the result. <p>
+</blockquote>
+<hr>
+<a name="get-crossover-percent"><font size=+1><tt>get-crossover-percent </tt></font><p></a>
+<blockquote>
+<p> Returns the crossover percent.  See <a href="#set-crossover-percent">set-crossover-percent</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="get-current-individual"><font size=+1><tt>get-current-individual </tt></font><p></a>
+<blockquote>
+<p> Returns the PushProgram currently being evaluated. <p>
+</blockquote>
+<hr>
+<a name="get-deletion-percent"><font size=+1><tt>get-deletion-percent </tt></font><p></a>
+<blockquote>
+<p> Returns the deletion percent.  See <a href="#set-deletion-percent">set-deletion-percent</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="get-generation-limit"><font size=+1><tt>get-generation-limit </tt></font><p></a>
+<blockquote>
+<p> Returns the generation limit.  See <a href="#set-generation-limit">set-generation-limit</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="get-interpreter"><font size=+1><tt>get-interpreter </tt></font><p></a>
+<blockquote>
+<p> Returns the <a href="PushInterpreter.html">PushInterpreter</a> object that this object is using for fitness tests. <p>
+</blockquote>
+<hr>
+<a name="get-mutation-percent"><font size=+1><tt>get-mutation-percent </tt></font><p></a>
+<blockquote>
+<p> Returns the mutation percent.  See <a href="#set-mutation-percent">set-mutation-percent</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="get-population-size"><font size=+1><tt>get-population-size </tt></font><p></a>
+<blockquote>
+<p> Returns the population size.  See <a href="#set-population-size">set-population-size</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="get-program-limit-penalty"><font size=+1><tt>get-program-limit-penalty </tt></font><p></a>
+<blockquote>
+<p> Returns a penalty value applied to program which hit their evaluation limit.  The default value is .1, but you may override this method in order to penalize programs differently according to the problem. <p>
+</blockquote>
+<hr>
+<a name="get-tournament-size"><font size=+1><tt>get-tournament-size </tt></font><p></a>
+<blockquote>
+<p> Returns the tournament size.  See <a href="#set-tournament-size">set-tournament-size</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="read-interpreter-config"><font size=+1><tt>read-interpreter-config from-file <i>file</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Reads a configuration <i>file</i> for the interpreter used in the fitness tests.  Changing the configuration also reinitializes the evolving population (since instructions sets may be changed). <p>
+</blockquote>
+<hr>
+<a name="report"><font size=+1><tt>report with-best <i>bestIndividual</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Logs information to the output at every generation.  This method may be overridden to provide more (or less) output data. <P> The argument <i>bestIndividual</i> is the best individual in the population and is provided so that it may be inspected by the user if this method is overridden. <p>
+</blockquote>
+<hr>
+<a name="reproduce"><font size=+1><tt>reproduce </tt></font><p></a>
+<blockquote>
+<p> Used internally.                <p>
+</blockquote>
+<hr>
+<a name="run-tournament"><font size=+1><tt>run-tournament for-index index = <i>-1</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Runs a tournament selection from the population.  Used internally during reproduction uses the tournament size set with <a href="#set-tournament-size">set-tournament-size</a>. <P> This method may be overridden to implement a custom tournament selection if desired, though the default implementation should suffice in most situations. <p>
+</blockquote>
+<hr>
+<a name="seed-population"><font size=+1><tt>seed-population with-program <i>pushProgram</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Uses <i>pushProgram</i> to seed the initial population. <p>
+</blockquote>
+<hr>
+<a name="set-crossover-percent"><font size=+1><tt>set-crossover-percent to <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the percentage of agents generated by genetic crossover at each generation.  This should be a value between 0 and 100. The default value is 40. <p>
+</blockquote>
+<hr>
+<a name="set-deletion-percent"><font size=+1><tt>set-deletion-percent to <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the percentage of agents generated by genetic deletion at each generation.  This should be a value between 0 and 100. The default value is 5. <p>
+</blockquote>
+<hr>
+<a name="set-generation-limit"><font size=+1><tt>set-generation-limit to <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the generation limit to <i>n</i>.  If no solution is found by the generation limit, the simulation with terminate.  The default value is 300. <p>
+</blockquote>
+<hr>
+<a name="set-mutation-percent"><font size=+1><tt>set-mutation-percent to <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the percentage of agents generated by genetic mutation at each generation.  This should be a value between 0 and 100. The default value is 40. <p>
+</blockquote>
+<hr>
+<a name="set-population-size"><font size=+1><tt>set-population-size to <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the population size to <i>n</i> and reinitializes the population. The default value is 2000. <p>
+</blockquote>
+<hr>
+<a name="set-spatial-radius"><font size=+1><tt>set-spatial-radius to <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the spatial radius used for tournament selection during reproduction.  Setting to 0 disables spatial effects. <p>
+</blockquote>
+<hr>
+<a name="set-tournament-size"><font size=+1><tt>set-tournament-size to <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the tournament size to <i>n</i>.  The tournament size determines how many individuals are examined during tournament selection. The default value is 7. <p>
+</blockquote>
+<hr>
+<a name="setup-fitness-test"><font size=+1><tt>setup-fitness-test for-fitness-case <i>n</i> (int) with-interpreter <i>interpreter</i> (object) </tt></font><p></a>
+<blockquote>
+<p> This method must be overridden by the user in order to run a PushGP experiment.  The job of this method is to prepare to run the specified fitness test.  This typically means pushing input values onto the <a href="PushInterpreter.html">PushInterpreter</a> object's stacks. <p> In a symbolic regression problem, for example, this method might push a predetermined input value onto the float stack. <pre> <i>interpreter</i> push-float value inputValues{ <i>n</i> }. </pre> <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

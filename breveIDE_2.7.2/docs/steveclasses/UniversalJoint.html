@@ -1,0 +1,77 @@
+<head>
+<title>Joint : UniversalJoint</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Joint.html">Joint</a> : UniversalJoint</h2>
+This class is included as part of the file Joint.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Joint.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ This subclass of <a href="Joint.html">Joint</a> is used to link two <a href="Link.html">Link</a> objects together using a universal joint. <P> A universal joint has two degrees of freedom.  It can rotate "up-and-down" and "side-to-side", but cannot "twist".  Your wrist is basically a universal joint--your hand cannot rotate without the rest of your arm. <P> <CENTER><IMG SRC="../images/UniversalJoint.jpg" BORDER=1></CENTER></blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#get-joint-angles">get-joint-angles</a></li>
+<li><a href="#link">link</a></li>
+<li><a href="#set-joint-limits">set-joint-limits</a></li>
+<li><a href="#set-joint-velocity">set-joint-velocity</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="get-joint-angles"><font size=+1><tt>get-joint-angles </tt></font><p></a>
+<blockquote>
+<p> Returns a vector indicating how the angle of this joint is from its natural position (which corresponds to a values of 0 on both axes).  Only the X- and Y- components of the vector are valid for UniversalJoints. <p>
+</blockquote>
+<hr>
+<a name="link"><font size=+1><tt>link with-normal <i>normal</i> (vector) with-parent-point <i>parentPoint</i> (vector) with-child-point <i>childPoint</i> (vector) to-child <i>childLink</i> (object) parent parentLink = <i><i>0</i></i> (object) use-current-relative-rotation currentRotation = <i><i>0</i></i> (int) </tt></font><p></a>
+<blockquote>
+<p> Creates a universal (rotation on two axes) joint between parentLink and <i>childLink</i>. The joint will be lcoated at <i>parentPoint</i> on the parent's body, and at <i>childPoint</i> on the child's body. <P> Universal joints have two rotation axes, both of which are perpendicular to the <i>parentPoint</i>.  Think about the forearm linking to the hand at the wrist--the axes of rotation of the wrist are both perpendicular to the line from the center of the forearm (which represents the <i>parentPoint</i>).  The normalVector specifies <i>one</i> of the rotation axes, while the other is calculated automatically (perpendicular to both <i>parentPoint</i> and normalVector). <P> If parentLink is the value <i><i>0</i></i>, then the joint will be attached to a fixed point in the world, specified with <i>parentPoint</i>. <p>
+</blockquote>
+<hr>
+<a name="set-joint-limits"><font size=+1><tt>set-joint-limits a1-min <i>min1</i> (double) a1-max <i>max1</i> (double) a2-min <i>min2</i> (double) a2-max <i>max2</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the minimum and maximum allowed rotations (in radians) for this joint on both of the joint's axes. <p>
+</blockquote>
+<hr>
+<a name="set-joint-velocity"><font size=+1><tt>set-joint-velocity axis-1 <i>a1velocity</i> (double) axis-2 <i>a2velocity</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the desired joint velocity on axis-1 to <i>a1velocity</i> and on axis-2 to <i>a2velocity</i>. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

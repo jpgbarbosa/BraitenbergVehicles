@@ -1,0 +1,22 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Running and Evolving Push Programs</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch15.html" title='Chapter 15. "Push": a Language for Evolutionary Computation Integrated With breve'><link rel="prev" href="ch15s02.html" title="Creating and Configuring Push Environments"><link rel="next" href="ch15s04.html" title="Genetic Programming With the PushGP Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Running and Evolving Push Programs</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 15. "Push": a Language for Evolutionary Computation Integrated With breve</th><td width="20%" align="right"> <a accesskey="n" href="ch15s04.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2762"></a>Running and Evolving Push Programs</h2></div></div></div><p>
+        A program in the Push language is stored in a <a class="ulink" href="http://www.spiderland.org/documentation/classes/PushProgram.html" target="_top">PushProgram</a> object. This object provides methods for
+        parsing Push programs, creating random programs, breeding and mutating
+        programs and more. All of these features are described in detail in the
+        class documentation.
+      </p><p>
+        Running a Push program is accomplished with help from the
+        PushInterpeter object. Typically, the steps involved in running a Push
+        program are:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              Create and configure the Push interpreter
+            </p></li><li><p>
+              Clear the interpreter's stacks with the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/PushInterpreter.html#clear-stacks" target="_top">clear-stacks</a>.
+            </p></li><li><p>
+              Push input values onto the interpreter's stacks (using various
+              methods in the <a class="ulink" href="http://www.spiderland.org/documentation/classes/PushInterpreter.html" target="_top">PushInterpreter</a> class).
+            </p></li><li><p>
+              Run the push program with the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/PushInterpreter.html#run" target="_top">run</a>.
+            </p></li><li><p>
+              Read output values from the interpreter's stacks (using various
+              methods in the <a class="ulink" href="http://www.spiderland.org/documentation/classes/PushInterpreter.html" target="_top">PushInterpreter</a> class).
+            </p></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch15.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s04.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Creating and Configuring Push Environments </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Genetic Programming With the PushGP Class</td></tr></table></div></body></html>

@@ -1,0 +1,643 @@
+@use Object.
+@use Line.
+
+Object : Real (aka Reals) [version 2.1] {
+	% A class which is never instantiated--just used as a logical
+	% distinction from the Abstract classes.  See the child classes
+	% OBJECT(Mobile), OBJECT(Link) and OBJECT(Stationary) for
+	% more information.  The methods documented here may be used 
+	% with any of the child classes.
+
+	+ variables:
+		archiveLocation (vector).
+		archiveRotation (matrix).
+
+		archiveTextureImage (object).
+		archiveLightmapImage (object).
+		archiveBitmapImage (object).
+		archiveTextureScaleX, archiveTextureScaleY (float).
+  
+		displayShape, collisionShape (object).
+		realWorldPointer (pointer).
+		collisionHandlerList (list).
+
+		menus (list).
+		color (vector).
+		lines (list).
+
+		neighborhoodSize (float).
+
+		e (float).
+		mu (float).
+
+	+ to init:
+		archiveTextureScaleX = 16.
+		archiveTextureScaleY = 16.
+
+		self set-color to ( 1, 1, 1 ).
+
+		self add-menu named "Delete Instance" for-method "delete-instance".
+		self add-menu named "Follow With Camera" for-method "watch".
+
+	- to delete:
+		if realWorldPointer: realRemoveObject(realWorldPointer).
+		free menus.
+
+	- to get-world-object-pointer:
+		% Used internally.
+
+		return realWorldPointer.
+
++ section "Setting and Getting the Position and Rotation of Real Objects"
+
+	+ to move to newLocation (vector):
+		% Moves this object to location newLocation.
+
+		if !realWorldPointer:
+			die "attempt to move uninitialized Mobile object.".
+
+		realSetLocation(realWorldPointer, newLocation).
+
+	- to set-rotation to theRotation (matrix):
+		self set-rotation-matrix to theRotation.
+
+	+ to set-rotation-matrix to theRotation (matrix):
+		% Sets the rotation of this object to the rotation matrix theRotation.
+		% Working with matrices can be complicated, so a more simple
+		% approach is to use METHOD(rotate).
+
+		realSetRotationMatrix(realWorldPointer, theRotation).
+
+	+ to set-rotation-euler-angles to angles (vector):
+		% Sets the rotation of this object to the Euler angles specified
+		% by angles (in radians).
+
+		m (matrix).
+		r00, r01, r02, r10, r11, r12, r20, r21, r22 (double).
+
+		r00 = cos(angles::z)*cos(angles::x) - cos(angles::y)*sin(angles::x)*sin(angles::z).
+		r01 = cos(angles::z)*sin(angles::x) + cos(angles::y)*cos(angles::x)*sin(angles::z).
+		r02 = sin(angles::z)*cos(angles::y).
+
+		r10 = -sin(angles::z)*cos(angles::x) - cos(angles::y)*sin(angles::x)*cos(angles::z).
+		r11 = -sin(angles::z)*sin(angles::x) + cos(angles::y)*cos(angles::x)*cos(angles::z).
+		r12 = cos(angles::z)*sin(angles::y).
+
+		r20 = sin(angles::y)*sin(angles::x).
+		r21 = -sin(angles::y)*cos(angles::x).
+		r22 = cos(angles::y).
+
+		m = [ ( r00, r01, r02 ), ( r10, r11, r12 ), ( r20, r21, r22 ) ].
+
+		self set-rotation-matrix to m.
+
+	+ to get-location:
+		% Returns the vector location of this object. 
+
+		return realGetLocation( realWorldPointer ).
+
+	- to get-rotation:
+		% Deprecated
+		return realGetRotation( realWorldPointer ).
+
+	+ to get-rotation-matrix:
+		% Returns the matrix rotation of this object. 
+
+		return realGetRotation( realWorldPointer ).
+
+	+ to set-rotation around-axis thisAxis (vector) by amount (float):
+		% Sets the rotation of this object around vector axis thisAxis 
+		% by scalar amount (in radians).  This is an "absolute" rotation--the 
+		% current rotation of the object does not affect how the 
+		% object will be rotated.  For a rotation relative to the 
+		% current orientation, set METHOD(relative-rotate).
+		
+		length (float).
+
+		# normalize the axis
+
+		length = |thisAxis|.
+
+		if length == 0.0: return.
+		thisAxis /= length.
+
+		realSetRotation(realWorldPointer, thisAxis, amount).
+
+	+ to point vertex theVertex (vector) at theLocation (vector):
+		% An easier way to rotate an object--this function rotates
+		% an object such that the local point theVertex, points towards
+		% the world direction theLocation.  In other words, theLocation
+		% is where you want the object to face, and theVertex indicates
+		% which side of the object is to be considered the "front".
+
+		v (vector).
+		a (float).
+
+		if | theVertex | == 0.0 || | theLocation | == 0.0:
+			return.
+
+		v = cross(theVertex, theLocation).
+		a = angle(theVertex, theLocation).
+
+		if |v| == 0.0: {
+			self rotate around-axis theVertex by 0.01.
+			return.
+		}
+
+		self rotate around-axis v by a.
+
+
++ section "Setting the Shape of a Real Object"
+
+	+ to set-shape to theShape (object):
+		% Sets the shape of this object, for both display and collision detection purposes.  To
+		% set the shape for one purpose, but not the other, use the methods METHOD(set-display-shape)
+		% or METHOD(set-collision-shape).
+
+		self set-display-shape to theShape.
+		self set-collision-shape to theShape.
+
+	+ to set-collision-shape to theShape (object):
+		% Associates a OBJECT(Shape) object with this object for collision purposes.  This shape
+		% will not be displayed for this object unless METHOD(set-display-shape) is also called
+		% with this shape.  Returns this object.
+
+		if !theShape || !(theShape get-pointer): 
+			die "attempt to set collision shape of Mobile object with uninitialized shape ($theShape)".
+
+		if collisionShape: 
+			self remove-dependency on collisionShape.
+
+		collisionShape = theShape.
+		self add-dependency on collisionShape.
+
+		realSetShape( realWorldPointer, (theShape get-pointer) ).
+
+		return self.
+
+	+ to set-display-shape to theShape (object):
+		% Associates a OBJECT(Shape) object with this object for display purposes only.
+		% This shape will not be used for collision detection unless it is passed to 
+		% METHOD(set-collision-shape) as well.  Returns this object.
+
+		if !theShape || !(theShape get-pointer): 
+			die "attempt to set display shape of Mobile object with uninitialized shape ($theShape)".
+
+		if displayShape: 
+			self remove-dependency on displayShape.
+
+		displayShape = theShape.
+		self add-dependency on displayShape.
+
+		realSetDisplayShape( realWorldPointer, (theShape get-pointer) ).
+
+		return self.
+
+	- to get-shape:
+		% Deprecated 
+		return collisionShape.
+
+	+ to get-display-shape:
+		% Returns the OBJECT(Shape) used for display associated with this Mobile object.
+
+		return displayShape.
+
+	+ to get-collision-shape:
+		% Returns the OBJECT(Shape) used for collisions associated with this Mobile object.
+
+		return collisionShape.
+
+	+ to watch:
+		% Makes the camera follow this object.
+
+		controller watch item self.
+
+	- to delete-instance:
+		% Produces a dialog box (if supported by the current breve 
+		% engine) asking if the user wants to delete the object.  
+		% This is typically used in response to a user action like
+		% a click or menu callback.
+
+		result (int).
+
+		result = (controller show-dialog 
+			 with-title "Really Delete Instance?"
+			 with-message "Deleting this object may cause a fatal error in the simulation.  Really remove it?"
+			 with-yes-button "Okay"
+			 with-no-button "Cancel").
+
+		if result: free self.
+
+  + section "Configuring Physical Properties of the Object"
+
+	+ to set-e to newE (float):
+
+		% Sets the "coefficient of restitution" a value which
+		% determines the elasticity of the object in a collision.
+		% Valid values range from 0.0 to 1.0, with 0.0 representing
+		% a totally inelastic collision (such as a lump of clay)
+		% while 1.0 represents a totally (and unrealistically)
+		% elastic collision (such as a rubber ball).
+
+		e = newE.
+		realSetCollisionProperties(realWorldPointer, e, mu).
+
+	- to set-eT to newET (float):
+		% Deprecated.
+		realSetCollisionProperties(realWorldPointer, e, mu).
+
+	+ to set-mu to newMu (float):
+		% Sets the coefficient of friction to newMu.  mu is a 
+		% parameter controlling friction between two bodies and 
+		% may be any value between 0 and infinity.
+
+		mu = newMu.
+		realSetCollisionProperties(realWorldPointer, e, mu).
+
+  + section "Using Menus"
+
+	+ to add-menu named menuName (string) for-method theMethod (string):
+		% Adds a menu named menuName to the application which will result
+		% in a call to theMethod for the calling instance.
+		% <p>
+		% If the calling instance is the Controller object, then the menu will
+		% become the "main" simulation menu.  Otherwise, the menu will become
+		% a contextual menu associated with the specific object in the simulation.
+		% <p>
+		% Note that unlike the METHOD(handle-collision) which sets the collision
+		% handler for the whole type (class, that is), this method affects only
+		% the instance for which it is called, meaning that each instance of a
+		% certain class may have a different menu.
+
+		newMenu (object).
+
+		newMenu = ((new MenuItem) create-menu named menuName for-object self for-method theMethod).
+		self add-dependency on newMenu.
+		push newMenu onto menus.
+
+		return newMenu.
+
+	+ to add-menu-separator:
+		% Adds a separator menu item--really just an empty menu item.
+
+		newMenu (object).
+
+		newMenu = ((new MenuItem) create-menu named "" for-object self for-method "").
+		self add-dependency on newMenu.
+		push newMenu onto menus.
+
+		return newMenu.
+
+  + section "Using Neighbor Detection"
+
+	+ to get-neighbors:
+		% Returns a list of all real objects in the simulation that are within
+		% the "neighborhood" range of this object in the world.
+
+		return realGetNeighbors(realWorldPointer).
+
+	+ to set-neighborhood-size to size (float):
+		% Used in conjunction with METHOD(get-neighbors), this function will set
+		% the neighborhood size for the current object.
+
+		neighborhoodSize = size.
+		realSetNeighborhoodSize(realWorldPointer, size).
+		
+	+ to get-neighborhood-size:
+		% gets the neighborhood size for the current object.
+		
+		return neighborhoodSize.
+
+  + section "Changing the Appearence of Agents"
+
+	+ to show-bounding-box:
+		% Shows the bounding box for the object.
+
+		realSetBoundingBox(realWorldPointer, 1).
+
+	+ to hide-bounding-box:
+		% Hides the bounding box for the object.  The bounding box is 
+		% hidden by default, so you'll only need this method if you've 
+		% previously enabled them using METHOD(show-axis).
+
+		realSetBoundingBox(realWorldPointer, 0).
+
+	+ to add-line to otherObject (object) with-color theColor = (0, 0, 0) (vector) with-style theStyle = "----------------" (string):
+		% Adds a line to be drawn from this object to otherObject.  The line can be removed 
+		% later using METHOD(remove-line).
+		% <P>
+		% The optional argument theColor specifies the color of the line.  The default
+		% color is the vector (0, 0, 0), black.
+		% <P>
+		% The optional argument theStyle specifies a pattern for the line.  theStyle is a 
+		% string of 16 spaces and/or dashes which specify the line pattern to be drawn.
+		% A dotted line, for example, would use the pattern "- - - - - - - - ".  A thickly
+		% dashed line would use the pattern "--------		".  If no style is given, a 
+		% solid line is drawn. 
+		% <P>
+		% If a line to otherObject already exists, its color and/or style will be updated.
+
+		line (object).
+
+		self remove-line to otherObject.
+
+		line = new Line.
+
+		line connect from self to otherObject with-color theColor with-style theStyle.
+
+		push line onto lines.
+
+	+ to add-dotted-line to otherObject (object) with-color theColor = (0, 0, 0) (vector):
+		% Adds a dotted line to otherObject.  See METHOD(add-line) for more information
+		% on object lines.
+
+		self add-line to otherObject with-color theColor with-style "- - - - - - - - ".
+
+	+ to remove-line to otherObject (object):
+		% Removes the line connecting this object to otherObject.
+	
+		line (object).
+
+		foreach line in lines: {
+			if (line is-linked to otherObject): {
+				free line.
+				return.
+			}
+		}
+
+	+ to remove-all-lines:
+		% Removes all lines connecting this object to other objects.
+
+		free lines.
+		lines = { }.
+
+	+ to show-axis:
+		% Shows the X and Y axes for the object.
+
+		realSetDrawAxis(realWorldPointer, 1).
+
+	+ to hide-axis:
+		% Hides the X and Y axes for the object.  The axes are hidden by
+		% default, so you'll only need this method if you've previously
+		% enabled them using METHOD(show-axis).
+
+		realSetDrawAxis(realWorldPointer, 0).
+
+	+ to show-neighbor-lines:
+		% Draws lines to this objects neighbors (when neighbor checking is
+		% enabled).
+
+		realSetNeighborLines(realWorldPointer, 1).
+
+	+ to hide-neighbor-lines:
+		% Hides lines to this objects neighbors.
+
+		realSetNeighborLines(realWorldPointer, 0).
+
+	+ to make-invisible:
+		% Makes the object invisible.  Can be made visible again later
+		% using the method METHOD(make-visible).
+
+		realSetVisible(realWorldPointer, 0).
+
+	+ to make-visible:
+		% Makes the object visible again (if it has previously been hidden
+		% using METHOD(make-invisible).
+
+		realSetVisible(realWorldPointer, 1).
+
+	+ to get-color:
+		% Returns the color of the object.
+
+		return color.
+
+	+ to set-color to newColor (vector):
+		% Sets the color of this object to newColor.
+
+		color = newColor.
+
+		if realWorldPointer: 
+			realSetColor(realWorldPointer, newColor).
+
+	+ to enable-shadows:
+		% If shadow volumes are enabled (see OBJECT(Control)), enables shadow volumes for this object.
+		% This is the default when shadow volumes have been enabled.
+
+		realSetDrawShadows(realWorldPointer, 1).
+
+	+ to disable-shadows:
+		% If shadow volumes are enabled (see OBJECT(Control)), disables shadow volumes for this object.
+		% This is the default when shadow volumes have been enabled.
+
+		realSetDrawShadows(realWorldPointer, 0).
+
+	- to set-texture to textureNumber (int):
+		% Deprecated -- use METHOD(set-texture-image) instead.
+
+		print "set-texture is deprecated: use set-texture-image instead".
+
+		realSetTexture( realWorldPointer, textureNumber ).
+
+	+ to set-texture-image to textureImage (object):
+		% Changes the texture of this object to textureImage, an instance of 
+		% class OBJECT(Image).  If textureImage is NULL texturing is turned off for 
+		% the object.
+
+		if archiveTextureImage:
+			self remove-dependency on archiveTextureImage.
+		
+		if textureImage: {
+			archiveTextureImage = textureImage.
+			self add-dependency on textureImage.
+			realSetTexture( realWorldPointer, (textureImage get-texture-number) ).
+		} else:
+			realSetTexture( realWorldPointer, 0 ).
+
+	+ to draw-as-point:
+		% Draws the object as a single point.  This is by far the fastest way
+		% to display an agent.  Points can be used to draw upwards of 20,000
+		% agents with a reasonable frame rate, while drawing as many spheres or 
+		% bitmaps would slow down the simulation significantly.
+
+		realSetDrawAsPoint(realWorldPointer, 1).
+
+	+ to set-texture-scale to scaleSize (float):
+		% Changes the "scale" of the texture.  When a texture is applied
+		% over a shape, this value is used to decide how large the texture
+		% will be in terms of breve-world units.  The default value is 16,
+		% meaning that a 16x16 face will have one copy of the textured image.
+		% For smaller objects, this number will have to be decreased, or else
+		% the texture will be too big and will not be visible.
+
+		archiveTextureScaleX = scaleSize.
+		realSetTextureScale(realWorldPointer, scaleSize, scaleSize).
+
+	+ to set-texture-scale-x to scaleSize (float):
+		% Sets the texture scale in the X dimension.  The Y texture scale 
+		% value is unchanged.  See METHOD(set-texture-scale) for more information.
+
+		archiveTextureScaleX = scaleSize.
+		realSetTextureScale(realWorldPointer, scaleSize, archiveTextureScaleY).
+
+	+ to set-texture-scale-y to scaleSize (float):
+		% Sets the texture scale in the Y dimension.  The X texture scale 
+		% value is unchanged.  See METHOD(set-texture-scale) for more information.
+		archiveTextureScaleY = scaleSize.
+		realSetTextureScale(realWorldPointer, archiveTextureScaleX, scaleSize).
+
+	+ to set-bitmap-image to bitmapImage (object):
+		% Changes the bitmap of this object to bitmapImage, an instance of 
+		% class image.  If bitmapImage is NULL, bitmapping is turned off
+		% for the object.
+
+		if archiveBitmapImage:
+			self remove-dependency on archiveBitmapImage.
+
+		if bitmapImage: {
+			archiveBitmapImage = bitmapImage.
+			self add-dependency on bitmapImage.
+			realSetBitmap(realWorldPointer, (bitmapImage get-texture-number) ).
+		} else:
+			realSetBitmap(realWorldPointer, 0 ).
+
+	- to set-bitmap to textureNumber (int):
+		% Deprecated.
+
+		print "set-bitmap is deprecated: use set-bitmap-image instead".
+
+		realSetBitmap(realWorldPointer, textureNumber ).
+
+	+ to set-bitmap-heading to radianAngle (float):
+		% If this object is in 2d bitmap mode, the rotation of the 
+		% bitmap will be set to radianAngle.
+
+		realSetBitmapRotation(realWorldPointer, radianAngle).
+
+	+ to set-bitmap-heading-point towards-vector rotationVector (vector):
+		% If this object is in 2d bitmap mode, the rotation of the 
+		% bitmap will be set to degreeAngle degrees.
+
+		realSetBitmapRotationTowardsVector(realWorldPointer, rotationVector).
+
+	- to set-bitmap-transparency to alphaValue (float):
+		% Sets the transparency to alphaValue, a number between 0.0 
+		% (totally transparent) and 1.0 (fully opaque). 
+
+		realSetAlpha(realWorldPointer, alphaValue).
+
+	+ to set-transparency to alphaValue (float):
+		% Sets the transparency of this object to alphaValue, a number 
+		% between 1.0 (totally opaque) and 0.0 (fully transparent).
+
+		realSetAlpha(realWorldPointer, alphaValue).
+
+	+ to set-lightmap-image to lightmapImage (object):
+		% Sets the object to be displayed using a "lightmap".  A 
+		% lightmap uses the texture specified for an "additive blending"	
+		% effect which yields a lighting effect.
+		% <p>
+		% set-lightmap only has an effect on sphere shapes.  Other 
+		% shapes can be textured, but only spheres can be made into 
+		% lightmaps.
+
+		if archiveLightmapImage:
+			self remove-dependency on archiveLightmapImage.
+
+		if lightmapImage: {
+			archiveLightmapImage = lightmapImage.
+			self add-dependency on lightmapImage.
+			realSetLightmap(realWorldPointer, ( lightmapImage get-texture-number ) ).
+		} else: 
+			realSetLightmap(realWorldPointer, 0 ).
+
+	- to set-lightmap to textureNumber (int):
+		% Deprecated.
+
+		print "set-lightmap is deprecated: use set-lightmap-image instead".
+
+		if textureNumber == 2:
+			self set-lightmap-image to ( new Image load from "images/lightmap.png" ).
+
+		if textureNumber == 3:
+			self set-lightmap-image to ( new Image load from "images/dirtylightmap.png" ).
+
+
+  + section "Getting the Light Exposure of this Mobile Object"
+		
+	+ to get-light-exposure:
+		% When used in conjunction with light exposure detection
+		% (OBJECTMETHOD(Control:enable-light-exposure-detection)), this
+		% method returns the level of light exposure on this object.
+
+		if realWorldPointer: return realGetLightExposure(realWorldPointer).
+		else return 0.
+
++ section "Handling Collisions"
+
+	+ to handle-collisions with-type theType (string) with-method theMethod (string):
+		% Adds a collision handler for this object.  When a collision
+		% occurs between an instance of the this type and theType, the
+		% breve engine will automatically call theMethod of the colliding
+		% instance.
+
+		push { theType, theMethod, 0 } onto collisionHandlerList.
+		addCollisionHandler(self, theType, theMethod).
+
+	+ to ignore-collisions with-type theType (string): 
+		% Instructs the engine to ignore physical collisions with theType objects.
+		% This does not affect collision callbacks specified with METHOD(handle-collisions).
+
+		push { theType, 0, 1 } onto collisionHandlerList.
+		setIgnoreCollisionsWith(self, theType, 1).
+
+	+ to archive:
+		archiveLocation = (self get-location).
+		archiveRotation = (self get-rotation).
+
+		return ( super archive ).
+		
+
+	+ to dearchive:
+		handler (list).
+
+ 		self set-collision-shape to collisionShape.
+		self set-display-shape to displayShape.
+		self move to archiveLocation.
+		self set-rotation-matrix to archiveRotation.
+
+		foreach handler in collisionHandlerList: {
+		 	if handler{1}: addCollisionHandler(self, handler{0}, handler{1}).
+			if handler{2}: setIgnoreCollisionsWith(self, handler{0}, 1).
+		}
+
+		if archiveTextureImage:
+			self set-texture-image to archiveTextureImage.
+
+		if archiveLightmapImage: 
+			self set-lightmap to archiveLightmapImage.
+
+		if archiveBitmapImage: 
+			self set-bitmap-image to archiveBitmapImage.
+
+		self set-texture-scale-x to archiveTextureScaleX.
+		self set-texture-scale-y to archiveTextureScaleY.
+		self set-neighborhood-size to neighborhoodSize.
+		self set-color to color.
+
+		realSetCollisionProperties( realWorldPointer, e, mu ).
+
+		return (super dearchive).
+
++ section "Useful Funtions for Sensors"
+
+	+ to raytrace from-location theLocation (vector) with-direction theDirection (vector):
+		% Computes the vector from theLocation towards theDirection
+		% that hits the shape of this object.
+		% <p>
+		% If the object was not hit vector (0, 0, 0) will be returned.
+		% <p>
+		% The location and direction vector must be given relative to the world's
+		% coordinate frame. 
+
+		return raytrace( realWorldPointer, theLocation, theDirection ).
+}

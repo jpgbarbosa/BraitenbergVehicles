@@ -1,0 +1,89 @@
+<head>
+<title>Abstract : Data</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Data</h2>
+This class is included as part of the file Data.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Data.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ <b>The use of this class is deprecated and will be removed in a future release.</b>. See the section <a href="http://www.spiderland.org/breve/docs/docs/archiving.html">Archiving and Dearchiving</a> of the <b>breve</b> documentation for more details. <p> The now obsolete class description follows. <p> The Data class is a special class that can be saved to disk, loaded in to simulations and otherwise manipulated in ways that other classes cannot.  Because of the features of this class, it may only contain variables of type int, float or vector. <p> Previous versions of <b>breve</b> used a binary format for saving and loading data objects--the current version saves as XML files.  A method for loading binary objects from previous versions still exists <a href="#load-from-file">load-from-file</a>, but its use is deprecated.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#copy-contents">copy-contents</a></li>
+<li><a href="#load-from-xml">load-from-xml</a></li>
+<li><a href="#load-with-dialog">load-with-dialog</a></li>
+<li><a href="#save-as-xml">save-as-xml</a></li>
+<li><a href="#save-with-dialog">save-with-dialog</a></li>
+<li><a href="#send">send</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="copy-contents"><font size=+1><tt>copy-contents to <i>otherInstance</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this data object to <i>otherInstance</i>.  The instances must be of the same type. <p>
+</blockquote>
+<hr>
+<a name="load-from-xml"><font size=+1><tt>load-from-xml file <i>theFile</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Loads the contents of saved XML file <i>theFile</i> into this object.  The XML file must contain a previously archived instance of the same class (archived using <a href="#save-as-xml">save-as-xml</a>). <p>
+</blockquote>
+<hr>
+<a name="load-with-dialog"><font size=+1><tt>load-with-dialog </tt></font><p></a>
+<blockquote>
+<p> Presents the user with a save dialog box in order to get a filename, and then loads the contents of the specified filename into this instance.  The chosen file must contain a previously saved instance of the same object. <p> <b>Previous versions of <b>breve</b> used a binary save of the object.  The current version loads files saved in the XML file format.</b> <p>
+</blockquote>
+<hr>
+<a name="save-as-xml"><font size=+1><tt>save-as-xml file <i>theFile</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Saves the contents of this instance to an XML file called <i>theFile</i>.  It can later be loaded back into another instance of the same class using <a href="#load-from-xml">load-from-xml</a>.<p>
+</blockquote>
+<hr>
+<a name="save-with-dialog"><font size=+1><tt>save-with-dialog </tt></font><p></a>
+<blockquote>
+<p> Presents the user with a save dialog box in order to get a filename, and then saves the contents of this instance to the specified filename. <p> <b>Previous versions of <b>breve</b> used a binary save of the object.  The current version saves using an XML file format.</b> <p>
+</blockquote>
+<hr>
+<a name="send"><font size=+1><tt>send to <i>theHost</i> (string) on-port <i>thePort</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Used in conjunction with <a href="NetworkServer.html">NetworkServer</a> to send the contents of this object over the network. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:21 2008</i></font>

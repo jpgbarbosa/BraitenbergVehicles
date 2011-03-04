@@ -1,0 +1,34 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Finding the Closest Object</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch07.html" title="Chapter 7. Interactions Between Agents"><link rel="prev" href="ch07s03.html" title="Finding Neighboring Objects"><link rel="next" href="ch07s05.html" title="Triggering Events Using Notifications"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Finding the Closest Object</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s03.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 7. Interactions Between Agents</th><td width="20%" align="right"> <a accesskey="n" href="ch07s05.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2721"></a>Finding the Closest Object</h2></div></div></div><p> Finding the
+        closest object can be slightly more complicated than simply getting the
+        neighbors, because it's possible that the closest object is not within
+        an object's neighborhood. However, assuming that some number of
+        neighbors are found for your agent, the following code should help:
+      </p><pre class="programlisting">
++ to find-closest-neighbor:
+        closestNeighbor (object).
+        distance, minDistance (float).
+
+        # start with an arbitrarily high distance
+
+        minDistance = 1000000.
+
+        foreach i in (self get-neighbors): {
+                distance = | (self get-location) - (i get-location) |.
+
+                if distance &lt; minDistance: {
+                        minDistance = distance.
+                        closestNeighbor = i.
+                }
+        }
+
+        return closestNeighbor.
+</pre><p>
+        If there are no neighbors within the local neighborhood then it is
+        sometimes necessary to do a search of all agents in the simulation. To
+        do this, the code above can be modified by using an <code class="literal">all</code> statement (<a class="xref" href="ch07s06.html" title="Finding All Objects of a Given Type">the section called &#8220;Finding All Objects of a Given Type&#8221;</a>) in place of
+        the "self get-neighbors" expression:
+      </p><pre class="programlisting">
+        foreach i in (all "Reals") {
+                # code to select the closest neighbor
+        }
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s03.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch07s05.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Finding Neighboring Objects </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Triggering Events Using Notifications</td></tr></table></div></body></html>

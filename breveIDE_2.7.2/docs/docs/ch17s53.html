@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>PushGP</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs"><link rel="prev" href="ch17s52.html" title="PushDiversityPool"><link rel="next" href="ch17s54.html" title="PushGPIndividual"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">PushGP</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s52.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 17. The Built-In breve Class APIs</th><td width="20%" align="right"> <a accesskey="n" href="ch17s54.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2848"></a>PushGP</h2></div></div></div><p>
+      Description for class <span class="bold"><strong>PushGP</strong></span>:
+    </p><div class="blockquote"><blockquote class="blockquote"><p>
+      This class is a special control class used to implement experiments using
+      the Push Genetic Programming (PushGP) system. PushGP is a system which
+      uses genetic programming and the Push programming language to attempt to
+      evolve solutions to a wide variety of problems. For more information on
+      Push and PushGP, see the class PushInterpreter.
+      </p><p>
+        This class is appropriate for evolving Push programs which are only run
+        once per fitness case.
+      </p><p>
+        To implement a PushGP experiment you will need to setup a PushGP object
+        which overrides two methods: setup-fitness-test, which sets up a
+        fitness test and compute-error, which is used to compute the fitness of
+        an individual.
+      </p><p>
+        Additionally, other methods in this class are useful for configuring
+        the genetic programming environment and a variety of parameters
+        including population size, mutation rate, crossover rate, and the Push
+        language interpreter set.
+      </p><p>
+        Finally, you may also wish to add custom instructions to the Push
+        interpreter objects which manipulate data or trigger actions in the
+        simulated world. The Push interpreter can be retrieved using the method
+        get-interpreter, and adding instructions is documented in
+        PushInterpreter.
+      </p></blockquote></div><p>
+      Inherits from <span class="bold"><strong>Object</strong></span></p><p>
+      Full API documentation for the class <span class="bold"><strong>PushGP</strong></span>:
+    </p><div class="itemizedlist"><ul type="disc"><li><p><a class="ulink" href="../steveclasses/PushGP.html" target="_top">steve language
+        documentation</a></p></li><li><p><a class="ulink" href="../pythonclasses/PushGP.html" target="_top">Python language
+        documentation</a></p></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s52.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch17.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s54.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">PushDiversityPool </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> PushGPIndividual</td></tr></table></div></body></html>

@@ -1,0 +1,83 @@
+<head>
+<title>NeuralNetwork : FFNetwork</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="NeuralNetwork.html">NeuralNetwork</a> : FFNetwork</h2>
+This class is included as part of the file SFFNetwork.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use SFFNetwork.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A new experimental class for simple feed-forward neural networks. This class is now derived from NeuralNetwork.tz which is the base of a complete set of neural network classes.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#add-layer">add-layer</a></li>
+<li><a href="#get-output">get-output</a></li>
+<li><a href="#get-weight">get-weight</a></li>
+<li><a href="#run-with">run-with</a></li>
+<li><a href="#set-weight">set-weight</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-layer"><font size=+1><tt>add-layer with-neuron-count <i>count</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Adds a layer to the output end of the neural network, with <i>count</i> neurons.  The first layer added serves as the input layer, and then subsequent layers serve as hidden or output layers. <p> To create a network with one hidden layer, for example, you would first call <a href="#add-layer">add-layer</a> for the input layer, then the hidden layer, then the output layer. <p>
+</blockquote>
+<hr>
+<a name="get-output"><font size=+1><tt>get-output at-position <i>position</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the value at index <i>position</i> of the output layer.  This assumes that <a href="#run-with">run-with</a> has already been called to actually run the neural network. <p>
+</blockquote>
+<hr>
+<a name="get-weight"><font size=+1><tt>get-weight on-layer <i>theLayer</i> (int) from-node <i>fn</i> (int) to-node <i>tn</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the input to the node number <i>tn</i> on layer <i>theLayer</i>, coming from node number <i>fn</i> on layer number <i>theLayer</i> - 1 to weight.  Normally you wouldn't need to use this method, since the method <a href="#get-output">get-output</a> is the preferred way to retrieve network output. <p>
+</blockquote>
+<hr>
+<a name="run-with"><font size=+1><tt>run-with inputs <i>inputList</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Sets the inputs of the neural network to the values in <i>inputList</i>, and runs the network.  Output values can then be retrieved with <a href="#get-output">get-output</a>. <p>
+</blockquote>
+<hr>
+<a name="set-weight"><font size=+1><tt>set-weight to-layer <i>theLayer</i> (int) from-node <i>fn</i> (int) to-node <i>tn</i> (int) to-weight <i>weight</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the input to the node number <i>tn</i> on layer <i>theLayer</i>, coming from node number <i>fn</i> on layer number <i>theLayer</i> - 1 to <i>weight</i>. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

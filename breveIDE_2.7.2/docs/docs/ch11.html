@@ -1,0 +1,56 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 11. Archiving, Dearchiving and Networking Objects and Simulations</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="prev" href="ch10s02.html" title="Saving Snapshots"><link rel="next" href="ch11s02.html" title="Saving and Loading Individual Objects"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 11. Archiving, Dearchiving and Networking Objects and Simulations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch11s02.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="node-2747"></a>Chapter 11. Archiving, Dearchiving and Networking Objects and Simulations</h2></div></div></div><p> breve allows simulations and
+        individual objects within simulations to be archived into
+        human-readable XML files, and then later extracted. The XML
+        archive/dearchive process applies both to saving simulation objects to
+        files and to sending objects over a network. Both techniques require
+        object encoding and decoding, and the discussion in this chapter
+        applies to both.
+      </p><p>
+        This chapter first describes how individual objects can be archived and
+        dearchived (<a class="xref" href="ch11s02.html" title="Saving and Loading Individual Objects">the section called &#8220;Saving and Loading Individual Objects&#8221;</a>) and then
+        how entire simulations can be archived and dearchived (<a class="xref" href="ch11s03.html" title="Saving and Loading the Entire State of a Simulation">the section called &#8220;Saving and Loading the Entire State of a Simulation&#8221;</a>).
+        Though this simulation discusses archiving to and from files, the same
+        techniques discussed in this section are used for <a class="ulink" href="http://test.spiderland.org/2753" target="_top">networking</a>.
+      </p><p><span class="bold"><strong>Important note:</strong></span> archiving and dearchiving is currently
+        <span class="emphasis"><em>only</em></span> supported in the <a class="ulink" href="http://test.spiderland.org/2632" target="_top">steve language frontend</a>, not the
+        <a class="ulink" href="http://test.spiderland.org/1504" target="_top">Python language frontend</a>.
+        Support for Python archiving and dearchiving is forthcoming in a future
+        breve release.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2749"></a>Methods Called for Objects During Archiving and Dearchiving</h2></div></div></div><p>
+        During dearchiving, the following steve language types are
+        automatically saved and restored: <code class="literal">int, float,
+        string, list, hash, data</code>. The <code class="literal">pointer</code> type is <span class="emphasis"><em>not</em></span> automatically restored.
+        The <code class="literal">object</code> type is restored only if the
+        other object was dearchived from the same archive. If an object to be
+        archived contains only the types which are automatically saved and
+        restored, no further action is required to prepare the objects for
+        saving and loading.
+      </p>For objects which do contain either <code class="function">pointer</code> or <code class="function">object</code> types,
+      data will need to be carefully encoded and decoded. The special methods
+      <code class="function">archive</code> and <code class="function">dearchive</code> are called automatically during archiving and
+      dearchiving respectively. The "archive" method should be implemented, if
+      necessary, to prepare a user object for archiving. The "dearchive" method
+      should be implemented, if necessary, after an object has been archived to
+      prepare it for being loaded into a simulation.
+      <p>
+        For many users, these methods are not required and should not be
+        implemented. If they are implemented, however, they <span class="emphasis"><em>must return 1 to indicate success</em></span> and unless
+        the methods are specifically intended to override superclass behaviors,
+        they <span class="emphasis"><em>must call the superclass
+        implementation</em></span>. In most cases, it is desirable to return
+        the same value as the superclass implementation so that errors are
+        handled correctly. Example <code class="literal">archive</code> and
+        <code class="literal">dearchive</code> methods are shown below. These
+        methods do no special preparation for archiving and dearchiving, but
+        instead fulfill the requirements listed above and print a message.
+      </p><pre class="programlisting">
++ to archive:
+        print "Archiving $self...".
+
+        return (super archive).
+
++ to dearchive:
+        print "Dearchiving $self...".
+
+        return (super dearchive).
+</pre></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch11s02.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Saving Snapshots </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Saving and Loading Individual Objects</td></tr></table></div></body></html>

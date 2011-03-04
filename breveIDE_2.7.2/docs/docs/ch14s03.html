@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Embedding breve In Another Program</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch14.html" title="Chapter 14. The breve Source Code"><link rel="prev" href="ch14s02.html" title="Adding a frontend language to the breve engine: the breve object API"><link rel="next" href="ch15.html" title='Chapter 15. "Push": a Language for Evolutionary Computation Integrated With breve'></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Embedding breve In Another Program</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch14s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 14. The breve Source Code</th><td width="20%" align="right"> <a accesskey="n" href="ch15.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2794"></a>Embedding breve In Another Program</h2></div></div></div><p>
+        To implement a custom application frontend, or to use breve simulations
+        as part of another program, you'll need to familiarize yourself with
+        functions relating to the breve engine structure <code class="literal">brEngine</code>.
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              Create and initialize the breve engine (<code class="literal">brEngineNew</code>)
+            </p><p>
+              Call <code class="literal">brEngineNew()</code> to get a breve
+              engine. You may optionally pass in command-line arguments using
+              the alternative function <code class="literal">brEngineNewWithArguments( argc, argv )</code>. After
+              creating the engine, initialize the standard frontend languages
+              using <code class="literal">brInitFrontendLanguages( engine
+              )</code></p><pre class="programlisting">
+engine = brEngineNew();
+brInitFrontendLanguages( engine );
+</pre></li><li><p>
+              Add breve file search paths using <code class="literal">brAddSearchPath( engine, path )</code>. The search
+              paths must be properly initialized so that breve can locate the
+              standard class files.
+            </p><pre class="programlisting">
+brAddSearchPath( engine, "lib/classes/breve" );
+brAddSearchPath( engine, "lib/classes/mybreveclasses" );
+</pre></li><li><p>
+              Start a simulation using <code class="literal">brLoadSimulation</code>.
+            </p><pre class="programlisting">
+brLoadSimulation( engine, simulationText, simulationFilename );
+</pre></li><li><p>
+              Iterate the breve engine (<code class="literal">brEngineIterate</code>) repeatedly in your program's
+              execution loop.
+            </p><pre class="programlisting">
+brEngineIterate( engine );
+</pre></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch14s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch14.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Adding a frontend language to the breve engine: the breve object API </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 15. "Push": a Language for Evolutionary Computation Integrated With breve</td></tr></table></div></body></html>

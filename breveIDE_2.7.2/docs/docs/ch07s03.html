@@ -1,0 +1,43 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Finding Neighboring Objects</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch07.html" title="Chapter 7. Interactions Between Agents"><link rel="prev" href="ch07s02.html" title="Triggering Events When Agents Collide"><link rel="next" href="ch07s04.html" title="Finding the Closest Object"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Finding Neighboring Objects</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 7. Interactions Between Agents</th><td width="20%" align="right"> <a accesskey="n" href="ch07s04.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2720"></a>Finding Neighboring Objects</h2></div></div></div><p> The slow way to find neighboring
+        objects is to look at every object in the simulation and determine
+        whether they are close enough to be considered neighbors. To repeat
+        this process for N objects that we want to keep track of, N*N checks
+        are required for each iteration. This quickly becomes an inefficient
+        bottleneck.
+      </p><p>
+        breve offers a solution to this problem in which the time required to
+        find neighbors grows roughly linearly with the number of the objects in
+        the simulation. The feature is referred to as <span class="emphasis"><em>neighbor checking</em></span>. Neighbor checking is done in three
+        steps:
+      </p><div class="orderedlist"><ol type="1"><li><p>
+              Set each agent's "neighborhood size".
+            </p></li><li><p>
+              Ask the engine to update the neighbors at each iteration.
+            </p></li><li><p>
+              Retrieve each agents list of neighbors at each timestep.
+            </p></li></ol></div><p>
+        The neighborhood size specifies the distance that each agent will look
+        in order to find any neighbors. The distance between two objects is, in
+        this case, defined as the distance between the center-points of the
+        objects. Setting the neighborhood size is typically done during object
+        initialization, but it may be changed at any time during the
+        simulation. Neighborhood size is set using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Real.html#set-neighborhood-size" target="_top">set-neighborhood-size</a> in <a class="ulink" href="http://www.spiderland.org/documentation/classes/Real.html" target="_top">Real.tz</a>. Real is the parent class of both <a class="ulink" href="http://www.spiderland.org/documentation/classes/Stationary.html" target="_top">Stationary</a> and <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html" target="_top">Mobile</a> objects, so the method can be used with these classes
+        as well.
+      </p><p>
+        The second step, updating the neighbors, is done with a call to the
+        method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">update-neighbors</a> in the iterate method of your simulation's
+        controller object.
+      </p><p>
+        The final step of retrieving the neighbors is done using the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Real.html#get-neighbors" target="_top">get-neighbors</a> method of <a class="ulink" href="http://www.spiderland.org/documentation/classes/Real.html" target="_top">Real.tz</a>. This method returns the neighbors as a <code class="literal">list</code>. For example, the following iterate method would
+        print out a list of the agent's neighbors at each time step, assuming
+        that the neighborhood size has been set and that the neighbors are
+        being updated:
+      </p><pre class="programlisting">
++ to iterate:
+        neighbors (list).
+        item (object).
+
+        neighbors = (self get-neighbors).
+
+        foreach item in neighbors: print "$item is in my neighborhood.".
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch07s04.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Triggering Events When Agents Collide </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Finding the Closest Object</td></tr></table></div></body></html>

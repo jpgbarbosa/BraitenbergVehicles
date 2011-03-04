@@ -1,0 +1,265 @@
+<head>
+<title>Object : GeneticAlgorithm</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : GeneticAlgorithm</h2>
+This class is included as part of the file GeneticAlgorithm.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use GeneticAlgorithm.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ The GeneticAlgorithm class allows you to set up a genetic algorithm, in which strategies can be evolved to solve a wide variety of problems. <P> To run a genetic algorithm, you will need to a create custom subclass of this object, GeneticAlgorithm, and of its companion object <a href="GeneticProgrammingIndividual.html">GeneticProgrammingIndividual</a>. <P> Your subclass of GeneticAlgorithm must implement two important methods: <a href="#start-fitness-test">start-fitness-test</a> and <a href="#end-fitness-test">end-fitness-test</a>.  These methods are automatically called at the beginning and end of the fitness tests respectively.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Getting and Setting Parameters for the Genetic Algorithm</B><UL>
+<li><a href="#get-best-fitness">get-best-fitness</a></li>
+<li><a href="#get-best-individual">get-best-individual</a></li>
+<li><a href="#get-crossover-percent">get-crossover-percent</a></li>
+<li><a href="#get-current-individual">get-current-individual</a></li>
+<li><a href="#get-current-individual-index">get-current-individual-index</a></li>
+<li><a href="#get-fitness-test-duration">get-fitness-test-duration</a></li>
+<li><a href="#get-generation">get-generation</a></li>
+<li><a href="#get-generation-limit">get-generation-limit</a></li>
+<li><a href="#get-migration-percent">get-migration-percent</a></li>
+<li><a href="#get-mutation-percent">get-mutation-percent</a></li>
+<li><a href="#get-population-size">get-population-size</a></li>
+<li><a href="#get-randomize-percent">get-randomize-percent</a></li>
+<li><a href="#get-tournament-size">get-tournament-size</a></li>
+<li><a href="#set-crossover-percent">set-crossover-percent</a></li>
+<li><a href="#set-fitness-test-duration">set-fitness-test-duration</a></li>
+<li><a href="#set-generation-limit">set-generation-limit</a></li>
+<li><a href="#set-individual-class">set-individual-class</a></li>
+<li><a href="#set-migration-hosts">set-migration-hosts</a></li>
+<li><a href="#set-migration-percent">set-migration-percent</a></li>
+<li><a href="#set-migration-port">set-migration-port</a></li>
+<li><a href="#set-mutation-percent">set-mutation-percent</a></li>
+<li><a href="#set-population-size">set-population-size</a></li>
+<li><a href="#set-randomize-percent">set-randomize-percent</a></li>
+<li><a href="#set-seed-individual">set-seed-individual</a></li>
+<li><a href="#set-tournament-size">set-tournament-size</a></li>
+</UL>
+<P><B>Methods Used Internally by the Genetic Algorithm</B><UL>
+<li><a href="#switch-individual">switch-individual</a></li>
+<li><a href="#tournament-select">tournament-select</a></li>
+</UL>
+<P><B>Methods for Cluster Migration</B><UL>
+<li><a href="#accept-upload">accept-upload</a></li>
+</UL>
+<P><B>Methods to Override in Custom Subclasses</B><UL>
+<li><a href="#end-fitness-test">end-fitness-test</a></li>
+<li><a href="#end-generation">end-generation</a></li>
+<li><a href="#examine">examine</a></li>
+<li><a href="#prepare-for-generation">prepare-for-generation</a></li>
+<li><a href="#report">report</a></li>
+<li><a href="#start-fitness-test">start-fitness-test</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="accept-upload"><font size=+1><tt></tt></font><p></a>
+<blockquote>
+<p> <p>
+</blockquote>
+<hr>
+<a name="end-fitness-test"><font size=+1><tt>end-fitness-test of <i>individual</i> (object) </tt></font><p></a>
+<blockquote>
+<p> In this method, you should perform any cleanup neccessary when the fitness test ends.  You should also make sure that the <i>individual</i>'s fitness value is set using <a href="GeneticAlgorithmIndividual.html#set-fitness">set-fitness (GeneticAlgorithmIndividual)</a>. <p>
+</blockquote>
+<hr>
+<a name="end-generation"><font size=+1><tt>end-generation number <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> This method is called right when the generation is finished, before any of the reproduction takes place.  This method provides an opportunity to examine the entire population of the generation after all fitness tests are run, and before the individuals are possibly destroyed through reproduction. <p>
+</blockquote>
+<hr>
+<a name="examine"><font size=+1><tt>examine individual <i>currentIndividual</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Called automatically during each generation's report, this method examines and outputs information about an individual in the population.  The default implementation simply prints out the object variable, but you may override this method to print out more information about the individual. <p>
+</blockquote>
+<hr>
+<a name="get-best-fitness"><font size=+1><tt>get-best-fitness </tt></font><p></a>
+<blockquote>
+<p> Returns the best fitness seen so far. <p>
+</blockquote>
+<hr>
+<a name="get-best-individual"><font size=+1><tt>get-best-individual </tt></font><p></a>
+<blockquote>
+<p> Returns the best active individual.  Note that at the end of each generation any individual, including the best, may be deleted and replaced with a new one, so be careful when this method is called and how it is used. <p>
+</blockquote>
+<hr>
+<a name="get-crossover-percent"><font size=+1><tt>get-crossover-percent </tt></font><p></a>
+<blockquote>
+<p> Returns the probability of crossover during reproduction. <p>
+</blockquote>
+<hr>
+<a name="get-current-individual"><font size=+1><tt>get-current-individual </tt></font><p></a>
+<blockquote>
+<p> Returns the current GeneticAlgorithmIndividual subclass instance being evaluated. See also <a href="#get-current-individual-index">get-current-individual-index</a>. <p>
+</blockquote>
+<hr>
+<a name="get-current-individual-index"><font size=+1><tt>get-current-individual-index </tt></font><p></a>
+<blockquote>
+<p> Returns the index of the individual currently being tested.  Returns -1 before any fitness tests have been run. See also <a href="#get-current-individual">get-current-individual</a>. <p>
+</blockquote>
+<hr>
+<a name="get-fitness-test-duration"><font size=+1><tt>get-fitness-test-duration </tt></font><p></a>
+<blockquote>
+<p> Returns the duration of a single fitness test.  This value can be set with the method <a href="#set-test-duration">set-test-duration</a>.  The default value is 20. <p>
+</blockquote>
+<hr>
+<a name="get-generation"><font size=+1><tt>get-generation </tt></font><p></a>
+<blockquote>
+<p> Returns the current generation.  The generation count begins at 0. <p>
+</blockquote>
+<hr>
+<a name="get-generation-limit"><font size=+1><tt>get-generation-limit </tt></font><p></a>
+<blockquote>
+<p> Returns the generation limit.  See <a href="#get-generation-limit">get-generation-limit</a> for details. <p>
+</blockquote>
+<hr>
+<a name="get-migration-percent"><font size=+1><tt></tt></font><p></a>
+<blockquote>
+<p> <p>
+</blockquote>
+<hr>
+<a name="get-mutation-percent"><font size=+1><tt>get-mutation-percent </tt></font><p></a>
+<blockquote>
+<p> Returns the percent probability of mutation during reproduction. The default value is 75%. <p>
+</blockquote>
+<hr>
+<a name="get-population-size"><font size=+1><tt>get-population-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of the population.  The default value is 30, and can be set with <a href="#set-population-size">set-population-size</a>. <p>
+</blockquote>
+<hr>
+<a name="get-randomize-percent"><font size=+1><tt>get-randomize-percent </tt></font><p></a>
+<blockquote>
+<p> Returns the percent probability of a new random individual during reproduction. The default value is 5%. <p>
+</blockquote>
+<hr>
+<a name="get-tournament-size"><font size=+1><tt>get-tournament-size </tt></font><p></a>
+<blockquote>
+<p> Returns the tournament size.  The tournament size specifies how many individuals are considered in a single selection "tournament". The larger the tournament size, the more competative selection becomes. The tournament size can be set with <a href="#set-tournament-size">set-tournament-size</a>. The default value is 5. <p>
+</blockquote>
+<hr>
+<a name="prepare-for-generation"><font size=+1><tt>prepare-for-generation number <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> This method is called when a generation is setup.  The default implementation does nothing, but the method may be overriden in order to carry out any preparations necessary for a new generation.<p>
+</blockquote>
+<hr>
+<a name="report"><font size=+1><tt>report at-generation <i>generation</i> (int) with-best-individual <i>bestIndividual</i> (object) with-average-fitness <i>fitness</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Prints out a report of the progress at each <i>generation</i>, with the most fit object passed in as <i>bestIndividual</i>.  The default implementation of this method simply prints out the <i>generation</i> number, best <i>fitness</i> and calls <a href="#examine">examine</a> on the best individual, but you may override the method to print out any other desired information. <p>
+</blockquote>
+<hr>
+<a name="set-crossover-percent"><font size=+1><tt>set-crossover-percent to <i>percent</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the probability of crossover to <i>percent</i>%.  This specifies the approximate percentage of agents to be generated through crossover during reproduction.  Crossover is not enabled by default, so the default value is 0%. <p>
+</blockquote>
+<hr>
+<a name="set-fitness-test-duration"><font size=+1><tt>set-fitness-test-duration to <i>duration</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the <i>duration</i> of a single fitness test.  Specifies that a single individual should be allowed to run for <i>duration</i> simulated seconds before assessing its fitness and switching to the next individual. The default value is 20. <p>
+</blockquote>
+<hr>
+<a name="set-generation-limit"><font size=+1><tt>set-generation-limit to <i>newLimit</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the generation limit to <i>newLimit</i>.  The simulation will end after <i>newLimit</i> generations have passed.  If <i>newLimit</i> is 0, then the generation limit is disabled. <p>
+</blockquote>
+<hr>
+<a name="set-individual-class"><font size=+1><tt>set-individual-class to <i>className</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Call this method to specify the class representing an individual in your genetic algorithm.  <i>className</i> must be a string representing a subclass of <a href="GeneticAlgorithmIndividual.html">GeneticAlgorithmIndividual</a>. <p>
+</blockquote>
+<hr>
+<a name="set-migration-hosts"><font size=+1><tt>set-migration-hosts to <i>hosts</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Sets a list of migration <i>hosts</i> for this object.  This should be a list of strings containing hostnames of other machines running a genetic algorithm with the same simulation. <p>
+</blockquote>
+<hr>
+<a name="set-migration-percent"><font size=+1><tt>set-migration-percent to <i>percent</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the probability of migration to <i>percent</i>%.  This specifies the approximate percentage that individuals will migrate to another host during reproduction, if migration is enabled and migration hosts are specified using <a href="#set-migration-hosts">set-migration-hosts</a>. <p>
+</blockquote>
+<hr>
+<a name="set-migration-port"><font size=+1><tt>set-migration-port to <i>port</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the <i>port</i> on which migration should occur.  The default value of 59142 typically does not need to be changed. <p>
+</blockquote>
+<hr>
+<a name="set-mutation-percent"><font size=+1><tt>set-mutation-percent to <i>percent</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the probability of mutation to <i>percent</i>%.  This specifies the approximate percentage of agents to be generated through mutation. The default value is 75%. <p>
+</blockquote>
+<hr>
+<a name="set-population-size"><font size=+1><tt>set-population-size to <i>size</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the number of individuals in the population to <i>size</i>. <p>
+</blockquote>
+<hr>
+<a name="set-randomize-percent"><font size=+1><tt>set-randomize-percent to <i>percent</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the probability of creating a new random individual to <i>percent</i>%. The default value is 5%. <p>
+</blockquote>
+<hr>
+<a name="set-seed-individual"><font size=+1><tt>set-seed-individual to <i>theSeed</i> (object) </tt></font><p></a>
+<blockquote>
+<p> The seed individual is used to start the genetic algorithm at a specfic location in the search space by using the seed individual's paramters as a starting point. <p>
+</blockquote>
+<hr>
+<a name="set-tournament-size"><font size=+1><tt>set-tournament-size to <i>tsize</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the tournament size to <i>tsize</i>.  The tournament size specifies how many individuals are considered in a single selection "tournament". The larger the tournament size, the more competative selection becomes. The default value is 5. <p>
+</blockquote>
+<hr>
+<a name="start-fitness-test"><font size=+1><tt>start-fitness-test of <i>individual</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Implement this method to perform any setup necessary when the fitness test begins. <p>
+</blockquote>
+<hr>
+<a name="switch-individual"><font size=+1><tt>switch-individual </tt></font><p></a>
+<blockquote>
+<p> Switches to the next indivisual <p>
+</blockquote>
+<hr>
+<a name="tournament-select"><font size=+1><tt></tt></font><p></a>
+<blockquote>
+<p> <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

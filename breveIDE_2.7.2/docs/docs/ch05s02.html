@@ -1,0 +1,17 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Changing the Appearance of Agents</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch05.html" title="Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication"><link rel="prev" href="ch05.html" title="Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication"><link rel="next" href="ch05s03.html" title="Moving Agents Around the 3D World"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Changing the Appearance of Agents</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication</th><td width="20%" align="right"> <a accesskey="n" href="ch05s03.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2700"></a>Changing the Appearance of Agents</h2></div></div></div><p>
+        There are a number of ways to customize the appearance of an agent. As
+        mentioned in the previous section, you can manipulate the size and
+        shapes of objects using the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Shape.html" target="_top">Shape</a> and its subclasses.
+      </p><p> To set the color of an
+        agent, use the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Real.html#set-color" target="_top">set-color</a> in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Real.html" target="_top">Real</a>. The method expects a vector color where the three
+        values represent red, green and blue intensities on a scale from 0.0 to
+        1.0. For example:
+      </p><pre class="programlisting">
+# set the color to red = 0, green = 1, blue = 0.
+
+self set-color to (0.0, 1.0, 0.0).
+</pre><p>
+        Objects can also be textured, represented as images or even as
+        translucent glowing blobs called "lightmaps". All of these techniques
+        are covered in detail in the chapter on Graphics and Sound (<a class="xref" href="ch06.html" title="Chapter 6. Graphics and Sound">Chapter 6</a>).
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05s03.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Moving Agents Around the 3D World</td></tr></table></div></body></html>

@@ -1,0 +1,16 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Scheduling Events for a Specific Time</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch05.html" title="Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication"><link rel="prev" href="ch05s03.html" title="Moving Agents Around the 3D World"><link rel="next" href="ch06.html" title="Chapter 6. Graphics and Sound"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Scheduling Events for a Specific Time</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s03.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2702"></a>Scheduling Events for a Specific Time</h2></div></div></div><p> Events can be scheduled for a
+        specific time for any object using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Object.html#schedule" target="_top">schedule</a> in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Object.html" target="_top">Object</a>:
+      </p><pre class="programlisting">
+# call a method after the simulation clock hits 100.0...
+
+self schedule method-call "sing-and-dance" at-time 100.0.
+</pre><p>
+        It is often desirable to trigger a method call not for a specific
+        simulation time, but for an offset relative to the current time (for
+        example, "20 seconds from now"). This can be done with the help of the
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#get-time" target="_top">get-time</a> method in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control</a>:
+      </p><pre class="programlisting">
+# call a method 100.0 seconds from now...
+
+self schedule method-call "sing-and-dance" at-time ((controller get-time) + 100.0).
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s03.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Moving Agents Around the 3D World </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 6. Graphics and Sound</td></tr></table></div></body></html>

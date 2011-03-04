@@ -1,0 +1,145 @@
+<head>
+<title>Abstract : Camera</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Camera</h2>
+This class is included as part of the file Camera.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Camera.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Summary: creates a new rendering perspective in the simulated world. <P> The Camera class is used to set up a viewing perspective in a simulation. Creating a new camera object places a viewing area with the new camera perspective in the main viewing window. <P> See the <a href="Image.html">Image</a> class to read data from a Camera (or from the main simulation window) into a pixel buffer.  This can be useful for implementing vision algorithms.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Configuring the Camera</B><UL>
+<li><a href="#disable-smooth-drawing">disable-smooth-drawing</a></li>
+<li><a href="#enable-smooth-drawing">enable-smooth-drawing</a></li>
+</UL>
+<P><B>Enabling and Disabling the Camera</B><UL>
+<li><a href="#disable">disable</a></li>
+<li><a href="#enable">enable</a></li>
+</UL>
+<P><B>Enabling and Disabling Text in the Camera's Display</B><UL>
+<li><a href="#disable-text">disable-text</a></li>
+<li><a href="#enable-text">enable-text</a></li>
+</UL>
+<P><B>Changing the Size, Position and Perspective of the Viewing Window</B><UL>
+<li><a href="#get-height">get-height</a></li>
+<li><a href="#get-rotation">get-rotation</a></li>
+<li><a href="#get-width">get-width</a></li>
+<li><a href="#look">look</a></li>
+<li><a href="#set-position">set-position</a></li>
+<li><a href="#set-rotation">set-rotation</a></li>
+<li><a href="#set-size">set-size</a></li>
+<li><a href="#set-z-clip">set-z-clip</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="disable"><font size=+1><tt>disable </tt></font><p></a>
+<blockquote>
+<p> Disables this camera.  The view from this camera will not be updated or drawn to the viewing window. <p>
+</blockquote>
+<hr>
+<a name="disable-smooth-drawing"><font size=+1><tt>disable-smooth-drawing </tt></font><p></a>
+<blockquote>
+<p> Disable smooth drawing for the main camera. See <a href="#enable-smooth-drawing">enable-smooth-drawing</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="disable-text"><font size=+1><tt>disable-text </tt></font><p></a>
+<blockquote>
+<p> Disables text for this camera. <p>
+</blockquote>
+<hr>
+<a name="enable"><font size=+1><tt>enable </tt></font><p></a>
+<blockquote>
+<p> Enables the camera.  The view from this camera will be updated and drawn to the viewing window after each iteration. <p>
+</blockquote>
+<hr>
+<a name="enable-smooth-drawing"><font size=+1><tt>enable-smooth-drawing </tt></font><p></a>
+<blockquote>
+<p> Enable smooth drawing for the camera.  Smooth drawing enables a smoother blending of colors, textures and lighting.  This feature is especially noticeable when dealing with spheres or large objects. <p> The disadvantage of smooth drawing is a potential performance hit. The degree of this performance hit depends on the number of polygons in the scene.  If speed is an issue, it is often best to disable both lighting and smooth drawing. <p>
+</blockquote>
+<hr>
+<a name="enable-text"><font size=+1><tt>enable-text </tt></font><p></a>
+<blockquote>
+<p> Enables text for this camera. <p>
+</blockquote>
+<hr>
+<a name="get-height"><font size=+1><tt>get-height </tt></font><p></a>
+<blockquote>
+<p> Returns the current camera width. <p>
+</blockquote>
+<hr>
+<a name="get-rotation"><font size=+1><tt>get-rotation </tt></font><p></a>
+<blockquote>
+<p> Returns a vector containing the rotation of the camera about the X- and Y-axes return cameraGetRotation(cameraPointer). <p>
+</blockquote>
+<hr>
+<a name="get-width"><font size=+1><tt>get-width </tt></font><p></a>
+<blockquote>
+<p> Returns the current camera width. <p>
+</blockquote>
+<hr>
+<a name="look"><font size=+1><tt>look at <i>target</i> (vector) from <i>position</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Moves the camera to <i>position</i> and aims it at <i>target</i>.  <i>target</i> is is the <i>target</i>'s location <b>relative to the camera</b>, not the <i>target</i>'s "real-world" location. <p>
+</blockquote>
+<hr>
+<a name="set-position"><font size=+1><tt>set-position with-x <i>newX</i> (double) with-y <i>newY</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the position of the camera viewing area inside the main window. <p>
+</blockquote>
+<hr>
+<a name="set-rotation"><font size=+1><tt>set-rotation x <i>rx</i> (float) y <i>ry</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotation of the camera about the X- and Y-axes.<p>
+</blockquote>
+<hr>
+<a name="set-size"><font size=+1><tt>set-size with-height <i>newHeight</i> (double) with-width <i>newWidth</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the size of the camera viewing area. <p>
+</blockquote>
+<hr>
+<a name="set-z-clip"><font size=+1><tt>set-z-clip to <i>distance</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the Z clipping plan to theDistance.  The Z clipping plan determines how far the camera can see.  A short Z clipping <i>distance</i> means that objects far away will not be drawn. <p> The default value is 500.0 and this works well for most simulations, so there is often no need to use this method. <p> Using a short Z clipping <i>distance</i> improves drawing quality, avoids unnecessary rendering and can speed up drawing during the simulation. However, it may also cause objects you would like to observe in the simulation to not be drawn because they are too far away. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:21 2008</i></font>

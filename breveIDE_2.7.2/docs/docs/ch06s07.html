@@ -1,0 +1,19 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Using the "Image" Class</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch06.html" title="Chapter 6. Graphics and Sound"><link rel="prev" href="ch06s06.html" title='Displaying Objects as "Lightmaps"'><link rel="next" href="ch06s08.html" title='Custom Drawings with the "Drawing" Class'></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Using the "Image" Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s06.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 6. Graphics and Sound</th><td width="20%" align="right"> <a accesskey="n" href="ch06s08.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2713"></a>Using the "Image" Class</h2></div></div></div><p>
+        Once an image file has been loaded into an Image object (as described
+        in <a class="xref" href="ch06s03.html" title="Loading Image Files">the section called &#8220;Loading Image Files&#8221;</a>),
+        the image data can be accessed and manipulated directly via methods in
+        the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Image.html" target="_top">Image.tz</a>.
+      </p><p>
+        The Image class method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Image.html#set-pixel" target="_top">set-pixel</a> (and related methods for setting red,
+        green, blue and alpha pixel values individually) can be used to modify
+        an image dynamically. This will dynamically alter the appearence of any
+        objects using the image as a texture, bitmap or lightmap. The demo
+        "DynamicTexture" shows an example of how image textures can be
+        dynamically modified.
+      </p><p>
+        The Image class method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Image.html#get-pixel" target="_top">get-pixel</a> (and related methods for getting red,
+        green, blue and alpha pixel values individually) can be used to read
+        individual pixel data from an Image. This allows the image data to be
+        used as simulation input. The demo "Painter" shows an example of how an
+        Image file can be used as input data for a simulation.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s06.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s08.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Displaying Objects as "Lightmaps" </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Custom Drawings with the "Drawing" Class</td></tr></table></div></body></html>

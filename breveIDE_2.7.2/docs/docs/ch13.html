@@ -1,0 +1,253 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 13. Plugins</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="prev" href="ch12s03.html" title="Using a Web-interface to a breve Simulation"><link rel="next" href="ch13s02.html" title="Building Plugins"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 13. Plugins</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s03.html">&lt;&lt; previous</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch13s02.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="node-2765"></a>Chapter 13. Plugins</h2></div></div></div><p> breve's
+        plugin architecture allows you to incorporate arbitrary code into a
+        breve simulation. By loading external code into breve, you can add
+        customized types of computation, bridges to other languages,
+        connections to other input and output methods and much more.
+      </p><p>
+        Effective as of breve release 2.5, all plugins must be compiled with a
+        C++ compiler. Plugins may still be written using C, but must be
+        compiled with a C++ compiler to accomodate changes made to the plugin
+        API.
+      </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              Programming Experience Required
+            </h3><p>
+                Building plugins for breve does require some programming
+                experience in C/C++, plus access to and familiarity with the
+                g++ compiler. Building plugins on Windows currently requires a
+                POSIX environment such as <a class="ulink" href="http://www.mingw.org" target="_top">MinGW</a> or <a class="ulink" href="http://www.cygwin.com" target="_top">Cygwin</a>.
+              </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2766"></a>The Plugin API: Writing Plugins</h2></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              The breve Plugin API
+            </h3><p>
+                In order to build plugins for breve, you'll need the breve
+                plugin API which is included with all command-line
+                distributions of breve. You'll also need a C compiler&#8212;the
+                instructions here assume you're using GCC.
+              </p><p>
+                In addition to the documentation listed here, you should also
+                look at the sample plugin files included with the breve
+                distribution. These samples show how to build simple plugins
+                for Mac OS X, Linux and Windows.
+              </p><p>
+                A number of the names and symbols have been changed from
+                versions of the breve plugin API prior to version 2.0, though
+                the older symbols should be preserved for backward
+                compatibility. Still, you will most likely have to rebuild your
+                plugin using the 2.0 header file to ensure continued
+                compatibility.
+              </p></div><p>
+        In order to write plugins for breve, you'll need to follow a few simple
+        steps.
+      </p><div class="orderedlist"><ol type="1"><li><p>
+              compose C wrapper functions around your external code (C or C++),
+              <a class="xref" href="ch13.html#node-2767" title="Writing C Wrapper Functions Around Existing Code">the section called &#8220;Writing C Wrapper Functions Around Existing Code&#8221;</a></p></li><li><p>
+              create an "entry point function" in C which will load your
+              functions into the breve engine <a class="xref" href="ch13.html#node-2772" title="Writing an Entry Point Function">the section called &#8220;Writing an Entry Point Function&#8221;</a></p></li><li><p>
+              write a class (or classes) to interface with your newly created
+              functions
+            </p></li></ol></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2767"></a>Writing C Wrapper Functions Around Existing Code</h3></div></div></div><p>
+        The first step in composing a breve plugin is to write wrapper
+        functions around your existing code. The wrapper functions simply act
+        as a bridge between the internal breve function calling code, and
+        standard C function calls. When a function is called from within steve,
+        the wrapper function is called. The wrapper function, in turn, calls
+        the necessary C code and coordinates input and output between the C
+        code and the breve call.
+      </p><p>
+        The wrapper function passes input and output data between breve and C
+        using a structure called <code class="literal">brEval</code>. The
+        <code class="literal">brEval</code> struct is a C data structure which
+        is used internally to hold the values of expressions in steve. The
+        structure is used to hold any and all types of steve expressions. So
+        <code class="literal">ints</code>, <code class="literal">lists</code>, <code class="literal">objects</code> and the
+        rest of the steve types are all held in <code class="literal">brEval</code> structs. The <code class="literal">type</code> field of the struct specifies the type of the
+        expression. The <code class="literal">values</code> union of the
+        struct contains the actual value of the expression. Information on how
+        to use these fields is listed below.
+      </p><p>
+        Wrapper functions have the following prototype:
+      </p><pre class="programlisting">
+int function(brEval arguments[], brEval *result, void *instance);
+</pre><p>
+        Arguments are passed in as the <span class="emphasis"><em><code class="function">arguments</code></em></span> array of <code class="literal">brEval</code> objects. The function output is returned by
+        setting the contents of the brEval
+        object pointed to by <span class="emphasis"><em><code class="function">result</code></em></span>.
+        <span class="emphasis"><em><code class="function">instance</code></em></span> is an internal pointer
+        to the calling instance&#8212;this can be ignored.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2768"></a>Getting Values from the brEval Class</h4></div></div></div><p> To access native C types stored in the brEval class, you'll need to use the following
+        macros, which are defined in the header file distributed with the API.
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">BRINT(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the int (C
+              type int) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRDOUBLE(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the float
+              (C type double) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRVECTOR(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the vector
+              (C type slVector struct) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRMATRIX(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the matrix
+              (C type double [3][3]) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRBRRING(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the string
+              (C type char*) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BROBJECT(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the object
+              (C type brInstance*) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRPOINTER(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the pointer
+              (C type void*) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRDATA(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the data (C
+              type brData*) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRHASH(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the hash (C
+              type brEvalHash*) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li><li><p><code class="literal">BRLIST(&amp;<span class="emphasis"><em><code class="function">eval</code></em></span>)</code>, returns the list (C
+              type brEvalList*) contained in <span class="emphasis"><em><code class="function">eval</code></em></span></p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2769"></a>Setting Values in the brEval Class</h4></div></div></div><p>
+        In order to set the result, use the overloaded method <code class="literal">set()</code> in the brEval class. This method can take any
+        of the C types listed above and will set the brEval's type according to
+        the input type. Some examples are shown below.
+      </p><pre class="programlisting">
+        // for a function returning an integer
+        result-&gt;set( 10 );
+
+        // for a function returning a string
+        char *myString = "look at me, I'm returning a string!";
+        result-&gt;set( myString );
+</pre><p>
+        In most cases, passing data to <code class="literal">set()</code> is
+        as simple as in the examples above. However, care must be taken to
+        ensure that the C-type being passed in corresponds to the desired
+        brEval type. This may become an issue, for example, if a plugin
+        calculation uses floating point math, but desires to return an integer,
+        or when returning NULL pointers. It is therefore necessary to
+        explicitly typecast values that do not match the expected return type.
+        Some examples are shown below. In each example, the wrong type would be
+        returned without the typecast.
+      </p><pre class="programlisting">
+        // our calculation creates a double, but we wish to return an AT_INT type to breve:
+        result-&gt;set( (int)pow( x, y ) );
+
+        // we want to return an AT_STRING type, but the value is NULL:
+        result-&gt;set( (char*)NULL );
+
+        // now we want to return an AT_LIST type, but the value is NULL:
+        result-&gt;set( (brEvalListHead*)NULL );
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2770"></a>Types in the brEval Class</h4></div></div></div><p>
+        The following list of constants specifies the types for plugin function
+        input arguments and output types. The "AT" prefix stands for "atomic
+        type".
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">AT_INT</code></p></li><li><p><code class="literal">AT_DOUBLE</code></p></li><li><p><code class="literal">AT_STRING</code></p></li><li><p><code class="literal">AT_VECTOR</code></p></li><li><p><code class="literal">AT_MATRIX</code></p></li><li><p><code class="literal">AT_DATA</code></p></li><li><p><code class="literal">AT_HASH</code></p></li><li><p><code class="literal">AT_LIST</code></p></li><li><p><code class="literal">AT_OBJECT</code></p></li><li><p><code class="literal">AT_POINTER</code></p></li></ul></div><p>
+        Your wrapper function should use these macros to extract data from the
+        arguments array, and to store the result. The return value of your
+        wrapper function should be <code class="literal">EC_OK</code> in the
+        event of successful execution, or <code class="literal">EC_ERROR</code> in the event of a fatal error. Returning
+        <code class="literal">EC_ERROR</code> will cause the simulation to
+        stop, so you should generally not return this value. In many cases it
+        is better to indicate the error using a special return value of the
+        internal function (that is to say, by putting a special value in the
+        "result" struct, not actually returning from your C code with a special
+        value). You can then handle the error from within steve.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2771"></a>An Example Wrapper Function</h4></div></div></div><p>
+        As an example of a breve function wrapper around an existing function,
+        imagine a function with the following prototype:
+      </p><pre class="programlisting">
+char *downloadURL(char *url, int timeout);
+</pre><p>
+        The wrapper function in breve will need to extract the url and timeout
+        arguments from the arguments array, call the function, and store the
+        resulting string in the structure pointed to by result. Here's how the
+        wrapper function might look.
+      </p><pre class="programlisting">
+int breveDownloadURL(brEval *arguments, brEval *result, void *instance) {
+        char *url, *urlData;
+        int timeout;
+
+        url = BRBRRING(&amp;arguments[0]);
+        timeout = BRINT(&amp;arguments[1]);
+
+        urlData = downloadURL(url, timeout);
+
+        result-&gt;set( urlData );
+                
+        return EC_OK;
+}
+</pre></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2772"></a>Writing an Entry Point Function</h3></div></div></div><p>
+        Your entry point function will be called when the plugin is loaded. Its
+        job is to tell the breve engine what new steve functions to add, their
+        names, and the arguments they will take.
+      </p><p>
+        The prototype for an entry-point function is:
+      </p><pre class="programlisting">
+void <span class="emphasis"><em><code class="function">entryPointFunctionName</code></em></span>(void *data);
+</pre><p>
+        The name may be anything you'd like, but it must be a unique symbol.
+      </p><p>
+        This entry-point function will be filled with one or more calls to the
+        function <code class="literal">brNewBreveCall</code>. The calling
+        convention for this function is:
+      </p><pre class="programlisting">
+brNewBreveCall(data, "<span class="emphasis"><em><code class="function">functionName</code></em></span>", <span class="emphasis"><em><code class="function">cFunctionPointer</code></em></span>, <span class="emphasis"><em><code class="function">returnType</code></em></span>, <span class="emphasis"><em><code class="function">arg1</code></em></span>, <span class="emphasis"><em><code class="function">arg2</code></em></span>, ..., 0);
+</pre><div class="itemizedlist"><ul type="disc"><li><p>
+              The first argument, data, is the "data" pointer which gets passed
+              in to the entry-point function.
+            </p></li><li><p>
+              The second argument, functionName, is the quoted function name
+              <span class="emphasis"><em>as it will appear in
+              steve</em></span>.
+            </p></li><li><p>
+              The third argument, cFunctionPointer, is the unquoted name of the
+              C function.
+            </p></li><li><p>
+              The fourth argument, returnType, is the return type (as a steve
+              constant, listed in the previous section).
+            </p></li><li><p>
+              Subsequent arguments are the types of input arguments (as steve
+              constants, listed in the previous section) that your steve
+              function will expect, with the value 0 afterwards indicating the
+              end of the parameter list.
+            </p></li><li><p>
+              The final argument, to follow all of the input types, must be 0.
+            </p></li></ul></div><p>
+        For example, if you have a function which takes two <code class="literal">vector</code> inputs and produces an <code class="literal">int</code> output, your <code class="literal">brNewBreveCall</code> might look like this:
+      </p><pre class="programlisting">
+brNewBreveCall(data, "mySteveFunctionName", myCFunctionName, AT_INT, AT_VECTOR, AT_VECTOR, 0);
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2773"></a>Interfacing With The New Functions</h3></div></div></div><p>
+        In order to write plugins for breve, you'll first need to familiarize
+        yourself with a feature of steve which is generally hidden from
+        users&#8212;the C-style function call.
+      </p><p>
+        C-style function calls in breve work just as they do in C: they take a
+        number of arguments and may return a value. In breve, a C-style
+        function call is used to access code which is built into the breve
+        engine (as opposed to code written in steve). In fact, the built-in
+        class hierarchy provided with breve uses C-style function calls
+        extensively to interface with the breve engine.
+      </p><p>
+        From the user's perspective, all computation in breve happens within
+        objects. So when we write a plugin, we'll also give it an object
+        interface. Here's a simple example in which the plugin simply provides
+        some data (like a <code class="literal">float</code> or an
+        <code class="literal">int</code>) back to the caller.
+      </p><pre class="programlisting">
+Object : mySimplePluginObject {
+        + to get-input-from-plugin:
+                return getPluginInput().
+}
+</pre><p>
+        By packaging this functionality inside an object, breve users look at
+        it as they do any other object, without needing any information about
+        how the plugin works underneath.
+      </p><p>
+        The more important reason to use objects, however, is so that the
+        plugin can be used by more than one agent simultaneously. Imagine, for
+        example, a plugin which simulates neural networks. It's easy to imagine
+        that a breve simulation might want to use several of these neural
+        networks at the same time. Because the neural networking code requires
+        a "persistent state", we would need a way to store many distinct states
+        simultaneously.
+      </p><p>
+        Inside our breve object, we'll hold a pointer to C-memory representing
+        these distinct states. Whenever a neural network function is needed,
+        we'll pass that pointer back to the plugin so that it can operate on
+        the correct state. Here's an example:
+      </p><pre class="programlisting">
+Object : myNeuralNetwork {
+        + variables:
+                networkPointer (pointer).
+
+        + to init:
+                networkPointer = newNeuralNetwork().
+
+        + to iterate:
+                neuralNetworkIterate(networkPointer).
+
+        + to get-output:
+                return neuralNetworkOutput(networkPointer).
+
+        + to set-input to value (double):
+                neuralNetworkSet(networkPointer, value).
+}
+</pre></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s03.html">&lt;&lt; previous</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch13s02.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Using a Web-interface to a breve Simulation </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Building Plugins</td></tr></table></div></body></html>

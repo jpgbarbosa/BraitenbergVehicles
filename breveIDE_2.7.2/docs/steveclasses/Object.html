@@ -1,0 +1,163 @@
+<head>
+<title>(no parent) : Object</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2>(no parent) : Object</h2>
+This class is included as part of the file Object.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Object.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Summary: the top level object class. <P> The Object class is the root class.  All classes used in <b>breve</b> have Object as an ancestor.  The object class implements some basic services that all classes will have access to. <p> Subclassing Object directly is rare.  The classes <a href="Real.html">Real</a> and <a href="Abstract.html">Abstract</a> are logical separations of the Object class containing "real" objects (which correspond to a physical entity in the simulated world) and "abstract" objects which are generally used for computation or control of the real objects.  You should consider subclassing one of these classes instead.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Garbage Collection and Memory Management</B><UL>
+<li><a href="#disable-auto-free">disable-auto-free</a></li>
+<li><a href="#enable-auto-free">enable-auto-free</a></li>
+</UL>
+<P><B>Getting Information About an Object</B><UL>
+<li><a href="#can-respond">can-respond</a></li>
+<li><a href="#get-age">get-age</a></li>
+<li><a href="#get-type">get-type</a></li>
+<li><a href="#is-a">is-a</a></li>
+</UL>
+<P><B>Scheduling Events and Notificiations</B><UL>
+<li><a href="#announce">announce</a></li>
+<li><a href="#call-method">call-method</a></li>
+<li><a href="#call-method">call-method</a></li>
+<li><a href="#observe">observe</a></li>
+<li><a href="#schedule">schedule</a></li>
+<li><a href="#unobserve">unobserve</a></li>
+</UL>
+<P><B>Archiving & Dearchiving</B><UL>
+<li><a href="#add-dependency">add-dependency</a></li>
+<li><a href="#archive-as-xml">archive-as-xml</a></li>
+<li><a href="#archive-as-xml-string">archive-as-xml-string</a></li>
+<li><a href="#remove-dependency">remove-dependency</a></li>
+<li><a href="#send-over-network">send-over-network</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-dependency"><font size=+1><tt>add-dependency on <i>i</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Makes this instance depend on instance <i>i</i> when archiving and dearchiving.  This means that if this instance is archived, then <i>i</i> will also have to be archived, and that when this instance is dearchived, that <i>i</i> will have to be dearchived first. <p> Dependencies can cause large numbers of instances to be archived in response to a single archiving event (as dependencies of dependencies, and dependencies of dependencies of dependencies, ad infinitum will also be archived).  This means that you should make dependencies sparingly, only when absolutely required. <p> Circular dependencies are forbidden. <p>
+</blockquote>
+<hr>
+<a name="announce"><font size=+1><tt>announce message <i>theMessage</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Sends a notification with the message <i>theMessage</i> to all observer objects.  See <a href="#observe">observe</a> for information on making an object an observer. <p>
+</blockquote>
+<hr>
+<a name="archive-as-xml"><font size=+1><tt>archive-as-xml file <i>fileName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> XML encodes this object, and writes the encoded string to the file <i>fileName</i>. <p>
+</blockquote>
+<hr>
+<a name="archive-as-xml-string"><font size=+1><tt>archive-as-xml-string </tt></font><p></a>
+<blockquote>
+<p> XML encodes this object, and returns the encoded string. <p>
+</blockquote>
+<hr>
+<a name="call-method"><font size=+1><tt>call-method named <i>methodName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Calls the method named <i>methodName</i> for this object.  Returns the result of the method call. <p>
+</blockquote>
+<hr>
+<a name="call-method"><font size=+1><tt>call-method named <i>methodName</i> (string) with-arguments <i>argList</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Calls the method named <i>methodName</i> for this object.  Returns the result of the method call. <p> The arguments to the object are passed in using the list <i>argList</i>.  Since keywords are not passed in, this method relies on the order the arguments appear in the argument list and passes them to <i>methodName</i> in the order in which they appear in <i>methodName</i>'s definition. <p> Why not call a method directly?  This method is used in circumstances where you might want to have some sort of callback method.  As an example, let's say you write a general purpose class which can sort objects based on different criteria.  How would the user specify these arbitrary criteria?  Using this method would allow the user to pass in the name of the method they want to use, and the sorting object could use this method to execute the callback. <p> If the concept of a callback doesn't make sense, then you can probably ignore this method. <p>
+</blockquote>
+<hr>
+<a name="can-respond"><font size=+1><tt>can-respond to <i>methodName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Returns true or false (1 or 0) depending on whether this instance can respond to a method called <i>methodName</i>. <p> But wow, what an awkward declaration!  Same reason as the method <a href="#is">is</a>.  Again, works like a statement that replies with true or false: object can-respond to "run". <p> It's really not my fault that the infinitive of "can" is "be able". <p>
+</blockquote>
+<hr>
+<a name="disable-auto-free"><font size=+1><tt>disable-auto-free </tt></font><p></a>
+<blockquote>
+<p> Disables garbage collection on a per-object basis. <p>
+</blockquote>
+<hr>
+<a name="enable-auto-free"><font size=+1><tt>enable-auto-free </tt></font><p></a>
+<blockquote>
+<p> Enables garbage collection on a per-object basis. <p>
+</blockquote>
+<hr>
+<a name="get-age"><font size=+1><tt>get-age </tt></font><p></a>
+<blockquote>
+<p> Returns the number of seconds this object has existed in the simulation. <p>
+</blockquote>
+<hr>
+<a name="get-type"><font size=+1><tt>get-type </tt></font><p></a>
+<blockquote>
+<p> Returns as a string the type of this object. <p>
+</blockquote>
+<hr>
+<a name="is-a"><font size=+1><tt>is-a class <i>className</i> (string) </tt></font><p></a>
+<blockquote>
+<p> This method returns true or false (1 or 0) depending on whether the instance in question belongs to class <i>className</i>.  This method checks if <i>className</i> is a superclass of the current object as well. <p>
+</blockquote>
+<hr>
+<a name="observe"><font size=+1><tt>observe instance <i>theObject</i> (object) for-notification <i>theNotification</i> (string) with-method <i>theMethod</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Causes the current object to observe <i>theObject</i>.  By registering as and observer, the current object will receive a call to <i>theMethod</i> whenever <i>theObject</i> calls the <a href="#announce">announce</a> method with notificiation <i>theNotification</i>. <p>
+</blockquote>
+<hr>
+<a name="remove-dependency"><font size=+1><tt>remove-dependency on <i>theObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Removes <i>theObject</i> from this object's dependency list.  See <a href="#add-dependency">add-dependency</a> for more information on dependencies. <p>
+</blockquote>
+<hr>
+<a name="schedule"><font size=+1><tt>schedule method-call <i>theMethod</i> (string) at-time <i>theTime</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Schedules a call to <i>theMethod</i> when the simulation time equals <i>theTime</i>.  The margin of error of the callback time is equal to iteration step (see <a href="#set-iteration-step">set-iteration-step</a>). <br> If you want to schedule an event at a time relative to the current time, use the method <a href="#get-time">get-time</a> to get the current simulation time and then add the offset you want. <p>
+</blockquote>
+<hr>
+<a name="send-over-network"><font size=+1><tt>send-over-network to <i>hostName</i> (string) on <i>portNumber</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sends this object over the network to a <b>breve</b> server on host <i>hostName</i> listening on port <i>portNumber</i>. <p>
+</blockquote>
+<hr>
+<a name="unobserve"><font size=+1><tt>unobserve instance <i>theObject</i> (object) for-notification <i>theNotification</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Unregisters the current object as an observer of <i>theObject</i> with notification <i>theNotification</i>. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

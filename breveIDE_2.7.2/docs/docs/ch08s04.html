@@ -1,0 +1,25 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Writing Stable Physical Simulations</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch08.html" title="Chapter 8. Physical Simulation"><link rel="prev" href="ch08s03.html" title="Fast Physical Simulation"><link rel="next" href="ch08s05.html" title="The Components of Physically Simulated Bodies"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Writing Stable Physical Simulations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s03.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 8. Physical Simulation</th><td width="20%" align="right"> <a accesskey="n" href="ch08s05.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2730"></a>Writing Stable Physical Simulations</h2></div></div></div><p> The physical
+        simulation engine can be quite sensitive to the configuration of bodies
+        in a simulation. This can lead to performance problems, instabilities
+        and unexpected results. Because of the number of factors involved, it
+        can be difficult to track down the exact reason for instabilities or
+        unexpected results.
+      </p><p>
+        Below are some things to watch out for when dealing with physical
+        simulation.
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              Instabilities may arise when dealing with very large (heavy) and
+              very small (light) objects
+            </p></li><li><p>
+              Exerting very large joint pressures or velocities may cause
+              unrealistic behaviors.
+            </p></li><li><p>
+              Beware of joints which force invalid or conflicting conformations
+              on your objects.
+            </p></li><li><p>
+              Avoid forcing deep collisions between objects with either joints
+              or manual movement.
+            </p></li><li><p>
+              Use of redundant or unnecessary joints will cause instabilities
+              and performance problems.
+            </p></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s03.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch08s05.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Fast Physical Simulation </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> The Components of Physically Simulated Bodies</td></tr></table></div></body></html>

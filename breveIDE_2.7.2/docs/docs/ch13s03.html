@@ -1,0 +1,62 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Archiving Plugin Data With The data Type</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch13.html" title="Chapter 13. Plugins"><link rel="prev" href="ch13s02.html" title="Building Plugins"><link rel="next" href="ch13s04.html" title="Using Plugins in Simulations"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Archiving Plugin Data With The data Type</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch13s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 13. Plugins</th><td width="20%" align="right"> <a accesskey="n" href="ch13s04.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2778"></a>Archiving Plugin Data With The data Type</h2></div></div></div><p> The <code class="literal">data</code> type is used for archiving and dearchiving
+        custom binary data. If a plugin creates a large internal block of data,
+        for example, how could this data be archived? The <code class="literal">pointer</code> type cannot be archived because breve doesn't
+        know the structure or size of the data that the pointer is referring
+        to. The type <code class="literal">data</code> is therefore used to
+        hold a linear block of data of a known type.
+      </p><p>
+        In order for plugin data to be stored in a breve archive, the data must
+        be made into a <code class="literal">data</code> type. Internally,
+        this is represented as the C structure <code class="literal">brData</code>. The following functions are declared in the
+        plugin header file and will allow you to create and free <code class="literal">brData</code> structures:
+      </p><pre class="programlisting">
+brData *brDataNew(void *data, int length);
+void brDataFree(brData *data);
+</pre><p>
+        To archive and dearchive data from a plugin object, you'll need one
+        internal function to serialize and encode the state of your plugin
+        object and another to deserialize and decode the object. For instance,
+        consider a plugin which deals with large matrices, say 100x100 doubles.
+        When the simulation is to be archived, the matrix needs to be encoded
+        into an <code class="literal">brData</code> struct and returned to the
+        object. When the simulation is to be dearchived, the <code class="literal">brData</code> needs to be decoded back into a matrix.
+      </p><p>
+        Here's how these functions might look:
+      </p><pre class="programlisting">
+int archiveMatrix(brEval arguments[], brEval *result, void *instance) {
+        // assume that the plugin object passes us the pointer to its matrix
+        // also assume that the size of the matrix is 100x100 doubles
+
+        double **matrix = BRPOINTER(&amp;arguments[0]);
+
+        BRDATA(result) = brDataNew(matrix, 100 * 100 * sizeof(double));
+
+        return EC_OK;
+}
+
+int dearchiveMatrix(brEval arguments[], brEval *result, void *instance) {
+        brData *matrixData = BRDATA(&amp;arguments[0]);
+        double **matrix = malloc(100 * 100 * sizeof(double));
+
+        memcpy(matrix, matrixData-&gt;data, 100 * 100 * sizeof(double));
+
+        // now we return the matrix pointer to the object, and the state 
+        // of the object is restored!
+
+        BRPOINTER(result) = matrix;
+
+        return EC_OK;
+}
+</pre><p>
+        We also need to modify the <code class="literal">archive</code> and
+        <code class="literal">dearchive</code> methods of our breve plugin
+        object to call the new functions:
+      </p><pre class="programlisting">
++ to archive:
+        # convert the internal data to a "data" type
+        matrixData = archiveMatrix(matrixPointer).
+
++ to dearchive:
+        # convert the "data" type back to internal data
+        matrixPointer = dearchiveMatrix(matrixData).
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch13s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch13.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch13s04.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Building Plugins </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Using Plugins in Simulations</td></tr></table></div></body></html>

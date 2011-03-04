@@ -1,0 +1,1514 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Writing breve Simulations With "steve"</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch04.html" title='Chapter 4. Writing breve Simulations with "steve" or Python'><link rel="prev" href="ch04s02.html" title="Writing breve Simulations With Python"><link rel="next" href="ch05.html" title="Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Writing breve Simulations With "steve"</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 4. Writing breve Simulations with "steve" or Python</th><td width="20%" align="right"> <a accesskey="n" href="ch05.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2632"></a>Writing breve Simulations With "steve"</h2></div></div></div><p>
+        Simulations in breve can be written using a language called "steve".
+        steve is a simple language which aims to allow rapid construction of
+        advanced simulations while avoiding a great deal of the programming
+        overhead associated with constructing simulations in other languages.
+      </p><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              Don't Be Overwhelmed!
+            </h3><p>
+                Writing simulations in steve is ultimately quite simple. Due to
+                the number of features provided by the simulation engine,
+                however, this documentation may seem at times overwhelming.
+                Don't panic&#8212;make liberal use of the demo simulations
+                provided with the environment and don't be put off if some of
+                the features discussed here are difficult to understand.
+              </p></div><p>
+        "steve" is an <span class="emphasis"><em>object-oriented</em></span> language. This means
+        that programming in "steve" involves working with components called
+        <span class="emphasis"><em>objects</em></span> which contain data (<span class="emphasis"><em>variables</em></span>) and behaviors (<span class="emphasis"><em>methods</em></span>). In breve, objects can be either <span class="emphasis"><em>real</em></span>, meaning they have a presence in the simulated
+        world; or <span class="emphasis"><em>abstract</em></span> meaning that they are
+        used to store data or to perform computations, but do not appear in the
+        simulated world. In order to define agents and their behaviors, one
+        needs to construct these objects and behaviors using the "steve"
+        language. The language is described in this chapter.
+      </p><p>
+        First, the classic "Hello, World" program is constructed in steve
+        (<a class="xref" href="ch04s03.html#node-2633" title="Hello, World">the section called &#8220;Hello, World&#8221;</a>). Then, a
+        simple multiagent 3D simulation written in steve is presented (<a class="xref" href="ch04s03.html#node-2634" title="A Simple Example">the section called &#8220;A Simple Example&#8221;</a>). This sample
+        should give the basic idea of what a breve simulation looks like.
+      </p><p>
+        As discussed above, all agents in the simulated world are represented
+        by programming objects. These objects are defined in terms of object
+        templates called <span class="emphasis"><em>classes</em></span>. The most important
+        object, called the <span class="emphasis"><em>Controller</em></span> is described
+        in the section The Controller Object (<a class="xref" href="ch04s03.html#node-2636" title="The Controller Object">the section called &#8220;The Controller Object&#8221;</a>). The section Building
+        Classes (<a class="xref" href="ch04s03.html#node-2637" title="Building Classes">the section called &#8220;Building Classes&#8221;</a>)
+        describes how to construct basic classes in steve.
+      </p><p>
+        In order to define the data and behaviors of your classes, you'll need
+        to be familiar with types (<a class="xref" href="ch04s03.html#node-2644" title='Types in "steve"'>the section called &#8220;Types in "steve"&#8221;</a>) and expressions (<a class="xref" href="ch04s03.html#node-2673" title="Expressions">the section called &#8220;Expressions&#8221;</a>). The section Program
+        Control Structures (<a class="xref" href="ch04s03.html#node-2685" title="Program Control Structures">the section called &#8220;Program Control Structures&#8221;</a>) discusses loops and
+        conditional statements.
+      </p><p>
+        Finally, after learning how to program with steve, you'll want to
+        explore the <a class="xref" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs">Chapter 17</a> to learn how
+        to use the features of the breve engine in your simulations.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2633"></a>Hello, World</h3></div></div></div><p> The
+        traditional introduction to any programming language is a program which
+        repeatedly prints out the text "Hello, World!". Here it is written in
+        steve:
+      </p><pre class="programlisting">
+@include "Control.tz"           
+
+Controller HelloWorld.
+
+Control : HelloWorld {
+        + to iterate:
+                print "Hello, world!".
+}
+</pre><p>
+        The specifics will be discussed in more detail through the rest of this
+        chapter. Briefly, we first declare the simulation's controller object
+        to be a class called <code class="literal">HelloWorld</code> (line 3).
+        Then we construct the <code class="literal">HelloWorld</code> class
+        (lines 5-8), and as part of that class, we define a method called
+        <code class="literal">iterate</code> (line 6) which will print out the
+        text "Hello, world!". The "include" line (line 1) simply tells breve to
+        load in a file called "Control.tz", which is included with the breve
+        distribution. This built-in class file contains the class control,
+        which is the <span class="emphasis"><em>parent</em></span> class for our
+        "HelloWorld" controller.
+      </p><p>
+        When this simulation is run, the controller object is created, and the
+        method named <code class="literal">iterate</code> gets run
+        automatically at every step of the simulation. Thus, "Hello, World!".
+        Ad nauseum.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2634"></a>A Simple Example</h3></div></div></div><p>
+        "Hello, World" is a very simple example which can be used for any
+        programming language. It does not, however, give any insight into how
+        3D multiagent simulations are written in steve. This section shows the
+        code for a simple 3D multiagent simulation.
+      </p><div class="mediaobject" align="center"><img src="../images/random_walker.jpg" align="middle"></div><p>
+            In the <span class="emphasis"><em>RandomWalker</em></span> demo,
+            you can see a simple simulation containing hundreds of independent
+            agents.
+          </p><p>
+        The simulation below is very heavily commented&#8212;all of the lines
+        beginning with the # character are descriptive comments which do not
+        effect the execution of the simulation, but clarify for the user what
+        the simulation is doing. Comments are described in more detail below.
+      </p><p>
+        The simple simulation below features a number of agents which perform a
+        "random walk" through 3D space. That is to say that at each time-step,
+        the agents will move in a random direction.
+      </p><pre class="programlisting">
+#
+# RandomWalker is a simulation in which small spheres do
+# a random walk.  This is a very simple simulation which
+# can be used as a skeleton for more complex simulations.
+#
+
+# include some required breve class files
+@use Control.
+@use Mobile.
+
+# First tell the breve engine the name of our controller class
+
+Controller myControl.             
+
+# Subclass "Control" and define our "myControl" object.
+
+Control : myControl {
+    # Here we define the class variables.  
+
+    + variables:
+        walkerShape (object).
+        
+    # Next we define a method called init.  The init method is called 
+    # automatically when our class is created.  Since this is the controller
+    # class, an instance gets created when we launch the simulation,
+    # so this is the entry point for our simulation.
+        
+    + to init:
+        print "Setting up the simulation.".
+
+        self point-camera at (0, 0, 0) from (0, 60, 0).
+
+        # set up a shape that all of the RandomWalker objects will use.
+        
+        walkerShape = (new Sphere init-with radius 1).
+        
+        # Create a bunch of RandomWalkers.  You can create as few or 
+        # as many as you want... 
+
+        200 new RandomWalker.
+
+    # The get-walker-shape is a method that allows other objects 
+    # to look at the walkerShape variable.  we do this so that 
+    # each RandomWalker object can reuse the same Shape object.
+    # This is not strictly required--each RandomWalker could create
+    # it's own copy of the same Shape, but fewer objects means 
+    # less memory used and more efficient simulations, so it's 
+    # a good programming practice.
+        
+    + to get-walker-shape:
+        return walkerShape.
+}
+
+# The "RandomWalker" object is the physical object in the simulation
+# that does the random walk.  It is a subclass of "Mobile".
+
+Mobile : RandomWalker {
+    + to init:
+        # During init, the object asks the controller for the shape 
+        # it should use.  It then sets itself to a random color.
+
+        self set-shape to (controller get-walker-shape).
+        self set-color to random[(1.0, 1.0, 1.0)].
+    
+    + to iterate:
+        # Set a new random velocity at every timestep.
+        
+        self set-velocity to random[(60, 60, 60)] - (30, 30, 30).
+}
+</pre><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2635"></a>Comments</h4></div></div></div><p>
+        When writing code in any language, it is typically useful to include
+        <span class="emphasis"><em>comments</em></span> which clarify what the code is
+        doing. In steve, there are two ways to include comments in code. A
+        "single line" comment starts with a "#" is and continues to the end of
+        the line; "multiline comments" are written starting with "#!" and
+        ending with "!#". Some example of both kinds of comments are shown
+        below:
+      </p><pre class="programlisting">
+        # this is a simple one-line comment.
+
+        print "this is not a comment...".                # but this is.
+
+        #!
+                this
+                is 
+                a 
+                multiline 
+                comment
+        !#
+</pre></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2636"></a>The Controller Object</h3></div></div></div><p> The
+        <span class="emphasis"><em>controller object</em></span> is the foundation of a
+        <span class="emphasis"><em>breve</em></span> simulation. The controller
+        object is a single instance which acts as the "boss" for the
+        simulation. When the simulation starts, it is the controller object
+        which is responsible for creating and setting up the rest of the
+        simulation. <span class="emphasis"><em>The controller object is the
+        only object which is automatically instantiated when the simulation
+        begins</em></span>. If you're used to programming in C or C++, the
+        controller is like the <code class="literal">main</code> function.
+      </p><p>
+        The first step in writing a <span class="emphasis"><em>breve</em></span> simulation is to create a controller
+        class which will setup and manage the simulation. The controller class
+        you create <span class="emphasis"><em>must be a subclass of the class
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control</a> or one of its subclasses</em></span>. Details
+        on how to do this is described in the rest of this chapter.
+      </p><p>
+        As shown in the previous section (<a class="xref" href="ch04s03.html#node-2634" title="A Simple Example">the section called &#8220;A Simple Example&#8221;</a>), the controller object is
+        specified at the top of your simulation file using the word
+        <span class="emphasis"><em>controller</em></span>:
+      </p><pre class="programlisting">
+Controller <span class="emphasis"><em><code class="function">myControllerClass</code></em></span>.
+</pre><p>
+        This tells <span class="emphasis"><em>breve</em></span> to create an
+        instance of <span class="emphasis"><em><code class="function">myControllerClass</code></em></span>
+        when the simulation begins. This controller object will create and
+        setup the rest of the objects in the simulation. The controller object
+        does so by implementing the simulation setup code in the <code class="literal">init</code> method. Details on constructing classes and
+        implementing an <code class="literal">init</code> method are described
+        in more detail in the rest of this chapter.
+      </p><p>
+        In addition to setting up the simulation, the controller object is also
+        used as a liaison between simulation objects, the <span class="emphasis"><em>breve</em></span> engine and the user. While other
+        instances may come and go, the controller object is forever. The
+        controller class contains a great number of methods for controlling the
+        behavior of simulations, the appearance of the graphical display and
+        interactions with the user interface. See the class documentation on
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control</a> for more information. As with some of the
+        other topics covered in this section, the significance of these
+        concepts will become clearer in the rest of the documentation.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2637"></a>Building Classes</h3></div></div></div><p> All objects
+        in the simulated world correspond to programming objects in steve. In
+        order to define an agent in the simulated world, you'll start by
+        constructing a programming object, or class. This class will serve as a
+        template which defines the agent's behaviors. This section describes
+        how to construct and use these classes.
+      </p><p>
+        The section Defining Classes (<a class="xref" href="ch04s03.html#node-2638" title="Defining Classes">the section called &#8220;Defining Classes&#8221;</a>) describes how to define an
+        empty class.
+      </p><p>
+        All classes have two major components: <span class="emphasis"><em>methods</em></span>, which define a class's behavior and
+        <span class="emphasis"><em>variables</em></span> which define the data that the
+        class can hold. These data can be used both to store information about
+        the state of an agent, or information required for computation. The
+        section Defining Instance Variables (<a class="xref" href="ch04s03.html#node-2639" title="Defining Instance Variables">the section called &#8220;Defining Instance Variables&#8221;</a>) details how
+        variables can be added to objects, while the section Defining Class
+        Methods (<a class="xref" href="ch04s03.html#node-2640" title="Defining Methods">the section called &#8220;Defining Methods&#8221;</a>) shows how methods are
+        defined.
+      </p><p>
+        Two special methods are critical for an agent's behavior: one that gets
+        called automatically when an agent is created, <code class="literal">init</code>, and another that is run automatically at every
+        step of a simulation, <code class="literal">iterate</code>. These
+        methods, and a few other special methods, are discussed in the section
+        Special Method Names (<a class="xref" href="ch04s03.html#node-2642" title="Special Method Names">the section called &#8220;Special Method Names&#8221;</a>)
+      </p><p>
+        Even after the class is defined, it will still not be present in the
+        simulation. This is because a class is nothing more than a "template"
+        for an agent. In order to bring agents into the simulation, you must
+        use the template to create <span class="emphasis"><em>instances</em></span> of the class.
+        The section on Creating and Destroying Instances (<a class="xref" href="ch04s03.html#node-2643" title="Creating and Destroying Instances">the section called &#8220;Creating and Destroying Instances&#8221;</a>) describes
+        how instances of classes are created and destroyed.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2638"></a>Defining Classes</h4></div></div></div><p> When building a class, you
+        typically don't start from scratch&#8212;instead, you make the new
+        class the child of an existing class. This is called creating a
+        <span class="emphasis"><em>subclass</em></span>. By subclassing a class, the new
+        class will inherit all of the parent's methods and variables. This
+        approach means that most of the difficult work will already be done by
+        an existing breve class, and we can simply override and customize the
+        behaviors that we need to.
+      </p><p>
+        For example, if we're building an object which will move through the 3D
+        world, we'd like to have an object that understands the relationship
+        between position, velocity and acceleration. Instead of implementing
+        such a class ourselves, we can subclass <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html" target="_top">Mobile.tz</a> which is included with breve. Our custom subclass
+        will contain the custom behaviors we desire, while the parent class
+        takes care of the details.
+      </p><p>
+        When building a class, you must first decide the class name and its
+        parent class. The parent class is the class from which the new class
+        will inherit its behaviors. Classes which are to be used primarily for
+        computation and do not require any special inherited behaviors, will
+        typically use the generic root class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Object.html" target="_top">Object</a>. Classes which move around the world will inherit
+        behaviors from <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html" target="_top">Mobile</a>, while immobile objects in the world will inherit
+        behaviors from <a class="ulink" href="http://www.spiderland.org/documentation/classes/Stationary.html" target="_top">Stationary</a>. A full list of classes is available in
+        the appendix (???).
+      </p><p>
+        An empty class is simply defined by the following steve code:
+      </p><pre class="programlisting"><span class="emphasis"><em><code class="function">parent_class_name</code></em></span> : <span class="emphasis"><em><code class="function">class_name</code></em></span> {
+
+}
+</pre><p>
+        Because we often deal with classes in their plural form (like when
+        creating multiple instances of an object), it can be useful to give a
+        class an alias which will allow us to refer to the class in its plural
+        form. <span class="emphasis"><em>This is not required</em></span> but
+        may make code easier to read. This alias is defined by adding the text
+        <code class="literal">(aka <span class="emphasis"><em><code class="function">alias_name</code></em></span>)</code> after the class
+        name.
+      </p><p>
+        As an example of defining a class, both with and without an alias,
+        consider a class called <code class="literal">myMobile</code> which
+        will be a child of the class <code class="literal">Mobile</code>:
+      </p><pre class="programlisting">
+# first without the alias...
+
+Mobile : myMobile {
+
+}
+
+# now with the alias...
+
+Mobile : myMobile (aka myMobiles) {
+
+}
+</pre><p>
+        This code above defines an empty class with no variables and no
+        methods. This means that it will behave exactly as its parent class
+        does. The next step is to customize the class's behavior by adding in
+        methods and variables.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2639"></a>Defining Instance Variables</h4></div></div></div><p> An <span class="emphasis"><em>instance variable</em></span> is a variable associated with a
+        class. Each instance of the class will have its own private copies of
+        the class's instance variables.
+      </p><p>
+        Once the empty class declaration has been written, variables can be
+        added using the heading <code class="literal">+ variables</code>,
+        followed by the list of instance variables. Variables are listed in the
+        format <code class="literal"><span class="emphasis"><em><code class="function">variable_name</code></em></span> (<span class="emphasis"><em><code class="function">variable_type</code></em></span>).</code></p><p>
+        The variable name must start with a letter, but afterwards it may
+        contain any alphanumeric characters, as well as the characters _ and -.
+      </p><p>
+        Multiple variables of the same type can also be declared on the same
+        line:
+      </p><pre class="programlisting"><span class="emphasis"><em><code class="function">variable1</code></em></span>, <span class="emphasis"><em><code class="function">variable2</code></em></span>, <span class="emphasis"><em><code class="function">variable3</code></em></span>, ..., <span class="emphasis"><em><code class="function">variableN</code></em></span> (<span class="emphasis"><em><code class="function">variableType</code></em></span>). 
+</pre><p>
+        Variable types are covered in detail in the section Types (<a class="xref" href="ch04s03.html#node-2644" title='Types in "steve"'>the section called &#8220;Types in "steve"&#8221;</a>).
+      </p><p>
+        As an example, we'll add some variables to the simple class we created
+        in the previous section:
+      </p><pre class="programlisting">
+Mobile : myMobile {
+        + variables:
+                myInt, myOtherInt (int).
+                myObject (object).
+                myFloat (float).
+}
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2640"></a>Defining Methods</h4></div></div></div><p> The most elementary method call in
+        steve is a call to a method that takes no arguments. The definition of
+        such a method is simple. Inside the definition of instanceName, we
+        create a line:
+      </p><pre class="programlisting">
++ to <span class="emphasis"><em><code class="function">methodName</code></em></span>:
+</pre><p>
+        The statements that follow this line will be part of the newly defined
+        method until either the end of the object definition, or until the next
+        method definition.
+      </p><p>
+        To define a method that takes arguments we will need the keyword,
+        variable name and type of each argument. The keyword identifies the
+        variable when it is being called, while the variable name is how the
+        variable will be referenced from within the method. Finally, the type
+        is simply the type of variable that will be passed in. The layout of
+        this information is <code class="literal"><span class="emphasis"><em><code class="function">keyword</code></em></span>, <span class="emphasis"><em><code class="function">variable_name</code></em></span>, (<span class="emphasis"><em><code class="function">type</code></em></span>)</code>, such that a method which
+        takes one variable could be defined by the following line:
+      </p><pre class="programlisting">
++ to set-velocity to-value theValue (float):
+</pre><p>
+        If the method takes two variables, we add another keyword/name/type
+        triplet:
+      </p><pre class="programlisting">
++ to set-rotation of-joint theJoint (Object) to-value theValue (float):
+</pre><p>
+        The code associated with the second method would then use the variables
+        <code class="literal">theJoint</code> and <code class="literal">theValue</code>: "of-joint" and "to-value" are not actual
+        variables, but instead the keywords which indicate which variables
+        follows.
+      </p><p>
+        The calling convention of these methods is simple. After the instance
+        name and method name, we give a list of keywords and values to be
+        passed in. The order of the keyword/value pairs does not effect how the
+        code is executed, though it may effect the readability of the code. The
+        following lines call the <code class="literal">set-rotation</code>
+        method which we defined above:
+      </p><pre class="programlisting">
+# the following lines are equivalent
+
+myObject set-rotation of-joint myJoint to-value 200.
+myObject set-rotation to-value 200 of-joint myJoint.
+</pre><p>
+        Methods may also have local variables associated with them. These
+        variable definitions look just like class variable definitions, except
+        that they follow after the method definition line, and not after the
+        variable definition line. Method variables are automatically
+        initialized to zero every time the method is called. Variable
+        declarations in a method must precede all statements in the method.
+      </p><p>
+        For example, here is a simple method that uses local variables:
+      </p><pre class="programlisting">
++ to find-closest-creature in creatureList (list):
+        item (object).
+        closestItem (object).
+        distance (float).
+
+        # we start with an unreasonably high "closestDistance" so that 
+        # we are sure to find something closer.
+
+        closestDistance = 1000000.
+
+        foreach item in creatureList: {
+                distance = |(self get-location) - (item get-location)|.
+
+                if distance &lt; closestDistance: {
+                        closestItem = item.
+                        closestDistance = distance.
+                }
+        }
+
+        return closestItem.
+</pre><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              For developer use only
+            </h3><p>
+                When examining the internal classes included with the breve
+                distribution, you might notice some methods defined using a
+                minus sign instead of a plus sign:
+              </p><pre class="programlisting">
+- to methodName:
+</pre><p>
+                This syntax simply means that the method should be treated as a
+                non-public method and that the method should not be documented.
+                Though these methods function as all other methods, their use
+                in user simulations is discouraged.
+              </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2641"></a>Optional Arguments in Methods</h4></div></div></div><p>
+        Method definitions may also specify <span class="emphasis"><em>optional
+        arguments</em></span>. Optional arguments are arguments that are given default
+        values, and therefore do not need to be provided when calling the
+        method. The use of optional arguments can greatly simplify writing code
+        in steve.
+      </p><p>
+        To make an argument optional, you need to provide it with a default
+        value. To do so, you'll need to modify the argument definition to
+        include the text <code class="literal">= <span class="emphasis"><em><code class="function">value</code></em></span></code> after the argument name.
+        For example, a variable called <code class="literal">theHeight</code>
+        with keyword <code class="literal">with-height</code> could be given a
+        default value like this: <code class="literal">with-height theHeight =
+        100 (int)</code>. Default values for optional arguments must be literal
+        values (and not expressions or variables).
+      </p><p>
+        Below is an example of a method defined with a set of optional
+        arguments.
+      </p><pre class="programlisting">
+        # Create a new agent, with some default values.
+
+        + to create-new-agent with-color color = (1, 0, 0) (vector) 
+                with-energy energy = 100 (int)
+                with-radius radius = 10 (int) 
+                with-name name = "agent" (string):
+</pre><p>
+        The method above could be called in a number of ways, optionally
+        including or excluding each of the arguments:
+      </p><pre class="programlisting">
+        # no arguments 
+        self create-new-agent.
+
+        # some of the arguments 
+        self create-new-agent with-energy 10 with-name "Becky".
+
+        # all of the arguments
+        self create-new-agent with-color (1, 1, 1) 
+                with-energy 100
+                with-radius 20
+                with-name "Robert".
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2642"></a>Special Method Names</h4></div></div></div><p>
+        Certain method names have special meaning in steve, in that they are
+        called automatically by the simulation at special times. These methods,
+        in particular <code class="literal">init</code> and <code class="literal">iterate</code> are critical, as they are the entry-point
+        into how your agents are initialized and how they will behave. These
+        special method names are outlined below:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">init</code>, if it exists, is called
+              automatically when a class is instantiated. The method is called
+              not only for the class being instantiated, but also for its
+              superclass and all other ancestors up to the root object. Though
+              you should implement an init method for your class which will set
+              up the instance when the class is instantiated, the init method
+              should never be called manually.
+            </p></li><li><p><code class="literal">iterate</code>, if it exists, is called
+              automatically during every iteration of the breve engine. If your
+              class must perform a task during each iteration, then you may
+              choose to implement an iterate method. The order in which the
+              objects in the simulation are iterated cannot be
+              controlled&#8212;if you need to control the order in which
+              actions are performed, consider using iterate in conjunction with
+              the post-iterate method described below.
+            </p><p>
+              Unlike the <code class="literal">init</code> and <code class="literal">destroy</code> methods, <code class="literal">iterate</code> is not automatically called for the
+              superclasses of an instance. This means that your iterate method
+              must call super iterate if you wish to incorporate the parent's
+              iterate method. This is absolutely necessary for subclasses of
+              Control.
+            </p></li><li><p><code class="literal">post-iterate</code>, if it exists, is
+              called automatically during every iteration of the breve engine
+              after the iterate methods for all objects have been called. It is
+              occasionally desirable to perform an action during each
+              iteration, which requires data produced during that very same
+              iteration from other objects. If this action is to be performed
+              in the iterate method, than object A cannot be certain that
+              object B has been iterated yet (and vice-versa). To solve this
+              problem, objects may implement a post-iterate method which is
+              automatically called after all objects have been iterated. The
+              PatchLife demo uses this technique.
+            </p></li><li><p><code class="literal">destroy</code>, if it exists, is called
+              automatically when a class is being freed. However, unlike init,
+              and like iterate, you must explicitly call the super class
+              destroy method if you need it to be called as well. If your class
+              needs to perform certain tasks before being destroyed, you should
+              implement this method. Be warned the you need to be carefull not
+              to free an object referenced in the base class if it is needed
+              for the base class destroy method.
+            </p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2643"></a>Creating and Destroying Instances</h4></div></div></div><p>
+        Creating a new instance of an object is called instantiating the
+        object. Instantiating in steve is done using the new command.
+        Instantiation creates a single new instance if no number is given, or
+        as many objects as you want by preceding the command with a number. The
+        syntax follows:
+      </p><pre class="programlisting">
+new object_type.
+number new object_type.
+</pre><p>
+        If a single object is created, it is returned as an object type. If
+        several are created, they are returned as a list. For example:
+      </p><pre class="programlisting">
+myBird (object).
+myBugs (list).
+
+myBird = new Bird.
+myBugs = 100 new Bugs.
+</pre><p>
+        The method init is called automatically for a class and all of its
+        superclasses when the class is instantiated.
+      </p><p>
+        Destroying instances is simply accomplished using the command
+        <code class="literal">free</code>:
+      </p><pre class="programlisting">
+free instance.
+</pre><p><code class="literal">free</code> accepts both single instances and
+        lists of instances.
+      </p><p>
+        If an instance frees itself, then execution of the code is stopped
+        immediately, as though the <code class="literal">free</code> command
+        was followed by a <code class="literal">return</code>.
+      </p><p>
+        When an object is freed, the <code class="literal">destroy</code>
+        method is automatically called for the instance. Prior to version 1.9,
+        <code class="literal">destroy</code> would automatically be called for
+        all superclasses. This is no longer the case&#8212;you must call "super
+        destroy" if you wish for the superclass destroy method to be run.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2644"></a>Types in "steve"</h3></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2645"></a>The int type</h4></div></div></div><p>
+        An <code class="literal">int</code> is a whole number, identical to the
+        <code class="literal">int</code> type in C.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2646"></a>int operators</h5></div></div></div><p>
+        ints can be operated on using the following mathematical operators,
+        which operate just like their C counterparts: +, -, *, /, and %.
+        Additionally, the ^ operator can be used to raise an integer value to
+        an integer power. Divisions or mods by zero are treated as errors and
+        will stop the execution of a simulation. The absolute value of an
+        integer is given by | <span class="emphasis"><em><code class="function">integer
+        expression</code></em></span> |.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2647"></a>Conversions to Other Types</h5></div></div></div><p>
+        ints can be converted to floats automatically in expressions or during
+        assignments, but cannot be converted to any other type.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2648"></a>The float type</h4></div></div></div><p> A real number, also
+        known as "double", identical to the <code class="literal">double</code> type in C. Internally, floats are represented
+        by 8-byte doubles.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2649"></a>float Operators</h5></div></div></div><p>
+        All of the operators used for ints&#8212;including %&#8212;can also be
+        applied to floats.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2650"></a>Conversions to Other Types</h5></div></div></div><p><code class="literal">floats</code> can be converted to (and from)
+        <code class="literal">ints</code> automatically in expressions or
+        assignments. <code class="literal">floats</code> cannot be converted
+        to any other type.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2651"></a>The object Type</h4></div></div></div><p> An
+        <code class="literal">object</code> is an <span class="emphasis"><em>instance</em></span> of a steve class.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2652"></a>object Operators</h5></div></div></div><p><code class="literal">objects</code> cannot be used in mathematical
+        expressions as some of the other types can. Instead, <code class="literal">objects</code> are mainly used for one type of expression:
+        method calling. Method calling is outlined in the section Method Calls
+        (<a class="xref" href="ch04s03.html#node-2680" title="Method Calls">the section called &#8220;Method Calls&#8221;</a>).
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2653"></a>Conversion to Other Types</h5></div></div></div><p>
+        Objects cannot be explicitly converted to other types. They do,
+        however, have meaning as "boolean" (true or false) expressions in
+        control structures (<a class="xref" href="ch04s03.html#node-2685" title="Program Control Structures">the section called &#8220;Program Control Structures&#8221;</a>). If used in the
+        context of a boolean expression (like an <code class="literal">if</code> statement, <a class="xref" href="ch04s03.html#node-2686" title="The if Statement">the section called &#8220;The if Statement&#8221;</a>), the expression is true only
+        if the variable refers to an active object. This means that an object
+        variable which has not yet been associated with an instance in the
+        simulation is false.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2654"></a>The vector Type</h4></div></div></div><p> A vector is
+        used to represent a point or vector in 3D space. A vector is expressed
+        as three floating point numbers, such as (1.0, 2.0, 5.0).
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2655"></a>vector Operators</h5></div></div></div><p>
+        Vectors may be added (+) to and subtracted (-) from other vectors,
+        which yields another vector. Vectors may be multiplied (*) or divided
+        (/) by ints or floats, which also results in other vectors. The length
+        of the vector is given using the following construct: | <span class="emphasis"><em><code class="function">vector expression</code></em></span> |.
+      </p><p>
+        Some examples of using vectors follow:
+      </p><pre class="programlisting">
+v = (1, 2, 3).  # sets the vector to a constant vector.
+
+v = v * 4.      # multiplies the vector by 4
+
+v = v / |v|.    # normalizes the vector by dividing it by it's own 
+                                # length such that the new length is 1.
+</pre><p>
+        Individual vector components can be extracted or set using the "::"
+        notation:
+      </p><pre class="programlisting">
+xValue = myVector::x.
+
+myVector::y = 100.
+</pre><p>
+        Starting in breve 2.5, the standard list index syntax may also be used
+        with indices 0, 1, and 2:
+      </p><pre class="programlisting">
+xValue = myVector{ 0 }.
+
+myVector{ 1 } = 100.
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2656"></a>Conversions to Other Types</h5></div></div></div><p>
+        Vectors cannot be converted to any other types. They do, however, have
+        meaning as "boolean" (true or false) expressions in control structures
+        (<a class="xref" href="ch04s03.html#node-2685" title="Program Control Structures">the section called &#8220;Program Control Structures&#8221;</a>). If used in the
+        context of a boolean expression (like an <code class="literal">if</code> statement, <a class="xref" href="ch04s03.html#node-2686" title="The if Statement">the section called &#8220;The if Statement&#8221;</a>), the vector will be true if
+        it's length is greater than 0, and false if its length is equal to 0.
+        This is to say that only the vector (0, 0, 0) is false in a boolean
+        context.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2657"></a>The matrix type</h4></div></div></div><p> A <span class="emphasis"><em>matrix</em></span> in steve refers to a 3x3 matrix which describes
+        a transformation in 3D space. Using transformation matrices is somewhat
+        advanced and they are not generally used in most simulations. Still,
+        they may be useful when dealing with physical simulations.
+      </p><p>
+        Matrices may be written in steve as three comma-separated vectors,
+        enclosed in braces ('[' and ']'), as in this example:
+      </p><pre class="programlisting">
+# the matrix m will be initialized to:
+#
+# [ 1 2 3 ]
+# [ 4 5 6 ]
+# [ 7 8 9 ]
+
+m = [ (1, 2, 3), (4, 5, 6), (7, 8, 9) ].
+</pre><p>
+        Matrix components can be extracted using the list index syntax. Each
+        row of the matrix is a vector:
+      </p><pre class="programlisting">
+myVector = myMatrix{ 0 }.
+
+myMatrix{ 1 } = ( 1, 2, 3 ).
+</pre><p>
+        Individual numbers may be extracted from matrices just as they are from
+        two-dimensional lists:
+      </p><pre class="programlisting">
+myNumber = myMatrix{ 0 }{ 0 }.
+
+myMatrix{ 1 }{ 1 } = 100.
+</pre><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2658"></a>matrix Operators</h5></div></div></div><p>
+        Matrices may be multiplied (*), divided (/), added (+) to and
+        subtracted (-) from other matrices. The results of these operations are
+        other matrices.
+      </p><p>
+        Matrices may be multiplied (*) or divided (/) by scalars (ints and
+        doubles). The result of these operations are other matrices.
+      </p><p>
+        Matrices may be used to transform vectors by multiplying the matrix
+        times the vector (*). The result of this operation is a vector.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2659"></a>Conversions to Other Types</h5></div></div></div><p>
+        Matrices cannot be converted to any other types. They do, however, have
+        meaning as "boolean" (true or false) expressions in control structures
+        (<a class="xref" href="ch04s03.html#node-2685" title="Program Control Structures">the section called &#8220;Program Control Structures&#8221;</a>). If used in the
+        context of a boolean expression (like an <code class="literal">if</code> statement, <a class="xref" href="ch04s03.html#node-2686" title="The if Statement">the section called &#8220;The if Statement&#8221;</a>), the expression will be true
+        if there are any non-zero values in the matrix. This means that a
+        matrix of all zeros will be false, while all other matrices are true.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2660"></a>The list Type</h4></div></div></div><p> The
+        <code class="literal">list</code> datatype allows you to keep a list
+        of other variables. lists can contain any datatype, including other
+        lists. lists can even contain multiple datatypes simultaneously.
+      </p><p><code class="literal">lists</code> are formed using the syntax
+        <code class="literal">{ <span class="emphasis"><em><code class="function">item1</code></em></span>, <span class="emphasis"><em><code class="function">item2</code></em></span>, <code class="function">...</code> }</code>.
+      </p><p>
+        Some simple examples of constructing <code class="literal">lists</code> are shown below:
+      </p><pre class="programlisting">
+myList = { 1, 2, 3.0 }.                 # a list of numbers (both int and float)
+myList = { "a", "b", "c" }.             # a list of strings
+myList = { "a", 30, new Mobile }.       # a list of mixed types
+myList = { 1, "a", { "dog", "cow" } }.  # a list with a nested list
+</pre><p>
+        An important feature of lists in steve is that they are always passed
+        by reference and are not copied. This means that if you pass a list to
+        a function, then any modifications done to the list inside the function
+        will modify the original list.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2661"></a>list Operators</h5></div></div></div><p>
+        The following operations can be used with <code class="literal">list</code> expressions:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">insert <span class="emphasis"><em><code class="function">expression</code></em></span>, at <span class="emphasis"><em><code class="function">list</code></em></span>, { <span class="emphasis"><em><code class="function">index</code></em></span> }</code>: inserts
+              <span class="emphasis"><em><code class="function">expression</code></em></span> at the
+              specified index in the list, shifting up other list elements with
+              higher indices
+            </p></li><li><p><code class="literal">remove <span class="emphasis"><em><code class="function">list</code></em></span>, { <span class="emphasis"><em><code class="function">index</code></em></span> }</code>: removes the
+              element of <span class="emphasis"><em><code class="function">list</code></em></span> at the
+              specified index and returns it, shifting down other list elements
+              with higher indices
+            </p></li><li><p><code class="literal">push <span class="emphasis"><em><code class="function">expression</code></em></span>, onto <span class="emphasis"><em><code class="function">list</code></em></span></code>: appends <span class="emphasis"><em><code class="function">expression</code></em></span> onto the end of list
+            </p></li><li><p><code class="literal">pop <span class="emphasis"><em><code class="function">list</code></em></span></code>: removes the last
+              element of <span class="emphasis"><em><code class="function">list</code></em></span> and
+              returns it
+            </p></li><li><p><code class="literal">prepend <span class="emphasis"><em><code class="function">expression</code></em></span>, onto <span class="emphasis"><em><code class="function">list</code></em></span></code>: prepends <span class="emphasis"><em><code class="function">expression</code></em></span> onto the start of
+              <span class="emphasis"><em><code class="function">list</code></em></span></p></li><li><p><code class="literal">unprepend <span class="emphasis"><em><code class="function">list</code></em></span></code>: removes the first
+              element of <span class="emphasis"><em><code class="function">list</code></em></span> and
+              returns it
+            </p></li><li><p><code class="literal"><span class="emphasis"><em><code class="function">list</code></em></span>, { <span class="emphasis"><em><code class="function">expression</code></em></span> }</code>: returns the
+              element of the list at offset expression. The expression index is
+              zero based, as in C, such that 0 refers to the first element, 1
+              to the second, and so forth. If the offset expression is less
+              than zero, or greater than the length of the list minus one
+              (because the access is zero based), an error is triggered and the
+              simulation is stopped.
+            </p></li><li><p><code class="literal"><span class="emphasis"><em><code class="function">list</code></em></span>, { <span class="emphasis"><em><code class="function">expression</code></em></span>, } = <span class="emphasis"><em><code class="function">value</code></em></span></code>: sets an element of
+              the list at offset expression to value. The offset index is again
+              zero based. If the offset expression is less than zero or greater
+              than the size of the list an error is triggered and the
+              simulation is stopped. If the offset expression is equal to the
+              size of the list, the list is extended by one element; the
+              operation has the same effect as pushing a value on to the end.
+            </p></li><li><p><code class="literal">sort <span class="emphasis"><em><code class="function">list</code></em></span>, with <span class="emphasis"><em><code class="function">method-name</code></em></span></code>: sorts
+              <span class="emphasis"><em><code class="function">list</code></em></span> using the method
+              specified with <span class="emphasis"><em><code class="function">method-name</code></em></span>. <span class="emphasis"><em><code class="function">method-name</code></em></span> must be a method
+              which takes two list elements (the keywords are unimportant) and
+              compares them, returning a negative number if the first list
+              element belongs before the second in the sorted list, a positive
+              number if the second belongs before the first, and 0 if the two
+              entries are equal. In most cases, this confusing sounding method
+              returns a certain value associated with one argument minus the
+              same value in the other.
+            </p><p>
+              Unlike the perl sort operator, <code class="literal">sort</code>
+              operates on the list it is given and does not return a copy of
+              it. This means that the original list is modified during the sort
+              operation.
+            </p></li><li><p><code class="literal">copylist <span class="emphasis"><em><code class="function">list</code></em></span></code>: copies the entire
+              list. Normally, assigning a list to a variable will <span class="emphasis"><em>not</em></span> copy the list but instead will
+              yield two variables pointing to the <span class="emphasis"><em>same</em></span> list.
+            </p></li><li><p><code class="literal">| <span class="emphasis"><em><code class="function">list</code></em></span> |</code>: gives the length
+              of a list. Lists are automatically converted to integers when use
+              in mathematical expressions, but this construct can be used too
+              force the conversion.
+            </p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2662"></a>Conversions to Other Types</h5></div></div></div><p><code class="literal">lists</code> can be converted to <code class="literal">ints</code> simply by using them in the context of integers.
+        They can thus also be used as <code class="literal">floats</code>. In
+        the event that the context of the expression does not force the list to
+        become an integer, you can force it yourself by using it in a
+        mathematical context:
+      </p><pre class="programlisting">
+myInt = (myList + 0).
+</pre></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2663"></a>The string Type</h4></div></div></div><p>
+        The string type holds a character string. A string is written in code
+        (as in C) as a quoted string. For example, the built-in print operator
+        is capable of printing strings:
+      </p><pre class="programlisting">
+print "this is a string".
+</pre><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2664"></a>string Operators</h5></div></div></div><p>
+          The following operations can be done on strings:
+        </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal"><span class="emphasis"><em><code class="function">string</code></em></span> { <span class="emphasis"><em><code class="function">index</code></em></span> }</code>: returns, as a
+              string, the letter at the specified index.
+            </p></li><li><p><code class="literal"><span class="emphasis"><em><code class="function">string</code></em></span> { <span class="emphasis"><em><code class="function">index</code></em></span> } = <span class="emphasis"><em><code class="function">otherString</code></em></span></code>: replaces the
+              letter at the specified location with the string <span class="emphasis"><em><code class="function">otherString</code></em></span>.
+            </p></li><li><p><code class="literal">| <span class="emphasis"><em><code class="function">string</code></em></span> |</code>: returns the
+              length of the string.
+            </p></li></ul></div><p>
+        In addition to the operators listed above, strings can be formatted
+        using embedded variables. Variables can be embedded in strings so that
+        the strings are interpreted dynamically, as in Perl. To indicate a
+        variable embedded in a string, use the "$" character. The following,
+        for example, will use the variable "self" in order to build a string to
+        be printed:
+      </p><pre class="programlisting">
+print "my value is $self.".
+</pre><p>
+        This technique can be used to performing string concatenations as well:
+      </p><pre class="programlisting">
+$longstring = "$string1$string2".
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2665"></a>Conversions to Other Types</h5></div></div></div><p>
+        strings can be converted to <code class="literal">ints</code> and
+        <code class="literal">floats</code>, but not to any other types.
+      </p><p>
+        In the context of an int or a float, the string is translated into the
+        appropriate type by converting the numerical component of the string.
+        For more information on this conversion, consult the man pages for the
+        ANSI C <code class="literal">atoi()</code> (for <code class="literal">ints</code>) or <code class="literal">atof()</code> (for
+        <code class="literal">doubles</code>) functions.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2666"></a>The hash Type</h4></div></div></div><p> A hash is a
+        type which works like a dictionary: it allows expressions ("values") to
+        be stored and looked-up using other expressions as the "keys". The
+        following example shows a steve hash being used like a dictionary:
+      </p><pre class="programlisting">
+dictionary (hash).
+
+dictionary{ "dog" } = "a four-legged pet".
+dictionary{ "fish" } = "a zero-legged pet".
+
+# this will print the definition we stored above.
+
+print "the definition of dog is: ", dictionary{ "dog" }.
+</pre><p>
+        As shown in this example, we're able to store data using strings as the
+        keys. When data is later retrieved from the hash table using the same
+        key, the value stored previously is returned.
+      </p><p>
+        hashes are not limited to using strings as keys. They can use any valid
+        type. The most useful application is a hash table which uses objects as
+        keys. In this way, relationships between objects can be stored in a
+        hash. Consider an object that wants to keep track of neighbors it has
+        encountered previously:
+      </p><pre class="programlisting">
+# let's say that this method gets called when a neighbor is seen...
+# if the neighbor has already been seen, print a message &#8212; otherwise,
+# just add it to the hash for next time!
+
++ to meet with neighbor (object):
+        if seenHash{ neighbor }: print "I've seen this neighbor before!"
+        else seenHash{ neighbor } = 1.
+</pre><p>
+        The example above also shows that the syntax of hashes is the same as
+        the syntax for lists when storing or retrieving data. Unlike lists,
+        however, hashes do not hold ordered data, and none of the other list
+        operators work with hashes.
+      </p><p>
+        When using hashes with keys that are ints, floats, vectors, matrices or
+        strings, steve will test the equivalence of the keyed data when looking
+        up or storing the data. This means that two equivalent strings, even if
+        they are stored in different variables, will refer to the same value in
+        the hash. For the other types (objects, pointers, data, lists and
+        hashes themselves), the hash will only return the same value for the
+        same exact variable key. This means that two different lists, even if
+        they contain "equal" data, will access different values in the hash.
+      </p><p>
+        An important feature of hashes in steve is that they are always passed
+        by reference and are not copied. This means that if you pass a hash to
+        a function, then any modifications done to the hash inside the function
+        will modify the original hash.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2667"></a>hash Operators</h5></div></div></div><p>
+        A list of the keys in a hash may be retrieved using the built-in
+        function <code class="literal">keys</code>. This key list is often
+        used to iterate through the items in a hash:
+      </p><pre class="programlisting">
+foreach key in keys( myHash ): {
+        print myHash{ key }.
+}
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2668"></a>Conversion to Other Types</h5></div></div></div><p>
+        hashes cannot be converted to any other types.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2669"></a>The pointer Type</h4></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              For developer use only
+            </h3><p> The
+                <code class="literal">pointer</code> type is for use by breve
+                and plugin developers only.
+              </p></div><p>
+        pointer variables store C-style pointers to internal data. They are not
+        used for writing simulations in steve and are only used by breve
+        developers and plugin authors.
+      </p><p>
+        pointer variables are only useful in the context of interacting with
+        internal C-style function calls: they do not contain methods, variables
+        or any other meaning in the context of most steve code. Like objects,
+        however, pointers can be tested to see if they are NULL (0), but cannot
+        be used in mathematical expressions. That is to say that pointers have
+        a meaning in a boolean context of control structures such as
+        <span class="emphasis"><em>if</em></span> and <span class="emphasis"><em>while</em></span> (as well as the logical operators
+        <span class="emphasis"><em>&amp;&amp;</em></span> and <span class="emphasis"><em>||</em></span>).
+      </p><p>
+        As in C, copying a pointer (assigning it to another variable) will not
+        copy the data it points to.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="node-2670"></a>Conversion to Other Types</h5></div></div></div><p>
+        pointers cannot be converted to any other types.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2671"></a>The data Type</h4></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              For developer use only
+            </h3><p>
+                The <code class="literal">data</code> type is for use by breve
+                and plugin developers only.
+              </p></div><p><code class="literal">data</code> variables are similar to pointer variables in
+        that they contain a reference to internal data. Also like pointer
+        variables, they are not to be used in regular simulation
+        code&#8212;they are only to be used by breve developers and custom
+        plugins.
+      </p><p>
+        The difference between <code class="literal">data</code> and
+        <code class="literal">pointer</code> is that <code class="literal">data</code> refers to a linear block of internal data of
+        known size. This means that <code class="literal">data</code>
+        variables can be successfully archived, while pointers cannot.
+        <span class="emphasis"><em>The only use for <code class="function">data</code> variables is archiving and dearchiving internal
+        data</em></span>. For more information on using the <code class="literal">data</code> type with plugins, see the section on Archiving
+        Plugin Data With The <code class="literal">data</code> Type (<a class="xref" href="ch13s03.html" title="Archiving Plugin Data With The data Type">the section called &#8220;Archiving Plugin Data With The data Type&#8221;</a>).
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2673"></a>Expressions</h3></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2674"></a>Special variables and values</h4></div></div></div><p>
+        Certain variables have special meanings in steve. Their values are
+        managed automatically by the breve engine and should not be assigned
+        manually.
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">self (object)</code>.
+            </p><p> This
+              variable always contains the value of the instantiation in which
+              the current method is being run. The variable is used most
+              frequently to call other methods within the same instantiation.
+              For example, an object of class Mobile could move itself with the
+              call:
+            </p><pre class="programlisting">
+    self move to (10, 10, 10).
+</pre></li><li><p><code class="literal">super (object)</code>.
+            </p><p> This
+              special value refers to the parent, or super-instance. This is
+              used to invoke a parent class implementation of a method, instead
+              of the current class implementation.
+            </p><p>
+              For example, in the Controller's iterate method, the superclass
+              iterate method is often called: super iterate. This is because
+              custom subclasses of Control typically preform simulation
+              specific tasks, but must then call on the superclass
+              implementation (Control) to actually step the physical simulation
+              forward and update the state of the world. Anytime you wish to
+              implement a custom object behavior <span class="emphasis"><em>in
+              addition</em></span> a parent class behavior, you should invoke
+              the parent class method as well.
+            </p></li><li><p><code class="literal">controller (object)</code>.
+            </p><p> The
+              controller variable is defined for all instances. It always
+              refers to the simulation's controller instance.
+            </p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2675"></a>Assignments</h4></div></div></div><p> The most simple
+        expressions are simple assignments of literal values to variables. It
+        may help to refer to the documentation on steve types before
+        continuing.
+      </p><p>
+        Below are a few examples of this type of expression. In each case, the
+        variable on the left will take the value of the expression on the
+        right. If the expression on the right is not the correct type, it will
+        be automatically converted if possible. If the conversion is not
+        possible, an error will occur.
+      </p><pre class="programlisting">
+myInt = 4.
+myDouble = 12.345.
+myString = "Hello!".
+    
+# If we assign a double to an int, it will be automatically converted by 
+# truncating the decimal portion.  In this example, myInt will take the value 
+# 4:  
+    
+myInt = 4.8.
+    
+# Similarly, if we assign a string to an int or a double, the variable will
+# take the numeric value of the string, in accordance with the atoi() or
+# atof() ANSI C function.  Here the double will get the value 10000: 
+     
+myDouble = "10000 miles away.".
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2676"></a>Mathematical Expressions</h4></div></div></div><p>
+        Mathematical operators in steve function almost exactly the same as
+        they do in C, although there are some additions to account for vector
+        and matrix types.
+      </p><p>
+        The following binary operators are valid for <code class="literal">int</code> and <code class="literal">double</code> types
+        (the descriptions refer to x and y, as though they were used in an
+        expression: <code class="literal">x <span class="emphasis"><em><code class="function">operator</code></em></span> y</code>): </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">+</code>, addition
+            </p></li><li><p><code class="literal">-</code>, subtraction
+            </p></li><li><p><code class="literal">*</code>, multiplication
+            </p></li><li><p><code class="literal">/</code>, division
+            </p></li><li><p><code class="literal">%</code>, modulus (the remainder of x when
+              divided by y)
+            </p></li><li><p>
+              ^, power (x raised to the power of y)
+            </p></li></ul></div><p>
+        Their functions should be self-explanatory, with the possible exception
+        of modulus, which cannot be used with double types in C. When used with
+        doubles, the result is calculated using the ANSI C <code class="literal">fmod()</code> function.
+      </p><p>
+        The following operators are valid for use with two vectors:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">+</code>, vector addition
+            </p></li><li><p><code class="literal">-</code>, vector subtraction
+            </p></li></ul></div><p>
+        The following operators are valid for a vector and a double (although
+        an <code class="literal">int</code> is automatically promoted to a
+        double in this case):
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">*</code>, vector multiplied by scalar
+            </p></li><li><p><code class="literal">/</code>, vector divided by scalar
+            </p></li></ul></div><p>
+        As in many languages, parentheses are used to group expressions when
+        the default order of operations does not compute the desired result:
+      </p><pre class="programlisting">
+# this is the default order, but we can make it explicit with parens
+x = x + (4 / y).                    # computes 4 / y first...
+
+# this is NOT the default order -- we need to force it
+x = (x + 4) / y.                    # computes x + 4 first
+</pre><p>
+        Mathematical expressions are often used in conjunction with assignments
+        in order to modify the value of a variable. A few examples of using
+        mathematical expressions in conjunction with assignments follow:
+      </p><pre class="programlisting">
+    x = x + 4.
+
+    y = (1, 2, 3) / x.                  # assumes x is an int or double
+
+    z = z + x^2.
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2677"></a>Mathematical Assignment Expressions</h4></div></div></div><p> In addition to the mathematical assignment operators
+        above, steve also support <span class="emphasis"><em>mathematical
+        assignment operators</em></span>. Mathematical assignment operators are
+        used as shortcuts to perform a calculation and update the value of a
+        variable simultaneously, instead of as two separate steps. These
+        expressions are useful, but since they are only shortcuts for other
+        expressions, understanding them is not critical.
+      </p><p>
+        The following mathematical assignment operators are available:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">+=</code></p></li><li><p><code class="literal">-=</code></p></li><li><p><code class="literal">*=</code></p></li><li><p><code class="literal">/=</code></p></li><li><p><code class="literal">%=</code></p></li><li><p><code class="literal">^=</code></p></li></ul></div><p>
+        These operators are simply shortcuts for cases in which the left
+        operand of the mathematical expression is also the location where the
+        output of the expression will be stored. For example, the following
+        expression pairs are equivalent:
+      </p><pre class="programlisting">
+a = a + b.               # "a equals a plus b" can also be written as...
+a += b.                  # "a plus equals b"
+
+a = a - (2, 2, 2).
+a -= (2, 2, 2).
+</pre><p>
+        steve also has "increment" and "decrement" assignment operators:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              ++
+            </p></li><li><p>
+              --
+            </p></li></ul></div><p>
+        As in languages like C and Perl, these operators increment and
+        decrement a variable by one, respectively. Unlike C and Perl, these
+        operators may <span class="emphasis"><em>only</em></span> be placed
+        after the variable. As an example, the following expression pairs are
+        equivalent:
+      </p><pre class="programlisting">
+x = x + 1.          # updates the variable x by adding 1
+x++.
+
+x += 1.             # does the same...
+x++.
+
+y = (x += 1).       # a little confusing, but sets both x and y to (x + 1)
+y = x++.            # as does this.
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2678"></a>Mathematical Functions</h4></div></div></div><p> A number of internal functions (which are otherwise
+        typically not used in breve simulations) are available for math-related
+        expressions. Internal functions are called just like C functions:
+        <code class="literal"><span class="emphasis"><em><code class="function">functionName</code></em></span> (<span class="emphasis"><em><code class="function">arguments</code></em></span>)</code>.
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">sin(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the sine of
+              the radian angle <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">cos(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the cosine of
+              the radian angle <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">tan(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the tangent
+              of the radian angle <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">asin(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the radian
+              angle arc sine of <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">acos(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the radian
+              angle arc cosine of the <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">atan(input)</code> gives the radian angle
+              arc tangent of <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">sqrt(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the
+              <code class="literal">float</code> square root of <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">angle(<span class="emphasis"><em><code class="function">a</code></em></span>, <span class="emphasis"><em><code class="function">b</code></em></span>)</code> gives the <code class="literal">float</code> angle in radians between vectors
+              <span class="emphasis"><em><code class="function">a</code></em></span> and <span class="emphasis"><em><code class="function">b</code></em></span>.
+            </p></li><li><p><code class="literal">max(<span class="emphasis"><em><code class="function">a</code></em></span>, <span class="emphasis"><em><code class="function">b</code></em></span>)</code> gives the maximum of
+              <code class="literal">floats</code><span class="emphasis"><em><code class="function">a</code></em></span> and <span class="emphasis"><em><code class="function">b</code></em></span>.
+            </p></li><li><p><code class="literal">min(<span class="emphasis"><em><code class="function">a</code></em></span>, <span class="emphasis"><em><code class="function">b</code></em></span>)</code> gives the minimum of
+              <code class="literal">floats</code><span class="emphasis"><em><code class="function">a</code></em></span> and <span class="emphasis"><em><code class="function">b</code></em></span>.
+            </p></li><li><p><code class="literal">cross(<span class="emphasis"><em><code class="function">v1</code></em></span>, <span class="emphasis"><em><code class="function">v2</code></em></span>)</code> gives the vector cross
+              product of vectors <span class="emphasis"><em><code class="function">v1</code></em></span>
+              and <span class="emphasis"><em><code class="function">v2</code></em></span>.
+            </p></li><li><p><code class="literal">dot(<span class="emphasis"><em><code class="function">v1</code></em></span>, <span class="emphasis"><em><code class="function">v2</code></em></span>)</code> gives the float dot
+              product of vectors <span class="emphasis"><em><code class="function">v1</code></em></span>
+              and <span class="emphasis"><em><code class="function">v2</code></em></span>.
+            </p></li><li><p><code class="literal">log(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the
+              <code class="literal">float</code> natural log of <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li><li><p><code class="literal">randomGauss()</code> gives a <code class="literal">float</code> random number with a Gaussian
+              distribution.
+            </p></li><li><p><code class="literal">transpose(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> gives the transpose
+              of the matrix <span class="emphasis"><em><code class="function">input</code></em></span>.
+            </p></li></ul></div><p>
+        The following internal functions are used for testing float variables
+        for special values which have meaning primarily to developers and
+        plugin authors.
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">isnan(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> returns 1 if the
+              input is a "not-a-number" float value, 0 otherwise.
+            </p></li><li><p><code class="literal">isinf(<span class="emphasis"><em><code class="function">input</code></em></span>)</code> returns 1 if the
+              input is a float value representing infinity, 0 otherwise.
+            </p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2679"></a>Random Numbers</h4></div></div></div><p> Random
+        numbers are available in steve using the command <code class="literal">random</code>. The syntax is <code class="literal">random[
+        <span class="emphasis"><em><code class="function">expression</code></em></span> ]</code>, where
+        expression is an expression of either <code class="literal">int</code>
+        (<a class="xref" href="ch04s03.html#node-2645" title="The int type">the section called &#8220;The int type&#8221;</a>),
+        <code class="literal">float</code> (<a class="xref" href="ch04s03.html#node-2648" title="The float type">the section called &#8220;The float type&#8221;</a>) or <code class="literal">vector</code> (<a class="xref" href="ch04s03.html#node-2654" title="The vector Type">the section called &#8220;The vector Type&#8221;</a>). The value returned is always
+        the same type as the expression. In the case of <code class="literal">int</code> or <code class="literal">float</code>, the
+        returned value is a random value between 0 and the expression. In the
+        case of a <code class="literal">vector</code> expression, the returned
+        value is a <code class="literal">vector</code> in which each element
+        is between 0 and the corresponding value of the expression. For
+        example, a call to <code class="literal">random[(10, 10, 20)]</code>
+        returns a <code class="literal">vector</code> with X and Y elements
+        between 0 and 10, and the Z element between 0 and 20.
+      </p><p>
+        Note that <code class="literal">random[<span class="emphasis"><em><code class="function">intValue</code></em></span>]</code> returns a value
+        between 0 and <span class="emphasis"><em><code class="function">intValue</code></em></span>,
+        inclusive, as opposed to the behavior that many C programmers expect in
+        which the returned value is between 0 and <span class="emphasis"><em><code class="function">intValue</code></em></span> - 1.
+      </p><p>
+        Because many simulations use the origin (0, 0, 0) as the "center" of
+        their world, it is often useful to obtain a random vector centered
+        around (0, 0, 0). For example, if we want to move agents somewhere
+        within an imaginary box surrounding the origin, we might use the
+        expression <code class="literal">random[(40, 40, 40)] - (20, 20,
+        20)</code>. This convention gives us a <code class="literal">vector</code> with each element between -20 and 20. This
+        type of expression appears frequently in simulations.
+      </p><p>
+        The values are produced using the standard C library <code class="literal">rand()</code> routine. The library is seeded with the
+        current time when the breve application is launched. To explicitly set
+        the random seed, you may call the internal function <code class="literal">randomSeed( <span class="emphasis"><em><code class="function">value</code></em></span>
+        )</code>, where value is an integer.
+      </p><p> In the event
+        that multiple breve simulations are launched simultaneously (typically
+        only relevant in cluster environments), it may be necessary to pick
+        unique random seeds for each such simulation to prevent them from
+        producing the exact same results. Refer to the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Controller</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#set-random-seed-from-dev-random" target="_top">set-random-seed-from-dev-random</a> for more information
+        on automatically picking unique random seeds on systems that support
+        it.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2680"></a>Method Calls</h4></div></div></div><p> As discussed
+        in the section on defining class methods, each method is identified by
+        a name and may have any number of input arguments. The most simple
+        method call to a method with no arguments is simply:
+      </p><pre class="programlisting"><span class="emphasis"><em><code class="function">instance</code></em></span><span class="emphasis"><em><code class="function">methodName</code></em></span>.
+</pre><p>
+        If the method takes arguments, each argument is associated with a
+        keyword: the keyword identifies which argument will follow and what
+        it's type is. This is somewhat different from C where the argument's
+        type and meaning is specified by its order relative to other arguments.
+        The steve method is more similar to Objective C and allows a more
+        natural language structure to method calls and protects against
+        arguments being passed in the wrong order.
+      </p><p>
+        To pass arguments to the method, simply precede the argument value with
+        the keyword name. Consider a method move-object which takes a keyword
+        to:
+      </p><pre class="programlisting">
+myObject move-object to (1, 2, 3). 
+</pre><p>
+        If the method takes more than a single argument, the convention is the
+        same&#8212;just add the next argument afterwards. Note that the order
+        in which the arguments are passed does not affect the method call,
+        though it may affect the readability of the code. For example, the
+        Control object implements a method to point the camera at a certain
+        vector location from a vector offset&#8212;first we'll see the method
+        definition, then how it's called:
+      </p><pre class="programlisting">
+# if the method is defined using:
+    
++ to point-camera at location (vector) from offset (vector):
+    ...
+
+# then from another method, we can call point-camera using the code below.
+# these two method calls are equivalent, though the first reads more 
+# naturally.
+
++ to do-something-else:
+    self point-camera at (0, 0, 0) from (100, 100, 100).
+    self point-camera from (100, 100, 100) at (0, 0, 0). 
+
+</pre><p>
+        If you wish to call a method for multiple objects, you can use the
+        method call syntax with a list of objects. Note, however, that the
+        arguments to the list are computed separately for each item in the
+        list. This makes a difference in the following example:
+      </p><pre class="programlisting">
+# assume that mobileList is of type list
+
+mobileList = 10 new Mobile.
+
+# The random statement is evaluated for each instance, meaning that all the 
+# instances go to different random locations, not to a single random location.
+
+mobileList move to random[(20, 20, 20)].
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2681"></a>The all Expression</h4></div></div></div><p>
+        You can find all instances of a given class using the <code class="literal">all</code> expression. <code class="literal">all</code> is
+        given the name of a class, and returns a list containing all objects of
+        that type.
+      </p><pre class="programlisting">
+# get a list of all mobile objects in the simulation
+
+myMobile = all Mobiles.
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2682"></a>Printing information with print and printf</h4></div></div></div><p> The <code class="literal">print</code> and <code class="literal">printf</code>
+        statements are used to print output from a simulation to the output
+        log. Both of these statements accept any type of expression, as well as
+        multiple expressions separated by commas. Also, since <code class="literal">strings</code> may contain embedded variables, you can
+        format the output of variables however you'd like. See the section on
+        <code class="literal">strings</code> (<a class="xref" href="ch04s03.html#node-2663" title="The string Type">the section called &#8220;The string Type&#8221;</a>) for more information.
+      </p><p>
+        The only difference between <code class="literal">print</code> and
+        <code class="literal">printf</code> is that <code class="literal">printf</code> does <span class="emphasis"><em>not</em></span> automatically print a newline character.
+        This means that subsequent prints will continue on the same line (as
+        though the "return" key was never hit). This can be useful if you're
+        trying to produce output in a specific format, but is typically not
+        desirable. If in doubt, stick to <code class="literal">print</code></p><p>
+        Here are some examples of <code class="literal">print</code> and
+        <code class="literal">printf</code>:
+      </p><pre class="programlisting">
+# print two variables, side by side.
+
+print (self get-time), populationSize.
+
+# use a variable embedded in a string.
+
+print "the population size is $populationSize".
+
+# the following statements would produce the text:
+# A B C
+# D E F
+
+print "A B C ".
+print "D E F".
+
+# the following statements would produce the text:
+# A B C D E F
+
+printf "A B C ".
+printf "D E F".
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2683"></a>Using Subexpressions</h4></div></div></div><p> As in C, of
+        course, users can use subexpressions as part of larger expressions. For
+        example, you can use a mathematical expression as part of a method
+        call, or a method call as part of a mathematical expression. Because of
+        the syntax of steve , however, subexpressions frequently need to be
+        parenthesized in situations where it would not be required in C. The
+        following important rules apply to using subexpressions: If a method
+        call is not the entire statement, it must be parenthesized. If you wish
+        to assign the result of a method call, use it in a mathematical
+        expression or use it as an argument for another method, for example:
+      </p><pre class="programlisting">
+myInt = self get-speed.                   # incorrect
+myInt = (self get-speed).                 # correct
+
+myInt = self get-speed + 5.               # incorrect
+myInt = (self get-speed) + 5.             # correct
+
+self set-speed to neighbor get-speed.     # incorrect 
+self set-speed to (neighbor get-speed).   # correct
+</pre><p>
+        All method arguments must be a single "unit"&#8212;arguments which are
+        not simply a variable or literal value must be parenthesized.
+      </p><p>
+        This means that if you use mathematical expressions, instantiations or
+        other method calls as input arguments to a method, they must be
+        parenthesized. The first rule about method calls, of course, still
+        applies:
+      </p><pre class="programlisting">
+self set-location to ((neighbor get-location) + (10, 10, 10)). # correct
+self set-location to (neighbor get-location) + (10, 10, 10).   # incorrect
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2684"></a>Internal Function Calls</h4></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              For developer use only
+            </h3><p>
+                Internal function calls are for use by breve and plugin
+                developers only.
+              </p></div><p>
+        The final expression type is the internal function call. Internal
+        function calls look just like C calls:
+      </p><pre class="programlisting"><span class="emphasis"><em><code class="function">methodName</code></em></span>(<span class="emphasis"><em><code class="function">arg1</code></em></span>,<span class="emphasis"><em><code class="function">arg2</code></em></span>, <span class="emphasis"><em><code class="function">... argN</code></em></span>)
+</pre><p>
+        Although internal function calls grant the most direct access to the
+        breve libraries and features, the included class hierarchy provides a
+        formal interface to the internal functions such that user simulations
+        should never use these internal functions. The only exception to this
+        is for certain mathematical functions.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2685"></a>Program Control Structures</h3></div></div></div><p><span class="emphasis"><em>Control structures</em></span> effect the flow of
+        simulation code. Though many of these structures function the same as
+        their counterparts in C, the syntax is slightly different in each case.
+        The main difference is that the statement being tested is not
+        (necessarily) surrounded by parentheses, but is followed by a colon
+        (':') character.
+      </p><p>
+        Control statements evaluate test statements and then execute code
+        according to the result. In the case of <code class="literal">for</code> (<a class="xref" href="ch04s03.html#node-2689" title="The for Loop">the section called &#8220;The for Loop&#8221;</a>), <code class="literal">foreach</code> (<a class="xref" href="ch04s03.html#node-2688" title="The foreach Loop">the section called &#8220;The foreach Loop&#8221;</a>) and <code class="literal">while</code> (<a class="xref" href="ch04s03.html#node-2689" title="The for Loop">the section called &#8220;The for Loop&#8221;</a>), these structures are used as
+        loops to repeat execution of a piece of code a certain number of times
+        or while a certain condition is met. The <code class="literal">if</code> statement is used to execute a block of code if a
+        certain condition is true or, optionally, a different block of code if
+        the statement is false. A call to <code class="literal">return</code>
+        will exit any control structure block immediately, as well as the
+        method to which it belongs.
+      </p><p>
+        The conditional statements are comprised of C-style comparison
+        operators. The following comparison operators are available:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">==</code>, Equals
+            </p></li><li><p><code class="literal">!=</code>, Not equals
+            </p></li><li><p><code class="literal">&gt;=</code>, Greater than or Equals
+            </p></li><li><p><code class="literal">&lt;=</code>, Less than or Equals
+            </p></li><li><p><code class="literal">&gt;</code>, Greater than
+            </p></li><li><p><code class="literal">&lt;</code>, Less than
+            </p></li><li><p><code class="literal">&amp;&amp;</code>, And (short circuit
+              operator)
+            </p></li><li><p><code class="literal">||</code>, Or (short circuit operator)
+            </p></li><li><p><code class="literal">!</code>, Negation
+            </p></li></ul></div><p>
+        For all of these structures, the code to be executed may be either a
+        single statement, or several statements enclosed in braces ('{' and
+        '}').
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2686"></a>The if Statement</h4></div></div></div><p> The <code class="literal">if</code> statement is used to execute one piece of code if
+        a test statement is true, or (optionally) another if the statement is
+        false:
+      </p><pre class="programlisting">
+if <span class="emphasis"><em><code class="function">test_statement</code></em></span>: <span class="emphasis"><em><code class="function">true_code</code></em></span>
+[ else <span class="emphasis"><em><code class="function">false_code</code></em></span> ]
+</pre><p>
+        Examples of the <code class="literal">if</code> statement are shown
+        below.
+      </p><pre class="programlisting">
+# here we execute a single statement
+
+if x &gt; 5: x = 20.
+else x = 0.
+
+# here we execute multiple...
+
+if x &gt; 5: {
+        x = 20.
+        y = 40.
+} 
+
+# here we execute multiple statements in the if, but only one in the else...
+
+if x &gt; 5: {
+        x = 20.
+        y = 40.
+} else x = 200.
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2687"></a>The while Loop</h4></div></div></div><p> The
+        <code class="literal">while</code> control structure works just like
+        the while statement in C. While executes a block of code repeatedly, as
+        long as the test condition is true:
+      </p><pre class="programlisting">
+while <span class="emphasis"><em><code class="function">test_condition</code></em></span>: <span class="emphasis"><em><code class="function">code</code></em></span></pre><p>
+        An example of the <code class="literal">while</code> loop is shown
+        below.
+      </p><pre class="programlisting">
+# for example...
+
+while x &lt; 10: {
+        print "x = $x".
+        x++.
+}
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2688"></a>The foreach Loop</h4></div></div></div><p> The
+        <code class="literal">foreach</code> control structure is similar to
+        the foreach loop in Perl. The loop iterates through a list, and
+        executes the associated code each time. The current item in the list is
+        stored in a temporary variable as supplied by the user:
+      </p><pre class="programlisting">
+foreach <span class="emphasis"><em><code class="function">temporary_variable</code></em></span> in <span class="emphasis"><em><code class="function">list_variable</code></em></span>: <span class="emphasis"><em><code class="function">code</code></em></span>.
+</pre><p>
+        An example of the <code class="literal">foreach</code> loop is shown
+        below.
+      </p><pre class="programlisting">
+# so, for example, if we have a variable called agent and a list
+# of objects stored in agentList:
+
+foreach agent in agentList: {
+        print (agent get-location).
+}
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2689"></a>The for Loop</h4></div></div></div><p> The
+        <code class="literal">for</code> loop (similar to the <code class="literal">for</code> loop in C) repeatedly executes a block of code.
+        Though it can function more generally like the <code class="literal">while</code> loop, it is typically used to run a block of
+        code for each value of a "counter" variable.
+      </p><p>
+        The loop is separated into three statements&#8212;an initializer, a
+        test statement, and an increment statement.
+      </p><pre class="programlisting">
+for <span class="emphasis"><em><code class="function">expression</code></em></span>, <span class="emphasis"><em><code class="function">test_expression</code></em></span>, <span class="emphasis"><em><code class="function">increment_expression</code></em></span>: <span class="emphasis"><em><code class="function">code</code></em></span>.
+</pre><p>
+        The <span class="emphasis"><em>initializer</em></span> is executed once
+        when the loop starts. It is typically used to set the iteration
+        variable before proceeding. The <span class="emphasis"><em>test
+        statement</em></span> is run at every iteration to determine whether
+        the loop will continue to execute (similar to the <code class="literal">while</code> loop). Finally, the <span class="emphasis"><em>increment statement</em></span> is run at every
+        iteration of the loop, typically to update a counter variable. Examples
+        of the <code class="literal">for</code> loop are shown below.
+      </p><pre class="programlisting">
+# so, for example, if we have a variable called n (int), this loop will
+# print the numbers from 0 to 29.
+
+for n=0, n&lt;30, n+=1: {
+        print n.
+}
+
+# we can also use a different increment statement in order to run the 
+# loop a bit differently&#8212;let's print only even numbers between 2 and 28
+
+for n=2, n&lt;=28, n+=2: {
+        print n.
+}
+</pre></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2690"></a>Garbage Collection and Memory Management</h3></div></div></div><p>
+        breve includes built-in <span class="emphasis"><em>garbage
+        collection</em></span> (sometimes called <span class="emphasis"><em>GC</em></span>). Garbage collection is a form of memory
+        management in which the system detects when an object is no longer
+        referenced by any other variable. When an object is no longer
+        referenced by any other variable, it is an indication that the memory
+        is no longer in use and can thus be safely deallocated.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2691"></a>Memory Management and Garbage Collection of Basic Types</h4></div></div></div><p>
+        Memory management and garbage collection of basic types happens
+        automatically and requires no user interaction. ints, floats, matrices
+        and vectors are passed by reference and do not require garbage
+        collection. lists, hashes and data are automatically garbage collected
+        when appropriate.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2692"></a>Memory Management and Garbage Collection of Objects</h4></div></div></div><p>
+        breve's garbage collection is slightly complicated by the fact that
+        objects do not need to be referenced in memory to be "in use". An
+        unreferened object may, for example, "come back to life" because of an
+        all (<a class="xref" href="ch07s06.html" title="Finding All Objects of a Given Type">the section called &#8220;Finding All Objects of a Given Type&#8221;</a>) expression.
+        Furthermore, objects in the simulated world (members of subclasses of
+        the class "Real") may physically interact even without referencing each
+        other in their variables. Because of these complications, garbage
+        collection cannot be automatically enabled for all objects in a
+        simulation.
+      </p><p>
+        Garbage collection for objects is thus enabled on a per-object basis
+        and the programmer must decide when its use is appropriate. The
+        following guidelines should generally help to decide when garbage
+        collection is appropriate for an object:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              the object is not a member of a subclass of Real.
+            </p></li><li><p>
+              the object does not have it's own iterate or post-iterate
+              methods.
+            </p></li><li><p>
+              the object is not a dependency of any object that does not hold a
+              reference to it.
+            </p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2693"></a>A Garbage Collection Caveat: Circular References</h4></div></div></div><p>
+        One important caveat applies to garbage collection of both basic types
+        and objects. The steve garbage collection scheme does not correctly
+        deallocate memory when there are <span class="emphasis"><em>circular
+        references</em></span>. A circular reference occurs when two (or more)
+        objects refer to each other in a circular fashion. An example of a
+        circular reference between three objects is shown below:
+      </p><div class="mediaobject" align="center"><img src="../images/circular_reference.jpg" align="middle"></div><p>
+        When a circular reference occurs, the objects are never recognized as
+        "unused" and are thus never deleted as they should be. Circular
+        references thus lead to "islands" of unused memory which do not get
+        released. This type of circular reference is rare, but if your
+        simulation design makes use of these types of structures, you may have
+        to explicitly overwrite variables in order to ensure that no circular
+        references exist.
+      </p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2694"></a>Directives</h3></div></div></div><p>
+        Before getting started with the code for a simulation or class, there
+        are often a few special lines at the top of a steve file which begin
+        with an @-character. These lines are called @-directives ("at
+        directives") and they specify information that can help breve to locate
+        classes or other files, or to define some constants that will be used
+        in your simulation. These directives are described below.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2695"></a>include and @use: Load Another Source File</h4></div></div></div><p>
+        breve includes a rich hierarchy of classes that are used to construct
+        simulations. To use a class that comes with breve (or another file
+        which you have created yourself), you must tell breve to load in its
+        associated class file. You need to load a class before you instantiate
+        it or subclass it.
+      </p><p>
+        Classes are loaded using the <code class="literal">@include</code>
+        directive. It is used simply by specifying the name of the file to
+        include:
+      </p><pre class="programlisting">
+@include "Control.tz".
+</pre><p><code class="literal">@use</code> works the same way, but with a
+        slightly different syntax, leaving out the quotes and the ".tz" from
+        the file name:
+      </p><pre class="programlisting">
+@use Control.
+</pre><p>
+        There is no difference between <code class="literal">@include</code>
+        and <code class="literal">@use</code> in terms of how files are
+        actually loaded.
+      </p><p><code class="literal">@include</code> directives are not only used to
+        include classes that come with the breve distribution, but also
+        potentially classes that you construct yourself. They are often used in
+        conjunction with the <code class="literal">@path</code> directive
+        (<a class="xref" href="ch04s03.html#node-2696" title="path: Specify a Search Path">the section called &#8220;path: Specify a Search Path&#8221;</a>) to specify the
+        location of classes before loading them.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2696"></a>path: Specify a Search Path</h4></div></div></div><p> Each <code class="literal">@path</code> directive specifies a directory that breve
+        should search within to find files. These directives apply to finding
+        class files, image files, sound files, archives and any other type of
+        resource that breve might need to search for. They should go at the top
+        of source files, before any other files are included or used.
+      </p><p>
+        Here's an example <code class="literal">@path</code> directive that
+        allows a folder containing class files to be searched:
+      </p><pre class="programlisting">
+@path "/Users/jk/breve_classes".
+</pre><p>
+        You may specify as many directories with <code class="literal">@path</code> directives as necessary.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="node-2697"></a>define: Define a Global Constant</h4></div></div></div><p> A <span class="emphasis"><em>global
+        constant</em></span> lets you associate a name with a constant value in your
+        simulation. The <code class="literal">@define</code> directive allows
+        you to associate names with <code class="literal">ints</code>,
+        <code class="literal">floats</code> and <code class="literal">strings</code>.
+      </p><p>
+        These constants can be very useful when you have the same value used
+        several times in a simulation&#8212;then if you wanted to change the
+        value, instead of making the change several times, you would make it
+        once in the <code class="literal">@define</code> directive. They can
+        also be useful for assigning meaningful symbols to numbers in your
+        simulation. For example, if your cellular automata is arbitrarily
+        chosen to be 50x50, then instead of <span class="emphasis"><em>hardcoding</em></span> the number 50, it is more
+        flexible and more descriptive to use a global constant.
+      </p><p>
+        Global constants are defined with the following form:
+      </p><pre class="programlisting">
+@define <span class="emphasis"><em><code class="function">constant-name</code></em></span><span class="emphasis"><em><code class="function">constant-value</code></em></span> .
+</pre><p>
+        Here are some examples:
+      </p><pre class="programlisting">
+@define CA_SIZE                 50.
+@define PI_VALUE                3.14159.
+@define STRING_CONSTANT         "Hello".
+</pre><p>
+        By setting these constants at the top of the source file, you can use
+        them later on. For example:
+      </p><pre class="programlisting">
++ to print-pi:
+        print "pi is approximately: ", PI_VALUE.
+</pre><p>
+        It is not required, but, by convention, global constants are typically
+        written with all capital letters, to distinguish them from variables.
+      </p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Writing breve Simulations With Python </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication</td></tr></table></div></body></html>

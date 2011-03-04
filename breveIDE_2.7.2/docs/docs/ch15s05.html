@@ -1,0 +1,28 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Interacting with the Simulated World Using Callback Instructions</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch15.html" title='Chapter 15. "Push": a Language for Evolutionary Computation Integrated With breve'><link rel="prev" href="ch15s04.html" title="Genetic Programming With the PushGP Class"><link rel="next" href="ch16.html" title="Chapter 16. Index"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Interacting with the Simulated World Using Callback Instructions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s04.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 15. "Push": a Language for Evolutionary Computation Integrated With breve</th><td width="20%" align="right"> <a accesskey="n" href="ch16.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2764"></a>Interacting with the Simulated World Using Callback Instructions</h2></div></div></div><p>
+        Push includes a variety of instructions for performing computations on
+        the native Push types, but does not provide instructions for
+        interacting with the the simulated world or simulated agents. If you
+        plan to evolve behaviors for simulated agents, you will need to provide
+        instructions by which Push programs can read input data from the world
+        ("sensors") and other output instructions by which the programs can
+        modify the agent's behavior ("actuators").
+      </p><p>
+        Instructions are added to a PushInterpreter with the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/PushInterpreter.html#add-instruction" target="_top">add-instruction</a>. The method is passed a name for the
+        new instruction, the name of the "callback" method, and the breve
+        instance that is to receive the method call. When the newly created
+        instruction is called, the specified method will be called for the
+        specified instance.
+      </p><p>
+        An input callback instruction ("sensor") will typically read values
+        from the world from an agent's perspective and push the values onto a
+        Push stack so that they can be used for computation. A "find-food"
+        instruction, for example, may find the closest food object to an agent,
+        and push onto the vector stack a vector toward the food object.
+      </p><p>
+        An output callback instruction ("actuator") will typically take values
+        from the Push interpreter's stack and use those values to perform an
+        action in the world. A "move-towards" instruction, for example, might
+        read a vector value from the vector stack, and then use the breve
+        method "set-velocity" to direct the agent towards the Push-computed
+        location.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s04.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch15.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch16.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Genetic Programming With the PushGP Class </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 16. Index</td></tr></table></div></body></html>

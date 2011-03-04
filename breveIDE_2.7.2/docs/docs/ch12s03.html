@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Using a Web-interface to a breve Simulation</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch12.html" title="Chapter 12. Networking"><link rel="prev" href="ch12s02.html" title="Sending and Receiving breve Objects"><link rel="next" href="ch13.html" title="Chapter 13. Plugins"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Using a Web-interface to a breve Simulation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 12. Networking</th><td width="20%" align="right"> <a accesskey="n" href="ch13.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2756"></a>Using a Web-interface to a breve Simulation</h2></div></div></div><p>
+        The NetworkServer object can accept connections from regular web
+        browsers. After the NetworkServer starts running, you can get the
+        address that clients should connect to by using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/NetworkServer.html#get-url" target="_top">get-url</a>. The URL will be the hostname (or IP address)
+        of the server machine, followed by ":<span class="emphasis"><em><code class="function">portNumber</code></em></span>".
+      </p><p>
+        When a web-client connects to the server, it may do one of two things:
+        execute a command in the simulation's controller object, or request an
+        HTML page.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2757"></a>Executing Controller Commands Via Web Requests</h3></div></div></div><p>
+        To execute a method in the controller instance, simply append the
+        method name to the end of the URL. If you wish to pass in either int or
+        float arguments, they can be added afterwords, delimited by
+        underscores. Other types may currently not be passed via the web
+        interface. Here are some examples:
+      </p><pre class="programlisting">
+# call the Controller method "turn-agent-blue"
+http://myserver:33333/turn-agent-blue
+
+# call the Controller method "set-agent-color" with three float type arguments.
+http://myserver:33333/set-agent-color_.2_.4_.6
+</pre><p>
+        The controller methods called may optionally return a string which will
+        determine what information is sent back to the web browser. If the
+        string ends with ".html", breve will try to load data from an HTML file
+        on the local disk and send it back to the web browser (sending HTML
+        files is described in more detail in the next section). Otherwise, the
+        string itself is returned to the web-broswer.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2758"></a>Serving HTML Pages Via Web Requests</h3></div></div></div><p>
+        If an HTTP request to a breve network server ends with ".html", breve
+        will try to provide the web browser with an HTML file from the local
+        disk. This feature is not typically used to serve informational web
+        files as a normal web server might&#8212;instead, it should be used to
+        serve files containing "links" that will execute controller commands in
+        the simulation, as described above (<a class="xref" href="ch12s03.html#node-2757" title="Executing Controller Commands Via Web Requests">the section called &#8220;Executing Controller Commands Via Web Requests&#8221;</a>).
+      </p><p>
+        Additionally, you can set an "index" page that will be served to the
+        web browser when it sends a request to your server without an actual
+        page or method request, for example, http://myserver:33333. This index
+        page can be set using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/NetworkServer.html#set-index-page" target="_top">set-index-page</a>.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch12.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch13.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Sending and Receiving breve Objects </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 13. Plugins</td></tr></table></div></body></html>

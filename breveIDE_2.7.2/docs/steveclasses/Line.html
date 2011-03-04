@@ -1,0 +1,73 @@
+<head>
+<title>Object : Line</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : Line</h2>
+This class is included as part of the file Line.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Line.</b>"
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#connect">connect</a></li>
+<li><a href="#is-linked">is-linked</a></li>
+<li><a href="#set-color">set-color</a></li>
+<li><a href="#set-transparency">set-transparency</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="connect"><font size=+1><tt>connect from start (Real object) to end (Real object) with-color theColor = (0, 0, 0) (vector) with-style theStyle = "----------------" (string) </tt></font><p></a>
+<blockquote>
+<p> Adds a line to be drawn between Real objects start and end. <P> The optional argument theColor specifies the color of the line.  The default color is the vector (0, 0, 0), black. <P> The optional argument theStyle specifies a pattern for the line.  theStyle is a string of 16 spaces and/or dashes which specify the line pattern to be drawn. A dotted line, for example, would use the pattern "- - - - - - - - ".  A thickly dashed line would use the pattern "--------        ".  If no style is given, a solid line is drawn. <p>
+</blockquote>
+<hr>
+<a name="is-linked"><font size=+1><tt>is-linked to <i>worldObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Returns 1 if this line is associated with <i>worldObject</i>. <p>
+</blockquote>
+<hr>
+<a name="set-color"><font size=+1><tt>set-color to <i>color</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> If the line is connected, sets the <i>color</i> of the line. <p>
+</blockquote>
+<hr>
+<a name="set-transparency"><font size=+1><tt>set-transparency to <i>transparency</i> (float) </tt></font><p></a>
+<blockquote>
+<p> If the line is connected, sets the <i>transparency</i> of the line. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

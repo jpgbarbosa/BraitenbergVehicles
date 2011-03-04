@@ -1,0 +1,307 @@
+<head>
+<title>Object : PushInterpreter</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : PushInterpreter</h2>
+This class is included as part of the file Push.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Push.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Summary: an interface to the Push programming language. <P> The PushInterpreter object is used to setup and run programs in the Push programming language, a language developed specifically for evolutionary computation. <P> Push is useful in <b>breve</b> for evolving evolved agent behaviors.  The steve language, in which users write simulations, is a high level language which is not well suited for evolutionary computation. The Push language, on the other hand, is designed from the ground up for evolutionary computation. <P> More information about Push is available <a href="http://hampshire.edu/lspector/push.html">on the Push project page</a>.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Configuring and setting up a Push interpreter</B><UL>
+<li><a href="#add-instruction">add-instruction</a></li>
+<li><a href="#add-macro">add-macro</a></li>
+<li><a href="#get-evaluation-limit">get-evaluation-limit</a></li>
+<li><a href="#get-list-limit">get-list-limit</a></li>
+<li><a href="#read-config">read-config</a></li>
+<li><a href="#set-evaluation-limit">set-evaluation-limit</a></li>
+<li><a href="#set-list-limit">set-list-limit</a></li>
+</UL>
+<P><B>Running a Push program</B><UL>
+<li><a href="#get-effort">get-effort</a></li>
+<li><a href="#reset-effort">reset-effort</a></li>
+<li><a href="#run">run</a></li>
+<li><a href="#run-with-exec-stack-dump">run-with-exec-stack-dump</a></li>
+<li><a href="#step">step</a></li>
+</UL>
+<P><B>Getting Push interpreter configuration and state information</B><UL>
+<li><a href="#print-config">print-config</a></li>
+<li><a href="#print-exec-stack">print-exec-stack</a></li>
+<li><a href="#print-stacks">print-stacks</a></li>
+</UL>
+<P><B>Pushing Values onto Push Stacks</B><UL>
+<li><a href="#push-boolean">push-boolean</a></li>
+<li><a href="#push-code">push-code</a></li>
+<li><a href="#push-exec">push-exec</a></li>
+<li><a href="#push-float">push-float</a></li>
+<li><a href="#push-integer">push-integer</a></li>
+<li><a href="#push-vector">push-vector</a></li>
+</UL>
+<P><B>Getting the Sizes of Push Stacks</B><UL>
+<li><a href="#get-boolean-stack-size">get-boolean-stack-size</a></li>
+<li><a href="#get-code-stack-size">get-code-stack-size</a></li>
+<li><a href="#get-exec-stack-size">get-exec-stack-size</a></li>
+<li><a href="#get-float-stack-size">get-float-stack-size</a></li>
+<li><a href="#get-integer-stack-size">get-integer-stack-size</a></li>
+<li><a href="#get-vector-stack-size">get-vector-stack-size</a></li>
+</UL>
+<P><B>Getting Values From the Top of Push Stacks</B><UL>
+<li><a href="#copy-code-stack-top">copy-code-stack-top</a></li>
+<li><a href="#copy-exec-stack-top">copy-exec-stack-top</a></li>
+<li><a href="#get-boolean-stack-top">get-boolean-stack-top</a></li>
+<li><a href="#get-float-stack-top">get-float-stack-top</a></li>
+<li><a href="#get-integer-stack-top">get-integer-stack-top</a></li>
+<li><a href="#get-vector-stack-top">get-vector-stack-top</a></li>
+</UL>
+<P><B>Popping the Push Stacks</B><UL>
+<li><a href="#clear-stacks">clear-stacks</a></li>
+<li><a href="#pop-boolean-stack">pop-boolean-stack</a></li>
+<li><a href="#pop-code-stack">pop-code-stack</a></li>
+<li><a href="#pop-exec-stack">pop-exec-stack</a></li>
+<li><a href="#pop-float-stack">pop-float-stack</a></li>
+<li><a href="#pop-integer-stack">pop-integer-stack</a></li>
+<li><a href="#pop-vector-stack">pop-vector-stack</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-instruction"><font size=+1><tt>add-instruction for-instance <i>targetInstance</i> (object) for-method <i>methodName</i> (string) named instructionName = "" (string) </tt></font><p></a>
+<blockquote>
+<p> Adds a custom callback instruction named instructionName to the push interpreter. When instructionName is called, it will trigger the method <i>methodName</i> in <i>targetInstance</i>. If the instruction name is not specified, <i>methodName</i> will be used. <p>
+</blockquote>
+<hr>
+<a name="add-macro"><font size=+1><tt>add-macro named <i>instructionName</i> (string) for-code <i>macroCode</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Adds a new instruction named <i>instructionName</i>.  When the <i>instructionName</i> instruction is executed, it has the effect of executing the code contained in <i>macroCode</i>. <p>
+</blockquote>
+<hr>
+<a name="clear-stacks"><font size=+1><tt>clear-stacks </tt></font><p></a>
+<blockquote>
+<p> Clears the stacks of the Push interpreter. <p>
+</blockquote>
+<hr>
+<a name="copy-code-stack-top"><font size=+1><tt>copy-code-stack-top to <i>program</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Copies the top of the code stack to an existing <i>program</i>. Use <a href="#get-code-stack-size">get-code-stack-size</a> to determine whether the code stack is empty or not. <p>
+</blockquote>
+<hr>
+<a name="copy-exec-stack-top"><font size=+1><tt>copy-exec-stack-top to <i>program</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Copies the top of the code stack to an existing <i>program</i>. Use <a href="#get-exec-stack-size">get-exec-stack-size</a> to determine whether the code stack is empty or not. <p>
+</blockquote>
+<hr>
+<a name="get-boolean-stack-size"><font size=+1><tt>get-boolean-stack-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of the boolean stack. <p>
+</blockquote>
+<hr>
+<a name="get-boolean-stack-top"><font size=+1><tt>get-boolean-stack-top </tt></font><p></a>
+<blockquote>
+<p> Returns the top of the boolean stack. If the boolean stack is empty, the method returns 0 (false). Use <a href="#get-boolean-stack-size">get-boolean-stack-size</a> to determine whether the boolean stack is empty or not. <p>
+</blockquote>
+<hr>
+<a name="get-code-stack-size"><font size=+1><tt>get-code-stack-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of the code stack. <p>
+</blockquote>
+<hr>
+<a name="get-effort"><font size=+1><tt>get-effort </tt></font><p></a>
+<blockquote>
+<p> Returns the "effort" of the Push interpreter--the running tally of instructions the interpreter has executed. for associating energy costs with computation in evolving populations. <p>
+</blockquote>
+<hr>
+<a name="get-evaluation-limit"><font size=+1><tt>get-evaluation-limit </tt></font><p></a>
+<blockquote>
+<p> Returns the current push evaluation limit.  See <a href="#set-evaluation-limit">set-evaluation-limit</a> for more information on the evaluation limit. <p>
+</blockquote>
+<hr>
+<a name="get-exec-stack-size"><font size=+1><tt>get-exec-stack-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of the code stack. <p>
+</blockquote>
+<hr>
+<a name="get-float-stack-size"><font size=+1><tt>get-float-stack-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of the float stack. <p>
+</blockquote>
+<hr>
+<a name="get-float-stack-top"><font size=+1><tt>get-float-stack-top </tt></font><p></a>
+<blockquote>
+<p> Returns the top of the float stack. If the float stack is empty, the method returns 0.0. Use <a href="#get-float-stack-size">get-float-stack-size</a> to determine whether the boolean stack is empty or not. <p>
+</blockquote>
+<hr>
+<a name="get-integer-stack-size"><font size=+1><tt>get-integer-stack-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of the integer stack. <p>
+</blockquote>
+<hr>
+<a name="get-integer-stack-top"><font size=+1><tt>get-integer-stack-top </tt></font><p></a>
+<blockquote>
+<p> Returns the top of the interger stack. If the integer stack is empty, the method returns 0. Use <a href="#get-integer-stack-size">get-integer-stack-size</a> to determine whether the integer stack is empty or not. <p>
+</blockquote>
+<hr>
+<a name="get-list-limit"><font size=+1><tt>get-list-limit </tt></font><p></a>
+<blockquote>
+<p> Returns the size limit of lists constructed in push.  See <a href="#set-list-limit">set-list-limit</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="get-vector-stack-size"><font size=+1><tt>get-vector-stack-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of the vector stack. <p>
+</blockquote>
+<hr>
+<a name="get-vector-stack-top"><font size=+1><tt>get-vector-stack-top </tt></font><p></a>
+<blockquote>
+<p> Returns the top of the vector stack. If the vector stack is empty, the method returns (0, 0, 0). Use <a href="#get-vector-stack-size">get-vector-stack-size</a> to determine whether the vector stack is empty or not. <p>
+</blockquote>
+<hr>
+<a name="pop-boolean-stack"><font size=+1><tt>pop-boolean-stack </tt></font><p></a>
+<blockquote>
+<p> Pops the boolean stack.  If the boolean stack is empty, this method has no effect. <p>
+</blockquote>
+<hr>
+<a name="pop-code-stack"><font size=+1><tt>pop-code-stack </tt></font><p></a>
+<blockquote>
+<p> Pops the code stack.  If the code stack is empty, this method has no effect. <p>
+</blockquote>
+<hr>
+<a name="pop-exec-stack"><font size=+1><tt>pop-exec-stack </tt></font><p></a>
+<blockquote>
+<p> Pops the exec stack.  If the code stack is empty, this method has no effect. <p>
+</blockquote>
+<hr>
+<a name="pop-float-stack"><font size=+1><tt>pop-float-stack </tt></font><p></a>
+<blockquote>
+<p> Pops the float stack.  If the float stack is empty, this method has no effect. <p>
+</blockquote>
+<hr>
+<a name="pop-integer-stack"><font size=+1><tt>pop-integer-stack </tt></font><p></a>
+<blockquote>
+<p> Pops the integer stack.  If the integer stack is empty, this method has no effect. <p>
+</blockquote>
+<hr>
+<a name="pop-vector-stack"><font size=+1><tt>pop-vector-stack </tt></font><p></a>
+<blockquote>
+<p> Pops the vector stack.  If the vector stack is empty, this method has no effect. <p>
+</blockquote>
+<hr>
+<a name="print-config"><font size=+1><tt>print-config </tt></font><p></a>
+<blockquote>
+<p> Prints out the current push configuration, including a list of the active instructions.  Useful for debugging. <p>
+</blockquote>
+<hr>
+<a name="print-exec-stack"><font size=+1><tt>print-exec-stack </tt></font><p></a>
+<blockquote>
+<p> Prints out the current contents of the exec stack.  Useful for debugging. <p>
+</blockquote>
+<hr>
+<a name="print-stacks"><font size=+1><tt>print-stacks </tt></font><p></a>
+<blockquote>
+<p> Prints out the current contents of the stacks.  Useful for debugging. <p>
+</blockquote>
+<hr>
+<a name="push-boolean"><font size=+1><tt>push-boolean value <i>booleanValue</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Pushes the boolean <i>booleanValue</i> (an integer in <b>breve</b>, where 0 is false and all other values are true) onto the boolean stack. <p>
+</blockquote>
+<hr>
+<a name="push-code"><font size=+1><tt>push-code value <i>codeObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Pushes the code <i>codeObject</i> onto the code stack. <p>
+</blockquote>
+<hr>
+<a name="push-exec"><font size=+1><tt>push-exec value <i>codeObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Pushes the code <i>codeObject</i> onto the exec stack. <p>
+</blockquote>
+<hr>
+<a name="push-float"><font size=+1><tt>push-float value <i>floatValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Pushes the float <i>floatValue</i> onto the float stack. <p>
+</blockquote>
+<hr>
+<a name="push-integer"><font size=+1><tt>push-integer value <i>integerValue</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Pushes the integer <i>integerValue</i> onto the integer stack. <p>
+</blockquote>
+<hr>
+<a name="push-vector"><font size=+1><tt>push-vector value <i>vectorValue</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Pushes the vector <i>vectorValue</i> onto the vector stack. <p>
+</blockquote>
+<hr>
+<a name="read-config"><font size=+1><tt>read-config from-file <i>configFile</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Reads the push configuration file <i>configFile</i>. <p>
+</blockquote>
+<hr>
+<a name="reset-effort"><font size=+1><tt>reset-effort </tt></font><p></a>
+<blockquote>
+<p> Clears the effort counter to 0. <p>
+</blockquote>
+<hr>
+<a name="run"><font size=+1><tt>run program <i>codeObject</i> (object) for-steps steps = <i>-1</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Runs the specified push code from the beginning of the program.  If the steps variable is provided, evaluation will only run for the specified number of instructions.  Otherwise, evaluation will run for the evaluation limit, which is set with <a href="#set-evaluation-limit">set-evaluation-limit</a>. <P> The method returns 0 if the interpreter completely executes the program, or 1 if execution stopped due to the evaluation limit. <P> If the program is not executed completely, execution may be stepped forward using the method <a href="#step">step</a>.  In some cases, it may be desirable to step push programs forward in small increments by calling this method with steps = 0 in order to load the program, then using <a href="#step">step</a> to step the simulatation forward. <p>
+</blockquote>
+<hr>
+<a name="run-with-exec-stack-dump"><font size=+1><tt>run-with-exec-stack-dump program <i>codeObject</i> (object) for-steps steps = <i>-1</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Dumps out the exec stack at every instruction step.  Extremely verbose.  For debugging only. <p>
+</blockquote>
+<hr>
+<a name="set-evaluation-limit"><font size=+1><tt>set-evaluation-limit to <i>newLimit</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the evaluation limit to <i>newLimit</i>.  This specifies the number of instructions to run when the <a href="#run">run</a> is called.  The default value for a new interpreter is 200. <p>
+</blockquote>
+<hr>
+<a name="set-list-limit"><font size=+1><tt>set-list-limit to <i>newLimit</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the size limit of lists constructed in push.  This limit also applies to programs created using genetic operators.  The default limit is 200. <p>
+</blockquote>
+<hr>
+<a name="step"><font size=+1><tt>step for-steps steps = <i>1</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Steps the interpreter forward by the specified number of instructions. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

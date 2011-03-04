@@ -1,0 +1,157 @@
+<head>
+<title>Object : Vector</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : Vector</h2>
+This class is included as part of the file Vector.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Vector.</b>"
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#add-scalar">add-scalar</a></li>
+<li><a href="#add-values">add-values</a></li>
+<li><a href="#copy">copy</a></li>
+<li><a href="#copy-to-blue-channel">copy-to-blue-channel</a></li>
+<li><a href="#copy-to-green-channel">copy-to-green-channel</a></li>
+<li><a href="#copy-to-red-channel">copy-to-red-channel</a></li>
+<li><a href="#get-absolute-sum">get-absolute-sum</a></li>
+<li><a href="#get-dimension">get-dimension</a></li>
+<li><a href="#get-value">get-value</a></li>
+<li><a href="#init-with">init-with</a></li>
+<li><a href="#multiply-with-values">multiply-with-values</a></li>
+<li><a href="#print-matlab-style">print-matlab-style</a></li>
+<li><a href="#scale">scale</a></li>
+<li><a href="#set-all-values">set-all-values</a></li>
+<li><a href="#set-size">set-size</a></li>
+<li><a href="#set-value">set-value</a></li>
+<li><a href="#subtract-values">subtract-values</a></li>
+<li><a href="#transform">transform</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-scalar"><font size=+1><tt>add-scalar value <i>scalarValue</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Adds the number <i>scalarValue</i> to each element in the vector. <p>
+</blockquote>
+<hr>
+<a name="add-values"><font size=+1><tt>add-values of <i>otherVector</i> (object) scaled-by scale = 1.<i>0</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Adds this vector to <i>otherVector</i> leaving the result in <i>otherVector</i>. The matrices must be of the same size.  The optional argument scale allows <i>otherVector</i> to be scaled before adding it to this vector. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="copy"><font size=+1><tt>copy from <i>otherVector</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of <i>otherVector</i> to thisVector. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="copy-to-blue-channel"><font size=+1><tt>copy-to-blue-channel of-image theImage (Image object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this vector to the blue channel of theImage. The optional argument scale specifies how the vector elements should be scaled. <P> This method, and it's counterparts <a href="#copy-to-red-channel">copy-to-red-channel</a> and <a href="#copy-to-green-channel">copy-to-green-channel</a> are far faster than looping manually through the vector values. <p>
+</blockquote>
+<hr>
+<a name="copy-to-green-channel"><font size=+1><tt>copy-to-green-channel of-image theImage (Image object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this vector to the green channel of theImage. The optional argument scale specifies how the vector elements should be scaled. <P> This method, and it's counterparts <a href="#copy-to-blue-channel">copy-to-blue-channel</a> and <a href="#copy-to-red-channel">copy-to-red-channel</a> are far faster than looping manually through the vector values. <p>
+</blockquote>
+<hr>
+<a name="copy-to-red-channel"><font size=+1><tt>copy-to-red-channel of-image theImage (Image object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this vector to the red channel of theImage. The optional argument scale specifies how the vector elements should be scaled. <P> This method, and it's counterparts <a href="#copy-to-green-channel">copy-to-green-channel</a> and <a href="#copy-to-blue-channel">copy-to-blue-channel</a> are far faster than looping manually through the vector values. <p>
+</blockquote>
+<hr>
+<a name="get-absolute-sum"><font size=+1><tt>get-absolute-sum </tt></font><p></a>
+<blockquote>
+<p> Returns the sum of the absolute values of all elements in this vector. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="get-dimension"><font size=+1><tt>get-dimension </tt></font><p></a>
+<blockquote>
+<p> Returns the x size of this vector. <p>
+</blockquote>
+<hr>
+<a name="get-value"><font size=+1><tt>get-value at <i>x</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the vector value at position (<i>x</i>). <p>
+</blockquote>
+<hr>
+<a name="init-with"><font size=+1><tt>init-with size <i>newDim</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Set the dimension of the vector to size.  Clears contents. <p>
+</blockquote>
+<hr>
+<a name="multiply-with-values"><font size=+1><tt>multiply-with-values of otherVector (Vector object) </tt></font><p></a>
+<blockquote>
+<p> Multiplies each element in this vector with the corresponding element in otherVector.  This is not regular vector multiplication; rather, it is a way to scale each element in otherVector. <p>
+</blockquote>
+<hr>
+<a name="print-matlab-style"><font size=+1><tt>print-matlab-style </tt></font><p></a>
+<blockquote>
+<p> Prints the vector in a style similar to MATLAB. <p>
+</blockquote>
+<hr>
+<a name="scale"><font size=+1><tt>scale by <i>scaleValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Scales all elements in the vector by <i>scaleValue</i>. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="set-all-values"><font size=+1><tt>set-all-values to <i>value</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets all of the values in the vector to <i>value</i>. <p>
+</blockquote>
+<hr>
+<a name="set-size"><font size=+1><tt>set-size to <i>newDim</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the size of this vector to the new dimension. <p>
+</blockquote>
+<hr>
+<a name="set-value"><font size=+1><tt>set-value to <i>value</i> (double) at <i>x</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the vector <i>value</i> at position (<i>x</i>, y, z). <p>
+</blockquote>
+<hr>
+<a name="subtract-values"><font size=+1><tt>subtract-values of <i>otherVector</i> (object) scaled-by scale = 1.<i>0</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Subtracts this vector from this <i>otherVector</i>, leaving the result in <i>otherVector</i>.  This method uses the same mechanism as <a href="#add">add</a>, but using a negative scale argument. The optional argument scale allows <i>otherVector</i> to be scaled before subtracting it from this vector. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="transform"><font size=+1><tt>transform with-matrix transformation (Matrix2D object) with-result result (Vector object) </tt></font><p></a>
+<blockquote>
+<p> Transforms this <a href="Vector.html">Vector</a> with the <a href="Matrix2D.html">Matrix2D</a> matrix, storing the output in result. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

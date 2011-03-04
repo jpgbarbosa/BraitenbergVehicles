@@ -1,0 +1,21 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Using Plugins in Simulations</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch13.html" title="Chapter 13. Plugins"><link rel="prev" href="ch13s03.html" title="Archiving Plugin Data With The data Type"><link rel="next" href="ch14.html" title="Chapter 14. The breve Source Code"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Using Plugins in Simulations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch13s03.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 13. Plugins</th><td width="20%" align="right"> <a accesskey="n" href="ch14.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2779"></a>Using Plugins in Simulations</h2></div></div></div><p> Loading a
+        plugin from within a simulation is relatively simple. First, place the
+        plugin in a directory where breve will find it (either a directory in
+        your class path, or in a directory specified with a "@path" line). Then
+        simply load the plugin using a "@plugin" line at the top of your
+        simulation file:
+      </p><pre class="programlisting">
+@plugin "<span class="emphasis"><em><code class="function">pluginName</code></em></span>" (<span class="emphasis"><em><code class="function">pluginEntryFunction</code></em></span>).
+</pre><p>
+        The plugin file specified with <code class="literal">@plugin</code>
+        does not always have the extension ".o". The specific type of file
+        expected by the <code class="literal">@plugin</code> directive varies
+        by platform. On Linux, the file is normally a shared object file
+        (<span class="emphasis"><em><code class="function">pluginName.so</code></em></span>). On Mac OS X,
+        plugins are OS X "bundle" files (<span class="emphasis"><em><code class="function">pluginName.o</code></em></span> or <span class="emphasis"><em><code class="function">pluginName.bundle</code></em></span>). On Windows, the
+        plugin file is a DLL (<span class="emphasis"><em><code class="function">pluginName.dll</code></em></span>).
+      </p><p>
+        Assuming that breve is able to locate and load your plugin file and the
+        corresponding class files, you should now be able to use the plugin
+        classes in your simulation.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch13s03.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch13.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch14.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Archiving Plugin Data With The data Type </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Chapter 14. The breve Source Code</td></tr></table></div></body></html>

@@ -1,0 +1,709 @@
+<head>
+<title>Abstract : Control</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Control</h2>
+This class is included as part of the file Control.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Control.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Summary: a parent class for the "controller" object required for all simulations. <P> The Control object sets up and controls simulations.  Every simulation must have one Control subclass.  The user subclass of Control should set up the simulation in the "init" method. <p> The Control class also acts as the main interaction between the user and the <b>breve</b> environment itself.  It provides access to elements of the user interface, for example, so that the user can add menus and other interface features from inside simulations. <p> Because the <b>breve</b> engine is designed to run on a variety of systems, there are varying levels of support for some of these features.  In some cases, the features won't be supported at all on a system.  A background daemon written to use the <b>breve</b> engine, for example, will not place a dialog on the screen and wait for user input.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Accepting network uploads</B><UL>
+<li><a href="#accept-upload">accept-upload</a></li>
+</UL>
+<P><B>Saving snapshots of simulations</B><UL>
+<li><a href="#save-depth-snapshot">save-depth-snapshot</a></li>
+<li><a href="#save-snapshot">save-snapshot</a></li>
+</UL>
+<P><B>Updating neighbors</B><UL>
+<li><a href="#update-neighbors">update-neighbors</a></li>
+</UL>
+<P><B>Getting simulation time</B><UL>
+<li><a href="#get-real-time">get-real-time</a></li>
+<li><a href="#get-time">get-time</a></li>
+</UL>
+<P><B>Pausing and stopping simulations</B><UL>
+<li><a href="#end-simulation">end-simulation</a></li>
+<li><a href="#pause">pause</a></li>
+<li><a href="#sleep">sleep</a></li>
+<li><a href="#unpause">unpause</a></li>
+</UL>
+<P><B>Setting and getting the iteration and integration time steps</B><UL>
+<li><a href="#get-integration-step">get-integration-step</a></li>
+<li><a href="#get-iteration-step">get-iteration-step</a></li>
+<li><a href="#set-integration-step">set-integration-step</a></li>
+<li><a href="#set-iteration-step">set-iteration-step</a></li>
+</UL>
+<P><B>Setting the Random Seed</B><UL>
+<li><a href="#set-random-seed">set-random-seed</a></li>
+<li><a href="#set-random-seed-from-dev-random">set-random-seed-from-dev-random</a></li>
+</UL>
+<P><B>Creating a New Instance From a Classname String</B><UL>
+<li><a href="#make-new-instance">make-new-instance</a></li>
+</UL>
+<P><B>Getting Command-Line Arguments</B><UL>
+<li><a href="#get-argument">get-argument</a></li>
+<li><a href="#get-argument-count">get-argument-count</a></li>
+</UL>
+<P><B>Selecting Objects</B><UL>
+<li><a href="#click">click</a></li>
+<li><a href="#get-selection">get-selection</a></li>
+</UL>
+<P><B>Background Appearance Options</B><UL>
+<li><a href="#set-background-color">set-background-color</a></li>
+<li><a href="#set-background-scroll-rate">set-background-scroll-rate</a></li>
+<li><a href="#set-background-texture-image">set-background-texture-image</a></li>
+<li><a href="#set-mountain-skybox">set-mountain-skybox</a></li>
+<li><a href="#set-skybox-images">set-skybox-images</a></li>
+</UL>
+<P><B>Camera & Lighting Options</B><UL>
+<li><a href="#bullet-pan-camera-offset">bullet-pan-camera-offset</a></li>
+<li><a href="#get-camera-offset">get-camera-offset</a></li>
+<li><a href="#get-camera-target">get-camera-target</a></li>
+<li><a href="#get-main-camera">get-main-camera</a></li>
+<li><a href="#move-light">move-light</a></li>
+<li><a href="#pan-camera-offset">pan-camera-offset</a></li>
+<li><a href="#pan-camera-target">pan-camera-target</a></li>
+<li><a href="#pivot-camera">pivot-camera</a></li>
+<li><a href="#point-camera">point-camera</a></li>
+<li><a href="#set-camera-offset">set-camera-offset</a></li>
+<li><a href="#set-camera-rotation">set-camera-rotation</a></li>
+<li><a href="#set-camera-target">set-camera-target</a></li>
+<li><a href="#watch">watch</a></li>
+<li><a href="#zoom-camera">zoom-camera</a></li>
+</UL>
+<P><B>Rendering Options</B><UL>
+<li><a href="#disable-draw-every-frame">disable-draw-every-frame</a></li>
+<li><a href="#enable-draw-every-frame">enable-draw-every-frame</a></li>
+<li><a href="#set-z-clip">set-z-clip</a></li>
+</UL>
+<P><B>Special Effects & Drawing Options</B><UL>
+<li><a href="#clear-screen">clear-screen</a></li>
+<li><a href="#disable-blur">disable-blur</a></li>
+<li><a href="#disable-fog">disable-fog</a></li>
+<li><a href="#disable-lighting">disable-lighting</a></li>
+<li><a href="#disable-outline">disable-outline</a></li>
+<li><a href="#disable-reflections">disable-reflections</a></li>
+<li><a href="#disable-shadow-volumes">disable-shadow-volumes</a></li>
+<li><a href="#disable-shadows">disable-shadows</a></li>
+<li><a href="#disable-smooth-drawing">disable-smooth-drawing</a></li>
+<li><a href="#disable-text">disable-text</a></li>
+<li><a href="#enable-blur">enable-blur</a></li>
+<li><a href="#enable-fog">enable-fog</a></li>
+<li><a href="#enable-lighting">enable-lighting</a></li>
+<li><a href="#enable-outline">enable-outline</a></li>
+<li><a href="#enable-reflections">enable-reflections</a></li>
+<li><a href="#enable-shadow-volumes">enable-shadow-volumes</a></li>
+<li><a href="#enable-shadows">enable-shadows</a></li>
+<li><a href="#enable-smooth-drawing">enable-smooth-drawing</a></li>
+<li><a href="#enable-text">enable-text</a></li>
+<li><a href="#set-blur-factor">set-blur-factor</a></li>
+<li><a href="#set-display-text">set-display-text</a></li>
+<li><a href="#set-display-text-scale">set-display-text-scale</a></li>
+<li><a href="#set-fog-color">set-fog-color</a></li>
+<li><a href="#set-fog-intensity">set-fog-intensity</a></li>
+<li><a href="#set-fog-limits">set-fog-limits</a></li>
+<li><a href="#toggle-blur">toggle-blur</a></li>
+<li><a href="#toggle-fog">toggle-fog</a></li>
+<li><a href="#toggle-lighting">toggle-lighting</a></li>
+<li><a href="#toggle-reflections">toggle-reflections</a></li>
+<li><a href="#toggle-shadows">toggle-shadows</a></li>
+<li><a href="#toggle-smooth">toggle-smooth</a></li>
+</UL>
+<P><B>Interacting with the User Interface</B><UL>
+<li><a href="#add-menu">add-menu</a></li>
+<li><a href="#add-menu-separator">add-menu-separator</a></li>
+<li><a href="#beep">beep</a></li>
+<li><a href="#execute">execute</a></li>
+<li><a href="#get-mouse-x-coordinate">get-mouse-x-coordinate</a></li>
+<li><a href="#get-mouse-y-coordinate">get-mouse-y-coordinate</a></li>
+<li><a href="#set-interface-item">set-interface-item</a></li>
+<li><a href="#set-light-ambient-color">set-light-ambient-color</a></li>
+<li><a href="#set-light-color">set-light-color</a></li>
+<li><a href="#set-light-diffuse-color">set-light-diffuse-color</a></li>
+<li><a href="#set-light-specular-color">set-light-specular-color</a></li>
+<li><a href="#show-dialog">show-dialog</a></li>
+</UL>
+<P><B>Manipulating and Using Colors</B><UL>
+<li><a href="#get-hsv-color">get-hsv-color</a></li>
+<li><a href="#get-rgb-color">get-rgb-color</a></li>
+<li><a href="#unique-color">unique-color</a></li>
+</UL>
+<P><B>Archiving & Dearchiving</B><UL>
+<li><a href="#dearchive-xml">dearchive-xml</a></li>
+<li><a href="#save-as-xml">save-as-xml</a></li>
+</UL>
+<P><B>Detecting Light Exposure</B><UL>
+<li><a href="#disable-light-exposure-detection">disable-light-exposure-detection</a></li>
+<li><a href="#disable-light-exposure-drawing">disable-light-exposure-drawing</a></li>
+<li><a href="#enable-light-exposure-detection">enable-light-exposure-detection</a></li>
+<li><a href="#enable-light-exposure-drawing">enable-light-exposure-drawing</a></li>
+<li><a href="#get-light-exposure-camera">get-light-exposure-camera</a></li>
+<li><a href="#set-light-exposure-source">set-light-exposure-source</a></li>
+</UL>
+<P><B>Debugging & Performance</B><UL>
+<li><a href="#disable-freed-instance-protection">disable-freed-instance-protection</a></li>
+<li><a href="#enable-freed-instance-protection">enable-freed-instance-protection</a></li>
+<li><a href="#get-interface-version">get-interface-version</a></li>
+<li><a href="#report-object-allocation">report-object-allocation</a></li>
+<li><a href="#set-output-filter">set-output-filter</a></li>
+<li><a href="#stacktrace">stacktrace</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="accept-upload"><font size=+1><tt>accept-upload of <i>uploadedObject</i> (object) from <i>host</i> (string) </tt></font><p></a>
+<blockquote>
+<p> This method is automatically called when an object is uploaded through a <a href="NetworkServer.html">NetworkServer</a>.  This implementation simply prints out a message saying that the object has been received, but your controller may override the method to take other actions. <p>
+</blockquote>
+<hr>
+<a name="add-menu"><font size=+1><tt>add-menu named <i>menuName</i> (string) for-method <i>theMethod</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Adds a menu named <i>menuName</i> to the application which will result in a call to <i>theMethod</i> for the calling instance. <p> If the calling instance is the Controller object, then the menu will become the "main" simulation menu.  Otherwise, the menu will become a contextual menu associated with the specific object in the simulation. <p> Note that unlike the <a href="#handle-collision">handle-collision</a> which sets the collision handler for the whole type (class, that is), this method affects only the instance for which it is called, meaning that each instance of a certain class may have a different menu. <p>
+</blockquote>
+<hr>
+<a name="add-menu-separator"><font size=+1><tt>add-menu-separator </tt></font><p></a>
+<blockquote>
+<p> Adds a separator menu item--really just an empty menu item. <p>
+</blockquote>
+<hr>
+<a name="beep"><font size=+1><tt>beep </tt></font><p></a>
+<blockquote>
+<p> Plays the system beep sound, if supported by the implementation. <p>
+</blockquote>
+<hr>
+<a name="bullet-pan-camera-offset"><font size=+1><tt>bullet-pan-camera-offset by <i>amount</i> (vector) steps <i>stepCount</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the camera in motion to smoothly change the camera offset over <i>stepCount</i> iteration steps, with the physical simulation frozen in the meantime. <p>
+</blockquote>
+<hr>
+<a name="clear-screen"><font size=+1><tt>clear-screen </tt></font><p></a>
+<blockquote>
+<p> Clears the camera to the current background color.  This method clears blurred artifacts which are drawn after enabling <a href="#enable-blur">enable-blur</a>.  If blurring has not been enabled, this method has no visual effect. <p>
+</blockquote>
+<hr>
+<a name="click"><font size=+1><tt>click on <i>theObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Called automatically when the user clicks on an <i>theObject</i> from the graphical display window of the simulation.  The default behavior of this method is to select the object that was clicked and execute its "click" method, if it exists. <p> If you do not wish to allow users to select objects in your simulation, you should implement your own click method in your controller object. <p> If you wish to implement your own click method, but still want to maintain the default behavior of this method, make sure you call "super click on <i>theObject</i>" from your method. <p> <b><i>theObject</i> may be NULL</b>--an uninitialized object.  This means that a click occurred, but no object was selected, i.e., a deselection event.  You should test <i>theObject</i> before calling any of its methods. <p>
+</blockquote>
+<hr>
+<a name="dearchive-xml"><font size=+1><tt>dearchive-xml file <i>filename</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Asks the controller to dearchive an object from an XML file.  The XML file must have been created using <a href="Object.html#archive-as-xml">archive-as-xml (Object)</a>. <p>
+</blockquote>
+<hr>
+<a name="disable-blur"><font size=+1><tt>disable-blur </tt></font><p></a>
+<blockquote>
+<p> Disables blurring.  See <a href="#enable-blur">enable-blur</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="disable-draw-every-frame"><font size=+1><tt>disable-draw-every-frame </tt></font><p></a>
+<blockquote>
+<p> Allows the rendering engine to drop frames if the simulation is moving faster than the display.  This can lead to faster simulations with choppier displays.  Not all <b>breve</b> development environments support this option.  The Mac OS X application does, as do all threaded command-line <b>breve</b> programs. <p> There is rarely any benefit from using this method, except in instances where the drawing of a scene is complex, and the computation is simple.  The included DLA.tz demo is an example of one such simulation which benefits immensely from this feature. <p>
+</blockquote>
+<hr>
+<a name="disable-fog"><font size=+1><tt>disable-fog </tt></font><p></a>
+<blockquote>
+<p> Disables fog for the main camera.  See <a href="#enable-fog">enable-fog</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="disable-freed-instance-protection"><font size=+1><tt>disable-freed-instance-protection </tt></font><p></a>
+<blockquote>
+<p> Disabling freed instance protection means that the <b>breve</b> engine will not attempt to keep track of freed objects, and will yield better memory performance when large numbers of objects are being created and destroyed. <p> The downside is that improper access of freed instances may cause crashes or unexpected behavior when freed instance protection is disabled.  Simulations should thus always use freed instance protection during development and testing, and the feature should only be disabled when the developer is confident that no freed instance bugs exist. <p> Freed instance protection may be reenabled with <a href="#enable-freed-instance-protection">enable-freed-instance-protection</a>, but only instances freed while instance protection is enabled will be protected. <p>
+</blockquote>
+<hr>
+<a name="disable-light-exposure-detection"><font size=+1><tt>disable-light-exposure-detection </tt></font><p></a>
+<blockquote>
+<p> Disables light exposure detection.  See <a href="#enable-light-exposure-detection">enable-light-exposure-detection</a>. <p>
+</blockquote>
+<hr>
+<a name="disable-light-exposure-drawing"><font size=+1><tt>disable-light-exposure-drawing </tt></font><p></a>
+<blockquote>
+<p> Disables drawing of the light exposure buffer to the screen. <p>
+</blockquote>
+<hr>
+<a name="disable-lighting"><font size=+1><tt>disable-lighting </tt></font><p></a>
+<blockquote>
+<p> disable lighting for the main camera <p>
+</blockquote>
+<hr>
+<a name="disable-outline"><font size=+1><tt>disable-outline </tt></font><p></a>
+<blockquote>
+<p> Disables outline drawing. <p>
+</blockquote>
+<hr>
+<a name="disable-reflections"><font size=+1><tt>disable-reflections </tt></font><p></a>
+<blockquote>
+<p> Disable reflections for the main camera.  See METHOD(enable-reflections for more information on reflections. <p>
+</blockquote>
+<hr>
+<a name="disable-shadow-volumes"><font size=+1><tt>disable-shadow-volumes </tt></font><p></a>
+<blockquote>
+<p> Disable shadow volumes for the main camera.  See <a href="#enable-shadow-volumes">enable-shadow-volumes</a> for more information on shadows. <p>
+</blockquote>
+<hr>
+<a name="disable-shadows"><font size=+1><tt>disable-shadows </tt></font><p></a>
+<blockquote>
+<p> Disable "flat" shadows for the main camera.  See <a href="#enable-shadows">enable-shadows</a> for more information on shadows. <p>
+</blockquote>
+<hr>
+<a name="disable-smooth-drawing"><font size=+1><tt>disable-smooth-drawing </tt></font><p></a>
+<blockquote>
+<p> Disable smooth drawing for the main camera.  See <a href="#enable-smooth-drawing">enable-smooth-drawing</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="disable-text"><font size=+1><tt>disable-text </tt></font><p></a>
+<blockquote>
+<p> Disable the timestamp and camera position texts (which appear when changing the camera angle or position).  The text is on by default. The text can be re-enabled using <a href="#enable-text">enable-text</a>. <p>
+</blockquote>
+<hr>
+<a name="enable-blur"><font size=+1><tt>enable-blur </tt></font><p></a>
+<blockquote>
+<p> Enables blur.  Blurring simply draws a frame without totally erasing the previous frame. <p>
+</blockquote>
+<hr>
+<a name="enable-draw-every-frame"><font size=+1><tt>enable-draw-every-frame </tt></font><p></a>
+<blockquote>
+<p> If the method <a href="#disable-draw-every-frame">disable-draw-every-frame</a> has been called previously, this method will resort to the default behavior, namely that the rendering engine will try to render an image for each and every iteration of the <b>breve</b> engine. <p>
+</blockquote>
+<hr>
+<a name="enable-fog"><font size=+1><tt>enable-fog </tt></font><p></a>
+<blockquote>
+<p> Enables fog for the main camera.  This adds the visual effect of fog to the world.  Fog parameters can be set using methods <a href="#set-fog-color">set-fog-color</a>, <a href="#set-fog-intensity">set-fog-intensity</a> and <a href="#set-fog-limits">set-fog-limits</a>. <p> Fog and lightmap effects don't mix. <p>
+</blockquote>
+<hr>
+<a name="enable-freed-instance-protection"><font size=+1><tt>enable-freed-instance-protection </tt></font><p></a>
+<blockquote>
+<p> Freed instance protection means that the <b>breve</b> engine retains instances which have been freed in order to make sure that they are not being incorrectly accessed.  This has a small memory cost associated with each freed object. <p> Freed instance protection is enabled by default, so you'll only need to call this method if it has been disabled using <a href="#disable-freed-instance-protection">disable-freed-instance-protection</a>. <p>
+</blockquote>
+<hr>
+<a name="enable-light-exposure-detection"><font size=+1><tt>enable-light-exposure-detection </tt></font><p></a>
+<blockquote>
+<p> <B>Experimental</B> <P> Light exposure detection will attempt to tell you how much "sunlight" is reaching each object in your simulation.  You can set the location of the light source with <a href="#set-light-exposure-source">set-light-exposure-source</a>.  Then, use the method get-light-exposure (in <a href="Stationary.html">Stationary</a>, <a href="Mobile.html">Mobile</a>, and <a href="Link.html">Link</a>) in order to find out how much light was detected for individual objects. <P> The direction of the sunlight is hardcoded towards the world point (0, 0, 0), and only spreads out to fill an angle of 90 degrees. These limitations may be removed in the future if needed. <p>
+</blockquote>
+<hr>
+<a name="enable-light-exposure-drawing"><font size=+1><tt>enable-light-exposure-drawing </tt></font><p></a>
+<blockquote>
+<p> Enables drawing of the light exposure buffer to the screen. <p>
+</blockquote>
+<hr>
+<a name="enable-lighting"><font size=+1><tt>enable-lighting </tt></font><p></a>
+<blockquote>
+<p> enable lighting for the main camera <p>
+</blockquote>
+<hr>
+<a name="enable-outline"><font size=+1><tt>enable-outline </tt></font><p></a>
+<blockquote>
+<p> Enables outline drawing.  Outline drawing is a wireframe black and white draw style.  Reflections and textures are ignored when outlining is enabled.  Outlining is useful for producing diagram-like images.  It looks cool. <p>
+</blockquote>
+<hr>
+<a name="enable-reflections"><font size=+1><tt>enable-reflections </tt></font><p></a>
+<blockquote>
+<p> Enable reflections for the main camera.  Reflections are used to draw a mirror image of objects in the world onto a single plane.  Because of the complexity of drawing reflections, they can only be drawn onto a single plane of a <a href="Stationary.html">Stationary</a> object--see the method catch-shadows of <a href="Stationary.html">Stationary</a> for more information.  The reflection-catching object must already be defined in order for this method to take effect. <p>
+</blockquote>
+<hr>
+<a name="enable-shadow-volumes"><font size=+1><tt>enable-shadow-volumes </tt></font><p></a>
+<blockquote>
+<p> Enables shadows drawn using a "shadow volume" algorithm.  This is an alternative to the shadows rendered using <a href="#enable-shadows">enable-shadows</a>. <p> Shadow volumes allow all objects in the simulation to shadow one-another, as opposed to having objects only shadow a single plane (as is the case with the <a href="#enable-shadows">enable-shadows</a> algorithm).  Shadow volumes are in fact superior in every way but one: shadow volumes will not generate accurate shadows of bitmapped objects the way the original algorithm will. If you want high-quality bitmap shadows in your simulation, use <a href="#enable-shadows">enable-shadows</a>, otherwise, shadow volumes are likely the better choice. <p>
+</blockquote>
+<hr>
+<a name="enable-shadows"><font size=+1><tt>enable-shadows </tt></font><p></a>
+<blockquote>
+<p> Enable shadows for the main camera.  Shadows use the current position of the light in order to render shadows onto a flat plane in the world.  Because of the complexity of drawing shadows, they can only be drawn onto a single plane of a <a href="Stationary.html">Stationary</a> object--see the method catch-shadows of <a href="Stationary.html">Stationary</a> for more information.  The shadow-catching object must already be defined in order for this method to take effect. <P> For an improved shadowing algorithm, see <a href="#enable-shadow-volumes">enable-shadow-volumes</a>. <p>
+</blockquote>
+<hr>
+<a name="enable-smooth-drawing"><font size=+1><tt>enable-smooth-drawing </tt></font><p></a>
+<blockquote>
+<p> Enable smooth drawing for the main camera.  Smooth drawing enables a smoother blending of colors, textures and lighting.  This feature is especially noticeable when dealing with spheres or large objects. <p> It is strongly recommended that smooth drawing be enabled whenever lighting is enabled (see <a href="#enable-lighting">enable-lighting</a>).  Otherwise, major artifacts may be visible, especially on larger polygons. <p> The disadvantage of smooth drawing is a potential performance hit. The degree of this performance hit depends on the number of polygons in the scene.  If speed is an issue, it is often best to disable both lighting and smooth drawing. <p>
+</blockquote>
+<hr>
+<a name="enable-text"><font size=+1><tt>enable-text </tt></font><p></a>
+<blockquote>
+<p> enables the timestamp and camera position texts (which appear when changing the camera angle or position).  This is the default setting.  The text can be disabled using <a href="#disable-text">disable-text</a>. <p>
+</blockquote>
+<hr>
+<a name="end-simulation"><font size=+1><tt>end-simulation </tt></font><p></a>
+<blockquote>
+<p> Ends the simulation gracefully. <p>
+</blockquote>
+<hr>
+<a name="execute"><font size=+1><tt>execute command <i>systemCommand</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Executes the shell command <i>systemCommand</i> using /bin/sh. Returns the output of command.  Supported on UNIX-based implementations only (Mac OS X and Linux included), not supported on Windows. <p>
+</blockquote>
+<hr>
+<a name="get-argument"><font size=+1><tt>get-argument at-index <i>theIndex</i> (int) </tt></font><p></a>
+<blockquote>
+<p> If this instance of <b>breve</b> was run from the command line, this method returns the argument at index <i>theIndex</i>.  The argument is always returned as a string, though this may naturally be converted to other types depending on the context.  The arguments (like arrays and lists in <i>steve</i>) are zero based, meaning that the first element has index 0.  <b>The first argument (the one at index 0) is always the name of the simulation file</b>.  Use this method in conjunction with <a href="#get-argument-count">get-argument-count</a>.  Make sure you check the number of arguments available before calling this method--requesting an out-of-bounds argument will cause a fatal error in the simulation. <p>
+</blockquote>
+<hr>
+<a name="get-argument-count"><font size=+1><tt>get-argument-count </tt></font><p></a>
+<blockquote>
+<p> If this instance of <b>breve</b> was run from the command line, this method returns the number of arguments passed to the program.  <b>The first argument is always the name of the simulation file</b>.  Use this method in conjunction with <a href="#get-argument">get-argument</a>. <p>
+</blockquote>
+<hr>
+<a name="get-camera-offset"><font size=+1><tt>get-camera-offset </tt></font><p></a>
+<blockquote>
+<p> Returns the current offset from of the camera from its target. Note that the camera offset can be changed manually by the user, so it may be wise to use this function in conjunction with camera movements to ensure consistency. <p>
+</blockquote>
+<hr>
+<a name="get-camera-target"><font size=+1><tt>get-camera-target </tt></font><p></a>
+<blockquote>
+<p> Returns the current target of the camera.  Note that the camera target can be changed manually by the user, so it may be wise to use this function in conjunction with camera movements to ensure consistency. <p>
+</blockquote>
+<hr>
+<a name="get-hsv-color"><font size=+1><tt>get-hsv-color for-rgb-color <i>rgbColor</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> All colors in <b>breve</b> expect colors in the RGB format--a vector where the 3 elements represent red, green and blue intensity on a scale from 0.0 to 1.0. <p> This method returns the HSV color vector for a given vector <i>rgbColor</i> in RGB color format. <p>
+</blockquote>
+<hr>
+<a name="get-integration-step"><font size=+1><tt>get-integration-step </tt></font><p></a>
+<blockquote>
+<p> Returns the current integration step size. <p>
+</blockquote>
+<hr>
+<a name="get-interface-version"><font size=+1><tt>get-interface-version </tt></font><p></a>
+<blockquote>
+<p> Returns a string identifying the program using the <b>breve</b> engine. This string is in the format "name/version". <p>
+</blockquote>
+<hr>
+<a name="get-iteration-step"><font size=+1><tt>get-iteration-step </tt></font><p></a>
+<blockquote>
+<p> Returns the current iteration step size. <p>
+</blockquote>
+<hr>
+<a name="get-light-exposure-camera"><font size=+1><tt>get-light-exposure-camera </tt></font><p></a>
+<blockquote>
+<p> Returns a camera that can be used to control the light detection light-source. <p>
+</blockquote>
+<hr>
+<a name="get-main-camera"><font size=+1><tt>get-main-camera </tt></font><p></a>
+<blockquote>
+<p> Returns the <a href="Camera.html">Camera</a> object corresponding to the main camera. This allows you to directly control camera options. <p>
+</blockquote>
+<hr>
+<a name="get-mouse-x-coordinate"><font size=+1><tt>get-mouse-x-coordinate </tt></font><p></a>
+<blockquote>
+<p> Returns the X-coordinate of the mouse relative to the simulation window. The value may be negative if the mouse is to the left of the simulation view. See also <a href="#get-mouse-y-coordinate">get-mouse-y-coordinate</a>. <p>
+</blockquote>
+<hr>
+<a name="get-mouse-y-coordinate"><font size=+1><tt>get-mouse-y-coordinate </tt></font><p></a>
+<blockquote>
+<p> Returns the Y-coordinate of the mouse. The value may be negative if the mouse is outside of the simulation view, towards the bottom of the screen. See also <a href="#get-mouse-x-coordinate">get-mouse-x-coordinate</a>. <p>
+</blockquote>
+<hr>
+<a name="get-real-time"><font size=+1><tt>get-real-time </tt></font><p></a>
+<blockquote>
+<p> Returns the number of seconds since January 1st, 1970 with microsecond precision. <p>
+</blockquote>
+<hr>
+<a name="get-rgb-color"><font size=+1><tt>get-rgb-color for-hsv-color <i>hsvColor</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> All colors in <b>breve</b> expect colors in the RGB format--a vector where the 3 elements represent red, green and blue intensity on a scale from 0.0 to 1.0. <p> This method returns the RGB color vector for a given vector <i>hsvColor</i> in HSV color format. <p>
+</blockquote>
+<hr>
+<a name="get-selection"><font size=+1><tt>get-selection </tt></font><p></a>
+<blockquote>
+<p> Returns the "selected" object--the object which has been clicked on in the simulation. <p>
+</blockquote>
+<hr>
+<a name="get-time"><font size=+1><tt>get-time </tt></font><p></a>
+<blockquote>
+<p> Returns the simulation time of the world. <p>
+</blockquote>
+<hr>
+<a name="make-new-instance"><font size=+1><tt>make-new-instance of-class <i>className</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Returns a new instance of the class <i>className</i>. <p>
+</blockquote>
+<hr>
+<a name="move-light"><font size=+1><tt>move-light to <i>theLocation</i> (vector) for-light n = <i>0</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Moves the source light to <i>theLocation</i>.  The default position is (<i>0</i>, <i>0</i>, <i>0</i>) which is the origin of the world. <p>
+</blockquote>
+<hr>
+<a name="pan-camera-offset"><font size=+1><tt>pan-camera-offset by <i>amount</i> (vector) steps <i>stepCount</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the camera in motion to smoothly change the camera offset over <i>stepCount</i> iteration steps. <p>
+</blockquote>
+<hr>
+<a name="pan-camera-target"><font size=+1><tt>pan-camera-target to <i>newTarget</i> (vector) steps <i>stepCount</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the camera in motion to smoothly change the camera target over <i>stepCount</i> iteration steps. <p>
+</blockquote>
+<hr>
+<a name="pause"><font size=+1><tt>pause </tt></font><p></a>
+<blockquote>
+<p> Pauses the simulation as though the user had done so through the user interface.  This method is not supported on all <b>breve</b> client interfaces. <p>
+</blockquote>
+<hr>
+<a name="pivot-camera"><font size=+1><tt>pivot-camera x dx = <i><i>0</i></i>.<i>0</i> (float) y dy = <i><i>0</i></i>.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Rotates the camera (from it's current position) on the x-axis by dx and on the y-axis by dy. <p>
+</blockquote>
+<hr>
+<a name="point-camera"><font size=+1><tt>point-camera at <i>location</i> (vector) from offset = (0, 0, 0) (vector) </tt></font><p></a>
+<blockquote>
+<p> Points the camera at the vector <i>location</i>.  The optional argument offset specifies the offset of the camera relative to the <i>location</i> target. <p>
+</blockquote>
+<hr>
+<a name="report-object-allocation"><font size=+1><tt>report-object-allocation </tt></font><p></a>
+<blockquote>
+<p> Prints data about current object allocation to the log.<p>
+</blockquote>
+<hr>
+<a name="save-as-xml"><font size=+1><tt>save-as-xml file <i>filename</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Writes the entire state of the world to an XML file, <i>filename</i>. <i>filename</i> should have one of the following extensions: .xml, .brevexml, .tzxml. <p> After saving the state of the world as an XML file, you can later start a new run of the same simulation from the saved state.  You will still need the original steve code which generated the file in order to restart the simulation. <p>
+</blockquote>
+<hr>
+<a name="save-depth-snapshot"><font size=+1><tt>save-depth-snapshot to <i>filename</i> (string) linearize <i>lin</i> (int) max-dist <i>dist</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Takes a PNG snapshot of the simulation's depth buffer and saves it to a file named <i>filename</i>, which should end with ".png". <p>
+</blockquote>
+<hr>
+<a name="save-snapshot"><font size=+1><tt>save-snapshot to <i>filename</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Takes a PNG snapshot of the current simulation display and saves it to a file named <i>filename</i>, which should end with ".png". <p>
+</blockquote>
+<hr>
+<a name="set-background-color"><font size=+1><tt>set-background-color to <i>newColor</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the background color of the rendered world to <i>newColor</i>. <p>
+</blockquote>
+<hr>
+<a name="set-background-scroll-rate"><font size=+1><tt>set-background-scroll-rate x <i>xValue</i> (float) y <i>yValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the rate of the background image scrolling.  Purely cosmetic. <p>
+</blockquote>
+<hr>
+<a name="set-background-texture-image"><font size=+1><tt>set-background-texture-image to <i>newTextureImage</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Sets the background color of the rendered world to newTexture. newTexture must be a texture returned by the method <a href="#load-image">load-image</a>.  Setting the texture to -1 will turn off background texturing. <p>
+</blockquote>
+<hr>
+<a name="set-blur-factor"><font size=+1><tt>set-blur-factor to <i>factor</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the blur level to <i>factor</i>.  Factor should be a value between 1.0, which corresponds to the highest blur level, and 0.0, which corresponds to the lowest blur level. <p>Blur must first be enabled using the method <a href="#enable-blur">enable-blur</a>.  Note % that a blur level of 0.0 is still a minor blur--to disable % blur completely, use the method <a href="#disable-blur">disable-blur</a>. <p>
+</blockquote>
+<hr>
+<a name="set-camera-offset"><font size=+1><tt>set-camera-offset to <i>offset</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Offsets the camera from the target by amount.  The target of the camera remains the same. <p>
+</blockquote>
+<hr>
+<a name="set-camera-rotation"><font size=+1><tt>set-camera-rotation x <i>rx</i> (float) y <i>ry</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the camera rotation on the x-axis to <i>rx</i> and the y-axis to <i>ry</i>. This method sets the rotation without regard for the current rotation. If you want to offset the camera rotation from the current position, use the method <a href="#pivot-camera">pivot-camera</a> instead. <p>
+</blockquote>
+<hr>
+<a name="set-camera-target"><font size=+1><tt>set-camera-target to <i>location</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Aims the camera at <i>location</i>.  The offset of the camera (the offset from the existing target) stays the same. <p>
+</blockquote>
+<hr>
+<a name="set-display-text"><font size=+1><tt>set-display-text to <i>theString</i> (string) at-x xLoc = -.<i><i>95</i></i> (float) at-y yLoc = -.<i><i>95</i></i> (float) number messageNumber = <i>0</i> (int) with-color theColor = ( <i>0</i>, <i>0</i>, <i>0</i> ) (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets a text string in the simulation display.  xLoc and yLoc represent the location of the text.  The coordinate system used goes from (-1, -1) to (1, 1) with (-1, -1) at the lower left hand corner, (<i>0</i>, <i>0</i>) in the center of the window and (1, 1) in the top right hand corner. <p> The optional argument messageNumber may be used to specify up to 8 different messages. <p>
+</blockquote>
+<hr>
+<a name="set-display-text-scale"><font size=+1><tt>set-display-text-scale to <i>scale</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the scaling factor for text in the display window. See <a href="#set-display-text">set-display-text</a> and <a href="#set-display-message">set-display-message</a> for more information on adding text messages to the display window. <p>
+</blockquote>
+<hr>
+<a name="set-fog-color"><font size=+1><tt>set-fog-color to <i>newColor</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the fog color to <i>newColor</i>.  Fog must first be turned on with <a href="#enable-lighting">enable-lighting</a> before fog is displayed. <p>
+</blockquote>
+<hr>
+<a name="set-fog-intensity"><font size=+1><tt>set-fog-intensity to <i>newIntensity</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the fog intensity to <i>newIntensity</i>.  Fog must first be turned on with <a href="#enable-lighting">enable-lighting</a> before fog is displayed. <p>
+</blockquote>
+<hr>
+<a name="set-fog-limits"><font size=+1><tt>set-fog-limits with-start <i>fogStart</i> (float) with-end <i>fogEnd</i> (float) </tt></font><p></a>
+<blockquote>
+<p> The calculation which calculates fog needs to know where the fog starts (the point at which the fog appears) and where the fog ends (the point at which the fog has reached it's highest intensity). <p> This method sets the start value to <i>fogStart</i> and the end value to <i>fogEnd</i>.  <i>fogStart</i> must be greater than or equal to zero.  <i>fogEnd</i> must be greater than <i>fogStart</i>. <p> Fog must first be turned on with <a href="#enable-lighting">enable-lighting</a> before fog is displayed. <p>
+</blockquote>
+<hr>
+<a name="set-integration-step"><font size=+1><tt>set-integration-step to <i>timeStep</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the integration stepsize to <i>timeStep</i>.  The integration stepsize determines how quickly the simulation runs: large values (perhaps as high as 1 second) mean that the simulation runs quickly at the cost of accuracy, while low values mean more accuracy, but slower simulations. <p> The control object and its subclasses set the integration <i>timeStep</i> to reasonable values, so this method should only be invoked by expert users with a firm grasp of how they want their simulation to run. <p> Additionally, this value is only used as a suggestion--the integrator itself may choose to adjust the integration stepsize according to the accuracy of previous timesteps. <p>
+</blockquote>
+<hr>
+<a name="set-interface-item"><font size=+1><tt>set-interface-item with-id <i>tag</i> (int) to-string <i>newValue</i> (string) </tt></font><p></a>
+<blockquote>
+<p> This method will set the interface item <i>tag</i> to <i>newValue</i>.  This is for simulations which have an OS X nib file associated with them. <p>
+</blockquote>
+<hr>
+<a name="set-iteration-step"><font size=+1><tt>set-iteration-step to <i>timeStep</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the iteration stepsize to <i>timeStep</i>.  The iteration stepsize is simply the number of simulated seconds run between calling the controller object's "iterate" method. <b>This value may not be smaller than the integration timestep</b>. <p> The control object and its subclasses set the iteration stepsize to reasonable values, so this method should only be invoked by expert users with a firm grasp of how they want their simulation to run.  Small values slow down the simulation considerably. <p> For physical simulations, the iteration stepsize should be considerably larger than the integration stepsize.  The iteration stepsize, in this case, can be interpreted as the reaction time of the agents in the world to changes in their environment. <p>
+</blockquote>
+<hr>
+<a name="set-light-ambient-color"><font size=+1><tt>set-light-ambient-color to <i>newColor</i> (vector) for-light n = <i>0</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the ambient, or background, color of the light to <i>newColor</i>. Only has an effect on the rendering when lighting has been turned on using <a href="#enable-lighting">enable-lighting</a>. <p>
+</blockquote>
+<hr>
+<a name="set-light-color"><font size=+1><tt>set-light-color to <i>newColor</i> (vector) for-light n = <i>0</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the color of the light to <i>newColor</i>.  Only has an effect on the rendering when lighting has been turned on using <a href="#enable-lighting">enable-lighting</a>. <p> This method sets both the ambient and diffuse colors, which can also be set individually with <a href="#set-light-ambient-color">set-light-ambient-color</a> and <a href="#set-light-diffuse-color">set-light-diffuse-color</a>. <p>
+</blockquote>
+<hr>
+<a name="set-light-diffuse-color"><font size=+1><tt>set-light-diffuse-color to <i>newColor</i> (vector) for-light n = <i>0</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the diffuse, or foreground, color of the light to <i>newColor</i>. Only has an effect on the rendering when lighting has been turned on using <a href="#enable-lighting">enable-lighting</a>. <p> The diffuse color is the color coming directly from the light, as opposed to the "ambient" light that is also generated. <p>
+</blockquote>
+<hr>
+<a name="set-light-exposure-source"><font size=+1><tt>set-light-exposure-source to <i>source</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Changes the light <i>source</i> for calculating exposure.  See <a href="#enable-light-exposure-detection">enable-light-exposure-detection</a>. <p>
+</blockquote>
+<hr>
+<a name="set-light-specular-color"><font size=+1><tt>set-light-specular-color to <i>newColor</i> (vector) for-light n = <i>0</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the specular, or "shine", color of the light to <i>newColor</i>. Only has an effect on the rendering when lighting has been turned on using <a href="#enable-lighting">enable-lighting</a>. <p>
+</blockquote>
+<hr>
+<a name="set-mountain-skybox"><font size=+1><tt>set-mountain-skybox </tt></font><p></a>
+<blockquote>
+<p> A simple shortcut to setup one of the default skyboxes included with <b>breve</b>, used to quickly add a skybox background to a scene.  See <a href="#set-skybox-images">set-skybox-images</a> for information on setting custom skyboxes. <p>
+</blockquote>
+<hr>
+<a name="set-output-filter"><font size=+1><tt>set-output-filter to <i>filterLevel</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the output filter level.  This value determines the level of detail used in printing simulation engine errors and messages. The default value, 0, prints only regular output.  An output filter of 50 will print out all normal output as well as some warnings and other information useful mostly to <b>breve</b> developers.  Other values may be added in the future to allow for more granularity of error detail. <p>
+</blockquote>
+<hr>
+<a name="set-random-seed"><font size=+1><tt>set-random-seed to <i>newSeed</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the random seed to <i>newSeed</i>.  Setting the random seed determines the way random numbers are chosen.  Two runs which use the same random seed will yield the same exact random numbers.  Thus, by setting the random number seed manually, you can make simulations repeatable. <p>
+</blockquote>
+<hr>
+<a name="set-random-seed-from-dev-random"><font size=+1><tt>set-random-seed-from-dev-random </tt></font><p></a>
+<blockquote>
+<p> Sets the random seed to a value read from /dev/random (if available). <P> By default, <b>breve</b> sets the random seed based on the current time. This is generally sufficient for most simulations.  However, if you are dealing with a setup in which multiple simulations might be launched simultaneously (such as a cluster setup), then you may have a situation in which the same random seed would be used for multiple runs, and this will make you unhappy.  Using this method will restore happiness and harmony to your life. <p>
+</blockquote>
+<hr>
+<a name="set-skybox-images"><font size=+1><tt>set-skybox-images to <i>imageList</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Sets a skybox background from a list of images. <i>imageList</i> must contains 6 strings specifying image files corresponding to the front, back, left, right, top and bottom skybox images respectively. The skybox will not be drawn unless all images load successfully. <p>
+</blockquote>
+<hr>
+<a name="set-z-clip"><font size=+1><tt>set-z-clip to <i>theDistance</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the Z clipping plan to <i>theDistance</i>.  The Z clipping plan determines how far the camera can see.  A short Z clipping distance means that objects far away will not be drawn. <p> The default value is 200.0 and this works well for most simulations, so there is often no need to use this method. <p> Using a short Z clipping distance improves drawing quality, avoids unnecessary rendering and can speed up drawing during the simulation. However, it may also cause objects you would like to observe in the simulation to not be drawn because they are too far away. <p>
+</blockquote>
+<hr>
+<a name="show-dialog"><font size=+1><tt>show-dialog with-title <i>title</i> (string) with-message <i>message</i> (string) with-yes-button <i>yesString</i> (string) with-no-button <i>noString</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Shows a dialog box (if supported by the current <b>breve</b> environment) and waits for the user to click on one of the buttons. <p> If the "yes button" is clicked on, the method returns 1--if the "no button" is clicked, or if the feature is not supported, 0 is returned. <p>
+</blockquote>
+<hr>
+<a name="sleep"><font size=+1><tt>sleep for-seconds <i>s</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Pauses execution for <i>s</i> seconds.  <i>s</i> does not have to be a whole number.  Sleeping for a fraction of a second at each iteration (inside your controller'<i>s</i> iterate method) can effectively slow down a simulation which is too fast to observe. <p>
+</blockquote>
+<hr>
+<a name="stacktrace"><font size=+1><tt>stacktrace </tt></font><p></a>
+<blockquote>
+<p> Prints out a <b>breve</b> stacktrace--all of the methods which have been called to get to this point in the simulation.  This method is useful for debugging. <p>
+</blockquote>
+<hr>
+<a name="toggle-blur"><font size=+1><tt>toggle-blur </tt></font><p></a>
+<blockquote>
+<p> Toggle motion blur for the main camera.  See <a href="#enable-blur">enable-blur</a> for more information on reflections. <p>
+</blockquote>
+<hr>
+<a name="toggle-fog"><font size=+1><tt>toggle-fog </tt></font><p></a>
+<blockquote>
+<p> Toggle fog for the main camera <p>
+</blockquote>
+<hr>
+<a name="toggle-lighting"><font size=+1><tt>toggle-lighting </tt></font><p></a>
+<blockquote>
+<p> toggle lighting for the main camera <p>
+</blockquote>
+<hr>
+<a name="toggle-reflections"><font size=+1><tt>toggle-reflections </tt></font><p></a>
+<blockquote>
+<p> Toggle reflections for the main camera.  See <a href="#enable-reflections">enable-reflections</a> for more information on reflections. <p>
+</blockquote>
+<hr>
+<a name="toggle-shadows"><font size=+1><tt>toggle-shadows </tt></font><p></a>
+<blockquote>
+<p> Toggle shadows for the main camera.  See <a href="#enable-shadow-volumes">enable-shadow-volumes</a> and <a href="#disable-shadow-volumes">disable-shadow-volumes</a> for more information on shadows. <p>
+</blockquote>
+<hr>
+<a name="toggle-smooth"><font size=+1><tt>toggle-smooth </tt></font><p></a>
+<blockquote>
+<p> Toggle smooth drawing for the main camera.  See <a href="#enable-smooth-drawing">enable-smooth-drawing</a> and <a href="#disable-smooth-drawing">disable-smooth-drawing</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="unique-color"><font size=+1><tt>unique-color for-number <i>n</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns a unique color for each different value of <i>n</i> up to 198.  These colors are allocated according to an algorithm which attempts to give distinguishable colors, though this is subjective and not always possible. <p>
+</blockquote>
+<hr>
+<a name="unpause"><font size=+1><tt>unpause </tt></font><p></a>
+<blockquote>
+<p> Pauses the simulation as though the user had done so through the user interface.  This method is not supported on all <b>breve</b> client interfaces. <p>
+</blockquote>
+<hr>
+<a name="update-neighbors"><font size=+1><tt>update-neighbors </tt></font><p></a>
+<blockquote>
+<p> The neighborhood for each object in the simulation is the set of other objects within a specified radius--calling this method will update the neighborhood list for each object.  This method is only useful in conjunction with methods in <a href="Real.html">Real</a> which set the neighborhood size and then later retrieve the neighbor list. <p>
+</blockquote>
+<hr>
+<a name="watch"><font size=+1><tt>watch item <i>theObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Points the camera at the <a href="Mobile.html">Mobile</a> object <i>theObject</i>.  If <i>theObject</i> is passed in as 0, then the camera will stop watching a previously watched object. <p>
+</blockquote>
+<hr>
+<a name="zoom-camera"><font size=+1><tt>zoom-camera to <i>theDistance</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Zooms the camera to <i>theDistance</i> away from the current target-- whether the target is a vector or object. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:21 2008</i></font>

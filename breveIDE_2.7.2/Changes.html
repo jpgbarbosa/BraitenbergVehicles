@@ -1,0 +1,973 @@
+<HTML>
+<HEAD>
+<TITLE>breve : version history</TITLE>
+</HEAD>
+<STYLE TYPE="text/css">
+body {
+	margin: 0px 0px 20px 0px;
+	padding: 0;
+	color: #222222;
+	background-color: #8FABDE;
+	font-size: 9pt;
+	font-family: Verdana, Arial, sans-serif;
+        margin-left: 10%;
+        margin-right: 10%;
+}
+
+TT {
+	font-size: 80%;
+}
+
+h5 {
+	font-size: 150%
+}
+
+h5 {
+	font-size: 120%
+}
+
+
+#container {
+	padding: 10px;
+
+	line-height: 140%;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+	margin-top: 10px;
+	width: 90%;
+	overflow: visible;
+ 
+	background-color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+}
+
+</STYLE>
+<BODY>
+
+<div id="container">
+
+The <a href="http://www.spiderland.org/breve">breve</a> simulation environment change log.
+
+<h5>version 2.7.2 [02/25/2008]</h5>
+<ul>
+<li>Fixed locale related simulation errors in breveIDE
+<li>Fixed crash after right-click in Linux command-line breve with freeglut
+<li>Fixed object deletion problem in Python simulations
+<li>Fixed missing Python demos in breveIDE menu
+<li>Better memory management
+</ul>
+
+<h5>version 2.7.1 [02/21/2008]</h5>
+<ul>
+<li>Fixed startup quit on Mac OS X
+</ul>
+
+<h5>version 2.7 [02/19/2008]</h5>
+
+<h5>New Features</h5>
+<ul>
+<li>Added URL class for downloading data from and uploading data URLs
+<li>Better Python compatibility for simulations ported from steve language
+<li>Major improvements and performance updates for physical simulation
+<li>Added support for loading mesh objects from 3DS files (both as display and collision shapes)
+<li>Added support for non-convex objects
+<li>Added new demo: 3DSImport.tz
+<li>Enhanced terrain support
+<li>Improvements to shadows and reflections to reduce artifacts
+<li>Improved quality of texturing and other material effects
+<li>Improved quality of fog rendering
+<li>Improved lighting quality
+<li>Shadows now correctly rendered for display shape instead of collision shape
+<li>Added support for more than one light source
+<li>Added abililty to load and display "skybox" images for realistic 3D simulation backgrounds
+<li>Major fixes and improvements to simulation archiving and dearchiving
+<li>Fixed quit after internal simulation errors with Python frontend
+<li>Improvements to texture loading and management, textures can now be archived
+<li>Demos updated, deprecated code removed.
+</ul>
+
+<h5>version 2.6 [10/08/2007]</h5>
+
+<h5>New Features</h5>
+<ul>
+<li><b>Added full Python language frontend support</b>
+<li>Python demos added
+<li>Added new IRSensor classes
+<li>Objects now have a "display" shape and a "collision" shape, which can be set separately.
+<li>Stationary objects can now be positioned and rotated dynamically during a simulation.
+<li>Shapes can now be changed dynamically for stationary objects during a simulation.
+<li>Shadow drawing can be disabled on a per-object basis
+<li>Drawing quality of lines improved
+<li>Removed long-deprecated Data and Genome classes, updated demos
+<li>Added breveIDE intergrated documentation
+<li>Modified plugin API for list access
+<li>Removed separate "breve_cli" program, use "breve -x" to run a simulation with no graphics
+</ul>
+
+<h5>Changes to Accomodate New Python Frontend</h5>
+<p>The following changes were required in order to avoid conflicts between steve and Python.
+In rare cases they may require minor changes to existing simulations written in steve.</p>
+
+<ul>
+<li>Some method arguments have been reordered.
+<li>Many methods have been moved from Stationary or Mobile to their parent class Real
+<li>One of the "set-rotation" methods has been renamed to "set-rotation-matrix" 
+</ul>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li>Fixed Windows breveIDE plugins 
+<li>Fixed Windows breveIDE window positions
+<li>Improved Windows/Linux breveIDE stability
+<li>Fixed missing collision callbacks for "fully embedded objects"
+<li>Fixed archiving/dearchiving problems for some classes.
+</ul>
+
+<hr>
+
+<h5>version 2.5.1 [01/22/2007]</h5>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li>Enabled experimental Python bridge.
+<li>Multiple Push language fixes and enhancements
+<li>Added scientific notation number parsing.
+<li>Fixed crash in loading corrupted .sgi image files (was causing crash in SwarmEvolve-1.0 demo).
+<li>Replaces missing Genome class (preventing Walker and SuperWalker demos from running).
+<li>Fixed Sound support on Windows
+<li>Fixed Push support on Windows.
+</ul>
+
+<hr>
+
+<h5>version 2.5 [12/11/2006]</h5>
+
+<h5>New Features</h5>
+
+<ul>
+<li>Major optmizations and stability improvements
+<li>Network communication is now a two-way process: objects can be both sent and received in a single network connection call.
+<li>Added easier element access to vectors and matrices.
+<li>For plugin or language frontend developers: exported additional breveEngineAPI.h functions
+<li>Released breveCreatures screensaver for Mac OS X and Windows.
+</ul>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li>Remove newline characters from text with File read-line method.
+<li>Physical simulation stability improved.
+<li>Crash fix for very densely packed physical simulations 
+<li>Networking stability improvements.
+<li>Archiving/dearchiving bug fixes.
+<li>Fixed double-call of "dearchive" method (which could lead to "ghosts")
+<li>Improved simulation archiving/dearchiving complience for many built-in classes
+<li>Windows "priority" bug fixed -- breve will now run at the default priority.
+<li>Windows and Linux IDE graphics bug fixed: simulations now display properly after a previous runtime error.
+<li>Fixed movie export on some Windows machines 
+<li>Fixed potential Windows and Linux IDE networking deadlock
+</ul>
+
+
+<hr>
+
+
+<h5>version 2.4 [05/13/2006]</h5>
+
+<h5>New Features</h5>
+
+<ul>
+<li>Universal PPC/Intel build for Mac OS X
+<li>Changes to plugin architecture: plugin developers will need to recompile plugins for 2.4 and minor source code changes may be required.
+<li>Official support for breve_cli movie export, image snapshots and light detection with Mesa on Linux (if Mesa libraries are present)
+<li>Added TurtleDrawing class for drawing via Logo-like turtle commands.
+<li>Added GADirectedGraph class for evolving graph structures.
+<li>New demo: Creatures.   Evolves morphology and behaviors of evolved virtual creatures.
+<li>New demo: Demolition.
+<li>Stationary objects can now be rotated.
+<li>New garbage collection system, far faster and more robust than before.
+<li>Memory allocation optimizations.
+<li>Added set-joint-torque-vector method for universal and ball joints.
+<li>Link rotations are no longer modified when being linked by joints.
+<li>Added control of Multibody self-collision parameters.
+<li>Added independent texture scales for X and Y directions.
+<li>Added methods to get the height and width of a camera's view.
+<li>Enhanced support for setting parameters from Push configuration files.
+</ul>
+
+<h5>Bug Fixes</h5>
+<ul>
+<li>Fixed potential Windows garbage collection crashes.
+<li>Fixed truncation of large XML network reads.
+<li>Fixed links in method_index documentation.
+<li>Removed double-mark debugging message.
+<li>Fixed non-volumetric patch rendering crash.
+<li>Fixed XML archiving of objects created in same timestep as archiving event.
+<li>Fixed bug in setting joint torques (torques may now appear to be more powerful than previously)
+<li>Corrected link points for automatic joint scaling with non-uniform scales.
+<li>get-point-on-shape method now more accurate in degenerate situations (near vertices).
+<li>Fixed spelling of "for-notification" keyword in unobserve method.
+<li>Fixed reverse-ordering of "unobserved" notifications.
+<li>Fixed disabling of multibody self-collisions.
+<li>Fixed delayed update of texture scaling.
+</ul>
+
+<h5>Source Code Changes</h5>
+<ul>
+<li>Ongoing conversion of source code to C++.
+<li>Plugin architecture updated
+</ul>
+
+<hr>
+
+<h5>version 2.3 [08/31/2005]</h5>
+
+<h5>New Features</h5>
+<ul>
+
+<li>Major optimizations and improvements to collision detection and response.
+
+<li>Improved collision-face finding for more accurate collision response.
+
+<li>Added new GeneticAlgorithm class.
+
+<li>Added Joint methods "get-force" and "get-torque" to get the forces and torques that joints apply to bodies.
+
+<li>Added Joint methods to retreive information about parent/child links and link-points.
+
+<li>BallJoint support enhanced&mdash;joint limits now functional.  Axes of rotation for BallJoints have changed, see the BallJoint documentation for details.
+
+<li>Added "get-colliding-objects" method to Mobile class (replacing "check-for-penetrations").
+
+<li>PatchGrids can now be drawn either as individual cubes (better quality) or as a volumetric display (much faster).
+
+<li>Mac OS X breve can now save output files to the same diretory as the simulation file.
+
+<li>Added a "Floor" class&mdash;a flat stationary object.
+
+<li>Added support for automatic conversion to strings in steve when necessary.
+
+<li>Arrow keypresses can now be caught with methods such as "catch-key-left-down".  This works for both "down" and "up", and for the directions "left", "right", "down", "up".
+
+<li>Multiline comments can now appear in steve code beginning with #! and ending with #!.
+
+<li>Repeating events can now be scheduled using the Object method "schedule-repeated".
+
+<li>New level-of-detail renderer for terrains.
+
+<li>Adjusted camera movements so that they are more sensitive to the zoom factor, having a larger influence when the camera is zoomed out.
+
+<li>For developers and plugin authors: passing a NULL pointer from steve to an internal function will now trigger a runtime error.  
+
+<li>For developers and plugin authors: the constant AT_UNDEFINED has changed.  Plugins using this contstant should be recompiled.
+
+<li>Added max-force setting for springs.
+
+<li>More of simulation backend converted to C++.
+
+</ul>
+
+<h5>Bug fixes</h5>
+
+<ul>
+
+<li>Fixed "get-angles" for UniversalJoints.
+
+<li>Fixed crash when freeing disconnected Multibody
+
+<li>Fixed MPEG Movie recording on Windows
+
+<li>Fixed set-relative-rotation method for Joints (when called after the joint has been connected).
+
+<li>Fixed incorrect bounce for multi-point collisions.
+
+<li>Fixed lowercase key event processing for Linux &amp; Windows breveIDE frontend
+
+<li>Fixed get-real-time precision bug.
+
+</ul>
+
+<hr>
+
+<h5>version 2.2.1 [04/28/2005]</h5>
+<ul>
+<li>Fixed neighbor detection bug.
+</ul>
+
+<p>
+<h5>version 2.2 [04/27/2005]</h5>
+
+<ul>
+<li>New breveIDE graphical user interface for Linux and Windows (thanks to Gabriel Tarasuk-Levin)
+<li>steve code evaluation greatly optimized (thanks to Michael Larson).
+<li>New hardware accelerated Matrix3D class (thanks to Eric DeWitt).
+<li>Memory requirements and initialization time greatly reduced for large simulations.
+<li>Collision detection greatly optimized
+<li>Patch drawing capabilities enhanced and optimized.
+<li>breve is now capable of simulaing far more objects than previously possible.
+<li>Objects can now be rendered as points.
+<li>Garbage-collection enhancements
+<li>Enhanced support for the vector (point) type in Push.
+<li>Screen can be cleared with Control method "clear-screen" when blurring is enabled.
+<li>Display of Springs can be modified with method "set-pattern".
+<li>Added method to set Mobile object rotation from Euler angles.
+<li>New demo: PatchLife3D, 3D Game of Life implementation.
+<li>New demo: GrayScott3D, 3D reaction diffusion simulation.
+<li>New demo: Hypercycle, spatial hypercycle simulation.
+<li>OS X breve document icon changed
+</ul>
+
+<h5>Bug fixes</h5>
+<ul>
+<li>Fixed "set-density" method for Spheres.
+<li>Fixed string index assignment bug.
+<li>Fixed bug in which two method calls scheduled for different times could get run at the same time.
+<li>Fix to make "init" method errors stop the simulation.
+<li>Exported slMalloc and slFree symbols for plugins.
+<li>Fixed freed-list memory leak in object inspector (OS X application)
+<li>Fixed truncated method names from NetworkServer object.
+<li>Fixed "unprepend" bug removing wrong element from lists.
+<li>Fixed "-u" flag for OS X command-line OS X.
+<li>Fixed "-s" flag for Windows command-line breve.
+<li>Fixed clearing to background color when blur is enabled.
+<li>Fixed tone frequency doubling
+<li>Fixed potential Tone freeing crash
+<li>Fixed PatchGrid get-patch at-location method
+<li>Networking fixed for Windows machines 
+</ul>
+<hr>
+
+<h5>Source Code Changes</h5>
+<ul>
+<li>The steve language source code has been partially converted to C++.
+</ul>
+<p>
+<h5>version 2.1 [01/28/2005]</h5>
+
+<h5>New Features</h5>
+<ul>
+<li>New custom drawing class (see documentation for class Drawing).
+<li>New elastic Spring simulation class (see documentation for class Spring).
+<li>New fast 2d matrix manipulation class (see documentation for class Matrix2D).  AltiVec accelerated, where supported by hardware.
+<li>Fast chemical diffusion supported via Matrix2D class.
+<li>Different patterns (dashed, dotted, etc) can be drawn for lines between objects.
+<li>String length now given with | <i>string</i> |.
+<li>Letters in strings can be read with <i>string</i>{ <i>n</i> }.
+<li>Letters in strings can be replaced with <i>string</i>{ <i>n</i> } = "newstring".
+<li>Physical collisions may now be disabled between specific object types.
+<li>Faster physical simulation via "QuickStep" (see method enable-fast-physics in class Control).
+<li>Various improvements to the Push programming language.
+<li>Changes to Push programming language to match the Lisp implementation
+<li>Implemented "discrepancy" method for comparing Push programs.
+<li>Improved "Go to method..." popup menu (Mac OS X).
+<li>Introduced basic support for transparent breve <=> Java bridge on Mac OS X.
+<li>Switched to more compatible MPEG export format.
+<li>"Genome" class now copies lists for crossover operation.
+<li>New demo: SwarmEvolve 1.0, evolving swarm simulation
+<li>New demo: GrayScott, chemical reaction/diffusion simulation
+<li>Major optimizations.
+</ul>
+
+<h5>Bug Fixes</h5>
+<ul>
+<li>Fixed slowdowns and crashes on multiprocessor Macs.
+<li>Fixed bug in cube/sphere collisions on -x axis.
+<li>Fixed network server starting on wrong port on x86 machines
+<li>Fixed copylist garbage collection bug
+<li>Fixed disabled light detector
+<li>Fixed bug using "@define" with strings.
+<li>Fixed bug in Mobile method "set-label".
+<li>Fixed loading XML-files into Data objects
+<li>Fixed math assignment operator bug with vector elements 
+<li>Fixed incorrect rendering when bitmaps rendered after transparencies.
+<li>Command-R now stops simulations in fullscreen mode (Mac OS X).
+</ul>
+
+<h5>breve Object API Changes</h5>
+<ul>
+<li>New object types can be directly instantiated and called from steve code.
+<li>The brObjectType findMethod function pointer now takes an additional argument: the method argument types. 
+<li>The "class" fields of structs have been changed to be called "object", to avoid conflicts with C++ compilers.
+<li>brObjectTypes now require a few additional function callbacks.
+</ul>
+
+<h5>Source Code Changes</h5>
+<ul>
+<li>The simulation backend library and the breve kernel have been partially converted to C++ and cleaned up significantly.  The changes so far have allowed for some major optimizations.
+</ul>
+<hr>
+<h5>version 2.0.1 [10/15/2004]</h5>
+<h5>Bug Fixes</h5>
+<UL>
+<li>Fixed bug using vectors with Push language 
+<li>Fixed crash in "relative-rotate" method of class Mobile.
+<li>Fixed crash in "get-type" method of class Object.
+</UL>
+<hr>
+
+<p>
+<h5>version 2.0 [10/13/2004]</h5>
+
+<h5>New Features</h5>
+<ul>
+<li>Full integration of the "Push" programming language for evolutionary computation.
+<li>Method arguments can now be given default values to indicate that they are optional.
+<li>Mouse coordinates in window can be read with new Control methods get-mouse-x-coordinate and get-mouse-y-coordinate.
+<li>Totally revamped garbage collection system.
+<li>Garbage collection works for objects.  It is enabled on a per-object basis.
+<li>Added rendering of back-faces of transparent objects to improve transparency effect.
+<li>Multiple perspectives can be viewed in a simulation using the "Camera" class.
+<li>Textures can be updated on-the-fly.
+<li>There is now no hard limit on the number of textures in a simulation
+<li>General improvements to transparency and texturing effects.
+<li>Control method "get-real-time" returns the current real-time in seconds, with microsecond resolution.
+<li>Major memory and performance optimizations.
+<li>Improved keyboard and mouse interaction for command-line breve.
+</ul>
+
+<h5>Bug Fixes</h5>
+<ul>
+<li>Fixed potential physics engine crash when dealing with large numbers of objects.
+<li>Fixed printing of "%" characters to the output log.
+<li>Fixed potential crash reading DOS formatted text files on OS X (File class).
+<li>Fixed truncated read bug in the File class.
+<li>Links and mobile objects can be transparent.
+<li>Fixed distorted shadow volumes for spheres.
+<li>Incorrect texturing on non "up/down" faces has been fixed.
+<li>Printing fixed on OS X application
+</ul>
+
+<h5>Changes to the steve Language</h5>
+<ul>
+<li>New "insert" operator for lists: insert <i>expression</i> at <i>list</i>{ <i>index</i> }.
+<li>New "remove" operator for lists: remove <i>list</i>{ <i>index</i> }.
+<li>Use of arrays is now depreciated&mdash;use lists instead
+<li>"super" is no longer an actual instance.  Calling a method with "super" still has the same effect, but "super" no longer refers to a separate instance than "self".
+<li>"Vision" class has been removed.  Its functionality can now be replicated using the classes "Camera" (to render images) and "Image" (to read the images from the screen).
+<li>The "Image" class is now used for applying setting textures.
+<li>The depreciated "register with-shape" method has been removed for Mobile objects.  The method to use is now "set-shape to".
+<li>The depreciated Joint methods have been removed from the Link class&mdash;use the Joint classes instead.  
+<li>MultiBodies are now no longer subclasses of Mobile&mdash;they are now Abstract objects which refer to groups of other Links and Joints.
+</ul>
+
+<h5>Changes to Physical Simulation</h5>
+<ul>
+<li>MultiBodies are now optional.  Links can exist independently in a simulation.
+</ul>
+
+<h5>Changes to the Mac OS X Interface</h5>
+<ul>
+<li>Redesigned OS X interface.
+<li>Mac OS X style plugins are no longer supported&mdash;switching to the common plugin structure is trivial.
+</ul>
+
+<h5>Changes to Command-Line breve</h5>
+<ul>
+<li>Window-position can be specified from the command line with the flag -w X,Y.
+<li>Window-size can be specified from the command line with the flag -l NxM.
+</ul>
+
+<h5>Changes to the breve Source Code</h5>
+<ul>
+<li>New API for using the breve engine with other frontend languages.
+<li>Source code completely restructured.
+<li>Plugin API: all "ST" macros and symbols have been changed to "BR" (i.e., STINT() is now BRINT()).
+<li>Various other changes to the API&mdash;plugins must be recompiled using the new API header.
+<li>Source code now documented with doxygen.
+</ul>
+<HR>
+
+<p>
+<h5>version 1.9.1 [05/12/2004]</h5>
+<P>
+<UL>
+<LI>fixed F1 camera zoom
+<LI>fixed path bug on Windows when simulation filepath included "\"
+<LI>fixed QTMusicPlugin for OS X version
+<LI>fixed version numbering in OS X version
+</UL>
+<HR>
+<h5>version 1.9 [05/11/2004]</h5>
+<P>
+<h5><B>New Features:</B></h5>
+<UL>
+<LI>Support for saving PNG snapshots on all platforms
+<LI>Support for saving MPEG movies on all platforms
+<LI>New Tone class&nbsp;plays tones on all platforms (replaces the OS X Sinewave plugin)
+<LI>Updated networking support&mdash;arbitrary objects can now be sent over network
+<LI>New Image class to load, read and modify images.
+<LI>Classes may now hold multiple methods with the same name and differing argument counts
+<LI>Added full-screen mode for command-line versions of breve (using the -f flag)
+<LI>Added -u command-line flag to start a simulation automaticially ("unpause")
+<LI>Documentation and demos updated
+<LI>New "Painter" demo
+<LI>New "RemoteControl" demo
+<LI>Major optimizations with respect to object creation/deletion
+<LI>Major general optimizations 
+<LI>Documentation class-list now hierarchical
+<LI>Lists are now indexed for fast random access
+<LI>File class interprets both '\n' (UNIX/OS X newlines) and '\r' (DOS newlines) as newline characters on all platforms
+<LI>New (experimental) Java bridge plugin [OS X only, for the moment]
+</UL>
+<P>
+<h5><B>Bug Fixes:</B></h5>
+<UL>
+<LI>Display labels fixed (set-label)
+<LI>Fixed rendering bugs (shadows, flashing)
+<LI>Fixes/improvements to mouse controlled camera movements
+<LI>Fixed "controller pause" bug on Mac OS X
+<LI>File opening methods now return 0 on error
+<LI>Fixed equality/inequality operators for lists
+<LI>Fixed and/or precedence bug
+<LI>Fixed memory leak in OpenGL rendering
+<LI>Observers are now removed for freed objects
+<LI>Fixed collision-handler bug for non-physical objects in physical simulations
+<LI>Fixed plugin Makefiles
+<LI>Fixed bug relating to superclass methods.
+<LI>Fixed pop-induced memory leak
+<LI>Fixed memory leak in hash tables when a key has no value set
+<LI>Fixed memory leak in local variable hash tables
+<LI>Fixed divide-by-zero bug with random[-1].
+<LI>Fixed OS X string syntax coloring bug
+<LI>Fixed OS X popup crash bug
+<LI>Heavy log window output no longer causes slowdown to simulations (OS X)
+</UL>
+<HR>
+<h5>version 1.8 [01/29/2004]</h5>
+<P>
+<h5><B>New Features:</B></h5>
+<UL>
+<LI>Vector elements can now be assigned using the "::" notation (myVector::x = 10)
+<LI>"{ }" is now parsed as an empty list
+<LI>Shadows on spheres are no longer hideous
+<LI>New "Speed" menu allows simulations to be slowed down (OS X only)
+<LI>Documentation updated
+<LI>Basic AppleScript functionality added for loading, starting and stoping simulations (OS X only)
+<LI>Improved responsiveness when draw-every-frame is disabled (as in the DLA demo)
+<LI>Automatic stacktrace after runtime errors
+<LI>New plugin samples
+<LI>Display text can be scaled; is scaled automatically when the window resizes
+<LI>Display text is anti-aliased
+<LI>Joint rescaling now works even when there is no parent link
+<LI>Mobile shapes can be set on-the-fly (method set-shape)
+<LI>Mobile shapes are now set by default to a simple sphere
+<LI>Link shapes can be set on-the-fly (method set-shape)
+<LI>Link shapes are now set by default to a simple rectangular solid
+<LI>Standardized use of method name "set-shape" for Link and Mobile objects
+<LI>Added joint hard-limits to all joint types (method set-joint-limits)
+<LI>Terrains can be scaled to other sizes (method set-scale)
+<LI>Cubes, Spheres and other shapes are now independent subclasses of Shape
+<LI>The File class now uses the user-specified output directory
+<LI>Object dependencies can now be removed (method remove-dependency)
+<LI>All XML archive/object loading now searches the full file path
+<LI>The File class now searches the entire breve search path to locate files to open
+</UL>
+<h5>Bug Fixes</h5>
+<UL>
+<LI>set-force (Link.tz) now adds persistent force
+<LI>Added correct simulation time to dearchived simulations
+<LI>Writing to an uninitialized File object no longer crashes
+<LI>Bug fix in set-rotation method of Mobile.tz
+<LI>The method "read-line" in class File now removes the terminating newline character
+<LI>Fixed bug loading plugins with linux
+<LI>Fixed a number of terrain related bugs
+<LI>Fixed bug returning values from within a for and while loops fixed
+<LI>Fixed missing scheduled events for dearchived simulations
+<LI>Fixed a potential crash while dearchiving multibody objects
+<LI>Fixed a potential crash in "check-for-penetrations"
+<LI>Fixed weirdness in syntax-coloring of strings
+<LI>Fixed occasional incorrect line number in error reporting
+<LI>Fixed bug reading image files on Windows platform
+<LI>Fixed invisible/miscolored terrain bugs
+<LI>Fixed terrain get-height bug
+<LI>Several OS X memory leaks fixed
+</UL>
+<HR>
+
+<h5>version 1.7 [09/18/2003]</h5>
+<P>
+<h5><B>New Features:</B></h5>
+<UL>
+<LI>Source now available under GPL
+<LI>New preview release available for Windows
+<LI>Added support for customized terrains, including fractal-based landscapes
+<LI>New CustomShape class allows for custom built shapes
+<LI>New Sound class allows sound files to be loaded and played
+<LI>Added some sound files to the <b>breve</b> distribution
+<LI><b>breve</b> can read gzipped files (both simulation files and archived simulations)
+<LI>Completely new documentation
+<LI>New demo: TerrainWalker.tz
+<LI>New demo: TerrainSwarm.tz
+<LI>New demo: TerrainWave.tz
+<LI>New demo: HelloWorld.tz
+<LI>Several demos updated
+<LI>New methods to check for penetrations in multibodies or links
+<LI>New methods to get bounding boxes of Link objects
+<LI>New "shadow volumes" offers improved shadow effects
+<LI>Major improvements in garbage collection
+<LI>Upgraded to version 0.039 of the ODE physics engine
+</UL>
+<h5><B>Bug Fixes:</B></h5>
+<UL>
+<LI>Fixed bug in dearchiving strings (which may have caused general failures in dearchiving)
+<LI>Fixed many potential memory leaks
+<LI>Fixed bug in "Go To Method..." menu and multi-line method declarations
+<LI>Fixed bug dearchiving objects containing arrays
+<LI>Many crashes fixed
+<LI>Fixed non-working "pause" method in Control.tz
+</UL>
+<HR>
+<h5>version 1.6 [06/19/2003]</h5>
+<p>
+<h5><B>New Features:</B></h5>
+<UL>
+<LI>Lines can be arbitrarily drawn between objects
+<LI>Objects can be made invisible
+<LI>Random seeds can be generated from /dev/random for more randomness (critical when running multiple simultaneous simulations)
+<LI>New operators for lists: prepend, unprepend and copylist
+<LI>Warnings added for local variables which shadow class variables
+<LI>Instance inspector updates periodically (OS X)
+<LI><b>breve</b> can now read PNG &amp; JPEG images (for textures and bitmaps)
+<LI>Array and list expressions can be used in strings (for example, "$myArray{4}, $myList[3]")
+<LI>New "light exposure detection" allows sunlight to be simulated
+<LI>Bitmapped objects now have matching shadows and reflections (as opposed to spheres)
+<LI>The rotation of bitmapped images can be set
+<LI>The transparency of bitmapped images can be set
+<LI>Lots of major documentation improvements
+<LI>New demos to illustrate some of the new features
+<LI>Fixed error with negative exponents
+<LI>Fixed crashes in <b>breve</b> text editor
+<LI>Offending code now correctly selected when a simulation or parse error occurs
+<LI>Fixed line errors in "Go To Method..." menu
+
+</UL>
+<p>
+<h5><b>Changes to physics support:</b></h5>
+<p>
+<UL>
+<LI>Support for new ODE joint types: Universal &amp; Ball.
+<LI>Removed limit of 8 outward links per link when building multibodies
+<LI>Joints can be created and destroyed dynamically over the course of a simulation
+<LI>Kinematic loops can be made in multibodies
+<LI>Structure of multibodies no longer required to be hierarchical
+<LI>Joint link-points can be scaaled dynamically as shapes change size
+<LI>Links can be fixed to points in space (by creating a Joint with no parent)
+</UL>
+<h5><B>Bug Fixes:</B></h5>
+<UL>
+<LI>Fixed list garbage collection bug which could cause unexpected errors or crashes
+<LI><b>breve</b> now properly parses files with Windows and MacOS9 style newlines (\r and \r\n)
+<LI>Fixed a number of rare physics related crashes
+<LI>Fixed a bug while detecting collisions with Stationary objects
+<LI>Fixed preferences bugs (editor &amp; path preferences)
+<LI>Lists now properly updated in object inspector (OS X)
+<LI>Fixed crash when inspecting freed objects in object inspector
+<LI>Fixed bug in which changes to both child and parent link points (Joint.tz) did not get handled correctly
+<LI>Fixed bug in which get-point-on-shape gave bad results after shape scaling
+<LI>Re-added ability to inspect superclasses in the object inspector window (OS X)
+</UL>
+<HR>
+<p>
+<h5>version 1.5 [03/10/2003]</h5>
+<p>
+<h5><b>New Features:</b></h5>
+<p>
+<ul>
+<LI>Multiple code windows can be opened in the OS X <b>breve</b> application
+<LI>New "Braitenberg" class and related demos for building Braitenberg vehicles.
+<LI>Speed improvements, as always
+<LI>Improved collision detection
+<LI>Linux version performance greatly improved
+<LI>"steve" commands can be typed into the code input field and executed dynamically during a simulation  
+<LI>Objects can be selected and dragged through the simulated world
+<LI>Greatly improved garbage collection
+<LI>It's funny how I fix all the bugs in garbage collection with each release, but there are always new ones that pop up&mdash;they're fixed.
+<LI>Strings, lists, matrices and "data" types can now be included in Data objects
+<LI>All objects can now be "archived" as XML files
+<LI>Data objects now exported primarily as XML files
+<LI>Entire world states can be exported as XML files
+<LI>Improved physics support
+</ul>
+<p>
+<h5><b>Changes to the graphical rendering:</b></h5>
+<p>
+<ul> 
+<LI>Improvements to shadows and reflections
+<LI>Speed improvements
+</ul>
+<p>
+<h5><b>Changes to the steve language:</b></h5>
+<p>
+<ul>
+<LI>New "data" type allows for encoding binary data (not to be confused with Data objects, which can contain many types of data).
+<LI>New "all" expression returns a list of all objects of a specified type, ie "all Mobiles"
+<LI>New "stacktrace" method in Control.tz
+<LI>New increment/assign ("++") and decrement/assign ("&mdash;") operators 
+<LI>Greatly improved error reporting
+<LI>Warnings added for unused variables
+</ul>
+<p>
+<h5><b>Changes to physics support:</b></h5>
+<p>
+<ul>
+<LI>Shapes sizes can be scaled dynamically, useful for simulating growth (scale-shape in Shape.tz)
+<LI>Joint normals can be adjusted dynamically during a simulation (set-joint-normal in Joint.tz)
+<LI>Joint link points can be adjusted dynamically during a simulation (set-link-point in Joint.tz)
+</ul>
+<p>
+<h5><b>Bug Fixes:</b></h5>
+<ul>
+<LI>Fixed freeze bug when pausing simulations with high logging activity.
+<LI>Fixed bug in calculating mass and inertia properties
+<LI>Fixed rare but totally screwy collision detection bug
+</ul>
+<p>
+<hr><h5>version 1.4 [11/04/2002]</h5>
+<p>
+<h5><b>Important change for users of previous versions:</b></h5>
+<p>
+<UL>
+<LI>Brand new physics engine! [in progress]
+<blockquote>
+ Though changes will need to be made to accommodate the changes,
+ the new engine will offer much improved features and stability in the 
+ long run.  <b>breve</b> is now using portions of the Open Dynamics Engine 
+ library.  See the file <b>PhysicsNotes</b>for more information.
+</blockquote>
+</UL>
+<p>
+<h5><b>New features:</b></h5>
+<ul>
+<LI>There is a Linux version now, not that this is an OS X feature.
+<LI>Added initial support for creating custom interfaces for simulations (see the InterfaceSwarm demo for an example).
+<LI>Simulations can be run in fullscreen mode
+<LI>New "Vision" class gives access to rendered images of the world
+<LI>New "Patch" feature allows creation of StarLogo style patches in the world (see class documentation for Patch.tz and PatchGrid.tz for more information).
+<LI>New built-in feed-forward neural network functionality [experimental]
+</ul>
+<p>
+<h5><b>Changes to the steve language:</b></h5>
+<p>
+<ul>
+<LI>Added "matrix" (3x3 matrices) as a basic type [experimental]
+<LI>Method calls can now be made on lists of instances and the method will be called for each instance in the list separately.  
+<LI>New "@define" functionality in the steve language.  Allows "@define" statements to facilitate manipulation of parameters.  See the steve language documentation for more information.
+<LI>Strings can now use special sequences like \n (newline), \t (tab) and " (quotation mark)
+<LI>Logical AND/OR expressions are now "short-circuit" operators
+</ul>
+<h5><b>General changes:</b></h5>
+<ul>
+<LI>Super-duper optimization
+<LI>Changed texture limit from 8 textures to 128
+<LI>Spheres can now be texture mapped instead of changed automatically to billboards (set-bitmap and set-texture in Real.tz)
+<LI> The "scale" of textures can now be controlled (set-texture-scale in Real.tz)
+<LI>Improved garbage-collection
+<LI>Fixed documentation for plugins
+<LI>New output path now takes effect immediately, not when the application is restarted
+<LI>New demos
+</ul>
+<p>
+<h5><b>Bug Fixes:</b></h5>
+<p>
+<ul>
+<LI>Fixed "Save As..." bug, where <b>breve</b> would forget the existing filename is "Cancel" was selected
+<LI>New files now appear in recent menu when saved
+<LI>Window name is now correctly set when a file is saved using "Save" or "Save As...".
+<LI>Fixed bug while testing vectors in logical AND/OR expressions
+<LI>Fixed x-axis/y-axis mixup in rotation methods
+</ul>
+<p>
+<hr><h5>version 1.3 [12/05/2001]</h5>
+<p>
+<h5><b>Important change for users of previous versions:</b></h5>
+<p>
+The default iteration and integration timesteps have been changed.
+<blockquote>
+Control.tz has changed the default timesteps and integration steps to match
+  the timesteps used by PhysicalControl.tz.  This way, objects from regular 
+  simulations will behave the same way in physical simulations.
+<p>
+  Simulations written in previous versions will run very slowly because of the 
+  small timesteps.  You should increase the velocities of the objects so that they
+  run at a reasonable speed.
+<p>
+  If you need to return to the old step sizes, you can set the integration step
+  to 0.5 and the iteration step to 3.0.  For new simulations, however, you 
+  should use the default values.
+
+  A number of demos have been modified to accommodate this change.
+</blockquote>
+<p>
+<h5><b>General changes:</b></h5>
+<p>
+<ul>
+<LI>Major bug fixes and improvements to physics engine.
+<LI>Major speed optimizations.
+<LI>Support added for plug-ins.
+<LI>slURLPlugin allows URLs to be download and web pages to be opened from within simulations.
+<LI>slRegexPlugin provides regular expression functionality.
+<LI>slQTMusic plugin provides access to making MIDI music with QuickTime within simulations.
+<LI>Switched from rand() to random() in order to improve random number generation.
+<LI>Class documentation now uses frames for easier navigation.
+</ul>
+<p>
+<h5><b>Changes to the steve language:</b></h5>
+<p>
+<ul>
+<LI>Added "notifications".  Instances can now register for notifications from other
+  instances.  This allows special actions to automatically be called for all 
+  observing instances.  See documentation for Object.tz for more information.
+</ul>
+<p>
+<h5><b>Changes to the application interface:</b></h5>
+<p>
+<ul>
+<LI>Improved preferences dialog box with many new options.
+<LI>Syntax coloring!
+<LI>Editor window can now check for matching braces and parentheses.
+<LI>Auto indent.
+<LI>Recent menu now preserved every time <b>breve</b> is run.
+</ul>
+<p>
+<h5><b>
+Changes to the included <b>breve</b> class files:</b></h5>
+<p>
+<ul>
+<LI>New "system" method of Control.tz allows shell commands to be executed from within simulations.
+<LI>New "copy" method in Data.tz allows the contents of one data subclass to be copied into another.
+<LI>New "pause" method in Control.tz allows the simulation to pause itself as though the user had clicked on the pause button.
+<LI>Introductory networking support.
+</ul>
+<p>
+<hr><h5>version 1.2 [10/08/2001]</h5>
+<p>
+<h5><b>General changes:</b></h5>
+<p>
+<ul>
+<LI>New "tips &amp; techniques" documentation describes how to use many of 
+ <b>breve</b>'s features which are part of the included class hierarchy.  Accessible
+ from the Help menu.
+<LI>Demo simulations updated and enhanced.
+<LI>Added "Check Syntax" option from the Edit menu to check the syntax of a simulation without running it.
+<LI><b>breve</b> now allows graphic files (in SGI format) to be loaded and used as textures or "billboards". 
+<LI>Improved rendering&mdash;adds the ability to render shadows and reflections of objects on to a floor.
+<LI>Text strings can now be printed in the simulation display.
+<LI>Added "neighbor checking", a fast and sophisticated method of finding 
+ objects within a certain range.  This represents a huge speed improvement
+ on many simulations which previously checked the location of every other 
+ object manually.
+<LI>Fixed movie &amp; snapshot export bug which caused corrupted images on 
+ some systems.
+<LI>Added settings for quality and simulation frames per second during movie
+ export.
+<LI>Added contextual menu support for objects in the simulation&mdash;actions can
+ be assigned on a per-object basis.  Hold down control while clicking on 
+ objects in the simulation to see the menu.
+<LI>Improved menu support in <I>steve</I>, such that menus can be disabled/enabled, unchecked/checked from within simulations.
+<LI>Added dialog box support to get ok/cancel type input from within simulations.
+<LI>Documentation updated.
+<LI>Improved error reporting.
+<LI>Additional optimization over 1.1. 
+<LI>Potential memory leaks fixed with improved garbage collection in steve.
+</ul>
+<p>
+<h5><b>Changes to the application interface:</b></h5>
+<p>
+<ul>
+<LI>Added "New From Template" menu item to create a new document with a simulation template.
+<LI>Added "Open Recent" submenu from the file menu.
+</ul>
+<p>
+<h5><b>Changes to the steve language:</b></h5>
+<p>
+<ul>
+<LI>Added support for perl-like embedding of simple variables in strings, such as
+ print "my value is $self".  This does not work for arrays or lists at this time.
+<LI>"Controller" line can now be punctuated with "." in addition to ";", in order to
+ stay consistent with the rest of the steve language.
+<LI>The variable "controller" defined in the Object.tz class points to the controller
+ instance for the simulation.  As Object.tz is the root class, the expression 
+ controller is universally defined. 
+</ul>
+<p>
+<h5><b>Changes to the included <b>breve</b> class files:</b></h5>
+<p>
+<ul>
+<LI>Many new features.
+<LI>Class Object.tz stores the "controller" instance in a variable called "controller". 
+ This means that every object in the simulation now has direct access to its 
+ controller object. 
+<LI>Made Stationary.tz and Mobile.tz subclasses of a new class, Real.tz.  Real.tz
+ is the logical opposite of Abstract.tz and serves as a parent class to all "real" 
+ objects in the simulation world.
+</ul>
+<p>
+<hr><h5>version 1.1 [07/16/2001]</h5>
+<p>
+<h5><b>VERY IMPORTANT CHANGE AFFECTING SIMULATIONS WRITTEN WITH VERSION 1.0:</b></h5>
+<blockquote>
+The "scale" of the world has now been fixed at "1 world unit" = 1 meter.  The world is now effectively 1/10th the size of the world in version 1.0.
+<p>
+If you are using the class PhysicalControl </b>then you will probably want to scale down the objects in your simulation to 1/10th of their original size.  1 unit in the simulated world is now fixed as 1 meter.  This means that objects created in version 1.0 may now be much larger than intended.  You should modify your simulation to scale down every object to 1/10th of the original size and modify the forces applied to objects and joints; the accelerations, speeds and positions of the objects and the camera locations accordingly.
+<p>
+Bear in mind when adjusting forces applied to objects and joints that the mass of the object will not scale down by 1/10th but instead much more&mdash;in the case of a rectangular solid, the mass is scaled by a factor of 1/100th.  This means that maximum joint pressures should most likely be scaled down by <I>at least </I>100.
+<p>
+<b>If you are not using the class PhysicalControl</b> then the only effect of the changes will be that the textures on objects are very small and that the default starting camera position may be closer than desired.  You can fix these problems by following the same directions given above for those using the class PhysicalControl.
+</blockquote>
+<p>
+<h5><b>General changes:</b></h5>
+<p>
+<ul>
+<LI>Fixed display bug on systems without Mac OS X OpenGL hardware 
+  acceleration.  </b>This bug caused the simulation to not display on certain 
+  Macs including first generation iMacs and some iBooks, rendering the 
+  software useless on these machines.
+<LI>many significant speed optimizations made.
+<LI>new "Walker" demo shows evolution of walking behavior.
+<LI>added ability to save still images from simulations.
+<LI>added very <I>basic</I> support for exporting QuickTime movies. 
+<LI>added the ability to select objects and browse their variables. 
+<LI>improved rendering.
+<LI>added control for lighting.
+<LI>fixed possible freeze bug associated with log window.
+<LI>many small bugs fixed.
+</ul>
+<h5><b>Changes to the included <b>breve</b> class files:
+</b></h5>
+<p>
+<ul>
+<LI>new Data class allows instances to be saved to disk and 
+ loaded next time the simulation is run, allowing key states of 
+ simulations to be saved [experimental].  See the documentation 
+ for the class Data.tz for more information.
+</ul>
+<p>
+<h5><b>Changes to the steve language:</b></h5>
+<ul>
+<LI>added support for basic arrays
+<LI>list support greatly improved.
+<LI><I>push</I>, <I>pop</I> and <I>sort</I> are now reserved keywords in steve.
+<LI>calling a method in a freed instance is now an error which will 
+ stop a simulation.  previously calling a method in a freed 
+ instance was simply ignored.
+<LI>testing the truth value of a freed instance returns 0.  previously a freed object had a truth value of 1.
+</ul>
+<p>
+<h5><b>Changes to physical simulation:</b></h5>
+<p>
+<ul>
+<LI>some bugs fixed.
+<LI>some bugs remain.
+</ul>
+<p>
+<hr><h5>version 1.0 [05/07/2001]</h5>
+<p>
+Initial release.
+
+</div>
+</BODY>
+
+</HTML>

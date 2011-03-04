@@ -1,0 +1,94 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Writing breve Simulations With Python</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch04.html" title='Chapter 4. Writing breve Simulations with "steve" or Python'><link rel="prev" href="ch04.html" title='Chapter 4. Writing breve Simulations with "steve" or Python'><link rel="next" href="ch04s03.html" title='Writing breve Simulations With "steve"'></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Writing breve Simulations With Python</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 4. Writing breve Simulations with "steve" or Python</th><td width="20%" align="right"> <a accesskey="n" href="ch04s03.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-1504"></a>Writing breve Simulations With Python</h2></div></div></div><p>
+      Starting with breve 2.6, breve simulations can be written using the
+      <a class="ulink" href="http://www.python.org" target="_top">Python</a> language. This section
+      describes how to use Python with the breve simulation environment.
+      Because Python is a well-established language with excellent
+      documentation and tutorials, this section does not go into much detail on
+      the language itself, and instead focuses on the overall concepts required
+      to write simulations for breve in Python. If you're completely new to
+      Python, you may wish to consult <a class="ulink" href="http://www.python.org/doc/" target="_top">the
+      official Python documentation</a></p><p>
+      The first step in writing breve simulations with Python is to familiarize
+      yourself with the <a class="xref" href="ch04.html#node-3297" title="Overview to breve's Simulation Structure: For All Frontend Languages">the section called &#8220;Overview to breve's Simulation Structure: For All Frontend Languages&#8221;</a>, which
+      describes general information about how simulations are structured, for
+      all frontend languages.
+    </p><p>
+      Next, you can take a look at a <a class="xref" href="ch04s02.html#node-1507" title="Python + breve Example: a basic simulation">the section called &#8220;Python + breve Example: a basic simulation&#8221;</a>, in order to see how the breve simulation structure
+      is used with Python. You can also begin looking at the included demos for
+      real-world examples of how Python is used to write simulations.
+    </p><p>
+      Finally, you'll want to explore <a class="xref" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs">Chapter 17</a> to learn how to use the features of the breve engine in your
+      simulations. Note that much of the breve documentation is written for the
+      steve language, but that all methods and classes available in steve are
+      also available in Python (with slightly different names). So all steve
+      language examples in this documentation can be applied to Python as well.
+    </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-3247"></a>Writing breve-Complient Python Objects</h3></div></div></div><p>
+      There are a couple of requirements when creating Python objects which can
+      be added to the breve engine.
+    </p><p>
+      All Python files to be loaded into breve should import the breve module
+      to gain access to important breve engine functionality. In order for a
+      Python object to be compatible with the breve engine, it must be a
+      subclass of the breve Python module class <code class="literal">breve.Object</code>. If
+      an object is not a subclass of breve.Object (either directly, or via any
+      of the other built-in breve classes), it will not be visible to the breve
+      engine. The <code class="literal">__init__</code> method of the class must execute the
+      superclass <code class="literal">__init__</code> method
+      (<code class="literal">breve.Object.__init__</code> in this case) before any breve bridge
+      functionality is used.
+    </p><p>
+      The following example illustrates a basic Python file with a simple
+      breve-compatible class defined:
+    </p><pre class="programlisting">
+import breve
+
+class PythonBridgeObject( breve.Object ):
+        def __init__( self ):
+                breve.Object.__init__( self )
+                print "Inited Python bridge object"
+
+        def iterate( self ):
+                print "Iterating Python bridge object"
+                breve.Object.iterate( self )
+
+</pre><p>
+      This simple Python object will be visible to the breve engine and will
+      have its iterate method called at each iteration of the breve engine.
+    </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-1507"></a>Python + breve Example: a basic simulation</h3></div></div></div><p>
+      Here's a simple skeleton of how to write a simulation in breve using
+      Python.
+    </p><p>
+      This simulation defines two objects: the controller, and an agent. The
+      controller is a required object, and it must be a subclass of Control. It
+      is what is responsible for initializing the simulation. The agent we
+      create here does nothing, but in a normal simulation, we would create
+      multiple agents and specify their behaviors in the "iterate" method.
+    </p><pre class="programlisting">
+import breve
+
+class myController( breve.Control ):
+        def __init__( self ):
+                breve.Control.__init__( self )
+                self.agent = myAgent()
+                print '''simulation started'''
+
+        def iterate( self ):
+                breve.Control.iterate( self )
+
+class myAgent( breve.Mobile ):
+        def __init__( self ):
+                breve.Mobile.__init__( self )
+                print '''created agent'''
+
+        def iterate( self ):
+                # make the agent do something interesting her
+                breve.Control.iterate( self )
+
+
+# instantiate the controller to initialize the simulation
+myController()
+
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-1508"></a>breve Class APIs [Python]</h3></div></div></div><p>
+      The full list of breve class APIs, including documentation for both
+      Python and steve is available <a class="xref" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs">Chapter 17</a>.
+    </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s03.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 4. Writing breve Simulations with "steve" or Python </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Writing breve Simulations With "steve"</td></tr></table></div></body></html>

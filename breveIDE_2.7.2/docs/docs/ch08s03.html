@@ -1,0 +1,15 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Fast Physical Simulation</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch08.html" title="Chapter 8. Physical Simulation"><link rel="prev" href="ch08s02.html" title="Enabling Physical Simulation"><link rel="next" href="ch08s04.html" title="Writing Stable Physical Simulations"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Fast Physical Simulation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 8. Physical Simulation</th><td width="20%" align="right"> <a accesskey="n" href="ch08s04.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2729"></a>Fast Physical Simulation</h2></div></div></div><p>
+        The ODE simulation library supports an accelerated physics simulation
+        which offers great improvements in simulation speed and memory usage,
+        at the expense of some accuracy. The fast physics algorithm scales
+        better than the normal physics algorithm as the number of interacting
+        physical bodies increases. With a small number of interacting physical
+        bodies, there may not be a great difference between the two. As the
+        number increases, however, the benefits of fast physics will become
+        much greater.
+      </p><p>
+        Fast physics may be enabled using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/PhysicalControl.html#enable-fast-physics" target="_top">enable-fast-physics</a>. An additional iterations
+        parameter can be set using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/PhysicalControl.html#set-fast-physics-iterations" target="_top">set-fast-physics-iterations</a>. The default value of 40
+        should give good results, but the number may be adjusted upwards for
+        more accuracy, or downwards for better performance.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch08s04.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Enabling Physical Simulation </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Writing Stable Physical Simulations</td></tr></table></div></body></html>

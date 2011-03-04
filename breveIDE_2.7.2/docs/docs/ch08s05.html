@@ -1,0 +1,60 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The Components of Physically Simulated Bodies</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch08.html" title="Chapter 8. Physical Simulation"><link rel="prev" href="ch08s04.html" title="Writing Stable Physical Simulations"><link rel="next" href="ch08s06.html" title="Dynamically Creating and Destroying Joints"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Components of Physically Simulated Bodies</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s04.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 8. Physical Simulation</th><td width="20%" align="right"> <a accesskey="n" href="ch08s06.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2731"></a>The Components of Physically Simulated Bodies</h2></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              Changed in breve 2.0
+            </h3><p>
+                The methods used for loading images have been changed from
+                breve 1.x, so pay close attention to this section if you're
+                updating your simulation from a previous version of breve.
+              </p></div><p>
+        In order to construct physically simulated agents, you'll need to be
+        familiar with the components of physically simulated bodies. There are
+        three main components used in physical simulations:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+              Links, the basic building blocks of physically simulated objects
+            </p></li><li><p>
+              MultiBodies, physical bodies made up of one or more Link objects
+              (<a class="xref" href="ch08s05.html#node-2734" title="The MultiBody class">the section called &#8220;The MultiBody class&#8221;</a>)
+            </p></li><li><p>
+              Joints, rigid connections between Link objects (<a class="xref" href="ch08s05.html#node-2733" title="The Joint Class and its Subclasses">the section called &#8220;The Joint Class and its Subclasses&#8221;</a>)
+            </p></li><li><p>
+              Springs, flexible connections between Link objects (<a class="xref" href="ch08s07.html" title="Using Springs">the section called &#8220;Using Springs&#8221;</a>)
+            </p></li></ul></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2732"></a>The Link Class</h3></div></div></div><p> The Link class is the
+        basic building block of physically simulated objects. A link is simply
+        a rigid body with a particular shape. Once a Link is created and
+        associated with a shape, it can be attached to other links via Joint
+        objects, covered in the section The Joint Class and its Subclasses
+        (<a class="xref" href="ch08s05.html#node-2733" title="The Joint Class and its Subclasses">the section called &#8220;The Joint Class and its Subclasses&#8221;</a>) or brought
+        into the physical simulation by being associated with a MultiBody, as
+        discussed in the section on using MultiBody objects (<a class="xref" href="ch08s05.html#node-2734" title="The MultiBody class">the section called &#8220;The MultiBody class&#8221;</a>).
+      </p><p>
+        Prior to breve 2.0, Link objects would not appear in the simulated
+        world unless they were associated with MultiBody objects (described
+        below). This is no longer the case.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2733"></a>The Joint Class and its Subclasses</h3></div></div></div><p> As mentioned in the previous section (<a class="xref" href="ch08s05.html#node-2734" title="The MultiBody class">the section called &#8220;The MultiBody class&#8221;</a>), <a class="ulink" href="http://www.spiderland.org/documentation/classes/Link.html" target="_top">Links</a> are joined together using <a class="ulink" href="http://www.spiderland.org/documentation/classes/Joint.html" target="_top">Joint</a> objects.
+      </p><p>
+        There are several types of joints available&#8212;see each class'
+        documentation for more details:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><a class="ulink" href="http://www.spiderland.org/documentation/classes/FixedJoint.html" target="_top">FixedJoint</a></p></li><li><p><a class="ulink" href="http://www.spiderland.org/documentation/classes/PrismaticJoint.html" target="_top">PrismaticJoint</a></p></li><li><p><a class="ulink" href="http://www.spiderland.org/documentation/classes/RevoluteJoint.html" target="_top">RevoluteJoint</a></p></li><li><p><a class="ulink" href="http://www.spiderland.org/documentation/classes/UniversalJoint.html" target="_top">UniversalJoint</a></p></li><li><p><a class="ulink" href="http://www.spiderland.org/documentation/classes/BallJoint.html" target="_top">BallJoint</a></p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2734"></a>The MultiBody class</h3></div></div></div><p> A MultiBody
+        is a single logical physically simulated agent, whether it is made up
+        of a single Link, or multiple Links joined together with Joint objects.
+      </p><p><span class="emphasis"><em>The role of the MultiBody has changed
+        drastically in breve 2.0 from previous versions of breve</em></span>.
+        Previously, Link objects would not appear at all in the simulated world
+        unless they were part of a MultiBody. Now, the use of MultiBodies is
+        completely optional.
+      </p><p>
+        Keeping a set of Links bound together as a logical MultiBody unit
+        allows the user to move or rotate the entire logical structure, as
+        opposed to moving or rotating individual links. Imagine that suddenly
+        your arm was moved across the room without the rest of your body
+        &#8212;in all likelihood, this would not make you very happy. This is
+        what it's like for the underlying physics engine to move a single
+        link&#8212;confusing and painful things can happen. By encompassing a
+        set of connected Links within a MultiBody, the user has more logical
+        control over the object.
+      </p><div class="mediaobject" align="center"><img src="../images/MultiBody.jpg" align="middle"></div><p>
+        To create a MultiBody, you can simply associate it with any existing
+        Link object. The Link object you choose will be known as the <span class="emphasis"><em>root link</em></span>, and all other Links connected to the root
+        link&#8212;directly or indirectly&#8212;will become part of the
+        MultiBody. The MultiBody is automatically updated as joints are created
+        and destroyed.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s04.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch08s06.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Writing Stable Physical Simulations </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Dynamically Creating and Destroying Joints</td></tr></table></div></body></html>

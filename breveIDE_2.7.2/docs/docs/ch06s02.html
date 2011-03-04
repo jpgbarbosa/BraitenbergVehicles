@@ -1,0 +1,59 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Shadows and Reflections</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch06.html" title="Chapter 6. Graphics and Sound"><link rel="prev" href="ch06.html" title="Chapter 6. Graphics and Sound"><link rel="next" href="ch06s03.html" title="Loading Image Files"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Shadows and Reflections</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 6. Graphics and Sound</th><td width="20%" align="right"> <a accesskey="n" href="ch06s03.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2705"></a>Shadows and Reflections</h2></div></div></div><p> breve's visualization
+        engine offers support for both shadows and reflections. These graphical
+        effects not only make a simulation look better, they also enhance the
+        benefits of visualization as an aid to understanding and discovery of
+        simulation behaviors.
+      </p><p>
+        Reflections and shadows are quite simple to set up. For reflections,
+        there is a single technique; for shadows, there are two techniques to
+        choose from. These techniques are outlined below.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2706"></a>Setting Up Reflections</h3></div></div></div><p> The first step to
+        setting up shadows or reflections is to set up lighting as described in
+        the previous section (<a class="xref" href="ch06.html#node-2704" title="Lighting">the section called &#8220;Lighting&#8221;</a>). The next step is to pick the "floor"
+        object to "catch" the reflections. The reflection-catching object must
+        be a stationary object with one face pointing upwards on the Y-plane.
+        Any unrotated rectangular solid should work just fine. You can specify
+        the ground object using the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Stationary.html" target="_top">Stationary.tz</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Stationary.html#catch-shadows" target="_top">catch-shadows</a>. In spite of its name, this method is
+        used to specify the ground floor for both shadows <span class="emphasis"><em>and</em></span> reflections.
+      </p><p>
+        The final step in displaying reflections is to enable them, using the
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control.tz</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#enable-reflections" target="_top">enable-reflections</a>.
+      </p><p>
+        Reflections can be turned off later using the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control.tz</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#disable-reflections" target="_top">disable-reflections</a>.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2707"></a>Simple Shadows</h3></div></div></div><p> The first variety of
+        shadows available in breve renders shadows onto a single ground plane,
+        just as reflections are. This technique allows all objects, including
+        bitmapped objects, to cast shadows onto the ground plane.
+      </p><p>
+        To setup these simple shadows, you'll need to set up the lighting and
+        "shadow-catcher" plane as described in the previous section (<a class="xref" href="ch06s02.html#node-2706" title="Setting Up Reflections">the section called &#8220;Setting Up Reflections&#8221;</a>). Once the
+        lighting and ground plane are configured, simple shadows can be enabled
+        using the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control.tz</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#enable-shadows" target="_top">enable-shadows</a>, and later disabled using <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#disable-shadows" target="_top">disable-shadows</a>.
+      </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="node-2708"></a>Better Shadows With Shadow Volumes</h3></div></div></div><p><span class="emphasis"><em>Shadow
+        volumes</em></span> offer an improvement over the simple shadows described
+        above. Shadow volumes can be used to cast shadows over <span class="emphasis"><em>any</em></span> object, not just flat planes. In
+        addition, shadow volumes will cast shadows over <span class="emphasis"><em>all</em></span> objects in the simulation, not only on a
+        single "ground" object. This means that with shadow volumes, all
+        objects cast shadows on all other objects.
+      </p><p>
+        Because shadow volumes can be drawn onto non-flat objects, shadow
+        volumes are the only way to draw shadow onto terrains (<a class="xref" href="ch08s08.html" title="Using Terrains With Physical Simulation">the section called &#8220;Using Terrains With Physical Simulation&#8221;</a>)&#8212;simple
+        shadows will not work.
+      </p><p>
+        There are, of course, a few disadvantages with this approach. One
+        problem is that shadow volumes cannot correctly draw shadows for
+        bitmapped objects. Bitmapped objects will get shadowed as spheres when
+        using shadow volumes. Another issue is that shadow volumes are often
+        slower than simple shadows. The exact performance hit depends on the
+        number and complexity of objects in your simulation, but is often
+        negligible. The final disadvantage of shadow volumes is that they are
+        more prone to visual artifacts than simple shadows.
+      </p><p>
+        In spite of these disadvantages, shadow volumes offer far more
+        realistic shadows than the simple shadows described above. Unless it's
+        important to render accurate shadows of bitmapped objects, shadow
+        volumes are recommended over simple shadows. To use shadow volumes,
+        you'll need to enable lighting, and then enable the shadows using the
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control.tz</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#enable-shadows" target="_top">enable-shadow-volumes</a>. Shadow volumes can be disabled
+        using <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#disable-shadows" target="_top">disable-shadows-volumes</a>.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s03.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 6. Graphics and Sound </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Loading Image Files</td></tr></table></div></body></html>

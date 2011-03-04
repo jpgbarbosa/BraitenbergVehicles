@@ -1,0 +1,18 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Playing Sound Effects</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch06.html" title="Chapter 6. Graphics and Sound"><link rel="prev" href="ch06s08.html" title='Custom Drawings with the "Drawing" Class'><link rel="next" href="ch06s10.html" title="Sounds Included With breve"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Playing Sound Effects</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s08.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 6. Graphics and Sound</th><td width="20%" align="right"> <a accesskey="n" href="ch06s10.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2715"></a>Playing Sound Effects</h2></div></div></div><p> Sounds can be loaded and played using
+        the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Sound.html" target="_top">Sound</a>. Supported file formats for sounds are AIFF and WAV.
+        To load a sound file, create a new instance of the Sound class, and
+        load in the file using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Sound.html#load" target="_top">load</a>. You can then play the sound using the method
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Sound.html#play" target="_top">play</a>. Sound instances can play multiple overlapping
+        copies of the same sound simultaneously, meaning that one sound need
+        not finish before another call to <code class="literal">play</code> is
+        made.
+      </p><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">
+              Bad Sound Files
+            </h3><p>
+                Though AIFF and WAV are well-defined standards, it is not
+                uncommon to find AIFF or WAV files that play fine in some
+                programs, but cannot be parsed by others. If you have an AIFF
+                or WAV file that does not seem to play correctly in breve, try
+                loading it into a good quality sound editor (such as QuickTime
+                Player on Mac OS X), and re-exporting the sound.
+              </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s08.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s10.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Custom Drawings with the "Drawing" Class </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Sounds Included With breve</td></tr></table></div></body></html>

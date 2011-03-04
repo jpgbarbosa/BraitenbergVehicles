@@ -1,0 +1,28 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Matrix</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch17.html" title="Chapter 17. The Built-In breve Class APIs"><link rel="prev" href="ch17s31.html" title="Link"><link rel="next" href="ch17s33.html" title="Matrix2D"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Matrix</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s31.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 17. The Built-In breve Class APIs</th><td width="20%" align="right"> <a accesskey="n" href="ch17s33.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2827"></a>Matrix</h2></div></div></div><p>
+      Description for class <span class="bold"><strong>Matrix</strong></span>:
+    </p><div class="blockquote"><blockquote class="blockquote"><p>
+      Matrix2D objects store an arbitrary sized 2D grid of arbitrary floating
+      point data.
+      </p><p>
+        Several of these matrix operations are built on top of the BLAS library
+        and may be hardware accelerated on certain processors if the platform
+        provides a hardware accelerated BLAS library. In particular, AltiVec
+        acceleration is provided on G4 processors with Mac OS X.
+      </p><p>
+        Hardware accelerated methods sometimes preform multiple operations
+        simultaneously for the same computational cost. The add operation, for
+        example, also scales one of the matrices being added. When using these
+        methods, it is often beneficial to structure code to take advantage of
+        all of the operations preformed. It is far more efficient to scale and
+        add a matrix simultaneously using add than to first scale using scale
+        and then add using add.
+      </p><p>
+        Technical note: matrix objects are implemented using single precision
+        floats, while much of the rest of the breve simulation environment uses
+        double precision floating point math.
+      </p></blockquote></div><p>
+      Inherits from <span class="bold"><strong>Object</strong></span></p><p>
+      Full API documentation for the class <span class="bold"><strong>Matrix</strong></span>:
+    </p><div class="itemizedlist"><ul type="disc"><li><p><a class="ulink" href="../steveclasses/Matrix.html" target="_top">steve language
+        documentation</a></p></li><li><p><a class="ulink" href="../pythonclasses/Matrix.html" target="_top">Python language
+        documentation</a></p></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s31.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch17.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s33.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Link </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Matrix2D</td></tr></table></div></body></html>

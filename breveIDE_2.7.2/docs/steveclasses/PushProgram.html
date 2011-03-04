@@ -1,0 +1,163 @@
+<head>
+<title>Object : PushProgram</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : PushProgram</h2>
+This class is included as part of the file Push.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Push.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Summary: a single program in the Push programming language. <P> A PushProgram object is a program in the Push programming language.  To be used in conjunction with the class <a href="PushInterpreter.html">PushInterpreter</a>.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Reading and writing a Push program to a file</B><UL>
+<li><a href="#read">read</a></li>
+<li><a href="#write">write</a></li>
+</UL>
+<P><B>Parsing programs and making random code</B><UL>
+<li><a href="#make-random-code">make-random-code</a></li>
+<li><a href="#parse">parse</a></li>
+</UL>
+<P><B>Copying and evolving Push programs</B><UL>
+<li><a href="#copy-from">copy-from</a></li>
+<li><a href="#crossover">crossover</a></li>
+<li><a href="#delete-random-subtree">delete-random-subtree</a></li>
+<li><a href="#flatten-random-subtree">flatten-random-subtree</a></li>
+<li><a href="#mutate">mutate</a></li>
+</UL>
+<P><B>Getting information about a Push program</B><UL>
+<li><a href="#get-discrepancy">get-discrepancy</a></li>
+<li><a href="#get-list">get-list</a></li>
+<li><a href="#get-size">get-size</a></li>
+<li><a href="#get-string">get-string</a></li>
+<li><a href="#get-top-level-difference">get-top-level-difference</a></li>
+<li><a href="#get-top-level-size">get-top-level-size</a></li>
+<li><a href="#set-from">set-from</a></li>
+<li><a href="#swap-sublists">swap-sublists</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="copy-from"><font size=+1><tt>copy-from program <i>otherProgram</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of <i>otherProgram</i> to this object. <p>
+</blockquote>
+<hr>
+<a name="crossover"><font size=+1><tt>crossover from-parent1 <i>p1</i> (object) from-parent2 <i>p2</i> (object) with-interpreter <i>interpreter</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Sets this object to a genetic crossover of <i>p1</i> and <i>p2</i>. <p>
+</blockquote>
+<hr>
+<a name="delete-random-subtree"><font size=+1><tt>delete-random-subtree </tt></font><p></a>
+<blockquote>
+<p> Removes a random subtree from the code. <p>
+</blockquote>
+<hr>
+<a name="flatten-random-subtree"><font size=+1><tt>flatten-random-subtree </tt></font><p></a>
+<blockquote>
+<p> Flattens a random subtree in the code. <p>
+</blockquote>
+<hr>
+<a name="get-discrepancy"><font size=+1><tt>get-discrepancy from <i>otherProgram</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Determines the discrepancy between this program and <i>otherProgram</i>. This is defined as the number of points (atoms and subtrees) found in this program which do not exist in <i>otherProgram</i>, plus the number of points found in <i>otherProgram</i> that do not exist in this program. <P> This method considers the order of points in a program, and considers all sublists found in a program.  For this reason, it is a good measure of similarity between two evolved programs.  For a simpler comparison operator, suitable for comparing lists in which order should be preserved, see <a href="#get-top-level-difference">get-top-level-difference</a>. <p>
+</blockquote>
+<hr>
+<a name="get-list"><font size=+1><tt>get-list </tt></font><p></a>
+<blockquote>
+<p> Returns a list representation of this push program. <p>
+</blockquote>
+<hr>
+<a name="get-size"><font size=+1><tt>get-size </tt></font><p></a>
+<blockquote>
+<p> Returns the size of this push program. <p>
+</blockquote>
+<hr>
+<a name="get-string"><font size=+1><tt>get-string </tt></font><p></a>
+<blockquote>
+<p> Returns the string representation of this push program. <p>
+</blockquote>
+<hr>
+<a name="get-top-level-difference"><font size=+1><tt>get-top-level-difference from <i>otherProgram</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Determines the top level difference between this program and <i>otherProgram</i>. This is calculated by comparing each element of the program against the corresponding element of <i>otherProgram</i>, with every mismatch counting as one point of difference.  Sublists are not considered; each element in the top level list is treated as an atomic element. <P> This method is well suited for comparing lists produced as output of push programs.  Because it does not consider sublists or order, it is not well suited for determining the true level of similarity between two programs as one might with to do with evolved code.  For that type of functionality, see the method <a href="#get-discrepancy">get-discrepancy</a>. <p>
+</blockquote>
+<hr>
+<a name="get-top-level-size"><font size=+1><tt>get-top-level-size </tt></font><p></a>
+<blockquote>
+<p> Returns the "top-level" size of this push program, meaning that sublists are counted as one item, and not counted recursively. <p>
+</blockquote>
+<hr>
+<a name="make-random-code"><font size=+1><tt>make-random-code with-interpreter <i>interpreter</i> (object) max-length size = <i>-1</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Makes a random push program of length size.  Size is an optional argument with a default value of 100.  The size may also be equal to <i>-1</i>, which indicates that the MAX-POINTS-IN-RANDOM-EXPRESSION value from the Push configuration file should be used.  The <i>interpreter</i> provided specifies the instruction set used to generate the random code. <p>
+</blockquote>
+<hr>
+<a name="mutate"><font size=+1><tt>mutate with-interpreter <i>interpreter</i> (object) with-leaf-bias leafBias = <i>0</i>.<i>9</i> (float) with-size-scale sizeScale = <i>0</i>.<i>3</i> (float) with-max-new-code-size ignored = <i>0</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Modifies this code object by mutating a subtree of the program.  The leafBias parameter indicates the probability that a leaf node will be selected (as opposed to a non-leaf subtree). <p> Mutation is implemented as "fair" mutation, in which the new code size is determined by the size of the subtree it is replacing, plus or minus a factor of sizeScale. <P> The <i>interpreter</i> argument determines the instruction set used to generate the random code. <P> The max-new-code-size argument is ignored, but included for backwards compatibility. <p>
+</blockquote>
+<hr>
+<a name="parse"><font size=+1><tt>parse program <i>codeString</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Sets the content of this code to the newly parsed string. The with-interpreter keyword is no longer required. <p>
+</blockquote>
+<hr>
+<a name="read"><font size=+1><tt>read from <i>fileName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Reads a push program from a text file. <p>
+</blockquote>
+<hr>
+<a name="set-from"><font size=+1><tt>set-from code-list <i>newCodeList</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Sets this code's object using the contents of <i>newCodeList</i>.  The list can contain literals, sublists or subprograms. <p>
+</blockquote>
+<hr>
+<a name="swap-sublists"><font size=+1><tt>swap-sublists at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Swaps the positions of the top level sublists <i>x</i> and <i>y</i>. <p>
+</blockquote>
+<hr>
+<a name="write"><font size=+1><tt>write to <i>fileName</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Writes this push program to a text file. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

@@ -1,0 +1,63 @@
+<head>
+<title>Real : Stationary</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Real.html">Real</a> : Stationary</h2>
+This class is included as part of the file Stationary.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Stationary.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Stationary objects are objects such as floors and walls that may collide with other objects but which do not move in response to collisions.  Stationary objects do not have their own velocities or acceleration. <p> Starting in <b>breve</b> 2.6, stationary objects can be moved and rotated after being created using methods in <a href="Real.html">Real</a>. The shapes can also be changed dynamically using the set-shape method in <a href="Real.html">Real</a>.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Setting Up the Stationary Object</B><UL>
+</UL>
+<P><B>Changing the Appearence of the Object</B><UL>
+<li><a href="#catch-shadows">catch-shadows</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="catch-shadows"><font size=+1><tt>catch-shadows </tt></font><p></a>
+<blockquote>
+<p> Informs this object that it should display shadows (and/or reflections) of Mobile objects.  The shadows and reflections will always be shown on the plane of the object pointing upwards on the Y axis--that is to say, the plane with normal (0, 1, 0).  If the object does not have a plane with normal (0, 1, 0), the shadows and reflections will not be displayed correctly.  This method must be used in conjunction with the method <a href="Control.html#enable-shadows">enable-shadows (Control)</a>. <P> Before using this method, you should also refer to an improved shadowing technique outlined in OBJECTMETHOD(Control.tz:enable-shadow-volumes). <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

@@ -1,0 +1,371 @@
+<head>
+<title>Object : Real</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : Real</h2>
+This class is included as part of the file Real.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Real.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A class which is never instantiated--just used as a logical distinction from the Abstract classes.  See the child classes <a href="Mobile.html">Mobile</a>, <a href="Link.html">Link</a> and <a href="Stationary.html">Stationary</a> for more information.  The methods documented here may be used with any of the child classes.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Setting and Getting the Position and Rotation of Real Objects</B><UL>
+<li><a href="#get-location">get-location</a></li>
+<li><a href="#get-rotation-matrix">get-rotation-matrix</a></li>
+<li><a href="#move">move</a></li>
+<li><a href="#point">point</a></li>
+<li><a href="#set-rotation">set-rotation</a></li>
+<li><a href="#set-rotation-euler-angles">set-rotation-euler-angles</a></li>
+<li><a href="#set-rotation-matrix">set-rotation-matrix</a></li>
+</UL>
+<P><B>Setting the Shape of a Real Object</B><UL>
+<li><a href="#get-collision-shape">get-collision-shape</a></li>
+<li><a href="#get-display-shape">get-display-shape</a></li>
+<li><a href="#set-collision-shape">set-collision-shape</a></li>
+<li><a href="#set-display-shape">set-display-shape</a></li>
+<li><a href="#set-shape">set-shape</a></li>
+<li><a href="#watch">watch</a></li>
+</UL>
+<P><B>Configuring Physical Properties of the Object</B><UL>
+<li><a href="#set-e">set-e</a></li>
+<li><a href="#set-mu">set-mu</a></li>
+</UL>
+<P><B>Using Menus</B><UL>
+<li><a href="#add-menu">add-menu</a></li>
+<li><a href="#add-menu-separator">add-menu-separator</a></li>
+</UL>
+<P><B>Using Neighbor Detection</B><UL>
+<li><a href="#get-neighborhood-size">get-neighborhood-size</a></li>
+<li><a href="#get-neighbors">get-neighbors</a></li>
+<li><a href="#set-neighborhood-size">set-neighborhood-size</a></li>
+</UL>
+<P><B>Changing the Appearence of Agents</B><UL>
+<li><a href="#add-dotted-line">add-dotted-line</a></li>
+<li><a href="#add-line">add-line</a></li>
+<li><a href="#disable-shadows">disable-shadows</a></li>
+<li><a href="#draw-as-point">draw-as-point</a></li>
+<li><a href="#enable-shadows">enable-shadows</a></li>
+<li><a href="#get-color">get-color</a></li>
+<li><a href="#hide-axis">hide-axis</a></li>
+<li><a href="#hide-bounding-box">hide-bounding-box</a></li>
+<li><a href="#hide-neighbor-lines">hide-neighbor-lines</a></li>
+<li><a href="#make-invisible">make-invisible</a></li>
+<li><a href="#make-visible">make-visible</a></li>
+<li><a href="#remove-all-lines">remove-all-lines</a></li>
+<li><a href="#remove-line">remove-line</a></li>
+<li><a href="#set-bitmap-heading">set-bitmap-heading</a></li>
+<li><a href="#set-bitmap-heading-point">set-bitmap-heading-point</a></li>
+<li><a href="#set-bitmap-image">set-bitmap-image</a></li>
+<li><a href="#set-color">set-color</a></li>
+<li><a href="#set-lightmap-image">set-lightmap-image</a></li>
+<li><a href="#set-texture-image">set-texture-image</a></li>
+<li><a href="#set-texture-scale">set-texture-scale</a></li>
+<li><a href="#set-texture-scale-x">set-texture-scale-x</a></li>
+<li><a href="#set-texture-scale-y">set-texture-scale-y</a></li>
+<li><a href="#set-transparency">set-transparency</a></li>
+<li><a href="#show-axis">show-axis</a></li>
+<li><a href="#show-bounding-box">show-bounding-box</a></li>
+<li><a href="#show-neighbor-lines">show-neighbor-lines</a></li>
+</UL>
+<P><B>Getting the Light Exposure of this Mobile Object</B><UL>
+<li><a href="#get-light-exposure">get-light-exposure</a></li>
+</UL>
+<P><B>Handling Collisions</B><UL>
+<li><a href="#handle-collisions">handle-collisions</a></li>
+<li><a href="#ignore-collisions">ignore-collisions</a></li>
+</UL>
+<P><B>Useful Funtions for Sensors</B><UL>
+<li><a href="#raytrace">raytrace</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-dotted-line"><font size=+1><tt>add-dotted-line to <i>otherObject</i> (object) with-color theColor = (0, 0, 0) (vector) </tt></font><p></a>
+<blockquote>
+<p> Adds a dotted line to <i>otherObject</i>.  See <a href="#add-line">add-line</a> for more information on object lines. <p>
+</blockquote>
+<hr>
+<a name="add-line"><font size=+1><tt>add-line to <i>otherObject</i> (object) with-color theColor = (0, 0, 0) (vector) with-style theStyle = "----------------" (string) </tt></font><p></a>
+<blockquote>
+<p> Adds a line to be drawn from this object to <i>otherObject</i>.  The line can be removed later using <a href="#remove-line">remove-line</a>. <P> The optional argument theColor specifies the color of the line.  The default color is the vector (0, 0, 0), black. <P> The optional argument theStyle specifies a pattern for the line.  theStyle is a string of 16 spaces and/or dashes which specify the line pattern to be drawn. A dotted line, for example, would use the pattern "- - - - - - - - ".  A thickly dashed line would use the pattern "--------		".  If no style is given, a solid line is drawn. <P> If a line to <i>otherObject</i> already exists, its color and/or style will be updated. <p>
+</blockquote>
+<hr>
+<a name="add-menu"><font size=+1><tt>add-menu named <i>menuName</i> (string) for-method <i>theMethod</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Adds a menu named <i>menuName</i> to the application which will result in a call to <i>theMethod</i> for the calling instance. <p> If the calling instance is the Controller object, then the menu will become the "main" simulation menu.  Otherwise, the menu will become a contextual menu associated with the specific object in the simulation. <p> Note that unlike the <a href="#handle-collision">handle-collision</a> which sets the collision handler for the whole type (class, that is), this method affects only the instance for which it is called, meaning that each instance of a certain class may have a different menu. <p>
+</blockquote>
+<hr>
+<a name="add-menu-separator"><font size=+1><tt>add-menu-separator </tt></font><p></a>
+<blockquote>
+<p> Adds a separator menu item--really just an empty menu item. <p>
+</blockquote>
+<hr>
+<a name="disable-shadows"><font size=+1><tt>disable-shadows </tt></font><p></a>
+<blockquote>
+<p> If shadow volumes are enabled (see <a href="Control.html">Control</a>), disables shadow volumes for this object. This is the default when shadow volumes have been enabled. <p>
+</blockquote>
+<hr>
+<a name="draw-as-point"><font size=+1><tt>draw-as-point </tt></font><p></a>
+<blockquote>
+<p> Draws the object as a single point.  This is by far the fastest way to display an agent.  Points can be used to draw upwards of 20,000 agents with a reasonable frame rate, while drawing as many spheres or bitmaps would slow down the simulation significantly. <p>
+</blockquote>
+<hr>
+<a name="enable-shadows"><font size=+1><tt>enable-shadows </tt></font><p></a>
+<blockquote>
+<p> If shadow volumes are enabled (see <a href="Control.html">Control</a>), enables shadow volumes for this object. This is the default when shadow volumes have been enabled. <p>
+</blockquote>
+<hr>
+<a name="get-collision-shape"><font size=+1><tt>get-collision-shape </tt></font><p></a>
+<blockquote>
+<p> Returns the <a href="Shape.html">Shape</a> used for collisions associated with this Mobile object. <p>
+</blockquote>
+<hr>
+<a name="get-color"><font size=+1><tt>get-color </tt></font><p></a>
+<blockquote>
+<p> Returns the color of the object. <p>
+</blockquote>
+<hr>
+<a name="get-display-shape"><font size=+1><tt>get-display-shape </tt></font><p></a>
+<blockquote>
+<p> Returns the <a href="Shape.html">Shape</a> used for display associated with this Mobile object. <p>
+</blockquote>
+<hr>
+<a name="get-light-exposure"><font size=+1><tt>get-light-exposure </tt></font><p></a>
+<blockquote>
+<p> When used in conjunction with light exposure detection (<a href="Control.html#enable-light-exposure-detection">enable-light-exposure-detection (Control)</a>), this method returns the level of light exposure on this object. <p>
+</blockquote>
+<hr>
+<a name="get-location"><font size=+1><tt>get-location </tt></font><p></a>
+<blockquote>
+<p> Returns the vector location of this object. <p>
+</blockquote>
+<hr>
+<a name="get-neighborhood-size"><font size=+1><tt>get-neighborhood-size </tt></font><p></a>
+<blockquote>
+<p> gets the neighborhood size for the current object. <p>
+</blockquote>
+<hr>
+<a name="get-neighbors"><font size=+1><tt>get-neighbors </tt></font><p></a>
+<blockquote>
+<p> Returns a list of all real objects in the simulation that are within the "neighborhood" range of this object in the world. <p>
+</blockquote>
+<hr>
+<a name="get-rotation-matrix"><font size=+1><tt>get-rotation-matrix </tt></font><p></a>
+<blockquote>
+<p> Returns the matrix rotation of this object. <p>
+</blockquote>
+<hr>
+<a name="handle-collisions"><font size=+1><tt>handle-collisions with-type <i>theType</i> (string) with-method <i>theMethod</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Adds a collision handler for this object.  When a collision occurs between an instance of the this type and <i>theType</i>, the <b>breve</b> engine will automatically call <i>theMethod</i> of the colliding instance. <p>
+</blockquote>
+<hr>
+<a name="hide-axis"><font size=+1><tt>hide-axis </tt></font><p></a>
+<blockquote>
+<p> Hides the X and Y axes for the object.  The axes are hidden by default, so you'll only need this method if you've previously enabled them using <a href="#show-axis">show-axis</a>. <p>
+</blockquote>
+<hr>
+<a name="hide-bounding-box"><font size=+1><tt>hide-bounding-box </tt></font><p></a>
+<blockquote>
+<p> Hides the bounding box for the object.  The bounding box is hidden by default, so you'll only need this method if you've previously enabled them using <a href="#show-axis">show-axis</a>. <p>
+</blockquote>
+<hr>
+<a name="hide-neighbor-lines"><font size=+1><tt>hide-neighbor-lines </tt></font><p></a>
+<blockquote>
+<p> Hides lines to this objects neighbors. <p>
+</blockquote>
+<hr>
+<a name="ignore-collisions"><font size=+1><tt>ignore-collisions with-type <i>theType</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Instructs the engine to ignore physical collisions with <i>theType</i> objects. This does not affect collision callbacks specified with <a href="#handle-collisions">handle-collisions</a>. <p>
+</blockquote>
+<hr>
+<a name="make-invisible"><font size=+1><tt>make-invisible </tt></font><p></a>
+<blockquote>
+<p> Makes the object invisible.  Can be made visible again later using the method <a href="#make-visible">make-visible</a>. <p>
+</blockquote>
+<hr>
+<a name="make-visible"><font size=+1><tt>make-visible </tt></font><p></a>
+<blockquote>
+<p> Makes the object visible again (if it has previously been hidden using <a href="#make-invisible">make-invisible</a>. <p>
+</blockquote>
+<hr>
+<a name="move"><font size=+1><tt>move to <i>newLocation</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Moves this object to location <i>newLocation</i>. <p>
+</blockquote>
+<hr>
+<a name="point"><font size=+1><tt>point vertex <i>theVertex</i> (vector) at <i>theLocation</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> An easier way to rotate an object--this function rotates an object such that the local point <i>theVertex</i>, points towards the world direction <i>theLocation</i>.  In other words, <i>theLocation</i> is where you want the object to face, and <i>theVertex</i> indicates which side of the object is to be considered the "front". <p>
+</blockquote>
+<hr>
+<a name="raytrace"><font size=+1><tt>raytrace from-location <i>theLocation</i> (vector) with-direction <i>theDirection</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Computes the vector from <i>theLocation</i> towards <i>theDirection</i> that hits the shape of this object. <p> If the object was not hit vector (0, 0, 0) will be returned. <p> The location and direction vector must be given relative to the world's coordinate frame. <p>
+</blockquote>
+<hr>
+<a name="remove-all-lines"><font size=+1><tt>remove-all-lines </tt></font><p></a>
+<blockquote>
+<p> Removes all lines connecting this object to other objects. <p>
+</blockquote>
+<hr>
+<a name="remove-line"><font size=+1><tt>remove-line to <i>otherObject</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Removes the line connecting this object to <i>otherObject</i>. <p>
+</blockquote>
+<hr>
+<a name="set-bitmap-heading"><font size=+1><tt>set-bitmap-heading to <i>radianAngle</i> (float) </tt></font><p></a>
+<blockquote>
+<p> If this object is in 2d bitmap mode, the rotation of the bitmap will be set to <i>radianAngle</i>. <p>
+</blockquote>
+<hr>
+<a name="set-bitmap-heading-point"><font size=+1><tt>set-bitmap-heading-point towards-vector <i>rotationVector</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> If this object is in 2d bitmap mode, the rotation of the bitmap will be set to degreeAngle degrees. <p>
+</blockquote>
+<hr>
+<a name="set-bitmap-image"><font size=+1><tt>set-bitmap-image to <i>bitmapImage</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Changes the bitmap of this object to <i>bitmapImage</i>, an instance of class image.  If <i>bitmapImage</i> is NULL, bitmapping is turned off for the object. <p>
+</blockquote>
+<hr>
+<a name="set-collision-shape"><font size=+1><tt>set-collision-shape to <i>theShape</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Associates a <a href="Shape.html">Shape</a> object with this object for collision purposes.  This shape will not be displayed for this object unless <a href="#set-display-shape">set-display-shape</a> is also called with this shape.  Returns this object. <p>
+</blockquote>
+<hr>
+<a name="set-color"><font size=+1><tt>set-color to <i>newColor</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the color of this object to <i>newColor</i>. <p>
+</blockquote>
+<hr>
+<a name="set-display-shape"><font size=+1><tt>set-display-shape to <i>theShape</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Associates a <a href="Shape.html">Shape</a> object with this object for display purposes only. This shape will not be used for collision detection unless it is passed to <a href="#set-collision-shape">set-collision-shape</a> as well.  Returns this object. <p>
+</blockquote>
+<hr>
+<a name="set-e"><font size=+1><tt>set-e to <i>newE</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the "coefficient of restitution" a value which determines the elasticity of the object in a collision. Valid values range from 0.0 to 1.0, with 0.0 representing a totally inelastic collision (such as a lump of clay) while 1.0 represents a totally (and unrealistically) elastic collision (such as a rubber ball). <p>
+</blockquote>
+<hr>
+<a name="set-lightmap-image"><font size=+1><tt>set-lightmap-image to <i>lightmapImage</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Sets the object to be displayed using a "lightmap".  A lightmap uses the texture specified for an "additive blending" effect which yields a lighting effect. <p> set-lightmap only has an effect on sphere shapes.  Other shapes can be textured, but only spheres can be made into lightmaps. <p>
+</blockquote>
+<hr>
+<a name="set-mu"><font size=+1><tt>set-mu to <i>newMu</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the coefficient of friction to <i>newMu</i>.  mu is a parameter controlling friction between two bodies and may be any value between 0 and infinity. <p>
+</blockquote>
+<hr>
+<a name="set-neighborhood-size"><font size=+1><tt>set-neighborhood-size to <i>size</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Used in conjunction with <a href="#get-neighbors">get-neighbors</a>, this function will set the neighborhood <i>size</i> for the current object. <p>
+</blockquote>
+<hr>
+<a name="set-rotation"><font size=+1><tt>set-rotation around-axis <i>thisAxis</i> (vector) by <i>amount</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotation of this object around vector axis <i>thisAxis</i> by scalar <i>amount</i> (in radians).  This is an "absolute" rotation--the current rotation of the object does not affect how the object will be rotated.  For a rotation relative to the current orientation, set <a href="#relative-rotate">relative-rotate</a>. <p>
+</blockquote>
+<hr>
+<a name="set-rotation-euler-angles"><font size=+1><tt>set-rotation-euler-angles to <i>angles</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotation of this object to the Euler <i>angles</i> specified by <i>angles</i> (in radians). <p>
+</blockquote>
+<hr>
+<a name="set-rotation-matrix"><font size=+1><tt>set-rotation-matrix to <i>theRotation</i> (matrix) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotation of this object to the rotation matrix <i>theRotation</i>. Working with matrices can be complicated, so a more simple approach is to use <a href="#rotate">rotate</a>. <p>
+</blockquote>
+<hr>
+<a name="set-shape"><font size=+1><tt>set-shape to <i>theShape</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Sets the shape of this object, for both display and collision detection purposes.  To set the shape for one purpose, but not the other, use the methods <a href="#set-display-shape">set-display-shape</a> or <a href="#set-collision-shape">set-collision-shape</a>. <p>
+</blockquote>
+<hr>
+<a name="set-texture-image"><font size=+1><tt>set-texture-image to <i>textureImage</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Changes the texture of this object to <i>textureImage</i>, an instance of class <a href="Image.html">Image</a>.  If <i>textureImage</i> is NULL texturing is turned off for the object. <p>
+</blockquote>
+<hr>
+<a name="set-texture-scale"><font size=+1><tt>set-texture-scale to <i>scaleSize</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Changes the "scale" of the texture.  When a texture is applied over a shape, this value is used to decide how large the texture will be in terms of <b>breve</b>-world units.  The default value is 16, meaning that a 16x16 face will have one copy of the textured image. For smaller objects, this number will have to be decreased, or else the texture will be too big and will not be visible. <p>
+</blockquote>
+<hr>
+<a name="set-texture-scale-x"><font size=+1><tt>set-texture-scale-x to <i>scaleSize</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the texture scale in the X dimension.  The Y texture scale value is unchanged.  See <a href="#set-texture-scale">set-texture-scale</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="set-texture-scale-y"><font size=+1><tt>set-texture-scale-y to <i>scaleSize</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the texture scale in the Y dimension.  The X texture scale value is unchanged.  See <a href="#set-texture-scale">set-texture-scale</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="set-transparency"><font size=+1><tt>set-transparency to <i>alphaValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the transparency of this object to <i>alphaValue</i>, a number between 1.0 (totally opaque) and 0.0 (fully transparent). <p>
+</blockquote>
+<hr>
+<a name="show-axis"><font size=+1><tt>show-axis </tt></font><p></a>
+<blockquote>
+<p> Shows the X and Y axes for the object. <p>
+</blockquote>
+<hr>
+<a name="show-bounding-box"><font size=+1><tt>show-bounding-box </tt></font><p></a>
+<blockquote>
+<p> Shows the bounding box for the object. <p>
+</blockquote>
+<hr>
+<a name="show-neighbor-lines"><font size=+1><tt>show-neighbor-lines </tt></font><p></a>
+<blockquote>
+<p> Draws lines to this objects neighbors (when neighbor checking is enabled). <p>
+</blockquote>
+<hr>
+<a name="watch"><font size=+1><tt>watch </tt></font><p></a>
+<blockquote>
+<p> Makes the camera follow this object. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

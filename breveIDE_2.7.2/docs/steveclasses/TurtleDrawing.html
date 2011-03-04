@@ -1,0 +1,141 @@
+<head>
+<title>Drawing : TurtleDrawing</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Drawing.html">Drawing</a> : TurtleDrawing</h2>
+This class is included as part of the file TurtleDrawing.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use TurtleDrawing.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ The TurtleDrawing class is a subclass of <a href="Drawing.html">Drawing</a> which allows drawing via a series of "logo turtle"-like commands.  Drawing is accomplished by giving commands to a turtle moving around in 3D space. All commands are interpreted from the turtle's perspective, taking into account its current position and orientation. <P> Unlike other angles used by <b>breve</b>, this class refers to angles as degrees and not radians to more closely match the behavior of traditional Logo implementations.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Manipulating the Turtle Avatar</B><UL>
+<li><a href="#get-turtle">get-turtle</a></li>
+<li><a href="#hide-turtle">hide-turtle</a></li>
+<li><a href="#show-turtle">show-turtle</a></li>
+</UL>
+<P><B>Moving the Turtle</B><UL>
+<li><a href="#back">back</a></li>
+<li><a href="#forward">forward</a></li>
+<li><a href="#pen-down">pen-down</a></li>
+<li><a href="#pen-up">pen-up</a></li>
+<li><a href="#pop-state">pop-state</a></li>
+<li><a href="#push-state">push-state</a></li>
+<li><a href="#set-color">set-color</a></li>
+<li><a href="#turn-down">turn-down</a></li>
+<li><a href="#turn-left">turn-left</a></li>
+<li><a href="#turn-right">turn-right</a></li>
+<li><a href="#turn-up">turn-up</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="back"><font size=+1><tt>back by <i>length</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Moves the turtle back by <i>length</i>. <p>
+</blockquote>
+<hr>
+<a name="forward"><font size=+1><tt>forward by <i>length</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Moves the turtle forward by <i>length</i>. <p>
+</blockquote>
+<hr>
+<a name="get-turtle"><font size=+1><tt>get-turtle </tt></font><p></a>
+<blockquote>
+<p> Returns the turtle agent object (an instance of <a href="Mobile.html">Mobile</a>). <p>
+</blockquote>
+<hr>
+<a name="hide-turtle"><font size=+1><tt>hide-turtle </tt></font><p></a>
+<blockquote>
+<p> Hides the agent representing the turtle's current position and location. The turtle can be shown again using the method <a href="#show-turtle">show-turtle</a>. <p>
+</blockquote>
+<hr>
+<a name="pen-down"><font size=+1><tt>pen-down </tt></font><p></a>
+<blockquote>
+<p> Puts the pen down so that lines are drawn as the turtle moves.  This is done by setting transparency to 1.0. <p>
+</blockquote>
+<hr>
+<a name="pen-up"><font size=+1><tt>pen-up </tt></font><p></a>
+<blockquote>
+<p> Lifts the pen so that no lines are drawn as the turtle moves.  This is done by setting transparency to 0.0. <p>
+</blockquote>
+<hr>
+<a name="pop-state"><font size=+1><tt>pop-state </tt></font><p></a>
+<blockquote>
+<p> "Pops" a state from the state stack and makes it current.  This method reenables the most recently "pushed" state (done with <a href="#push-state">push-state</a>). <p>
+</blockquote>
+<hr>
+<a name="push-state"><font size=+1><tt>push-state </tt></font><p></a>
+<blockquote>
+<p> "Pushes" the current direction, color and point onto a stack so that it can be retrieved later using <a href="#pop-state">pop-state</a>. <p>
+</blockquote>
+<hr>
+<a name="set-color"><font size=+1><tt>set-color to <i>color</i> (vector) with-transparency trans = 1.<i>0</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the current pen <i>color</i> to <i>color</i>, with optional transparency value trans. <p>
+</blockquote>
+<hr>
+<a name="show-turtle"><font size=+1><tt>show-turtle </tt></font><p></a>
+<blockquote>
+<p> Shows the agent representing the turtle's current position and location. The turtle is visible by default, but can be hidden using <a href="#hide-turtle">hide-turtle</a>. <p>
+</blockquote>
+<hr>
+<a name="turn-down"><font size=+1><tt>turn-down by <i>angle</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Rotates the Turtle left by <i>angle</i> degrees. <p>
+</blockquote>
+<hr>
+<a name="turn-left"><font size=+1><tt>turn-left by <i>angle</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Rotates the Turtle left by <i>angle</i> degrees. <p>
+</blockquote>
+<hr>
+<a name="turn-right"><font size=+1><tt>turn-right by <i>angle</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Rotates the Turtle right by <i>angle</i> degrees. <p>
+</blockquote>
+<hr>
+<a name="turn-up"><font size=+1><tt>turn-up by <i>angle</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Rotates the Turtle right by <i>angle</i> degrees. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

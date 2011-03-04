@@ -1,0 +1,65 @@
+<head>
+<title>Abstract : Sound</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Sound</h2>
+This class is included as part of the file Sound.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Sound.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ The Sound class allows sound files to be loaded and played in a simulation. The sound file, in WAV or AIFF format, is loaded using the method METHOLD(load).  The sound can then be played using <a href="#play">play</a>.  The same sound effect can be played several times simultaneously by making repeated calls to <a href="#play">play</a>.  </blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#load">load</a></li>
+<li><a href="#play">play</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="load"><font size=+1><tt>load from-file <i>file</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Loads the sound-file filename using the current <b>breve</b> search path.  Returns self. <p>
+</blockquote>
+<hr>
+<a name="play"><font size=+1><tt>play with-speed speed = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Begins playing this sound.  The optional argument speed specifies the speed (and accompanying frequency change) of the sound. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

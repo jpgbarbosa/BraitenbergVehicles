@@ -1,0 +1,241 @@
+<head>
+<title>Abstract : Joint</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Joint</h2>
+This class is included as part of the file Joint.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Joint.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Joint a is class used to connect two <a href="Mobile.html">Mobile</a> objects together.  The Joint class itself is actually never instantiated--instead, one of the following joint subclasses should be used. <ul> <li><a href="PrismaticJoint.html">PrismaticJoint</a> for linear sliding joints between links <li><a href="RevoluteJoint.html">RevoluteJoint</a> for rotational joints between links <li><a href="FixedJoint.html">FixedJoint</a> for static joints between links <li><a href="BallJoint.html">BallJoint</a> for ball joints between links <li><a href="UniversalJoint.html">UniversalJoint</a> for ball joints between links </ul> <P> Although the class itself is never instantiated, the class methods described below are often used with the object's subclasses. <P> The joints supported in <b>breve</b> can be 1, 2 or 3 degrees of freedom (DOF), meaning that they allow motion in 1, 2 or 3 independent directions.  </blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Getting the Objects Connected by a Joint</B><UL>
+<li><a href="#get-child">get-child</a></li>
+<li><a href="#get-parent">get-parent</a></li>
+</UL>
+<P><B>Setting parameters for joint springs and damping (friction)</B><UL>
+<li><a href="#set-cfm">set-cfm</a></li>
+<li><a href="#set-double-spring">set-double-spring</a></li>
+<li><a href="#set-erp">set-erp</a></li>
+<li><a href="#set-joint-damping">set-joint-damping</a></li>
+</UL>
+<P><B>Getting and Setting the Velocity of a Joint</B><UL>
+<li><a href="#get-joint-velocity">get-joint-velocity</a></li>
+<li><a href="#get-joint-velocity-vector">get-joint-velocity-vector</a></li>
+<li><a href="#set-joint-velocity">set-joint-velocity</a></li>
+</UL>
+<P><B>Manipulating Joint Strength</B><UL>
+<li><a href="#get-force">get-force</a></li>
+<li><a href="#get-max-joint-limit-vector">get-max-joint-limit-vector</a></li>
+<li><a href="#get-min-joint-limit-vector">get-min-joint-limit-vector</a></li>
+<li><a href="#get-strength-hard-limit">get-strength-hard-limit</a></li>
+<li><a href="#get-strength-limit">get-strength-limit</a></li>
+<li><a href="#get-torque">get-torque</a></li>
+<li><a href="#set-joint-limit-vectors">set-joint-limit-vectors</a></li>
+<li><a href="#set-joint-torque-vector">set-joint-torque-vector</a></li>
+<li><a href="#set-strength-limit">set-strength-limit</a></li>
+</UL>
+<P><B>Getting and Setting Joint Position & Orientation</B><UL>
+<li><a href="#get-child-link-point">get-child-link-point</a></li>
+<li><a href="#get-joint-normal">get-joint-normal</a></li>
+<li><a href="#get-parent-link-point">get-parent-link-point</a></li>
+<li><a href="#set-child-link-point">set-child-link-point</a></li>
+<li><a href="#set-joint-normal">set-joint-normal</a></li>
+<li><a href="#set-parent-link-point">set-parent-link-point</a></li>
+<li><a href="#set-relative-rotation">set-relative-rotation</a></li>
+<li><a href="#set-relative-rotation-matrix">set-relative-rotation-matrix</a></li>
+</UL>
+<P><B>Breaking Joints</B><UL>
+<li><a href="#break-joint">break-joint</a></li>
+</UL>
+<P><B>Automatic Joint Scaling</B><UL>
+<li><a href="#disable-automatic-joint-scaling">disable-automatic-joint-scaling</a></li>
+<li><a href="#enable-automatic-joint-scaling">enable-automatic-joint-scaling</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="break-joint"><font size=+1><tt>break-joint </tt></font><p></a>
+<blockquote>
+<p> Breaks this joint--removes the child (and all of the links connected to it) from the body.  The child link (and its descendents) are therefore removed from the world and placed in limbo.  They may be reconnected later by creating another Joint, or it may be associated with a <a href="MultiBody.html">MultiBody</a> of its own. <P> The Joint object is <b>not</b> freed&mdash;this has been changed from <b>breve</b> 1.7.  By calling this method, you break the joint without releasing it such that it can be used again.  If you do not with to use the Joint object again, then simply freeing the Joint object will break the joint and delete the object. <p>
+</blockquote>
+<hr>
+<a name="disable-automatic-joint-scaling"><font size=+1><tt>disable-automatic-joint-scaling </tt></font><p></a>
+<blockquote>
+<p> Disables automatic joint scaling, if it had previously been enabled using <a href="#enable-automatic-joint-scaling">enable-automatic-joint-scaling</a>.<p>
+</blockquote>
+<hr>
+<a name="enable-automatic-joint-scaling"><font size=+1><tt>enable-automatic-joint-scaling </tt></font><p></a>
+<blockquote>
+<p> Tracks changes to sizes in the link shapes, and automatically "scales" the joint (more accurately, the link points) such that the resized links will maintain the same relative distance from one another.  This feature is likely to be desirable whenever "growth" of <a href="MultiBody.html">MultiBody</a> objects is simulated. <P> This can be later disabled using <a href="#disable-automatic-joint-scaling">disable-automatic-joint-scaling</a>. <p>
+</blockquote>
+<hr>
+<a name="get-child"><font size=+1><tt>get-child </tt></font><p></a>
+<blockquote>
+<p> Returns the object identified as the "child" ojbect. <p>
+</blockquote>
+<hr>
+<a name="get-child-link-point"><font size=+1><tt>get-child-link-point </tt></font><p></a>
+<blockquote>
+<p> Returns the child link point. <p>
+</blockquote>
+<hr>
+<a name="get-force"><font size=+1><tt>get-force </tt></font><p></a>
+<blockquote>
+<p> Returns the force applied by this joint to maintain the desired relationships of the connected bodies.  In other words, the stress force on the joint. <P> The forces applied to connected bodies are generally equal and opposite, so this value is computed as f1 + -f2, where f1 and f2 are the forces acting on the first and second bodies. <p>
+</blockquote>
+<hr>
+<a name="get-joint-normal"><font size=+1><tt>get-joint-normal </tt></font><p></a>
+<blockquote>
+<p> Returns the joint's normal vector. <p>
+</blockquote>
+<hr>
+<a name="get-joint-velocity"><font size=+1><tt>get-joint-velocity </tt></font><p></a>
+<blockquote>
+<p> Returns the scalar velocity of the joint.  This is only useful for 1-DOF joints (prismatic and revolute).  For higher-DOF joints, use <a href="#get-joint-velocity-vector">get-joint-velocity-vector</a>. <p>
+</blockquote>
+<hr>
+<a name="get-joint-velocity-vector"><font size=+1><tt>get-joint-velocity-vector </tt></font><p></a>
+<blockquote>
+<p> Returns the vector velocity of the joint.  For 1-DOF joints (prismatic, revolute), only the X-component is valid.  For 2-DOF joints (universal), both the X- and the Y-components are used.  For a ball joint, all three values are provided. <p>
+</blockquote>
+<hr>
+<a name="get-max-joint-limit-vector"><font size=+1><tt>get-max-joint-limit-vector </tt></font><p></a>
+<blockquote>
+<p> Returns the maximum joint limit vector, if it has been set. <p>
+</blockquote>
+<hr>
+<a name="get-min-joint-limit-vector"><font size=+1><tt>get-min-joint-limit-vector </tt></font><p></a>
+<blockquote>
+<p> Returns the minimum joint limit vector, if it has been set. <p>
+</blockquote>
+<hr>
+<a name="get-parent"><font size=+1><tt>get-parent </tt></font><p></a>
+<blockquote>
+<p> Returns the object identified as the "parent" ojbect. <p>
+</blockquote>
+<hr>
+<a name="get-parent-link-point"><font size=+1><tt>get-parent-link-point </tt></font><p></a>
+<blockquote>
+<p> Returns the child link point. <p>
+</blockquote>
+<hr>
+<a name="get-strength-hard-limit"><font size=+1><tt>get-strength-hard-limit </tt></font><p></a>
+<blockquote>
+<p> Returns the "hard" limit of the joint--the maximum torque that you are allowed to put on a single joint. <p>
+</blockquote>
+<hr>
+<a name="get-strength-limit"><font size=+1><tt>get-strength-limit </tt></font><p></a>
+<blockquote>
+<p> Returns the user set strength limit of the joint. <p>
+</blockquote>
+<hr>
+<a name="get-torque"><font size=+1><tt>get-torque </tt></font><p></a>
+<blockquote>
+<p> Returns the torque applied by this joint to maintain the desired relationships of the connected bodies.  In other words, the stress torque on the joint. <P> The torques applied to connected bodies are generally equal and opposite, so this value is computed as t1 + -t2, where t1 and t2 are the torques acting on the first and second bodies. <p>
+</blockquote>
+<hr>
+<a name="set-cfm"><font size=+1><tt>set-cfm to <i>cfmValue</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the joint's constraint force mixing parameter.  See the ODE physics engine documentation for more details. <p>
+</blockquote>
+<hr>
+<a name="set-child-link-point"><font size=+1><tt>set-child-link-point to <i>linkPoint</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Dynamically sets the child's link point for this joint.  This method can be called over the course of the simulation to change the way the joint works. <p> If the Joint is not linked, this call has no effect. <p>
+</blockquote>
+<hr>
+<a name="set-double-spring"><font size=+1><tt>set-double-spring with-strength <i>theStrength</i> (float) with-max <i>theMax</i> (float) with-min <i>theMin</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Enable this joint's spring to take effect when the rotation is above <i>theMax</i> or below <i>theMin</i>.  When the position of the joint is between <i>theMin</i> and <i>theMax</i>, the spring applies no force to the joint.  When the position goes out of this range a force is applied according to the strength of the joint (<i>theStrength</i>) and distance to the "natural" range. <p> To revert to the default behavior of no spring acting on the joint, use the method <a href="#remove-spring">remove-spring</a>. <p>
+</blockquote>
+<hr>
+<a name="set-erp"><font size=+1><tt>set-erp to <i>erpValue</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the joint's error correction parameter.  See the ODE physics engine documentation for more details. <p>
+</blockquote>
+<hr>
+<a name="set-joint-damping"><font size=+1><tt>set-joint-damping to <i>dampingValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the joint damping--the friction of the joint. <p>
+</blockquote>
+<hr>
+<a name="set-joint-limit-vectors"><font size=+1><tt>set-joint-limit-vectors min <i>minV</i> (vector) max <i>maxV</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> A convenience method for setting joint limits for any kind of joint.  For 1-DOF joints (prismatic, revolute) only the X values from the vectors are used.  For 2-DOF joints (universal), both X and Y values are used.  For 3-DOF joints, all the values are used. <P> Note that this method is just an alternative to the set-joint-limit methods which exist in all of the joints which support limits. <p>
+</blockquote>
+<hr>
+<a name="set-joint-normal"><font size=+1><tt>set-joint-normal to <i>normal</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> If this type of joint supports it this method sets the <i>normal</i> vector for the motion for the joint.  The precise meaning of the <i>normal</i> vector depends on the exact type of joint.  See each joint's link method documentation for more details. <p>
+</blockquote>
+<hr>
+<a name="set-joint-torque-vector"><font size=+1><tt>set-joint-torque-vector to <i>torqueVector</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Applies torque on one or more axes.  This method can be used when setting the torque of ball or universal joints. <p>
+</blockquote>
+<hr>
+<a name="set-joint-velocity"><font size=+1><tt>set-joint-velocity to <i>newVelocity</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the joint velocity to <i>newVelocity</i>. <p>
+</blockquote>
+<hr>
+<a name="set-parent-link-point"><font size=+1><tt>set-parent-link-point to <i>linkPoint</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Dynamically sets the parent's link point for this joint.  This method can be called over the course of the simulation to change the way the joint works. <p> If the Joint is not linked, this call has no effect. <p>
+</blockquote>
+<hr>
+<a name="set-relative-rotation"><font size=+1><tt>set-relative-rotation around-axis <i>theAxis</i> (vector) by <i>theAngle</i> (float) </tt></font><p></a>
+<blockquote>
+<p> To avoid undesirable "jumping" behavior, this method should be called <b>before</b> linking the joint. <p> Sets the relative rotation between the child and parent <a href="Link.html">Link</a> to newRotation.  This rotation specifies the rotation of the child link when the joint is "relaxed" or at its natural position. <p> Changing the relative rotation of the joint fundamentally changes the way the joint works, and should not be used as a "normal" joint motion: the relative rotation may be changed dynamically over the course of the simulation, though it <b>may cause unexpected and unrealistic behavior</b> if the change is not made gradually, or if the bodies involved are in contact with other bodies at the time of the change. <p>
+</blockquote>
+<hr>
+<a name="set-relative-rotation-matrix"><font size=+1><tt>set-relative-rotation-matrix to <i>newRotation</i> (matrix) </tt></font><p></a>
+<blockquote>
+<p> To avoid undesirable "jumping" behavior, this method should be called <b>before</b> linking the joint. <p> Sets the relative rotation between the child and parent <a href="Link.html">Link</a> to <i>newRotation</i>.  This rotation specifies the rotation of the child link when the joint is "relaxed" or at its natural position. <p> The method <a href="#set-relative-rotation">set-relative-rotation</a> is somewhat easier to use, since it does not require the actual rotation matrix. <p> Changing the relative rotation of the joint fundamentally changes the way the joint works, and should not be used as a "normal" joint motion: the relative rotation may be changed dynamically over the course of the simulation, though it <b>may cause unexpected and unrealistic behavior</b> if the change is not made gradually, or if the bodies involved are in contact with other bodies at the time of the change. <p>
+</blockquote>
+<hr>
+<a name="set-strength-limit"><font size=+1><tt>set-strength-limit to <i>newLimit</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the maximum torque to be used by this joint when attempting to attain the target speed. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

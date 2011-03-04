@@ -1,0 +1,189 @@
+<head>
+<title>Object : MultiBody</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Object.html">Object</a> : MultiBody</h2>
+This class is included as part of the file MultiBody.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use MultiBody.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ The MultiBody class is used to manipulate a group of connected <a href="Link.html">Link</a> objects as a single logical body.  This means that the entire group of links can be moved or otherwise manipulated using by referring to the MultiBody. <p> After the creating and connecting of the links is complete, one of the <a href="Link.html">Link</a> objects must be declared the root of the MultiBody using the <a href="#set-root">set-root</a> method.  </blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Adding Menus</B><UL>
+<li><a href="#add-menu">add-menu</a></li>
+<li><a href="#add-menu-separator">add-menu-separator</a></li>
+</UL>
+<P><B>Getting and Setting the Position of a MultiBody</B><UL>
+<li><a href="#get-location">get-location</a></li>
+<li><a href="#move">move</a></li>
+<li><a href="#rotate">rotate</a></li>
+</UL>
+<P><B>Managing the Appearence of MultiBodies</B><UL>
+<li><a href="#hide-axis">hide-axis</a></li>
+<li><a href="#hide-bounding-box">hide-bounding-box</a></li>
+<li><a href="#set-color">set-color</a></li>
+<li><a href="#set-texture-image">set-texture-image</a></li>
+<li><a href="#set-texture-scale">set-texture-scale</a></li>
+<li><a href="#show-axis">show-axis</a></li>
+<li><a href="#show-bounding-box">show-bounding-box</a></li>
+</UL>
+<P><B>Handling and Detecting Collisions</B><UL>
+<li><a href="#check-self-penetration">check-self-penetration</a></li>
+<li><a href="#disable-self-collisions">disable-self-collisions</a></li>
+<li><a href="#enable-self-collisions">enable-self-collisions</a></li>
+<li><a href="#set-self-collision-parameters">set-self-collision-parameters</a></li>
+</UL>
+<P><B>Getting and Setting Information About Connected Objects</B><UL>
+<li><a href="#free-all-connected-objects">free-all-connected-objects</a></li>
+<li><a href="#get-all-connected-links">get-all-connected-links</a></li>
+<li><a href="#get-all-connected-objects">get-all-connected-objects</a></li>
+<li><a href="#get-root">get-root</a></li>
+<li><a href="#set-root">set-root</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-menu"><font size=+1><tt>add-menu named <i>menuName</i> (string) for-method <i>theMethod</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Adds a menu named <i>menuName</i> to the application which will result in a call to <i>theMethod</i> for the calling instance. <p> If the calling instance is the Controller object, then the menu will become the "main" simulation menu.  Otherwise, the menu will become a contextual menu associated with the specific object in the simulation. <p> Note that unlike the <a href="#handle-collision">handle-collision</a> which sets the collision handler for the whole type (class, that is), this method affects only the instance for which it is called, meaning that each instance of a certain class may have a different menu. <p>
+</blockquote>
+<hr>
+<a name="add-menu-separator"><font size=+1><tt>add-menu-separator </tt></font><p></a>
+<blockquote>
+<p> Adds a separator menu item--really just an empty menu item. <p>
+</blockquote>
+<hr>
+<a name="check-self-penetration"><font size=+1><tt>check-self-penetration </tt></font><p></a>
+<blockquote>
+<p> Checks to see if this MultiBody is colliding with itself. This method is useful when a MultiBody is first built to determine whether the "native" configuration of the body is valid or not.  If the body is in a conflicting configuration when it's first built, it may lead to unexpected behaviors as the body attempts to correct itself. <p>
+</blockquote>
+<hr>
+<a name="disable-self-collisions"><font size=+1><tt>disable-self-collisions </tt></font><p></a>
+<blockquote>
+<p> Disables collisions between links within this MultiBody. See <a href="#enable-self-collisions">enable-self-collisions</a> for more information. <p>
+</blockquote>
+<hr>
+<a name="enable-self-collisions"><font size=+1><tt>enable-self-collisions </tt></font><p></a>
+<blockquote>
+<p> Enables collisions between objects contained in the same MultiBody. This option is disabled by default--it can lead to unexpected behaviors if Links are inadvertantly forced together by the configuration of the joints. <p>
+</blockquote>
+<hr>
+<a name="free-all-connected-objects"><font size=+1><tt>free-all-connected-objects </tt></font><p></a>
+<blockquote>
+<p> Frees all of the <a href="Link.html">Link</a> and <a href="Joint.html">Joint</a> objects which comprise this MultiBody. <p>
+</blockquote>
+<hr>
+<a name="get-all-connected-links"><font size=+1><tt>get-all-connected-links </tt></font><p></a>
+<blockquote>
+<p> Returns all of the <a href="Link.html">Link</a> objects which comprise the MultiBody. <p>
+</blockquote>
+<hr>
+<a name="get-all-connected-objects"><font size=+1><tt>get-all-connected-objects </tt></font><p></a>
+<blockquote>
+<p> Returns all of the <a href="Link.html">Link</a> and <a href="Joint.html">Joint</a> objects which comprise this MultiBody. <p>
+</blockquote>
+<hr>
+<a name="get-location"><font size=+1><tt>get-location </tt></font><p></a>
+<blockquote>
+<p> Returns the location of the root link of the multibody. <p>
+</blockquote>
+<hr>
+<a name="get-root"><font size=+1><tt>get-root </tt></font><p></a>
+<blockquote>
+<p> Returns the root link. <p>
+</blockquote>
+<hr>
+<a name="hide-axis"><font size=+1><tt>hide-axis </tt></font><p></a>
+<blockquote>
+<p> Disables the axis for all connected links. <p>
+</blockquote>
+<hr>
+<a name="hide-bounding-box"><font size=+1><tt>hide-bounding-box </tt></font><p></a>
+<blockquote>
+<p> Disables the bounding box for all connected links. <p>
+</blockquote>
+<hr>
+<a name="move"><font size=+1><tt>move to <i>newLocation</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Moves the entire MultiBody to <i>newLocation</i>. <p>
+</blockquote>
+<hr>
+<a name="rotate"><font size=+1><tt>rotate around-axis <i>thisAxis</i> (vector) by <i>amount</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the rotation of this multibody around vector axis <i>thisAxis</i> by scalar <i>amount</i> (in radians).  This is an "absolute" rotation--the current rotation of the object does not affect how the object will be rotated. <p> This method implicitly changes the rotation and location of all attached link objects. <p>
+</blockquote>
+<hr>
+<a name="set-color"><font size=+1><tt>set-color to <i>newColor</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the color for all links. <p>
+</blockquote>
+<hr>
+<a name="set-root"><font size=+1><tt>set-root to <i>root</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Associates a MultiBody with a link <i>root</i>.  All links attached to <i>root</i>, both directly and indirectly, will implicitly be part of this MultiBody as well.  When joints are created and destroyed, the MultiBody automatically updates. <p>
+</blockquote>
+<hr>
+<a name="set-self-collision-parameters"><font size=+1><tt>set-self-collision-parameters erp <i>erpValue</i> (float) cfm <i>cfmValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets two contact parameters which effect the hardness of intra-body contacts. <li> Currently experimental and for advanced users only.  See the ODE user's manual for a description of these values and how they should be used. <p>
+</blockquote>
+<hr>
+<a name="set-texture-image"><font size=+1><tt>set-texture-image to <i>texture</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Sets the <i>texture</i> for all links. <p>
+</blockquote>
+<hr>
+<a name="set-texture-scale"><font size=+1><tt>set-texture-scale to <i>textureScale</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the texture scale for all links. <p>
+</blockquote>
+<hr>
+<a name="show-axis"><font size=+1><tt>show-axis </tt></font><p></a>
+<blockquote>
+<p> Enables the axis for all connected links. <p>
+</blockquote>
+<hr>
+<a name="show-bounding-box"><font size=+1><tt>show-bounding-box </tt></font><p></a>
+<blockquote>
+<p> Enables the bounding box for all connected links. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

@@ -1,0 +1,187 @@
+<head>
+<title>Abstract : Image</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Image</h2>
+This class is included as part of the file Image.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Image.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ The Image class provides an interface to work with images and textures.  The individual pixels of the image can be read or changed by the simulation as desired. <P> The image class can read rendered images from the screen using the method <a href="#read-pixels">read-pixels</a>, so that agents in the 3D world can have access to real rendered data.  In addition, the method <a href="#get-pixel-pointer">get-pixel-pointer</a> can be used to provide a pointer to the RGBA pixel data so that plugins can access and analyze image data. This could be used, among other things, to implement agent vision.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Loading and creating Images</B><UL>
+<li><a href="#load">load</a></li>
+<li><a href="#set-size">set-size</a></li>
+</UL>
+<P><B>Getting information about the size and format of an image</B><UL>
+<li><a href="#get-height">get-height</a></li>
+<li><a href="#get-width">get-width</a></li>
+</UL>
+<P><B>Getting the value of pixels</B><UL>
+<li><a href="#get-alpha-pixel">get-alpha-pixel</a></li>
+<li><a href="#get-blue-pixel">get-blue-pixel</a></li>
+<li><a href="#get-compression-size">get-compression-size</a></li>
+<li><a href="#get-green-pixel">get-green-pixel</a></li>
+<li><a href="#get-red-pixel">get-red-pixel</a></li>
+<li><a href="#get-rgb-pixel">get-rgb-pixel</a></li>
+</UL>
+<P><B>Setting the value of pixels</B><UL>
+<li><a href="#set-alpha-pixel">set-alpha-pixel</a></li>
+<li><a href="#set-blue-pixel">set-blue-pixel</a></li>
+<li><a href="#set-green-pixel">set-green-pixel</a></li>
+<li><a href="#set-red-pixel">set-red-pixel</a></li>
+<li><a href="#set-rgb-pixel">set-rgb-pixel</a></li>
+</UL>
+<P><B>Reading Pixels from the Screen</B><UL>
+<li><a href="#read-depth">read-depth</a></li>
+<li><a href="#read-pixels">read-pixels</a></li>
+</UL>
+<P><B>Getting a Pointer to Pixel Data</B><UL>
+<li><a href="#get-pixel-pointer">get-pixel-pointer</a></li>
+</UL>
+<P><B>Writing an image to a file</B><UL>
+<li><a href="#write">write</a></li>
+<li><a href="#write-16-bit-grayscale">write-16-bit-grayscale</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="get-alpha-pixel"><font size=+1><tt>get-alpha-pixel at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the alpha channel pixel at the image coordinates (<i>x</i>, <i>y</i>). The pixel value is given on a scale from 0.0 to 1.0. <p>
+</blockquote>
+<hr>
+<a name="get-blue-pixel"><font size=+1><tt>get-blue-pixel at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the blue pixel at the image coordinates (<i>x</i>, <i>y</i>). The pixel value is given on a scale from 0.0 to 1.0. <p>
+</blockquote>
+<hr>
+<a name="get-compression-size"><font size=+1><tt>get-compression-size </tt></font><p></a>
+<blockquote>
+<p> Compresses the image and returns the compression size.  Useful for generating simple complexity measures based on image compression. <p>
+</blockquote>
+<hr>
+<a name="get-green-pixel"><font size=+1><tt>get-green-pixel at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the green pixel at the image coordinates (<i>x</i>, <i>y</i>). The pixel value is given on a scale from 0.0 to 1.0. <p>
+</blockquote>
+<hr>
+<a name="get-height"><font size=+1><tt>get-height </tt></font><p></a>
+<blockquote>
+<p> Returns the width of the image. <p>
+</blockquote>
+<hr>
+<a name="get-pixel-pointer"><font size=+1><tt>get-pixel-pointer </tt></font><p></a>
+<blockquote>
+<p> Returns a pointer to the pixels this image is holding in RGBA format.  The size of the buffer is 4 * height * width.  This data is provided for plugin developers who wish to read or write pixel data directly. <p>
+</blockquote>
+<hr>
+<a name="get-red-pixel"><font size=+1><tt>get-red-pixel at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the red pixel at the image coordinates (<i>x</i>, <i>y</i>). The pixel value is given on a scale from 0.0 to 1.0. <p>
+</blockquote>
+<hr>
+<a name="get-rgb-pixel"><font size=+1><tt>get-rgb-pixel at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the red, green and blue components of the pixel at image coordinates (<i>x</i>, <i>y</i>) as a vector. <p>
+</blockquote>
+<hr>
+<a name="get-width"><font size=+1><tt>get-width </tt></font><p></a>
+<blockquote>
+<p> Returns the width of the image. <p>
+</blockquote>
+<hr>
+<a name="load"><font size=+1><tt>load from <i>imageFile</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Loads an image from the file <i>imageFile</i>. <p>
+</blockquote>
+<hr>
+<a name="read-depth"><font size=+1><tt>read-depth at-x <i>x</i> (int) at-y <i>y</i> (int) linearize <i>lin</i> (int) max-dist <i>dist</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Reads the depth into this Image from the rendered image on the screen.  The resulting image can be written to a file or analyzed if desired.  This is only supported when <b>breve</b> is being run with graphical display (or with offscreen-rendering enabled). <P> The linearize option (if true) linearizes the depth buffer to a maximum distance so that for each pixel, the value corresponds to the distance from the centre of the camera. Values above the maximum distance (max-dist) are set to the maximum distance. <P> If linearize is false, then this returns the raw depth buffer. This is considerably faster, but the values are not linear in the distance. <p>
+</blockquote>
+<hr>
+<a name="read-pixels"><font size=+1><tt>read-pixels at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Reads pixels into this Image from the rendered image on the screen.  The resulting image can be written to a file or analyzed if desired.  This is only supported in graphical versions of <b>breve</b>. <p>
+</blockquote>
+<hr>
+<a name="set-alpha-pixel"><font size=+1><tt>set-alpha-pixel to <i>alphaPixel</i> (float) at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the alpha pixel value at coordinates (<i>x</i>, <i>y</i>) to <i>alphaPixel</i>. <i>alphaPixel</i> should be a value between 0.0 and 1.0. <p>
+</blockquote>
+<hr>
+<a name="set-blue-pixel"><font size=+1><tt>set-blue-pixel to <i>bluePixel</i> (float) at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the blue pixel value at coordinates (<i>x</i>, <i>y</i>) to <i>bluePixel</i>. <i>bluePixel</i> should be a value between 0.0 and 1.0. <p>
+</blockquote>
+<hr>
+<a name="set-green-pixel"><font size=+1><tt>set-green-pixel to <i>greenPixel</i> (float) at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the green pixel value at coordinates (<i>x</i>, <i>y</i>) to <i>greenPixel</i>. <i>greenPixel</i> should be a value between 0.0 and 1.0. <p>
+</blockquote>
+<hr>
+<a name="set-red-pixel"><font size=+1><tt>set-red-pixel to <i>redPixel</i> (float) at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the red pixel value at coordinates (<i>x</i>, <i>y</i>) to <i>redPixel</i>. <i>redPixel</i> should be a value between 0.0 and 1.0. <p>
+</blockquote>
+<hr>
+<a name="set-rgb-pixel"><font size=+1><tt>set-rgb-pixel to <i>pixelVector</i> (vector) at-x <i>x</i> (int) at-y <i>y</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the red, green and blue pixel values at image coordinates (<i>x</i>, <i>y</i>) from the values in <i>pixelVector</i>. <p>
+</blockquote>
+<hr>
+<a name="set-size"><font size=+1><tt>set-size width <i>imageWidth</i> (int) height <i>imageHeight</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Creates an empty image buffer with width <i>imageWidth</i> and length imageLength. <p>
+</blockquote>
+<hr>
+<a name="write"><font size=+1><tt>write to <i>imageFile</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Write the image to <i>imageFile</i>.  The image is written as a PNG file, so <i>imageFile</i> should end with .PNG. <p>
+</blockquote>
+<hr>
+<a name="write-16-bit-grayscale"><font size=+1><tt>write-16-bit-grayscale to <i>imageFile</i> (string) </tt></font><p></a>
+<blockquote>
+<p> Write the image to <i>imageFile</i>.  The image is written as a PNG file, so <i>imageFile</i> should end with .PNG.<p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

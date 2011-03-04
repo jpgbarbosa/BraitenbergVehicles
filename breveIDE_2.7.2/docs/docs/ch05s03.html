@@ -1,0 +1,25 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Moving Agents Around the 3D World</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch05.html" title="Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication"><link rel="prev" href="ch05s02.html" title="Changing the Appearance of Agents"><link rel="next" href="ch05s04.html" title="Scheduling Events for a Specific Time"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Moving Agents Around the 3D World</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s02.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 5. Basic Agent Behaviors: Motion, Appearance and Communication</th><td width="20%" align="right"> <a accesskey="n" href="ch05s04.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2701"></a>Moving Agents Around the 3D World</h2></div></div></div><p> Agents can be moved around the world in a number of
+        ways: by specifying their locations, their velocities and their
+        accelerations. Object locations are typically set during
+        initialization, while velocity and acceleration are typically adjusted
+        dynamically over the course of the simulation.
+      </p><p>
+        Agents can be explicitly moved to a specific location using the method
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html#move" target="_top">move</a> in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html" target="_top">Mobile</a>:
+      </p><pre class="programlisting">
+# move the agent to the location (10, 0, 0) in 3D space...
+
+self move to (10, 0, 0).
+</pre><p>
+        The speed of an agent can be set using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html#set-velocity" target="_top">set-velocity</a> in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html" target="_top">Mobile</a>:
+      </p><pre class="programlisting">
+# set the agent's velocity to (0, 0, 10) 
+
+self set-velocity to (0, 0, 10).
+</pre><p>
+        The acceleration of an agent can be set using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html#set-acceleration" target="_top">set-acceleration</a> in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Mobile.html" target="_top">Mobile</a>:
+      </p><pre class="programlisting">
+# set the agent's acceleration to (0, -9.8, 0) 
+
+self set-acceleration to (0, -9.8, 0).
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s02.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05s04.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Changing the Appearance of Agents </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Scheduling Events for a Specific Time</td></tr></table></div></body></html>

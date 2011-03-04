@@ -1,0 +1,17 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Dynamically Creating and Destroying Joints</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch08.html" title="Chapter 8. Physical Simulation"><link rel="prev" href="ch08s05.html" title="The Components of Physically Simulated Bodies"><link rel="next" href="ch08s07.html" title="Using Springs"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Dynamically Creating and Destroying Joints</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s05.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 8. Physical Simulation</th><td width="20%" align="right"> <a accesskey="n" href="ch08s07.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2735"></a>Dynamically Creating and Destroying Joints</h2></div></div></div><p> breve allows <a class="ulink" href="http://www.spiderland.org/documentation/classes/Joint.html" target="_top">Joints</a> to be created and destroyed dynamically over the
+        course of the simulation.
+      </p><p>
+        Joining <a class="ulink" href="http://www.spiderland.org/documentation/classes/MultiBody.html" target="_top">MultiBodies</a> dynamically is simple&#8212;you simply
+        link them as always using the various <a class="ulink" href="http://www.spiderland.org/documentation/classes/Joint.html" target="_top">Joint</a> subclasses. The joints can be made not only to modify
+        the structure of a single MultiBody, but also to join together distinct
+        MultiBodies.
+      </p><p>
+        Breaking MultiBodies is accomplished using the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Joint.html" target="_top">Joint</a> method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Joint.html#break" target="_top">break</a>.
+      </p><p>
+        Prior to <span class="emphasis"><em>breve</em></span> version 2.0, when
+        all Links had to be part of a MultiBody to appear in the simulated
+        world, breaking joints were often accompanied by broken hearts:
+        breaking a joint could cause entire subtrees of links to disappear into
+        the ether because the links were orphaned. In <span class="emphasis"><em>breve</em></span> 2.0, links will go on living happily
+        even if they are not associated with a MultiBody.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s05.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch08s07.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">The Components of Physically Simulated Bodies </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Using Springs</td></tr></table></div></body></html>

@@ -1,0 +1,36 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 6. Graphics and Sound</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="prev" href="ch05s04.html" title="Scheduling Events for a Specific Time"><link rel="next" href="ch06s02.html" title="Shadows and Reflections"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 6. Graphics and Sound</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s04.html">&lt;&lt; previous</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch06s02.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="node-2703"></a>Chapter 6. Graphics and Sound</h2></div></div></div><p> This chapter
+        discusses customizing graphics and sound in a breve simulation.
+      </p><p>
+        The first section, Lighting (<a class="xref" href="ch06.html#node-2704" title="Lighting">the section called &#8220;Lighting&#8221;</a>) shows how to enable and use lighting.
+        Shadows and Reflections (<a class="xref" href="ch06s02.html" title="Shadows and Reflections">the section called &#8220;Shadows and Reflections&#8221;</a>) shows how shadows and
+        reflections can be added to simulated objects.
+      </p><p>
+        Loading Image Files (<a class="xref" href="ch06s03.html" title="Loading Image Files">the section called &#8220;Loading Image Files&#8221;</a>) shows how to load images
+        into a simulation. Once an object has been loaded into a simulation, it
+        can be used to display an agent as an image (<a class="xref" href="ch06s04.html" title="Displaying Objects as Bitmaps">the section called &#8220;Displaying Objects as Bitmaps&#8221;</a>), to texture an
+        object (<a class="xref" href="ch06s05.html" title="Texturing Objects">the section called &#8220;Texturing Objects&#8221;</a>)
+        or to display an object as a translucent "lightmap" (<a class="xref" href="ch06s06.html" title='Displaying Objects as "Lightmaps"'>the section called &#8220;Displaying Objects as "Lightmaps"&#8221;</a>). In
+        addition, the image data may be accessed and manipulated, as described
+        in Using the "Image" Class (<a class="xref" href="ch06s07.html" title='Using the "Image" Class'>the section called &#8220;Using the "Image" Class&#8221;</a>).
+      </p><p>
+        Users can also create custom drawings in the world which are not
+        associated with simulated objects. This feature is described in Custom
+        Drawings with the "Drawing" Class (<a class="xref" href="ch06s08.html" title='Custom Drawings with the "Drawing" Class'>the section called &#8220;Custom Drawings with the "Drawing" Class&#8221;</a>).
+      </p><p>
+        Finally, Playing Sound Effects (<a class="xref" href="ch06s09.html" title="Playing Sound Effects">the section called &#8220;Playing Sound Effects&#8221;</a>) and Sounds Included With
+        breve <a class="xref" href="ch06s10.html" title="Sounds Included With breve">the section called &#8220;Sounds Included With breve&#8221;</a>) describe how sound
+        files can be loaded and played as part of a breve simulation.
+      </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2704"></a>Lighting</h2></div></div></div><p>
+        Lighting can be used to aid in the visualization of a simulation. By
+        default, lighting is enabled for physical simulations (those which use
+        a controller subclassed from <a class="ulink" href="http://www.spiderland.org/documentation/classes/PhysicalControl.html" target="_top">PhysicalControl.tz</a>) and disabled all other
+        simulations.
+      </p><p>
+        To enable lighting or disable lighting, use the <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html" target="_top">Control.tz</a> methods <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#enable-lighting" target="_top">enable-lighting</a> and <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#disable-lighting" target="_top">disable-lighting</a>. To move the location of the light,
+        use the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Control.html#move-light" target="_top">move-light</a>. The following example shows how lighting
+        could be enabled and setup as part of the controller object's init
+        method:
+      </p><pre class="programlisting">
+        self enable-lighting. 
+        self move-light to (0, 50, 0).
+</pre></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s04.html">&lt;&lt; previous</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch06s02.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Scheduling Events for a Specific Time </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Shadows and Reflections</td></tr></table></div></body></html>

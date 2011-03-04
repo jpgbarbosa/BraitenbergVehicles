@@ -1,0 +1,81 @@
+<head>
+<title>Link : BraitenbergSensor</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Link.html">Link</a> : BraitenbergSensor</h2>
+This class is included as part of the file Braitenberg.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Braitenberg.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A BraitenbergSensor is used in conjunction with <a href="BraitenbergVehicle.html">BraitenbergVehicle</a> to build Braitenberg vehicles.  This class is typically not instantiated manually, since <a href="BraitenbergVehicle.html">BraitenbergVehicle</a> creates one for you when you add a sensor to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b></blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Linking the Sensor to a Wheel</B><UL>
+<li><a href="#link">link</a></li>
+</UL>
+<P><B>Configuring the Sensor Values</B><UL>
+<li><a href="#set-activation-method">set-activation-method</a></li>
+<li><a href="#set-bias">set-bias</a></li>
+<li><a href="#set-sensor-angle">set-sensor-angle</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="link"><font size=+1><tt>link to <i>w</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Associates this sensor with wheel <i>w</i>. <p>
+</blockquote>
+<hr>
+<a name="set-activation-method"><font size=+1><tt>set-activation-method to <i>m</i> (string) in-object <i>o</i> (object) </tt></font><p></a>
+<blockquote>
+<p> This method specifies an activation method for the sensor.  An activation method is a method which takes as input the strength read by the sensor, and as output returns the strength of the signal which will travel on to the motor. <p> Your activation function should be defined as: <pre> + to <i>activation-function-name</i> with-sensor-strength s (float): </pre> <p> The default activation method is linear, but more complex vehicles may require non-linear activation functions. <p>
+</blockquote>
+<hr>
+<a name="set-bias"><font size=+1><tt>set-bias to <i>d</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the "bias" of this sensor.  The default bias is 1, meaning that the sensor has a positive influence on associated wheels with strength 1.  You can change this to any magnitude, positive or negative. <p>
+</blockquote>
+<hr>
+<a name="set-sensor-angle"><font size=+1><tt>set-sensor-angle to <i>n</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the angle in which this sensor can detect light.  The default value of 1.5 means that the sensor can see most of everything in front of it.  Setting the value to be any higher leads to general wackiness, so I don't suggest it. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:21 2008</i></font>

@@ -1,0 +1,83 @@
+<head>
+<title>Abstract : GADirectedGraphParameterObject</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : GADirectedGraphParameterObject</h2>
+This class is included as part of the file DirectedGraph.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use DirectedGraph.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A GADirectedGraphParameterObject is a subclass of object which holds a parameter list for use with the <a href="GADirectedGraphNode.html">GADirectedGraphNode</a> and <a href="GADirectedGraphConnection.html">GADirectedGraphConnection</a> objects.  The elements in the parameter list are to be interpreted as evolving genome values which control how the graph nodes and connections are used.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#get-parameters">get-parameters</a></li>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#randomize-parameters">randomize-parameters</a></li>
+<li><a href="#set-parameter-length">set-parameter-length</a></li>
+<li><a href="#set-parameters">set-parameters</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="get-parameters"><font size=+1><tt>get-parameters </tt></font><p></a>
+<blockquote>
+<p> Returns the parameter list. <p>
+</blockquote>
+<hr>
+<a name="mutate"><font size=+1><tt>mutate with-variation variation = 0.<i><i>1</i></i> (double) with-replacement-probability replace = 0.<i><i>1</i></i> (double) </tt></font><p></a>
+<blockquote>
+<p> Mutates the list of parameters in the list with a gaussian distribution of size variation, and a replace proability chance of total replacement.<p>
+</blockquote>
+<hr>
+<a name="randomize-parameters"><font size=+1><tt>randomize-parameters </tt></font><p></a>
+<blockquote>
+<p> Randomizes all of the parameters in the list to values between -1.0 and 1.0. <p>
+</blockquote>
+<hr>
+<a name="set-parameter-length"><font size=+1><tt>set-parameter-length to <i>length</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Extends the size of the parameter list include at least <i>length</i> items by adding zeros to the end of the list. <p>
+</blockquote>
+<hr>
+<a name="set-parameters"><font size=+1><tt>set-parameters to <i>plist</i> (list) </tt></font><p></a>
+<blockquote>
+<p> Sets the parameter list to <i>plist</i>. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

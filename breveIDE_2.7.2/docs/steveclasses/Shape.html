@@ -1,0 +1,129 @@
+<head>
+<title>Abstract : Shape</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Abstract.html">Abstract</a> : Shape</h2>
+This class is included as part of the file Shape.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Shape.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ The Shape class is a work-in-progress which allows users to create shapes which will be associated with <a href="Mobile.html">Mobile</a>, <a href="Stationary.html">Stationary</a> or <a href="Link.html">Link</a> objects and added to the simulated world.  An instance of the class Shape may be shared by several objects simultaneously. <p> Each Shape has it's own local coordinate frame, with the origin at the middle of the shape.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+</UL>
+<P><B>Getting and Setting a Shape's Mass Properties</B><UL>
+<li><a href="#get-density">get-density</a></li>
+<li><a href="#get-mass">get-mass</a></li>
+<li><a href="#set-density">set-density</a></li>
+<li><a href="#set-mass">set-mass</a></li>
+</UL>
+<P><B>Dynamically Changing the Size of a Shape</B><UL>
+<li><a href="#scale">scale</a></li>
+</UL>
+<P><B>Initializing the Shape</B><UL>
+<li><a href="#init-with-cube">init-with-cube</a></li>
+<li><a href="#init-with-polygon-cone">init-with-polygon-cone</a></li>
+<li><a href="#init-with-polygon-disk">init-with-polygon-disk</a></li>
+<li><a href="#init-with-sphere">init-with-sphere</a></li>
+</UL>
+<P><B>Getting Information About a Shape's Geometry</B><UL>
+<li><a href="#get-point-on-shape">get-point-on-shape</a></li>
+</UL>
+<P><B>Serializing the Shape</B><UL>
+<li><a href="#get-data-for-shape">get-data-for-shape</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="get-data-for-shape"><font size=+1><tt>get-data-for-shape </tt></font><p></a>
+<blockquote>
+<p> Returns serialized data for the shape (if the shape object has been properly initialized).  Used for archiving/dearchiving, should generally not be called manually, unless you <i>really</i> know what you're doing. <p>
+</blockquote>
+<hr>
+<a name="get-density"><font size=+1><tt>get-density </tt></font><p></a>
+<blockquote>
+<p> If the shape is properly initialized, this method returns the shape's density. <p>
+</blockquote>
+<hr>
+<a name="get-mass"><font size=+1><tt>get-mass </tt></font><p></a>
+<blockquote>
+<p> If the shape is properly initialized, this method returns the shape's mass. <p>
+</blockquote>
+<hr>
+<a name="get-point-on-shape"><font size=+1><tt>get-point-on-shape on-vector <i>theVector</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> This method is experimental. <p> Starting from inside the shape at the center, this function goes in the direction of <i>theVector</i> until it hits the edge of the shape. The resulting point is returned. <p> This allows you to compute link points for arbitrary shapes. For example, if you want to compute a link point for the "left-most" point on the shape, you can call this method with (-1, 0, 0). <p> Returns (0, 0, 0) if the shape is not initialized or if an error occurs. <p>
+</blockquote>
+<hr>
+<a name="init-with-cube"><font size=+1><tt>init-with-cube size <i>v</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets this Shape object to a rectangular solid of size <i>v</i>. <p>
+</blockquote>
+<hr>
+<a name="init-with-polygon-cone"><font size=+1><tt>init-with-polygon-cone sides <i>sideCount</i> (int) height <i>theHeight</i> (float) radius theRadius = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets this Shape object to a cone-like shape with <i>sideCount</i> sides. <p> The distance from the center of the n-gon faces to the vertices is theRadius.  sides has a maximum value of 99.  Higher values will cause the shape not to be initialized. <p> The height, or depth of the extrusion, is <i>theHeight</i>. <p> This method is experimental, but seems to work okay.  Go figure. <p>
+</blockquote>
+<hr>
+<a name="init-with-polygon-disk"><font size=+1><tt>init-with-polygon-disk sides <i>sideCount</i> (int) height <i>theHeight</i> (float) radius theRadius = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets this Shape object to an extruded n-gon of <i>sideCount</i> sides, in other words, a disk with <i>sideCount</i> sides. <p> The distance from the center of the n-gon faces to the vertices is theRadius.  sides has a maximum value of 99.  Higher values will cause the shape not to be initialized. <p> The height, or depth of the extrusion, is <i>theHeight</i>. <p> This method is experimental, but seems to work okay.  Go figure. <p>
+</blockquote>
+<hr>
+<a name="init-with-sphere"><font size=+1><tt>init-with-sphere radius theRadius = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets this Shape object to a sphere with radius theRadius. <p>
+</blockquote>
+<hr>
+<a name="scale"><font size=+1><tt>scale by <i>scale</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> If the shape is <i>not</i> a sphere, scales the shape by the x, y and z elements of <i>scale</i>.  If the shape <i>is</i> a sphere, scales the shape by only the x element such that the shape always remains spherical. <p> After the size has been changed, the instances announces a "size-changed" notification. <p>
+</blockquote>
+<hr>
+<a name="set-density"><font size=+1><tt>set-density to <i>newDensity</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the density for this Shape object.  This implicitly changes the mass of the object. <p>
+</blockquote>
+<hr>
+<a name="set-mass"><font size=+1><tt>set-mass to <i>newMass</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the mass for this Shape object.  This implicitly changes the density of the object. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

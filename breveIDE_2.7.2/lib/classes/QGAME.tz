@@ -1,0 +1,70 @@
+@use Object.
+
+Object : QSystem {
+	% The main interface to the qgame++ Quantum Gate And Measurement Emulator, 
+	% a quantum computing simulator. 
+	% <p><b>Note: the QGAME library is not built-in to the standard breve 
+	% distribution.  Use of this class may require compiling breve from the 
+	% source code with support for QGAME.
+
+	+ variables:
+		systemPointer (pointer).
+
+	+ to init:
+		systemPointer = qsysNew().
+
+	+ to test program theProgram (object) 
+		cases testCases (list) threshold t (double) qubits qb (int) measurement-qubits finalQB (list):
+		% Runs a series of test cases using qb qubits, specified by testCases, 
+		% on theProgram with qb qubits and a threshold of t.
+		% <P>
+		% This call returns a list of 5 items, which are to be interpreted as:
+		% <li> Number of misses
+		% <li> Maximum error
+		% <li> Average error
+		% <li> Maximum number of oracle calls
+		% <li> Average number of oracle calls
+		% <P>
+		% If an error occurs during the execution of the program, all of the 
+		% elements of the returned list are set to -1.
+
+		return qsysTestProgram(systemPointer, (theProgram get-program-pointer), testCases, qb, finalQB, t).
+
+	+ to destroy:
+		qsysFree(systemPointer).
+}
+
+Object : QProgram {
+	% An interface to a quantum program in qgame++ Quantum Gate And Measurement Emulator, 
+	% a quantum computing simulator.  To be used in conjunction with OBJECT(QSystem).
+	% <p><b>Note: the QGAME library is not built-in to the standard breve 
+	% distribution.  Use of this class may require compiling breve from the 
+	% source code with support for QGAME.
+
+	+ variables:
+		programPointer (pointer).
+
+	+ to init:
+		programPointer = qprogramNew().
+
+	- to get-program-pointer:
+		return programPointer.
+
+	+ to get-string:
+		% Returns the text for this program.
+
+		return qprogramGetString(programPointer).
+
+	+ to add-instruction with-string instructionString (string): 
+		% Adds an instruction to the program parsed from instructionString. 
+
+		if qprogramAddInstruction(programPointer, instructionString): 
+			print "warning: error adding QProgram instruction \"$instructionString\"".
+
+	+ to clear:
+		% Removes all instructions from this program.
+		qprogramClear(programPointer).
+
+	+ to destroy:
+		qprogramFree(programPointer).
+}

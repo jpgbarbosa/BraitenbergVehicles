@@ -1,0 +1,37 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Sending and Receiving breve Objects</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch12.html" title="Chapter 12. Networking"><link rel="prev" href="ch12.html" title="Chapter 12. Networking"><link rel="next" href="ch12s03.html" title="Using a Web-interface to a breve Simulation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Sending and Receiving breve Objects</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 12. Networking</th><td width="20%" align="right"> <a accesskey="n" href="ch12s03.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2755"></a>Sending and Receiving breve Objects</h2></div></div></div><p>
+        In order to send and receive objects over a network, the objects must
+        be prepared for archiving and dearchiving as described in Saving and
+        Loading Individual Objects <a class="xref" href="ch11s02.html" title="Saving and Loading Individual Objects">the section called &#8220;Saving and Loading Individual Objects&#8221;</a>. Read
+        that section first to be certain that your objects will be properly
+        encoded and decoded.
+      </p><p>
+        When sending an instance over the network, breve recreates the instance
+        on the server machine. It recreates the object and the state of all of
+        its variables, except that variables of type <code class="literal">object</code> and <code class="literal">pointer</code> can
+        not be automatically maintained without special treatment. The reason
+        for this and the solution are described in Saving and Loading
+        Individual Objects <a class="xref" href="ch11s02.html" title="Saving and Loading Individual Objects">the section called &#8220;Saving and Loading Individual Objects&#8221;</a>.
+      </p><p>
+        To send an object over the network, use the Object method <code class="literal"><a class="ulink" href="http://www.spiderland.org/documentation/classes/Object.html#send-over-network" target="_top">send-over-network</a></code> with the server computer's
+        hostname and port:
+      </p><pre class="programlisting">
+        response = ( self send-over-network to "myOtherComputer" on 31337 ).
+</pre><p>
+        The function <code class="literal">send-over-network</code> may return
+        a response object if one is sent by the server. This is described in
+        more detail below.
+      </p><p>
+        If a NetworkServer receives an instance upload from another host, it
+        dearchives the object, adds it to the simulation, then informs the
+        controller of the newly added object with the callback method
+        <code class="literal">accept-upload</code>. You should implement your
+        own <code class="literal">accept-upload</code> with the following
+        method declaration:
+      </p><pre class="programlisting">
+        + to accept-upload of-instance newInstance (object) from-host clientHostname (string).
+</pre><p>
+        The newly created instance, and the hostname which sent the instance
+        are passed in as arguments. This method may optionally return an object
+        which will be encoded and returned to the host which initiated the
+        network connection.
+      </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch12.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch12s03.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 12. Networking </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Using a Web-interface to a breve Simulation</td></tr></table></div></body></html>

@@ -1,0 +1,77 @@
+<head>
+<title>Joint : RevoluteJoint</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Joint.html">Joint</a> : RevoluteJoint</h2>
+This class is included as part of the file Joint.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Joint.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ This subclass of <a href="Joint.html">Joint</a> is used to link two <a href="Link.html">Link</a> objects together using a rotating joint. <P> RevoluteJoints rotate on a single axis, like a hinge.  The knee is another example of a RevoluteJoint--it can bend back-and-forth, but it cannot twist or bend side-to-side. <P> <CENTER><IMG SRC="../images/RevoluteJoint.jpg" BORDER=1></CENTER></blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#get-joint-angle">get-joint-angle</a></li>
+<li><a href="#link">link</a></li>
+<li><a href="#set-joint-limits">set-joint-limits</a></li>
+<li><a href="#set-joint-torque">set-joint-torque</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="get-joint-angle"><font size=+1><tt>get-joint-angle </tt></font><p></a>
+<blockquote>
+<p> Returns a double indicating how the angle of this joint from its natural position (which corresponds to a value of 0). <p>
+</blockquote>
+<hr>
+<a name="link"><font size=+1><tt>link with-normal <i>theNormal</i> (vector) with-parent-point <i>parentPoint</i> (vector) with-child-point <i>childPoint</i> (vector) to-child <i>childLink</i> (object) parent parentLink = <i><i>0</i></i> (object) use-current-relative-rotation currentRotation = <i><i>0</i></i> (int) </tt></font><p></a>
+<blockquote>
+<p> Creates a revolute (rotating) joint between parentLink and <i>childLink</i>. The joint will be lcoated at <i>parentPoint</i> on the parent's body, and at <i>childPoint</i> on the child's body.  The joint will rotate along the axis <i>theNormal</i>. <P> If parentLink is the value <i><i>0</i></i>, then the joint will be attached to a fixed point in the world, specified with <i>parentPoint</i>. <p>
+</blockquote>
+<hr>
+<a name="set-joint-limits"><font size=+1><tt>set-joint-limits min <i>min1</i> (double) max <i>max1</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Sets the minimum and maximum allowed rotations (in radians) for this joint. <p>
+</blockquote>
+<hr>
+<a name="set-joint-torque"><font size=+1><tt>set-joint-torque to <i>torqueValue</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Applies a torque of <i>torqueValue</i> to the revolute joint. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:23 2008</i></font>

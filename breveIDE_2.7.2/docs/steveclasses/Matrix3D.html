@@ -1,0 +1,189 @@
+<head>
+<title>Matrix : Matrix3D</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Matrix.html">Matrix</a> : Matrix3D</h2>
+This class is included as part of the file Matrix.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Matrix.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ Matrix3D objects store an arbitrary sized 3D grid of arbitrary floating point data. <P> Several of these matrix operations are built on top of the BLAS library and may be hardware accelerated on certain processors if the platform provides a hardware accelerated BLAS library.  In particular, AltiVec acceleration is provided on G4 an G5 processors with Mac OS X. <P> Hardware accelerated methods sometimes preform multiple operations simultaneously for the same computational cost.  The <a href="#add">add</a> operation, for example, also scales one of the matrices being added. When using these methods, it is often beneficial to structure code to take advantage of all of the operations preformed.  It is far more efficient to scale and add a matrix simultaneously using <a href="#add">add</a> than to first scale using <a href="#scale">scale</a> and then add using <a href="#add">add</a>. <P> Technical note: matrix objects are implemented using single precision floats, while much of the rest of the <b>breve</b> simulation environment uses double precision floating point math.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#add-scalar">add-scalar</a></li>
+<li><a href="#add-values">add-values</a></li>
+<li><a href="#compute-diffusion-matrix">compute-diffusion-matrix</a></li>
+<li><a href="#compute-periodic-diffusion-matrix">compute-periodic-diffusion-matrix</a></li>
+<li><a href="#copy">copy</a></li>
+<li><a href="#get-absolute-sum">get-absolute-sum</a></li>
+<li><a href="#get-value">get-value</a></li>
+<li><a href="#init-with">init-with</a></li>
+<li><a href="#multiply-with-values">multiply-with-values</a></li>
+<li><a href="#scale">scale</a></li>
+<li><a href="#set-all-values">set-all-values</a></li>
+<li><a href="#set-size">set-size</a></li>
+<li><a href="#set-value">set-value</a></li>
+<li><a href="#subtract-values">subtract-values</a></li>
+</UL>
+<P><B>Copying Slices of the 3D Matrix to Images</B><UL>
+<li><a href="#copy-slice-to-alpha-channel">copy-slice-to-alpha-channel</a></li>
+<li><a href="#copy-slice-to-blue-channel">copy-slice-to-blue-channel</a></li>
+<li><a href="#copy-slice-to-red-channel">copy-slice-to-red-channel</a></li>
+<li><a href="#copy-sliced-to-green-channel">copy-sliced-to-green-channel</a></li>
+</UL>
+<P><B>Copying the Contents of the 3D Matrix to PatchGrids</B><UL>
+<li><a href="#copy-to-alpha-channel">copy-to-alpha-channel</a></li>
+<li><a href="#copy-to-blue-channel">copy-to-blue-channel</a></li>
+<li><a href="#copy-to-green-channel">copy-to-green-channel</a></li>
+<li><a href="#copy-to-red-channel">copy-to-red-channel</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="add-scalar"><font size=+1><tt>add-scalar value <i>scalarValue</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Adds the number <i>scalarValue</i> to each element in the matrix. <p>
+</blockquote>
+<hr>
+<a name="add-values"><font size=+1><tt>add-values of <i>otherMatrix</i> (object) scaled-by scale = 1.<i>0</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Adds this matrix to <i>otherMatrix</i> leaving the result in <i>otherMatrix</i>. The matrices must be of the same size.  The optional argument scale allows <i>otherMatrix</i> to be scaled before adding it to this matrix. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="compute-diffusion-matrix"><font size=+1><tt>compute-diffusion-matrix from <i>chemicalMatrix</i> (object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the contents of this matrix to a diffusion rate from the matrix <i>chemicalMatrix</i>.  <i>chemicalMatrix</i> is treated as a matrix of spatial chemical concentrations, and the resulting diffusion matrix gives the approximate rates of diffiusion of the chemical. <P> This is done by sampling each concentration's local neighborhood according to the following matrix: <pre> <i>0</i> 0 <i>0</i>  <i>0</i> 1 <i>0</i>  <i>0</i> 0 <i>0</i> 0 1 <i>0</i>  1-6 1  <i>0</i> 1 <i>0</i> 0 <i>0</i> 0  <i>0</i> 1 <i>0</i>  <i>0</i> 0 <i>0</i> </pre> <P> <i>chemicalMatrix</i> is assumed to have real boundary conditions so that the chemical will not flow beyond the edges of the matrix. <P> The optional scale argument may be used to scale the resulting scale matrix. <p>
+</blockquote>
+<hr>
+<a name="compute-periodic-diffusion-matrix"><font size=+1><tt>compute-periodic-diffusion-matrix from <i>chemicalMatrix</i> (object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the contents of this matrix to a diffusion rate from the matrix <i>chemicalMatrix</i>.  <i>chemicalMatrix</i> is treated as a matrix of spatial chemical concentrations, and the resulting diffusion matrix gives the approximate rates of diffiusion of the chemical. <P> This is done by sampling each concentration's local neighborhood according to the following matrix: <pre> <i>0</i> 0 <i>0</i>  <i>0</i> 1 <i>0</i>  <i>0</i> 0 <i>0</i> 0 1 <i>0</i>  1-6 1  <i>0</i> 1 <i>0</i> 0 <i>0</i> 0  <i>0</i> 1 <i>0</i>  <i>0</i> 0 <i>0</i> </pre> <P> <i>chemicalMatrix</i> is assumed to have periodic boundary conditions so that the chemical will flow freely from the edges of the matrix to the other side. <P> The optional scale argument may be used to scale the resulting scale matrix. <p>
+</blockquote>
+<hr>
+<a name="copy"><font size=+1><tt>copy from <i>otherMatrix</i> (object) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of <i>otherMatrix</i> to thisMatrix. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="copy-slice-to-alpha-channel"><font size=+1><tt>copy-slice-to-alpha-channel z-plane <i>thePlane</i> (int) of-image theImage (Image object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the alpha channel of theImage, scaled by the optional scale argument. <P> This method, and it's counterparts <a href="#copy-to-red-channel">copy-to-red-channel</a> and <a href="#copy-to-green-channel">copy-to-green-channel</a> are far faster than looping manually through the matrix values. <p>
+</blockquote>
+<hr>
+<a name="copy-slice-to-blue-channel"><font size=+1><tt>copy-slice-to-blue-channel z-plane <i>thePlane</i> (int) of-image theImage (Image object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the blue channel of theImage. scaled by the optional scale argument. <P> This method, and it's counterparts <a href="#copy-to-red-channel">copy-to-red-channel</a> and <a href="#copy-to-green-channel">copy-to-green-channel</a> are far faster than looping manually through the matrix values. <p>
+</blockquote>
+<hr>
+<a name="copy-slice-to-red-channel"><font size=+1><tt>copy-slice-to-red-channel z-plane <i>thePlane</i> (int) of-image theImage (Image object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the red channel of theImage, scaled by the optional scale argument. <P> This method, and it's counterparts <a href="#copy-to-green-channel">copy-to-green-channel</a> and <a href="#copy-to-blue-channel">copy-to-blue-channel</a> are far faster than looping manually through the matrix values. <p>
+</blockquote>
+<hr>
+<a name="copy-sliced-to-green-channel"><font size=+1><tt>copy-sliced-to-green-channel z-plane <i>thePlane</i> (int) of-image theImage (Image object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the green channel of theImage, scaled by the optional scale argument. <P> This method, and it's counterparts <a href="#copy-to-blue-channel">copy-to-blue-channel</a> and <a href="#copy-to-red-channel">copy-to-red-channel</a> are far faster than looping manually through the matrix values. <p>
+</blockquote>
+<hr>
+<a name="copy-to-alpha-channel"><font size=+1><tt>copy-to-alpha-channel of-patch-grid grid (PatchGrid object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the alpha channel of the <a href="PatchGrid.html">PatchGrid</a>, scaled by the optional scale value. <p>
+</blockquote>
+<hr>
+<a name="copy-to-blue-channel"><font size=+1><tt>copy-to-blue-channel of-patch-grid grid (PatchGrid object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the blue channel of the <a href="PatchGrid.html">PatchGrid</a>, scaled by the optional scale value. <p>
+</blockquote>
+<hr>
+<a name="copy-to-green-channel"><font size=+1><tt>copy-to-green-channel of-patch-grid grid (PatchGrid object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the green channel of the <a href="PatchGrid.html">PatchGrid</a>, scaled by the optional scale value. <p>
+</blockquote>
+<hr>
+<a name="copy-to-red-channel"><font size=+1><tt>copy-to-red-channel of-patch-grid grid (PatchGrid object) with-scale scale = 1.<i>0</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Copies the contents of this matrix to the red channel of the <a href="PatchGrid.html">PatchGrid</a>, scaled by the optional scale value. <p>
+</blockquote>
+<hr>
+<a name="get-absolute-sum"><font size=+1><tt>get-absolute-sum </tt></font><p></a>
+<blockquote>
+<p> Returns the sum of the absolute values of all elements in this matrix. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="get-value"><font size=+1><tt>get-value at-x <i>x</i> (int) at-y <i>y</i> (int) at-z <i>z</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Returns the matrix value at position (<i>x</i>, <i>y</i>, <i>z</i>). <p>
+</blockquote>
+<hr>
+<a name="init-with"><font size=+1><tt>init-with x-size <i>xSize</i> (int) y-size <i>ySize</i> (int) z-size <i>zSize</i> (int) </tt></font><p></a>
+<blockquote>
+<p> sets the size to of this matrix to (sSize, <i>ySize</i>, <i>zSize</i>). <p>
+</blockquote>
+<hr>
+<a name="multiply-with-values"><font size=+1><tt>multiply-with-values of otherMatrix (Matrix3D object) </tt></font><p></a>
+<blockquote>
+<p> Multiplies each element in this matrix with the corresponding element in otherMatrix.  This is not regular matrix multiplication; rather, it is a way to scale each element in otherMatrix. <p>
+</blockquote>
+<hr>
+<a name="scale"><font size=+1><tt>scale by <i>scaleValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Scales all elements in the matrix by <i>scaleValue</i>. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+<hr>
+<a name="set-all-values"><font size=+1><tt>set-all-values to <i>value</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets all of the values in the matrix to <i>value</i>. <p>
+</blockquote>
+<hr>
+<a name="set-size"><font size=+1><tt>set-size x <i>xSize</i> (int) y <i>ySize</i> (int) z <i>zSize</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the size of this matrix to (<i>xSize</i>, <i>ySize</i>, <i>zSize</i>). <p>
+</blockquote>
+<hr>
+<a name="set-value"><font size=+1><tt>set-value to <i>value</i> (double) at-x <i>x</i> (int) at-y <i>y</i> (int) at-z <i>z</i> (int) </tt></font><p></a>
+<blockquote>
+<p> Sets the matrix <i>value</i> at position (<i>x</i>, <i>y</i>, <i>z</i>). <p>
+</blockquote>
+<hr>
+<a name="subtract-values"><font size=+1><tt>subtract-values of <i>otherMatrix</i> (object) scaled-by scale = 1.<i>0</i> (double) </tt></font><p></a>
+<blockquote>
+<p> Subtracts this matrix from this <i>otherMatrix</i>, leaving the result in <i>otherMatrix</i>.  This method uses the same mechanism as <a href="#add">add</a>, but using a negative scale argument. The optional argument scale allows <i>otherMatrix</i> to be scaled before subtracting it from this matrix. <P> This method is hardware accelerated where supported. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>

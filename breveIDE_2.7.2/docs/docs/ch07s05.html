@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Triggering Events Using Notifications</title><link rel="stylesheet" href="stylesheet.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="../index.html" title="The breve Simulation Environment Documentation"><link rel="up" href="ch07.html" title="Chapter 7. Interactions Between Agents"><link rel="prev" href="ch07s04.html" title="Finding the Closest Object"><link rel="next" href="ch07s06.html" title="Finding All Objects of a Given Type"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Triggering Events Using Notifications</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s04.html">&lt;&lt; previous</a> </td><th width="60%" align="center">Chapter 7. Interactions Between Agents</th><td width="20%" align="right"> <a accesskey="n" href="ch07s06.html">next &gt;&gt;</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="node-2722"></a>Triggering Events Using Notifications</h2></div></div></div><p> Notifications allow instances to
+        make announcements to an arbitrary set of "listeners". This allows
+        instances to communicate somewhat indirectly&#8212; the announcing
+        instance does not care or keep track of who is listening to the
+        announcements.
+      </p><p>
+        An object may make an announcement at any time by using the method
+        <a class="ulink" href="http://www.spiderland.org/documentation/classes/Object.html#announce" target="_top">announce</a> in the class <a class="ulink" href="http://www.spiderland.org/documentation/classes/Object.html" target="_top">Object</a>. The announcement may reflect a state change in the
+        object or a reaction to a specific event.
+      </p><p>
+        The announcement itself does not effect the other instances in the
+        simulation unless they have explicitly decided to "observe" the
+        announcer using the method <a class="ulink" href="http://www.spiderland.org/documentation/classes/Object.html#observe" target="_top">observe</a>. The observe method expects the object to be
+        observed, the name of the announcement to look for, and the method to
+        call when the announcement occurs. For example, an instance interested
+        in monitoring the controller for a (fictional) "New Object"
+        notification would call:
+      </p><pre class="programlisting">
+self observe instance controller for-notification "New Object" with-method "notify-of-new-object".
+</pre><p>
+        The observing object would then get a call to the method
+        notify-of-new-object whenever the controller made the announcement "New
+        Object".
+      </p><p>
+        Once an observer instance begins to observe another instance, the
+        observer will get a callback every time the desired notification is
+        announced. The callback method must take 2 arguments: the source of the
+        announcement and the announcement string. The keywords are unimportant,
+        but a simple example is:
+      </p><pre class="programlisting">
++ to notify-of-new-object from-instance announcer (object) with-message message (string):
+        print "I got the message $message from $announcer!".
+</pre></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s04.html">&lt;&lt; previous</a> </td><td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch07s06.html">next &gt;&gt;</a></td></tr><tr><td width="40%" align="left" valign="top">Finding the Closest Object </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Table of Contents</a></td><td width="40%" align="right" valign="top"> Finding All Objects of a Given Type</td></tr></table></div></body></html>

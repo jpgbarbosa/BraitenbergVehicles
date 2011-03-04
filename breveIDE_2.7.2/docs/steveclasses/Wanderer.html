@@ -1,0 +1,71 @@
+<head>
+<title>Mobile : Wanderer</title>
+<STYLE TYPE="text/css">
+    BODY, P, LI {
+		color: black;
+		font-family: Verdana, Arial, sans-serif;
+		font-size: small;
+    }
+
+    BODY {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    TT {
+        font-size: 80%;
+    }
+</STYLE>
+</head>
+<body>
+<p>
+<center>
+<p>
+<img src="breve_icon.jpg"></center>
+<p>
+<p>
+
+<i><center>
+<font size=-2>
+These pages are auto-generated from self-documenting comments embedded 
+in class files.
+<br>
+For more information on <b>breve</b> and <i>steve</i>, refer to the 
+<a href="http://www.spiderland.org/breve" target="_top">breve homepage</a>.
+</font>
+</center>
+</i>
+
+<h2><a href="Mobile.html">Mobile</a> : Wanderer</h2>
+This class is included as part of the file Wanderer.tz.
+<br>
+To use this class in a simulation, include the line "<b>@use Wanderer.</b>"
+<p>
+<h3>Class description:</h3><p>
+<blockquote>
+ A Wanderer is a subclass of <a href="Mobile.html">Mobile</a> that wanders randomly around a certain space.  The range of wandering is adjusted with the <a href="#set-wander-range">set-wander-range</a> method. <p> Subclasses of Wanderer should implement their own <b>iterate</b> method to perform class specific tasks, and then call the method <b>super iterate</b> in order for the Wanderer object to handle the object's motion.</blockquote>
+<P>
+<H3>Class methods:</H3></P>
+<BLOCKQUOTE>
+<P><B></B><UL>
+<li><a href="#randomize-location">randomize-location</a></li>
+<li><a href="#set-top-velocity">set-top-velocity</a></li>
+<li><a href="#set-wander-range">set-wander-range</a></li>
+</UL>
+</BLOCKQUOTE>
+<hr>
+<a name="randomize-location"><font size=+1><tt>randomize-location </tt></font><p></a>
+<blockquote>
+<p> Move the Wanderer to a random location within the wander space. <p>
+</blockquote>
+<hr>
+<a name="set-top-velocity"><font size=+1><tt>set-top-velocity to <i>newValue</i> (float) </tt></font><p></a>
+<blockquote>
+<p> Sets the top velocity of the wanderer to <i>newValue</i>. <p>
+</blockquote>
+<hr>
+<a name="set-wander-range"><font size=+1><tt>set-wander-range to <i>wanderVector</i> (vector) </tt></font><p></a>
+<blockquote>
+<p> Sets the range from the origin that the object can wander.  The distance the object will wander from the center is the length of <i>wanderVector</i>.  The direction of the wandering is proportional to the normalized vector--that is to say that if <i>wanderVector</i> is (100, 100, 0) that motion will be restricted to the X/Y plane. <p>
+</blockquote>
+</body>
+<hr><font size=-2><i>Documentation created Sun Feb 24 16:36:24 2008</i></font>
