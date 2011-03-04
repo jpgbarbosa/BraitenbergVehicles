@@ -12,43 +12,47 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.leftSensor = None
 		self.leftWheel = None
 		self.light = None
+		self.n = 0
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
+		self.scenario = 'Circle'
 		myBraitenbergControl.init( self )
 
 	def init( self ):
-		self.light = breve.createInstances( breve.BraitenbergLight, 1 )
-		self.light.move( breve.vector( 3, 1, -3 ) )
-		self.light = breve.createInstances( breve.BraitenbergLight, 1 )
-		self.light.move( breve.vector( 5, 1, -4 ) )
-		self.light = breve.createInstances( breve.BraitenbergLight, 1 )
-		self.light.move( breve.vector( 8, 1, -6 ) )
-		self.light = breve.createInstances( breve.BraitenbergLight, 1 )
-		self.light.move( breve.vector( 12, 1, -9 ) )
-		self.light = breve.createInstances( breve.BraitenbergLight, 1 )
-		self.light.move( breve.vector( 17, 1, -13 ) )
-		self.light = breve.createInstances( breve.BraitenbergLight, 1 )
-		self.light.move( breve.vector( 23, 1, -18 ) )
-		self.block = breve.createInstances( breve.BraitenbergBlock, 1 )
-		self.block.move( breve.vector( 18, 1.5, 0 ) )
+		
+		if self.scenario == 'Circle':
+			self.n = 0
+			while ( self.n < 40 ):
+				breve.createInstances( breve.BraitenbergLight, 1 ).move( breve.vector( ( 20 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 1.570000 ) / 10 ) ) ), 1.5, ( 20 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 1.570000 ) / 10 ) ) ) ) )
+				self.n = ( self.n + 1 )
+				
+			self.n = 0
+			while ( self.n < 10 ):
+				breve.createInstances( breve.BraitenbergLight, 1 ).move( breve.vector( ( 5 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 6.280000 ) / 10 ) ) ), 1.5, ( 5 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 6.280000 ) / 10 ) ) ) ) )
+				self.n = ( self.n + 1 )
+				
+		elif self.scenario == 'Tunel':
+			pass
+	
 		
 		self.vehicle = breve.createInstances( breve.BraitenbergVehicle, 1 )
 		self.watch( self.vehicle )
-		lFrontWheel = self.vehicle.addWheel (breve.vector( 1, 0, 1.5 ))
-		rFrontWheel = self.vehicle.addWheel (breve.vector( 1, 0, -1.5 ))
-		lBackWheel = self.vehicle.addWheel (breve.vector( -1, 0, 1.5 ))
-		rBackWheel = self.vehicle.addWheel (breve.vector( -1, 0, -1.5 ))
-		lFrontSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0, 1 ), 1.57000000, "gaussian", 0.1, 100)
-		rFrontSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0, -1 ), 1.57000000, "gaussian", 0.1, 100)
+		self.vehicle.move(breve.vector(0,1,12))
 		
-		lFrontSensor.link(rFrontWheel)
-		rFrontSensor.link(lFrontWheel)
-		lFrontSensor.link(rBackWheel)
-		rFrontSensor.link(lBackWheel)
+		lWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, -1.5 ))
+		rWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, 1.5 ))
+		lFrontSensor = self.vehicle.addLightSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "exponential", -100, 100)
+		rFrontSensor = self.vehicle.addLightSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "exponential", -100, 100)
 		
-		#lFrontSensor.setBias(10)
-		rFrontSensor.setBias(10)
+		lFrontSensor.link(lWheel)
+		rFrontSensor.link(rWheel)
+		
+		lWheel.setNaturalVelocity(0.00000)
+		rWheel.setNaturalVelocity(0.00000)
+		
+		lFrontSensor.setBias(5)
+		rFrontSensor.setBias(5)
 
 breve.myBraitenbergControl = myBraitenbergControl
 

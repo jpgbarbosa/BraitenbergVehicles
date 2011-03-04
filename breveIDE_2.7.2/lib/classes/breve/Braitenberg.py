@@ -42,7 +42,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.wheels = breve.objectList()
 		BraitenbergVehicle.init( self )
 
-	def addLightSensor( self, location , angulo, function, lowerBound = -1000, upperBound = 1000):
+	def addLightSensor( self, location , axis, angle, function, lowerBound = -1000, upperBound = 1000):
 		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergLightSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
 
 		joint = None
@@ -58,7 +58,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		sensor.setActivationObject( activationFunction )
 		
 		joint = breve.createInstances( breve.RevoluteJoint, 1 )
-		joint.setRelativeRotation( breve.vector( 0, 0, 1 ), angulo )
+		joint.setRelativeRotation( axis, angle )
 			
 		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
 		joint.setDoubleSpring( 300, 0.010000, -0.010000 )
