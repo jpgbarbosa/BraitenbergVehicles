@@ -42,13 +42,13 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.wheels = breve.objectList()
 		BraitenbergVehicle.init( self )
 
-	def addLightSensor( self, location , axis, angle, function, lowerBound = -1000, upperBound = 1000):
+	def addSensor( self, location , axis, angle, function, lowerBound = -1000, upperBound = 1000):
 		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergLightSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
 
 		joint = None
 		sensor = None
 
-		sensor = breve.createInstances( breve.BraitenbergLightSensor, 1 )
+		sensor = breve.createInstances( breve.BraitenbergSensor, 1 )
 		sensor.setShape( self.sensorShape )
 		
 		activationFunction = breve.createInstances(breve.BraitenbergActivationObject, 1)
@@ -68,8 +68,8 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.sensors.append( sensor )
 		return sensor
 		
-	def addBlockSensor( self, location , angulo, function, lowerBound = -1000, upperBound = 1000):
-		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergLightSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
+	def addBlockSensor( self, location , axis, ang, function, lowerBound = -1000, upperBound = 1000):
+		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
 
 		joint = None
 		sensor = None
@@ -84,7 +84,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		sensor.setActivationObject( activationFunction )
 		
 		joint = breve.createInstances( breve.RevoluteJoint, 1 )
-		joint.setRelativeRotation( breve.vector( 0, 0, 1 ), angulo )
+		joint.setRelativeRotation( axis, ang )
 			
 		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
 		joint.setDoubleSpring( 300, 0.010000, -0.010000 )
@@ -178,6 +178,39 @@ class BraitenbergLight( breve.Mobile ):
 
 
 breve.BraitenbergLight = BraitenbergLight
+
+
+class BraitenbergSound( breve.Mobile ):
+	'''A BraitenbergSound is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergLightSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
+
+	def __init__( self ):
+		breve.Mobile.__init__( self )
+		BraitenbergSound.init( self )
+
+	def init( self ):
+		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
+		self.setColor( breve.vector( 0, 1, 0 ) )
+
+
+breve.BraitenbergSound = BraitenbergSound
+
+
+class BraitenbergOlfaction( breve.Mobile ):
+	'''A BraitenbergOlfaction is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergLightSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
+
+	def __init__( self ):
+		breve.Mobile.__init__( self )
+		BraitenbergOlfaction.init( self )
+
+	def init( self ):
+		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
+		self.setColor( breve.vector( 0, 0, 1 ) )
+
+
+breve.BraitenbergOlfaction = BraitenbergOlfaction
+
+
+
 class BraitenbergWheel( breve.Link ):
 	'''A BraitenbergWheel is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a wheel to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
 
@@ -226,7 +259,7 @@ class BraitenbergWheel( breve.Link ):
 
 breve.BraitenbergWheel = BraitenbergWheel
 
-class BraitenbergSensor(breve.Link):
+class BraitenbergMainSensor(breve.Link):
 
 	def __init__( self ):
 		breve.Link.__init__( self )
@@ -234,8 +267,9 @@ class BraitenbergSensor(breve.Link):
 		self.bias = 0
 		self.direction = breve.vector()
 		self.sensorAngle = 0
+		self.sensorType = None
 		self.wheels = breve.objectList()
-		BraitenbergSensor.init( self )
+		BraitenbergMainSensor.init( self )
 
 	def init( self ):
 		self.bias = 1.000000
@@ -262,9 +296,9 @@ class BraitenbergSensor(breve.Link):
 
 		self.sensorAngle = n
 
-breve.BraitenbergSensor = BraitenbergSensor
+breve.BraitenbergMainSensor = BraitenbergMainSensor
 
-class BraitenbergLightSensor( breve.BraitenbergSensor ):
+class BraitenbergSensor( breve.BraitenbergMainSensor ):
 	'''A BraitenbergLightSensor is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a sensor to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
 
 	def iterate( self ):
@@ -277,7 +311,7 @@ class BraitenbergLightSensor( breve.BraitenbergSensor ):
 		toLight = breve.vector()
 
 		transDir = ( self.getRotation() * self.direction )
-		for i in breve.allInstances( "BraitenbergLights" ):
+		for i in breve.allInstances( self.sensorType ):
 			toLight = ( i.getLocation() - self.getLocation() )
 			angle = breve.breveInternalFunctionFinder.angle( self, toLight, transDir )
 			if ( angle < self.sensorAngle ):
@@ -297,11 +331,15 @@ class BraitenbergLightSensor( breve.BraitenbergSensor ):
 
 		total = ( ( 50 * total ) * self.bias )
 		self.wheels.activate( total )
+	
+	def setType( self , type ):
+		self.sensorType = type
 		
-breve.BraitenbergLightSensor = BraitenbergLightSensor
+		
+breve.BraitenbergSensor = BraitenbergSensor
 
 
-class BraitenbergBlockSensor( breve.BraitenbergSensor ):
+class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 	'''A BraitenbergBlockSensor is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a sensor to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
 
 	def iterate( self ):
@@ -403,9 +441,11 @@ breve.BraitenbergActivationObject = BraitenbergActivationObject
 breve.BraitenbergVehicles = BraitenbergVehicle
 breve.BraitenbergHeavyVehicles = BraitenbergHeavyVehicle
 breve.BraitenbergLights = BraitenbergLight
+breve.BraitenbergSounds = BraitenbergSound
+breve.BraitenbergOlfactions = BraitenbergOlfaction
 breve.BraitenbergBlocks = BraitenbergBlock
 breve.BraitenbergWheels = BraitenbergWheel
-breve.BraitenbergLightSensors = BraitenbergLightSensor
+breve.BraitenbergSensors = BraitenbergSensor
 
 
 
