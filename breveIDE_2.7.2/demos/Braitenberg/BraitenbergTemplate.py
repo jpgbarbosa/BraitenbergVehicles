@@ -16,7 +16,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Circle'
+		self.scenario = 'none'
 		myBraitenbergControl.init( self )
 
 	def init( self ):
@@ -29,24 +29,26 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 				
 			self.n = 0
 			while ( self.n < 20 ):
-				breve.createInstances( breve.BraitenbergOlfaction, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 1.5, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
+				breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 1.5, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
 				self.n = ( self.n + 1 )
 				
 		elif self.scenario == 'Tunel':
-			pass
+			pass		elif self.scenario == 'none':
+			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector(14 , 1, 17))
+			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 5 , 1, 20))
 	
 		
 		self.vehicle = breve.createInstances( breve.BraitenbergVehicle, 1 )
 		self.watch( self.vehicle )
-		self.vehicle.move(breve.vector(0,1,12))
+		self.vehicle.move(breve.vector(0,1,15))
 		
 		lWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		rWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "exponential", -100, 100)
-		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "exponential", -100, 100)
+		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.3, 0, 1 ), 1.57000000, "exponential", -100, 100)
+		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.3, 0, 1 ),  1.57000000, "exponential", -100, 100)
 		
-		lFrontSensor.setType("BraitenbergSounds")
-		rFrontSensor.setType("BraitenbergSounds")
+		lFrontSensor.setType("BraitenbergBlocks")
+		rFrontSensor.setType("BraitenbergBlocks")
 		
 		lFrontSensor.link(lWheel)
 		rFrontSensor.link(rWheel)

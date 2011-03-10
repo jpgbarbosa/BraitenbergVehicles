@@ -7,6 +7,8 @@
 import breve
 import random
 
+from math import *
+
 class BraitenbergControl( breve.PhysicalControl ):
 	'''This class is used for building simple Braitenberg vehicle  simulations.  To create a Braitenberg vehicle simulation,  subclass BraitenbergControl and use the init method to  create OBJECT(BraitenbergLight) and  OBJECT(BraitenbergVehicle) objects.'''
 
@@ -267,6 +269,7 @@ class BraitenbergMainSensor(breve.Link):
 		self.bias = 0
 		self.direction = breve.vector()
 		self.sensorAngle = 0
+		self.range = 0
 		self.sensorType = None
 		self.wheels = breve.objectList()
 		BraitenbergMainSensor.init( self )
@@ -352,31 +355,49 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 		toBlock = breve.vector()
 
 		transDir = ( self.getRotation() * self.direction )
-		for i in breve.allInstances( "BraitenbergBlocks" ):
-			toBlock = ( i.getLocation() - self.getLocation() )
-			angle = breve.breveInternalFunctionFinder.angle( self, toBlock, transDir )
-			if ( angle < self.sensorAngle ):
-				strength = breve.length( ( self.getLocation() - i.getLocation() ) )
-				strength = ( 1.000000 / ( strength * strength ) )
-				if ( self.activationObject ):
-					strength = self.activationObject.activate(strength)
-
-
-				if ( strength > 10 ):
-					strength = 10
-
-				total = ( total + strength )
-				blocks = ( blocks + 1 )
-
-
-
-
-		if ( blocks != 0 ):
-			total = ( total / blocks )
-
-		total = ( ( 50 * total ) * self.bias )
-		self.wheels.activate( total )
 		
+		
+		for i in breve.allInstances( "BraitenbergBlocks" ):
+			i,toBlock = getClosestBlock()
+			if(i!=None):
+				#toBlock = ( i.getLocation() - self.getLocation() )
+				angle = breve.breveInternalFunctionFinder.angle( self, toBlock, transDir )
+				if ( angle < self.sensorAngle ):
+					strength = breve.length( ( self.getLocation() - i.getLocation() ) )
+					strength = ( 1.000000 / ( strength * strength ) )
+					if ( self.activationObject ):
+						strength = self.activationObject.activate(strength)
+
+
+					if ( strength > 10 ):
+						strength = 10
+
+					total = ( total + strength )
+					blocks = ( blocks + 1 )
+
+
+
+
+				if ( blocks != 0 ):
+					total = ( total / blocks )
+
+				total = ( ( 50 * total ) * self.bias )
+				self.wheels.activate( total )
+	
+	def getClosestBlock(self):
+		min = ()
+		node = None
+		for i in breve.allInstances( "BraitenbergBlocks" ):
+			temp = abs(i.getLocation() - self.getLocation() )
+			if temp < min:
+				min = temp
+				node = i
+		
+		return node, min
+	
+	def setRange( self, range ):
+		pass
+
 breve.BraitenbergBlockSensor = BraitenbergBlockSensor
 		
 class BraitenbergBlock( breve.Link ):
