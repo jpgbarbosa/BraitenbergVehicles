@@ -356,43 +356,37 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 
 		transDir = ( self.getRotation() * self.direction )
 		
-		
-		for i in breve.allInstances( "BraitenbergBlocks" ):
-			i,toBlock = getClosestBlock()
-			if(i!=None):
-				#toBlock = ( i.getLocation() - self.getLocation() )
-				angle = breve.breveInternalFunctionFinder.angle( self, toBlock, transDir )
-				if ( angle < self.sensorAngle ):
-					strength = breve.length( ( self.getLocation() - i.getLocation() ) )
-					strength = ( 1.000000 / ( strength * strength ) )
-					if ( self.activationObject ):
-						strength = self.activationObject.activate(strength)
+		block,toBlock = getClosestBlock()
+		if(block!=None):
+			strength = breve.length( ( self.getLocation() - block.getLocation() ) )
+			strength = ( 1.000000 / ( strength * strength ) )
+			if ( self.activationObject ):
+				strength = self.activationObject.activate(strength)
 
 
-					if ( strength > 10 ):
-						strength = 10
+			if ( strength > 10 ):
+				strength = 10
 
-					total = ( total + strength )
-					blocks = ( blocks + 1 )
+			total = ( total + strength )
+			blocks = ( blocks + 1 )
 
+			if ( blocks != 0 ):
+				total = ( total / blocks )
 
+			total = ( ( 50 * total ) * self.bias )
+			self.wheels.activate( total )
 
-
-				if ( blocks != 0 ):
-					total = ( total / blocks )
-
-				total = ( ( 50 * total ) * self.bias )
-				self.wheels.activate( total )
-	
 	def getClosestBlock(self):
 		min = ()
 		node = None
+		angle = breve.breveInternalFunctionFinder.angle( self, toBlock, transDir )
 		for i in breve.allInstances( "BraitenbergBlocks" ):
-			temp = abs(i.getLocation() - self.getLocation() )
-			if temp < min:
-				min = temp
-				node = i
-		
+			if ( angle < self.sensorAngle ):
+				temp = abs(i.getLocation() - self.getLocation() )
+				if temp < min:
+					min = temp
+					node = i
+			
 		return node, min
 	
 	def setRange( self, range ):

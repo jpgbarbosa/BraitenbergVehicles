@@ -16,7 +16,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'none'
+		self.scenario = 'Circle'
 		myBraitenbergControl.init( self )
 
 	def init( self ):
@@ -24,16 +24,16 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		if self.scenario == 'Circle':
 			self.n = 0
 			while ( self.n < 40 ):
-				breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector( ( 20 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 1.570000 ) / 10 ) ) ), 1.5, ( 20 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 1.570000 ) / 10 ) ) ) ) )
+				breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( ( 20 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 1.570000 ) / 10 ) ) ), 2, ( 20 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 1.570000 ) / 10 ) ) ) ) )
 				self.n = ( self.n + 1 )
 				
 			self.n = 0
 			while ( self.n < 20 ):
-				breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 1.5, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
+				breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 2, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
 				self.n = ( self.n + 1 )
 				
 		elif self.scenario == 'Tunel':
-			pass		elif self.scenario == 'none':
+			pass		elif self.scenario == 'None':
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector(14 , 1, 17))
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 5 , 1, 20))
 	
