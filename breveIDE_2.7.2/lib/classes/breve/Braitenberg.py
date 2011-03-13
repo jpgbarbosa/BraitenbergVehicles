@@ -45,6 +45,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 	def addSensor( self, location , axis, angle, function, lowerBound = -1000, upperBound = 1000):
 		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergLightSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
 
+		'''This sensor can interact with light, smell and sound. The final type of the sensor is defined by a method of the sensor itself.'''
 		joint = None
 		sensor = None
 
@@ -57,7 +58,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		activationFunction.setUpperBound(upperBound)
 		sensor.setActivationObject( activationFunction )
 		
-		joint = breve.createInstances( breve.RevoluteJoint, 1 )
+		joint = breve.createInstances( breve.FixedJoint, 1 )
 		joint.setRelativeRotation( axis, angle )
 			
 		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
@@ -71,6 +72,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 	def addBlockSensor( self, location , axis, ang, function, lowerBound = -1000, upperBound = 1000):
 		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
 
+		''' This sensor only interacts  with blocks. '''
 		joint = None
 		sensor = None
 
@@ -83,7 +85,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		activationFunction.setUpperBound(upperBound)
 		sensor.setActivationObject( activationFunction )
 		
-		joint = breve.createInstances( breve.RevoluteJoint, 1 )
+		joint = breve.createInstances( breve.FixedJoint, 1 )
 		joint.setRelativeRotation( axis, ang )
 			
 		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
@@ -166,7 +168,7 @@ class BraitenbergHeavyVehicle( breve.BraitenbergVehicle ):
 
 breve.BraitenbergHeavyVehicle = BraitenbergHeavyVehicle
 class BraitenbergLight( breve.Mobile ):
-	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergLightSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
+	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
 		breve.Mobile.__init__( self )
@@ -181,7 +183,7 @@ breve.BraitenbergLight = BraitenbergLight
 
 
 class BraitenbergSound( breve.Mobile ):
-	'''A BraitenbergSound is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergLightSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
+	'''A BraitenbergSound is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
 		breve.Mobile.__init__( self )
@@ -196,7 +198,7 @@ breve.BraitenbergSound = BraitenbergSound
 
 
 class BraitenbergOlfaction( breve.Mobile ):
-	'''A BraitenbergOlfaction is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergLightSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
+	'''A BraitenbergOlfaction is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
 		breve.Mobile.__init__( self )
@@ -278,22 +280,18 @@ class BraitenbergMainSensor(breve.Link):
 
 	def link( self, w ):
 		'''Associates this sensor with wheel w.'''
-
 		self.wheels.append( w )
 
 	def setActivationObject( self, o ):
 		'''This method specifies an activation method for the sensor.  An activation method is a method which takes as input the strength read by the sensor, and as output returns the strength of the  signal which will travel on to the motor. <p> Your activation function should be defined as: <pre> + to <i>activation-function-name</i> with-sensor-strength s (float): </pre> <p> The default activation method is linear, but more complex vehicles may require non-linear activation functions. '''
-
 		self.activationObject = o
 
 	def setBias( self, d ):
 		'''Sets the "bias" of this sensor.  The default bias is 1, meaning that the sensor has a positive influence on associated wheels with strength 1.  You can change this to any magnitude, positive or negative.'''
-
 		self.bias = d
 
 	def setSensorAngle( self, n ):
 		'''Sets the angle in which this sensor can detect light.  The default value of 1.5 means that the sensor can see most of everything in front of it.  Setting the value to be any higher leads to general wackiness, so I don't suggest it.'''
-
 		self.sensorAngle = n
 
 breve.BraitenbergMainSensor = BraitenbergMainSensor
@@ -301,6 +299,7 @@ breve.BraitenbergMainSensor = BraitenbergMainSensor
 class BraitenbergSensor( breve.BraitenbergMainSensor ):
 	'''A BraitenbergLightSensor is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a sensor to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
 
+	'''This method can iterate over objects of type sound, olfaction or light.'''
 	def iterate( self ):
 		i = None
 		lights = 0
@@ -311,6 +310,7 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 		toLight = breve.vector()
 
 		transDir = ( self.getRotation() * self.direction )
+		'''It's by the sensorType string that we distinguish between a sound, olfaction or light sensor. '''
 		for i in breve.allInstances( self.sensorType ):
 			toLight = ( i.getLocation() - self.getLocation() )
 			angle = breve.breveInternalFunctionFinder.angle( self, toLight, transDir )
@@ -352,6 +352,7 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 		toBlock = breve.vector()
 
 		transDir = ( self.getRotation() * self.direction )
+		'''Only detects blocks.'''
 		for i in breve.allInstances( "BraitenbergBlocks" ):
 			toBlock = ( i.getLocation() - self.getLocation() )
 			angle = breve.breveInternalFunctionFinder.angle( self, toBlock, transDir )
@@ -380,7 +381,7 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 breve.BraitenbergBlockSensor = BraitenbergBlockSensor
 		
 class BraitenbergBlock( breve.Link ):
-	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergLightSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
+	'''A BraitenbergBlock is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergBlockSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
 		breve.Mobile.__init__( self )

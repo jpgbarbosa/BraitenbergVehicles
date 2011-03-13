@@ -29,7 +29,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 				
 			self.n = 0
 			while ( self.n < 20 ):
-				breve.createInstances( breve.BraitenbergOlfaction, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 1.5, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
+				breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 1.5, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
 				self.n = ( self.n + 1 )
 				
 		elif self.scenario == 'Tunel':
