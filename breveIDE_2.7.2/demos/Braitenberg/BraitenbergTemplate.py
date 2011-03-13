@@ -16,7 +16,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Attraction'
+		self.scenario = 'None'
 		myBraitenbergControl.init( self )
 
 	def init( self ):
@@ -39,9 +39,9 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(16 , 1, 21))
 			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(20, 1, 27))
 					elif self.scenario == 'None':
-			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector(14 , 1, 17))
-			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 5 , 1, 20))
-	
+			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector(20 , 1, 4))
+			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 20, 1, 17))
+
 		
 		self.vehicle = breve.createInstances( breve.BraitenbergVehicle, 1 )
 		self.watch( self.vehicle )
@@ -49,14 +49,11 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		
 		lWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		rWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.3, 0, 1 ), 1.57000000, "exponential", -100, 100)
-		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.3, 0, 1 ),  1.57000000, "exponential", -100, 100)
+		lFrontSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.3, 0, 1 ), 1.57000000, "exponential", -100, 100)
+		rFrontSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.3, 0, 1 ),  1.57000000, "exponential", -100, 100)
 		
-		lFrontSensor.setType("BraitenbergSounds")
-		rFrontSensor.setType("BraitenbergSounds")
-		
-		lFrontSensor.link(rWheel)
-		rFrontSensor.link(lWheel)
+		lFrontSensor.link(lWheel)
+		rFrontSensor.link(rWheel)
 		
 		lWheel.setNaturalVelocity(0.00000)
 		rWheel.setNaturalVelocity(0.00000)

@@ -346,52 +346,38 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 	'''A BraitenbergBlockSensor is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a sensor to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
 
 	def iterate( self ):
+		'''Calculates the signal strength according to the closest source that it finds within the it's range.'''
 		i = None
-		blocks = 0
+		objects = 0
 		angle = 0
 		strength = 0
 		total = 0
 		transDir = breve.vector()
-		toBlock = breve.vector()
+		dist = breve.vector()
 
+		minDist=None
+		
 		transDir = ( self.getRotation() * self.direction )
-
-		block,toBlock = getClosestBlock()
-		if(block!=None):
-			strength = breve.length( ( self.getLocation() - block.getLocation() ) )
-			strength = ( 1.000000 / ( strength * strength ) )
-			if ( self.activationObject ):
-				strength = self.activationObject.activate(strength)
-
-
-			if ( strength > 10 ):
-				strength = 10
-
-			total = ( total + strength )
-			blocks = ( blocks + 1 )
-
-			if ( blocks != 0 ):
-				total = ( total / blocks )
-
-			total = ( ( 50 * total ) * self.bias )
-			self.wheels.activate( total )
-
-	'''Finds the closest block of all the blocks in the vision range.'''
-	def getClosestBlock(self):
-		min = ()
-		node = None
-		angle = breve.breveInternalFunctionFinder.angle( self, toBlock, transDir )
 		'''Only detects blocks.'''
 		for i in breve.allInstances( "BraitenbergBlocks" ):
-			if ( angle < self.sensorAngle ):
-				temp = abs(i.getLocation() - self.getLocation() )
-				if temp < min:
-					min = temp
-					node = i
-			
-		return node, min
+			dist = ( i.getLocation() - self.getLocation() )
+			angle = breve.breveInternalFunctionFinder.angle( self, dist, transDir )
+			'''It's inside the angle and it's closer than any other block analyzed so far.'''
+			if angle < self.sensorAngle :
+				t = breve.length(self.getLocation() - i.getLocation())
+				
+				'''Updates the min distance.'''
+				if minDist == None or t < minDist:
+					minDist = t
+					
+				strength = breve.length( ( self.getLocation() - i.getLocation() ) )
+				strength = ( 1.000000 / ( strength * strength ) )
+
+				total = strength
+
+		total = ( ( 50 * total ) * self.bias )
+		self.wheels.activate( total )
 	
-	'''To be defined better at a later stage.'''
 	def setRange( self, range ):
 		pass
 
