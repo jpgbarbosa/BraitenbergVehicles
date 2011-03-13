@@ -376,6 +376,7 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 			total = ( ( 50 * total ) * self.bias )
 			self.wheels.activate( total )
 
+	'''Finds the closest block of all the blocks in the vision range.'''
 	def getClosestBlock(self):
 		min = ()
 		node = None
@@ -390,6 +391,7 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 			
 		return node, min
 	
+	'''To be defined better at a later stage.'''
 	def setRange( self, range ):
 		pass
 
