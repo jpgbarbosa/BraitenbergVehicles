@@ -20,7 +20,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		myBraitenbergControl.init( self )
 
 	def init( self ):
-		
+		'''Several scenarios available.'''
 		if self.scenario == 'Circle':
 			self.n = 0
 			while ( self.n < 40 ):
@@ -43,15 +43,20 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 20, 1, 17))
 
 		
+		'''Creates the vehicle.'''
 		self.vehicle = breve.createInstances( breve.BraitenbergVehicle, 1 )
 		self.watch( self.vehicle )
 		self.vehicle.move(breve.vector(0,1,15))
 		
+		'''Adds wheels and sensors.'''
 		lWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		rWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, 1.5 ))
 		lFrontSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.3, 0, 1 ), 1.57000000, "exponential", -100, 100)
 		rFrontSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.3, 0, 1 ),  1.57000000, "exponential", -100, 100)
 		
+		'''WARNING: If we are adding sensor other than block sensors, we have to make the setType.'''
+		
+		'''Links the sensors to the wheels.'''
 		lFrontSensor.link(lWheel)
 		rFrontSensor.link(rWheel)
 		
