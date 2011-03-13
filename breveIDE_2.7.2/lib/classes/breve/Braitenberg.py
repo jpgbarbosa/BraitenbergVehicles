@@ -60,7 +60,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		activationFunction.setUpperBound(upperBound)
 		sensor.setActivationObject( activationFunction )
 		
-		joint = breve.createInstances( breve.FixedJoint, 1 )
+		joint = breve.createInstances( breve.RevoluteJoint, 1 )
 		joint.setRelativeRotation( axis, angle )
 			
 		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
@@ -87,7 +87,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		activationFunction.setUpperBound(upperBound)
 		sensor.setActivationObject( activationFunction )
 		
-		joint = breve.createInstances( breve.FixedJoint, 1 )
+		joint = breve.createInstances( breve.RevoluteJoint, 1 )
 		joint.setRelativeRotation( axis, ang )
 			
 		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
