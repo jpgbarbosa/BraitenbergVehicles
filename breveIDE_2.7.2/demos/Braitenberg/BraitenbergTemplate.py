@@ -55,8 +55,8 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		lFrontSensor.setType("BraitenbergSounds")
 		rFrontSensor.setType("BraitenbergSounds")
 		
-		lFrontSensor.link(lWheel)
-		rFrontSensor.link(rWheel)
+		lFrontSensor.link(rWheel)
+		rFrontSensor.link(lWheel)
 		
 		lWheel.setNaturalVelocity(0.00000)
 		rWheel.setNaturalVelocity(0.00000)
