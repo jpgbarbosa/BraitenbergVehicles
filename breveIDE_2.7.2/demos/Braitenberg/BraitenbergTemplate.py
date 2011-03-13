@@ -58,8 +58,8 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		lWheel.setNaturalVelocity(0.00000)
 		rWheel.setNaturalVelocity(0.00000)
 		
-		lFrontSensor.setBias(5)
-		rFrontSensor.setBias(5)
+		lFrontSensor.setBias(2)
+		rFrontSensor.setBias(2)
 
 breve.myBraitenbergControl = myBraitenbergControl
 
