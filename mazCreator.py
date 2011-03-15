@@ -1,3 +1,5 @@
+objectType = "BraitenbergSound";
+
 def main():
     filename = "maze.txt"
 
@@ -8,25 +10,29 @@ def main():
 
     #Reads the limits of the maze.
     numbers = f.readline()
-    lineLimit = int(numbers.split(" ")[0])
     columnLimit = int(numbers.split(" ")[1])
+    lineLimit = int(numbers.split(" ")[0])
     print lineLimit, columnLimit
 
     #Reads the maze itself.
     text = f.readlines()
 
     #Iterates over the lines.
-    for i in text:
-        for t in i[0:-1]:
-            if (t == "*"):
-                if (isHorizontal(line, column, lineLimit, columnLimit, i)): 
-                    printHorizontal()
-                else:
-                    printVertical()
-            column += 1
+    for i in xrange(len(text)):
+        for t in xrange(len(text[i])):
+            if (text[i][j] == "*"):
+                self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
+                self.obj = breve.createInstances( breveBraitenbergSound, 1)
+                self.obj.move( breve.vector(i*10, 2, j*10))
+                s.move(breve.vector(i*10, 2, j*10))    
+  #              if (isHorizontal(line, column, lineLimit, columnLimit, i)): 
+  #                  printHorizontal(line, column)
+   #             else:
+    #                printVertical(line, column)
+    #        column += 1
 
-        line += 1
-        column = 0;
+      #  line += 1
+       # column = 0;
 
     print text
 
@@ -49,12 +55,18 @@ def isHorizontal(line, column, lineLimit, columnLimit, lineRead):
     return False;
 
 #Prints an horizontal wall.
-def printHorizontal():
-    print "Horizontal"
+def printHorizontal(line, column):
+    i = 0
+
+    text = "for i in range(1,4):\n\tself.obj = breve.createInstances ( breve." + objectType + ", 1)\n\tself.obj.move( breve.vector(i*"+ "4,0," + str(line) + "))"
+    print text
 
 #Prints a vertical wall.
-def printVertical():
-    print "Vertical"
+def printVertical(line, column):
+    '''
+    for i in range(10,14):	
+	self.block = breve.createInstances( breve.BraitenbergSound,1)
+	self.block.move( breve.vector(i*4,0,5))'''
 
 if __name__ == "__main__":
     main()

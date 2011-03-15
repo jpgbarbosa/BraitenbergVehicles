@@ -413,6 +413,9 @@ class BraitenbergActivationObject( breve.Abstract ):
 	def setType (self, type):
 		self.type = type
 	
+	def gauss(self, x, dev, t=0):
+		return (1/(sqrt(2*pi)*dev))*exp(-(x-t)**2/2*(dev**2))
+			
 	def activate(self, s):
 		'''strength will be the returning value.'''
 		
@@ -420,9 +423,11 @@ class BraitenbergActivationObject( breve.Abstract ):
 		if self.type == "linear":
 			strength = s
 		elif self.type == "gaussian":
-			strength = random.gauss(s, 0.1)
+			strength = self.gauss(s,1,0)
 		elif self.type == "exponencial":
 			strength = s**2
+		elif self.type == "log":
+			strength = log(s,base)
 		else:
 			strength = s
 			
@@ -433,8 +438,7 @@ class BraitenbergActivationObject( breve.Abstract ):
 			strength = self.upperBound
 
 		return strength
-		
-		
+	
 	def setLowerBound (self, bound):
 		self.lowerBound = bound
 		

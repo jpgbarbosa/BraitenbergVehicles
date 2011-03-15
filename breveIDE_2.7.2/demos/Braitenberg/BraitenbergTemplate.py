@@ -5,6 +5,7 @@
 
 
 import breve
+import os
 
 class myBraitenbergControl( breve.BraitenbergControl ):
 	def __init__( self ):
@@ -16,8 +17,9 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Tunel'
+		self.scenario = 'Maze'
 		self.block = None
+		self.obj = None
 		myBraitenbergControl.init( self )
 
 	def init( self ):
@@ -72,6 +74,26 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 				self.block.move( breve.vector(i*4,0,-40))
 			
 			
+		elif self.scenario == 'Maze':
+			
+			filename = "maze.txt"
+			f = open(filename, "r")
+		
+			#Reads the limits of the maze.
+		
+			#Reads the maze itself.
+			text = f.readlines()
+
+			#Iterates over the lines.
+			for i in xrange(len(text)):
+				for t in xrange(len(text[i])):
+					if (text[i][t] == "*"):
+						self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
+						self.obj.move( breve.vector(i*2, 0, t*2))  
+					elif (text[i][t] == "o"):
+						self.block = breve.createInstances ( breve.BraitenbergBlock, 1)
+						self.block.move( breve.vector(i*2, 0, t*2))
+			
 		elif self.scenario == 'Attraction':
 			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(14 , 1, 17))
 			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(16 , 1, 21))
@@ -84,13 +106,17 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		'''Creates the vehicle.'''
 		self.vehicle = breve.createInstances( breve.BraitenbergVehicle, 1 )
 		self.watch( self.vehicle )
-		self.vehicle.move(breve.vector(0,1,0))
+		self.vehicle.move(breve.vector(2,1,5))
 		
 		'''Adds wheels and sensors.'''
 		lWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		rWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.3, 0, 1 ), 1.57000000, "exponential", -100, 100)
-		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.3, 0, 1 ),  1.57000000, "exponential", -100, 100)
+		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "exponential", -100, 100)
+		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "exponential", -100, 100)
+		
+		lBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "gaussian", -100, 100)
+		rBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "gaussian", -100, 100)
+		
 		
 		'''WARNING: If we are adding sensor other than block sensors, we have to make the setType.'''
 		lFrontSensor.setType("BraitenbergSounds")
@@ -100,11 +126,17 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		lFrontSensor.link(lWheel)
 		rFrontSensor.link(rWheel)
 		
-		lWheel.setNaturalVelocity(0.50000)
-		rWheel.setNaturalVelocity(0.50000)
+		'''Block sensors.'''
+		lBlockSensor.link(lWheel)
+		rBlockSensor.link(rWheel)
+
+		lWheel.setNaturalVelocity(2.00000)
+		rWheel.setNaturalVelocity(2.00000)
 		
 		lFrontSensor.setBias(5)
-		rFrontSensor.setBias(5)
+		rFrontSensor.setBias(5)
+		lBlockSensor.setBias(10)
+		rBlockSensor.setBias(10)
 
 breve.myBraitenbergControl = myBraitenbergControl
 
