@@ -404,40 +404,86 @@ class BraitenbergActivationObject( breve.Abstract ):
 		breve.Abstract.__init__( self )
 		self.type = None
 		self.lowerBound = 0
-		self.upperBound = 0
+		self.upperBound = () #infinte by default
+		self.leftBound = 0
+		self.rightBound = () #infinte by default
+		
+		#Log parameters
+		self.base = 10
+		
+		#Gaussian parameters
+		self.gaussMedian = 0
+		self.gaussDev = 1
+		self.gaussMov = 0
+		
+		#Exponential paramenters
+		self.exponent = 2
 	
 	def setType (self, type):
 		self.type = type
-	
+		
 	def activate(self, s):
 		'''strength will be the returning value.'''
+		
+		''' Adjust s according left and right bounds.'''
+		if s < self.leftBound:
+			s = self.leftBound
+		elif s > self.rightBound:
+			s = rightBound
 		
 		'''Adequates the input s to a given funcation.'''
 		if self.type == "linear":
 			strength = s
 		elif self.type == "gaussian":
-			strength = random.gauss(s, 0.1)
+			strength = self.gaussian(s,gaussMedian,gaussDev,gaussMov)
 		elif self.type == "exponencial":
-			strength = s**2
+			strength = s**exponent
+		elif self.type == "log":
+			strength = log(s,base)
 		else:
 			strength = s
+				
 			
 		'''Adjust the output according to the lower and upper bounds.'''
 		if strength < self.lowerBound:
 			strength = self.lowerBound
 		elif strength > self.upperBound:
 			strength = self.upperBound
+			
 
 		return strength
+	
+	
+	def gaussian(self, x, dev, t=0):
+		return (1/(sqrt(2*pi)*dev))*exp(-(x-t)**2/2*(dev**2))	
 		
+	def setGauss(self, med, dev, mov =0):
+		self.gaussMedian = med
+		self.gaussDev = dev
+		self.gaussMov = mov
+	
+	
+	def setExp(self, exp):
+		self.exponent = exp
+	
+	
+	def setLogBase (self, base):
+		self.type = type
+	
 		
 	def setLowerBound (self, bound):
 		self.lowerBound = bound
 		
 	def setUpperBound (self, bound):
 		self.upperBound = bound
-		
-			
+	
+	def setLeftBound(self, bound):
+		self.leftBound = bound
+	
+	def setRightBound(self, bound):
+		self.rightBound = bound		
+	
+	
 breve.BraitenbergActivationObject = BraitenbergActivationObject
 
 # Add our newly created classes to the breve namespace

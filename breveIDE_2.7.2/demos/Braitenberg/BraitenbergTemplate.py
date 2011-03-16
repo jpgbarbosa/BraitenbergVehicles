@@ -129,14 +129,17 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		'''Block sensors.'''
 		lBlockSensor.link(lWheel)
 		rBlockSensor.link(rWheel)
-
-		lWheel.setNaturalVelocity(2.00000)
-		rWheel.setNaturalVelocity(2.00000)
 		
-		lFrontSensor.setBias(5)
-		rFrontSensor.setBias(5)
-		lBlockSensor.setBias(10)
-		rBlockSensor.setBias(10)
+		lBlockSensor.activationObject.setGauss(0,3,0)
+
+		
+		lWheel.setNaturalVelocity(1.00000)
+		rWheel.setNaturalVelocity(1.00000)
+		
+		lFrontSensor.setBias(3)
+		rFrontSensor.setBias(3)
+		lBlockSensor.setBias(5)
+		rBlockSensor.setBias(5)
 
 breve.myBraitenbergControl = myBraitenbergControl
 
