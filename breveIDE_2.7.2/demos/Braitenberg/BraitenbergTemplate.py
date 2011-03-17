@@ -87,12 +87,12 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			#Iterates over the lines.
 			for i in xrange(len(text)):
 				for t in xrange(len(text[i])):
-					if (text[i][t] == "*"):
+					if (text[i][t] == "o"):
 						self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
-						self.obj.move( breve.vector(i*2, 0, t*2))  
-					elif (text[i][t] == "o"):
+						self.obj.move( breve.vector(i*3, 0, t*2))  
+					elif (text[i][t] == "*"):
 						self.block = breve.createInstances ( breve.BraitenbergBlock, 1)
-						self.block.move( breve.vector(i*2, 0, t*2))
+						self.block.move( breve.vector(i*3, 0, t*2))
 			
 		elif self.scenario == 'Attraction':
 			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(14 , 1, 17))
@@ -103,43 +103,93 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 20, 1, 17))
 
 		
-		'''Creates the vehicle.'''
+		'''Creates the first vehicle.'''
 		self.vehicle = breve.createInstances( breve.BraitenbergVehicle, 1 )
 		self.watch( self.vehicle )
-		self.vehicle.move(breve.vector(2,1,5))
+		self.vehicle.move(breve.vector(30,1,5))
 		
 		'''Adds wheels and sensors.'''
 		lWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		rWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "exponential", -100, 100)
-		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "exponential", -100, 100)
+		self.vehicle.addSense (breve.vector( 0, 0.7, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Light")
+		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "linear", -100, 100)
+		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "linear", -100, 100)
 		
-		lBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "gaussian", -100, 100)
-		rBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "gaussian", -100, 100)
+		backOlfactionSensor = self.vehicle.addSensor (breve.vector( -2.2, 0.1, 0 ),breve.vector( 0, 0, 1 ),  -1.57000000, "linear", -100, 100)
+		
+		
+		lBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "linear", -100, 100)
+		rBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "linear", -100, 100)
 		
 		
 		'''WARNING: If we are adding sensor other than block sensors, we have to make the setType.'''
 		lFrontSensor.setType("BraitenbergSounds")
 		rFrontSensor.setType("BraitenbergSounds")
+		backOlfactionSensor.setType("BraitenbergOlfactions")
+		
+		'''Links the sensors to the wheels.'''
+		lFrontSensor.link(lWheel)
+		rFrontSensor.link(rWheel)
+		backOlfactionSensor.link(lWheel)
+		backOlfactionSensor.link(rWheel)
+
+		'''Block sensors.'''
+		lBlockSensor.link(rWheel)
+		rBlockSensor.link(lWheel)
+		
+		#lBlockSensor.activationObject.setGauss(0.001,0)
+		#rBlockSensor.activationObject.setGauss(0.001,0)
+
+		
+		lWheel.setNaturalVelocity(1.00000)
+		rWheel.setNaturalVelocity(1.00000)
+		
+		lFrontSensor.setBias(10)
+		rFrontSensor.setBias(10)
+		lBlockSensor.setBias(5)
+		rBlockSensor.setBias(5)
+		backOlfactionSensor.setBias(7)
+				
+		'''Creates the second vehicle.'''
+		monsterOne = breve.createInstances( breve.BraitenbergVehicle, 1 )
+		monsterOne.move(breve.vector(20,1,5))
+		
+		'''Adds wheels and sensors.'''
+		lWheel = monsterOne.addWheel (breve.vector( -0.5, 0, -1.5 ))
+		rWheel = monsterOne.addWheel (breve.vector( -0.5, 0, 1.5 ))
+		monsterOne.addSense (breve.vector( 0, 0.7, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Olfaction")
+		lFrontSensor = monsterOne.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "linear", -100, 100)
+		rFrontSensor = monsterOne.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "linear", -100, 100)
+		
+		lLightSensor = monsterOne.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "linear", -100, 100)
+		rLightSensor = monsterOne.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "linear", -100, 100)
+		
+		
+		'''WARNING: If we are adding sensor other than block sensors, we have to make the setType.'''
+		lFrontSensor.setType("BraitenbergSounds")
+		rFrontSensor.setType("BraitenbergSounds")
+		lLightSensor.setType("BraitenbergLights")
+		rLightSensor.setType("BraitenbergLights")
 		
 		'''Links the sensors to the wheels.'''
 		lFrontSensor.link(lWheel)
 		rFrontSensor.link(rWheel)
 		
 		'''Block sensors.'''
-		lBlockSensor.link(lWheel)
-		rBlockSensor.link(rWheel)
+		lLightSensor.link(rWheel)
+		rLightSensor.link(lWheel)
 		
-		lBlockSensor.activationObject.setGauss(0,3,0)
+		#lBlockSensor.activationObject.setGauss(0.001,0)
+		#rBlockSensor.activationObject.setGauss(0.001,0)
 
 		
 		lWheel.setNaturalVelocity(1.00000)
 		rWheel.setNaturalVelocity(1.00000)
 		
-		lFrontSensor.setBias(3)
-		rFrontSensor.setBias(3)
-		lBlockSensor.setBias(5)
-		rBlockSensor.setBias(5)
+		lFrontSensor.setBias(10)
+		rFrontSensor.setBias(10)
+		lLightSensor.setBias(5)
+		rLightSensor.setBias(5)
 
 breve.myBraitenbergControl = myBraitenbergControl
 

@@ -22,9 +22,7 @@ def main():
         for t in xrange(len(text[i])):
             if (text[i][j] == "*"):
                 self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
-                self.obj = breve.createInstances( breveBraitenbergSound, 1)
-                self.obj.move( breve.vector(i*10, 2, j*10))
-                s.move(breve.vector(i*10, 2, j*10))    
+                self.obj.move( breve.vector(i*10, 2, j*10))   
   #              if (isHorizontal(line, column, lineLimit, columnLimit, i)): 
   #                  printHorizontal(line, column)
    #             else:

@@ -60,16 +60,38 @@ class BraitenbergVehicle( breve.MultiBody ):
 		activationFunction.setUpperBound(upperBound)
 		sensor.setActivationObject( activationFunction )
 		
-		joint = breve.createInstances( breve.RevoluteJoint, 1 )
+		joint = breve.createInstances( breve.FixedJoint, 1 )
 		joint.setRelativeRotation( axis, angle )
 			
-		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
+		joint.link( location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
 		joint.setDoubleSpring( 300, 0.010000, -0.010000 )
 		self.addDependency( joint )
 		self.addDependency( sensor )
 		sensor.setColor( breve.vector( 0, 0, 0 ) )
 		self.sensors.append( sensor )
 		return sensor
+		
+	def addSense( self, location , axis, angle, type):
+		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergLightSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
+
+		'''This sensor can interact with light, smell and sound. The final type of the sensor is defined by a method of the sensor itself.'''
+		joint = None
+		sense = None
+
+		if type == "Light":
+			sense = breve.createInstances( breve.BraitenbergLight, 1 )
+		elif type == "Olfaction":
+			sense = breve.createInstances( breve.BraitenbergOlfaction, 1 )
+		
+		joint = breve.createInstances( breve.FixedJoint, 1 )
+		joint.setRelativeRotation( axis, angle )
+			
+		joint.link( location, breve.vector( 0, 0, 0 ), sense, self.bodyLink )
+		joint.setDoubleSpring( 300, 0.010000, -0.010000 )
+		self.addDependency( joint )
+		self.addDependency( sense )
+		self.sensors.append( sense )
+		return sense
 		
 	def addBlockSensor( self, location , axis, ang, function, lowerBound = -1000, upperBound = 1000):
 		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
@@ -87,10 +109,10 @@ class BraitenbergVehicle( breve.MultiBody ):
 		activationFunction.setUpperBound(upperBound)
 		sensor.setActivationObject( activationFunction )
 		
-		joint = breve.createInstances( breve.RevoluteJoint, 1 )
+		joint = breve.createInstances( breve.FixedJoint, 1 )
 		joint.setRelativeRotation( axis, ang )
 			
-		joint.link( breve.vector( 1, 0, 0 ), location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
+		joint.link( location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
 		joint.setDoubleSpring( 300, 0.010000, -0.010000 )
 		self.addDependency( joint )
 		self.addDependency( sensor )
@@ -169,16 +191,22 @@ class BraitenbergHeavyVehicle( breve.BraitenbergVehicle ):
 
 
 breve.BraitenbergHeavyVehicle = BraitenbergHeavyVehicle
-class BraitenbergLight( breve.Mobile ):
+class BraitenbergLight( breve.Link):
 	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Mobile.__init__( self )
+		breve.Link.__init__( self )
+		self.intensity = 0
+		self.joint = None
 		BraitenbergLight.init( self )
 
 	def init( self ):
 		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
 		self.setColor( breve.vector( 1, 0, 0 ) )
+		self.intensity = 1.5
+		
+	def getIntensity( self ):
+		return self.intensity
 
 
 breve.BraitenbergLight = BraitenbergLight
@@ -189,26 +217,37 @@ class BraitenbergSound( breve.Mobile ):
 
 	def __init__( self ):
 		breve.Mobile.__init__( self )
+		self.intensity = 0
 		BraitenbergSound.init( self )
 
 	def init( self ):
 		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
 		self.setColor( breve.vector( 0, 1, 0 ) )
+		self.intensity = 1.5
+		
+	def getIntensity( self ):
+		return self.intensity
 
 
 breve.BraitenbergSound = BraitenbergSound
 
 
-class BraitenbergOlfaction( breve.Mobile ):
+class BraitenbergOlfaction( breve.Link ):
 	'''A BraitenbergOlfaction is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Mobile.__init__( self )
+		breve.Link.__init__( self )
+		self.intensity = 0
+		self.joint = None
 		BraitenbergOlfaction.init( self )
 
 	def init( self ):
 		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
 		self.setColor( breve.vector( 0, 0, 1 ) )
+		self.intensity = 1.5
+		
+	def getIntensity( self ):
+		return self.intensity
 
 
 breve.BraitenbergOlfaction = BraitenbergOlfaction
@@ -318,7 +357,7 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 			toLight = ( i.getLocation() - self.getLocation() )
 			angle = breve.breveInternalFunctionFinder.angle( self, toLight, transDir )
 			if ( angle < self.sensorAngle ):
-				strength = breve.length( ( self.getLocation() - i.getLocation() ) )
+				strength = breve.length( ( self.getLocation() - i.getLocation() ) * i.getIntensity())
 				strength = ( 1.000000 / ( strength * strength ) )
 				if ( self.activationObject ):
 					strength = self.activationObject.activate(strength)
@@ -370,10 +409,16 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 				if minDist == None or t < minDist:
 					minDist = t
 					
-				strength = breve.length( ( self.getLocation() - i.getLocation() ) )
-				strength = ( 1.000000 / ( strength * strength ) )
+					strength = breve.length( ( self.getLocation() - i.getLocation() ) * i.getReflection())
+					strength = ( 1.000000 / ( strength * strength ) )
+					
+					if ( self.activationObject ):
+						strength = self.activationObject.activate(strength)
 
-				total = strength
+					if ( strength > 10 ):
+						strength = 10
+
+					total = strength
 
 		total = ( ( 50 * total ) * self.bias )
 		self.wheels.activate( total )
@@ -388,12 +433,16 @@ class BraitenbergBlock( breve.Link ):
 
 	def __init__( self ):
 		breve.Mobile.__init__( self )
+		self.reflection = 0
 		BraitenbergBlock.init( self )
 
 	def init( self ):
-		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(3,3,3) ) )
+		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(2,2,2) ) )
 		self.setColor( breve.vector( 10, 0,  0) )
-
+		self.reflection = 1.5
+	
+	def getReflection( self ):
+		return self.reflection
 
 breve.BraitenbergBlock = BraitenbergBlock	
 
@@ -409,10 +458,9 @@ class BraitenbergActivationObject( breve.Abstract ):
 		self.rightBound = () #infinte by default
 		
 		#Log parameters
-		self.base = 10
+		self.base = 0.5
 		
 		#Gaussian parameters
-		self.gaussMedian = 0
 		self.gaussDev = 1
 		self.gaussMov = 0
 		
@@ -435,11 +483,11 @@ class BraitenbergActivationObject( breve.Abstract ):
 		if self.type == "linear":
 			strength = s
 		elif self.type == "gaussian":
-			strength = self.gaussian(s,gaussMedian,gaussDev,gaussMov)
+			strength = self.gaussian(s,self.gaussDev,self.gaussMov)
 		elif self.type == "exponencial":
-			strength = s**exponent
+			strength = s**self.exponent
 		elif self.type == "log":
-			strength = log(s,base)
+			strength = log(self.base, s)
 		else:
 			strength = s
 				
@@ -457,8 +505,7 @@ class BraitenbergActivationObject( breve.Abstract ):
 	def gaussian(self, x, dev, t=0):
 		return (1/(sqrt(2*pi)*dev))*exp(-(x-t)**2/2*(dev**2))	
 		
-	def setGauss(self, med, dev, mov =0):
-		self.gaussMedian = med
+	def setGauss(self, dev, mov =0):
 		self.gaussDev = dev
 		self.gaussMov = mov
 	
