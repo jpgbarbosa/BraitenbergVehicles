@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Elipse'
+		self.scenario = 'Eight'
 		self.block = None
 		self.obj = None
 		
@@ -43,32 +43,62 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.block.move( breve.vector(-18,1,15))
 		
 		
-		'''Adds wheels and sensors.'''
-		lWheel = self.vehicle.addWheel (breve.vector( 0, 0, -1.5 ))
-		rWheel = self.vehicle.addWheel (breve.vector( 0, 0, 1.5 ))
-		
-		#Correct values
-		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.75, 0, 1 ), 1.57000000, "gaussian")
-		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.75, 0, 1 ),  1.57000000, "gaussian")
+			'''Adds wheels and sensors.'''
+			lWheel = self.vehicle.addWheel (breve.vector( 0, 0, -1.5 ))
+			rWheel = self.vehicle.addWheel (breve.vector( 0, 0, 1.5 ))
+			
+			#Correct values
+			lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.75, 0, 1 ), 1.57000000, "BraitenbergSounds", "gaussian")
+			rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.75, 0, 1 ),  1.57000000, "BraitenbergSounds", "gaussian")
+			
+			lFrontSensor.activationObject.setGauss(0.01,0.002)
+			rFrontSensor.activationObject.setGauss(0.01,0.002)
+			
+			'''Links the sensors to the wheels.'''
+			lFrontSensor.link(rWheel)
+			rFrontSensor.link(lWheel)
 	
-		'''WARNING: If we are adding sensor other than block sensors, we have to make the setType.'''
-		lFrontSensor.setType("BraitenbergSounds")
-		rFrontSensor.setType("BraitenbergSounds")
+			#Correct values
+			lWheel.setNaturalVelocity(1.16)
+			rWheel.setNaturalVelocity(1.16)
+			
+			#Correct values
+			lFrontSensor.setBias(0.005)
+			rFrontSensor.setBias(0.005)
+	
+		elif self.scenario == 'Eight':
+			self.vehicle.move(breve.vector(0,1,10))
+			self.vehicle.rotate(breve.vector(0,1,0),4.14)
+			
+			self.block = breve.createInstances( breve.BraitenbergSound,1)
+			self.block.move( breve.vector(2,1,15))
+			self.block = breve.createInstances( breve.BraitenbergSound,1)
+			self.block.move( breve.vector(-18,1,15))		
 		
-		lFrontSensor.activationObject.setGauss(0.1,0.02)
-		rFrontSensor.activationObject.setGauss(0.1,0.02)
 		
-		'''Links the sensors to the wheels.'''
-		lFrontSensor.link(rWheel)
-		rFrontSensor.link(lWheel)
+			'''Adds wheels and sensors.'''
+			lWheel = self.vehicle.addWheel (breve.vector( 0, 0, -1.5 ))
+			rWheel = self.vehicle.addWheel (breve.vector( 0, 0, 1.5 ))
+			
+			#Correct values
+			lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.3, 0, 1 ),1.570000000, "BraitenbergSounds", "gaussian")
+			rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.3, 0, 1 ),  1.570000000, "BraitenbergSounds", "gaussian")
+			
+			lFrontSensor.activationObject.setGauss(0.01,0.002)
+			rFrontSensor.activationObject.setGauss(0.01,0.002)
+			
+			'''Links the sensors to the wheels.'''
+			lFrontSensor.link(rWheel)
+			rFrontSensor.link(lWheel)
+	
+			#Correct values
+			lWheel.setNaturalVelocity(0)
+			rWheel.setNaturalVelocity(0)
+			
+			#Correct values
+			lFrontSensor.setBias(0.04)
+			rFrontSensor.setBias(0.04)
 
-		#Correct values
-		lWheel.setNaturalVelocity(1.16)
-		rWheel.setNaturalVelocity(1.16)
-		
-		#Correct values
-		lFrontSensor.setBias(0.005)
-		rFrontSensor.setBias(0.005)
 
 
 breve.myBraitenbergControl = myBraitenbergControl

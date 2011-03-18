@@ -44,7 +44,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.wheels = breve.objectList()
 		BraitenbergVehicle.init( self )
 
-	def addSensor( self, location , axis, angle, function, lowerBound = -1000, upperBound = 1000):
+	def addSensor( self, location , axis, angle, type, function, lowerBound = -1000, upperBound = 1000):
 		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergLightSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
 
 		'''This sensor can interact with light, smell and sound. The final type of the sensor is defined by a method of the sensor itself.'''
@@ -67,7 +67,9 @@ class BraitenbergVehicle( breve.MultiBody ):
 		joint.setDoubleSpring( 300, 0.010000, -0.010000 )
 		self.addDependency( joint )
 		self.addDependency( sensor )
-		sensor.setColor( breve.vector( 0, 0, 0 ) )
+		
+		sensor.setType(type)
+			
 		self.sensors.append( sensor )
 		return sensor
 		
@@ -134,7 +136,8 @@ class BraitenbergVehicle( breve.MultiBody ):
 		wheel.setET( 0.800000 )
 		wheel.setJoint( joint )
 		joint.setStrengthLimit( ( joint.getStrengthHardLimit() / 2 ) )
-		wheel.setColor( breve.vector( 0.600000, 0.600000, 0.600000 ) )
+		#wheel.setColor( breve.vector( 0.600000, 0.600000, 0.600000 ) )
+		wheel.setColor( breve.vector( 1, 0, 0 ) )
 		wheel.setMu( 100000 )
 		self.addDependency( joint )
 		self.addDependency( wheel )
@@ -171,6 +174,9 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.setRoot( self.bodyLink )
 		self.move( breve.vector( 0, 0.900000, 0 ) )
 		self.setTextureScale( 1.500000 )
+		
+		
+		self.bodyLink.setColor( breve.vector( 0, 0, 0 ) )
 
 
 breve.BraitenbergVehicle = BraitenbergVehicle
@@ -207,6 +213,9 @@ class BraitenbergLight( breve.Link):
 		
 	def getIntensity( self ):
 		return self.intensity
+		
+	def setIntensity( self, itense ):
+		self.intensity = itense
 
 
 breve.BraitenbergLight = BraitenbergLight
@@ -223,10 +232,13 @@ class BraitenbergSound( breve.Mobile ):
 	def init( self ):
 		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
 		self.setColor( breve.vector( 0, 1, 0 ) )
-		self.intensity = 1.5
+		self.intensity = 1
 		
 	def getIntensity( self ):
 		return self.intensity
+	
+	def setIntensity( self, itense ):
+		self.intensity = itense
 
 
 breve.BraitenbergSound = BraitenbergSound
@@ -248,11 +260,12 @@ class BraitenbergOlfaction( breve.Link ):
 		
 	def getIntensity( self ):
 		return self.intensity
+		
+	def setIntensity( self, itense ):
+		self.intensity = itense
 
 
 breve.BraitenbergOlfaction = BraitenbergOlfaction
-
-
 
 class BraitenbergWheel( breve.Link ):
 	'''A BraitenbergWheel is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a wheel to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
@@ -376,6 +389,14 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 	
 	def setType( self , type ):
 		self.sensorType = type
+		
+		if type == "BraitenbergLights":
+			self.setColor( breve.vector( 1, 0, 0 ) )
+		elif type == "BraitenbergSounds":
+			self.setColor( breve.vector( 0, 1, 0 ) )
+		elif type == "BraitenbergOlfactions":
+			self.setColor( breve.vector( 0, 0, 1 ) )
+			
 		
 		
 breve.BraitenbergSensor = BraitenbergSensor
