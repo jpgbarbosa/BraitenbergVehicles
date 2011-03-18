@@ -72,6 +72,14 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			for i in range(10,14):	
 				self.block = breve.createInstances( breve.BraitenbergSound,1)
 				self.block.move( breve.vector(i*4,0,-40))
+						elif self.scenario == 'eight':
+			self.vehicle.move(breve.vector(2,1,10))
+			self.vehicle.rotate(breve.vector(0,1,0),-0.05)
+			
+			self.block = breve.createInstances( breve.BraitenbergBlock,1)
+			self.block.move( breve.vector(2,1,15))
+			self.block = breve.createInstances( breve.BraitenbergBlock,1)
+			self.block.move( breve.vector(-18,1,15))
 			
 			
 		elif self.scenario == 'Maze':
