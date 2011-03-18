@@ -1,0 +1,4 @@
+BEST:
+bias: 0.349
+naturalV: 1.16
+uB: 0.66
