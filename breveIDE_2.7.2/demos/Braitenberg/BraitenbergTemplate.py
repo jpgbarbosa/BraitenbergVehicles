@@ -146,8 +146,8 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.vehicle.move(breve.vector(30,1,5))
 			
 			'''Creates the second vehicle.'''
-			#monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
-			#monsterOne.move(breve.vector(20,1,5))
+			monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
+			monsterOne.move(breve.vector(20,1,5))
 		elif self.scenario == '3c':
 			'''Creates the first vehicle.'''
 			self.vehicle = breve.createInstances( breve.Braitenberg3c, 1 )

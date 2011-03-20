@@ -286,8 +286,8 @@ class BraitenbergPacman( breve.BraitenbergVehicle ):
 		#self.rBlockSensor.activationObject.setGauss(0.001,0)
 
 		
-		self.lWheel.setNaturalVelocity(1.50000)
-		self.rWheel.setNaturalVelocity(1.50000)
+		self.lWheel.setNaturalVelocity(0.50000)
+		self.rWheel.setNaturalVelocity(0.50000)
 		
 		self.lFrontSensor.setBias(10)
 		self.rFrontSensor.setBias(10)
@@ -783,25 +783,23 @@ class BraitenbergActivationObject( breve.Abstract ):
 		'''strength will be the returning value.'''
 		
 		''' Adjust s according left and right bounds.'''
-		if s < self.leftBound:
-			s = self.leftBound
-		elif s > self.rightBound:
-			s = self.rightBound
-		
-		'''Adequates the input s to a given funcation.'''
-		if self.type == "linear":
-			strength = s
-		elif self.type == "gaussian":
-			strength = self.gaussian(s,self.gaussDev,self.gaussMed)
-		elif self.type == "exponential":
-			strength = exp(s)
-		elif self.type == "log":
-			strength = log(self.base, s)
-		elif self.type == "limitsAvoider":
-			strength = self.limitsAvoid(s)
+		if s < self.leftBound or s > self.rightBound:
+			strength = 0
 		else:
-			strength = s
-				
+			'''Adequates the input s to a given funcation.'''
+			if self.type == "linear":
+				strength = s
+			elif self.type == "gaussian":
+				strength = self.gaussian(s,self.gaussDev,self.gaussMed)
+			elif self.type == "exponential":
+				strength = exp(s)
+			elif self.type == "log":
+				strength = log(self.base, s)
+			elif self.type == "limitsAvoider":
+				strength = self.limitsAvoid(s)
+			else:
+				strength = s
+					
 			
 		'''Adjust the output according to the lower and upper bounds.'''
 		if strength < self.lowerBound:

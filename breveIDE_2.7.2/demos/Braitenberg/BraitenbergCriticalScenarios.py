@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Eight'
+		self.scenario = 'Elipse'
 		self.block = None
 		self.sound = None
 		self.obj = None
