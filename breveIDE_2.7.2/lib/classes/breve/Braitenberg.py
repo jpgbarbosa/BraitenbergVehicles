@@ -744,7 +744,7 @@ class BraitenbergActivationObject( breve.Abstract ):
 		if s < self.leftBound:
 			s = self.leftBound
 		elif s > self.rightBound:
-			s = rightBound
+			s = self.rightBound
 		
 		'''Adequates the input s to a given funcation.'''
 		if self.type == "linear":
