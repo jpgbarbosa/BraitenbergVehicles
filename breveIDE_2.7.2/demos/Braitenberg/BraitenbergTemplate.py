@@ -95,6 +95,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 					if (text[i][t] == "o"):
 						self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
 						self.obj.move( breve.vector(i*3, 0, t*2))  
+						self.obj.setIntensity(1)
 					elif (text[i][t] == "*"):
 						self.block = breve.createInstances ( breve.BraitenbergBlock, 1)
 						self.block.move( breve.vector(i*3, 0, t*2))
@@ -106,59 +107,24 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 					elif self.scenario == 'None':
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector(20 , 1, 4))
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 20, 1, 17))
-
-		
-		'''Creates the first vehicle.'''
-		self.vehicle = breve.createInstances( breve.BraitenbergVehicle, 1 )
-		self.watch( self.vehicle )
-			
-		if self.scenario == 'Eight':
-			self.vehicle.move(breve.vector(2,1,10))
-			self.vehicle.rotate(breve.vector(0,1,0),1.05)
-		else:	
-			self.vehicle.move(breve.vector(30,1,5))
-		
-		'''Adds wheels and sensors.'''
-		lWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, -1.5 ))
-		rWheel = self.vehicle.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		self.vehicle.addSense (breve.vector( 0, 0.7, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Light")
-		lFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "BraitenbergSounds", "linear", -100, 100)
-		rFrontSensor = self.vehicle.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "BraitenbergSounds", "linear", -100, 100)
-		
-		backOlfactionSensor = self.vehicle.addSensor (breve.vector( -2.2, 0.1, 0 ),breve.vector( 0, 0, 1 ),  -1.57000000, "BraitenbergOlfactions", "linear", -100, 100)
-		
-		
-		lBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "linear", -100, 100)
-		rBlockSensor = self.vehicle.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "linear", -100, 100)
-		
-		'''Links the sensors to the wheels.'''
-		lFrontSensor.link(lWheel)
-		rFrontSensor.link(rWheel)
-		backOlfactionSensor.link(lWheel)
-		backOlfactionSensor.link(rWheel)
-
-		'''Block sensors.'''
-		lBlockSensor.link(rWheel)
-		rBlockSensor.link(lWheel)
-		
-		#lBlockSensor.activationObject.setGauss(0.001,0)
-		#rBlockSensor.activationObject.setGauss(0.001,0)
-
-		
-		lWheel.setNaturalVelocity(1.00000)
-		rWheel.setNaturalVelocity(1.00000)
-		
-		lFrontSensor.setBias(10)
-		rFrontSensor.setBias(10)
-		lBlockSensor.setBias(5)
-		rBlockSensor.setBias(5)
-		backOlfactionSensor.setBias(7)
-				
+		
 		if self.scenario == 'Maze':
-			'''Creates the second vehicle.'''
-			monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
-			monsterOne.move(breve.vector(20,1,5))
+			'''Creates the first vehicle.'''
+			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
+			self.watch( self.vehicle )
+				
+			self.vehicle.move(breve.vector(30,1,5))
 			
+			'''Creates the second vehicle.'''
+			#monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
+			#monsterOne.move(breve.vector(20,1,5))
+			
+		else:
+			'''Creates the first vehicle.'''
+			self.vehicle = breve.createInstances( breve.BraitenbergTwoWheelsVehicle, 1 )
+			self.watch( self.vehicle )
+				
+			self.vehicle.move(breve.vector(30,1,5))
 	
 breve.myBraitenbergControl = myBraitenbergControl
 
