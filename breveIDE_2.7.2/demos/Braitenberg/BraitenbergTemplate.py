@@ -95,7 +95,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 					if (text[i][t] == "o"):
 						self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
 						self.obj.move( breve.vector(i*3, 0, t*2))  
-						self.obj.setIntensity(1)
+						self.obj.setIntensity(1.5)
 					elif (text[i][t] == "*"):
 						self.block = breve.createInstances ( breve.BraitenbergBlock, 1)
 						self.block.move( breve.vector(i*3, 0, t*2))
