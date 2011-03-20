@@ -276,6 +276,7 @@ class BraitenbergPacman( breve.BraitenbergVehicle ):
 		self.backOlfactionSensor.link(self.lWheel)
 		self.backOlfactionSensor.link(self.rWheel)
 		self.frontSensor.link(self.lWheel)
+		self.frontSensor.link(self.rWheel)
 
 		'''Block sensors.'''
 		self.lBlockSensor.link(self.rWheel)
@@ -292,7 +293,7 @@ class BraitenbergPacman( breve.BraitenbergVehicle ):
 		self.rFrontSensor.setBias(10)
 		self.lBlockSensor.setBias(5)
 		self.rBlockSensor.setBias(5)
-		self.frontSensor.setBias(5)
+		self.frontSensor.setBias(-15)
 		self.backOlfactionSensor.setBias(7)
 			
 breve.BraitenbergTwoWheelsVehicle = BraitenbergTwoWheelsVehicle
@@ -366,8 +367,8 @@ class Braitenberg3c( breve.BraitenbergVehicle ):
 	
 		self.lSoundSensor.setBias(5)
 		self.rSoundSensor.setBias(5)
-		self.lLightSensor.setBias(-5)
-		self.rLightSensor.setBias(-5)
+		self.lLightSensor.setBias(-15)
+		self.rLightSensor.setBias(-15)
 		self.lOlfactionSensor.setBias(5)
 		self.rOlfactionSensor.setBias(5)
 		'''Block sensors.'''
@@ -453,11 +454,12 @@ class BraitenbergHeavyVehicle( breve.BraitenbergVehicle ):
 
 
 breve.BraitenbergHeavyVehicle = BraitenbergHeavyVehicle
-class BraitenbergLight( breve.Link):
+class BraitenbergLight( breve.Mobile):
 	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Link.__init__( self )
+		#breve.Link.__init__( self )
+		breve.Mobile.__init__( self )
 		self.intensity = 0
 		self.joint = None
 		BraitenbergLight.init( self )
@@ -500,11 +502,12 @@ class BraitenbergSound( breve.Mobile ):
 breve.BraitenbergSound = BraitenbergSound
 
 
-class BraitenbergOlfaction( breve.Link ):
+class BraitenbergOlfaction( breve.Mobile ):
 	'''A BraitenbergOlfaction is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Link.__init__( self )
+		#breve.Link.__init__( self )
+		breve.Mobile.__init__( self )
 		self.intensity = 0
 		self.joint = None
 		BraitenbergOlfaction.init( self )
@@ -819,8 +822,8 @@ class BraitenbergActivationObject( breve.Abstract ):
 	
 	def limitsAvoid(self, d):
 		'''We are using here the distance.'''
-		if (d < 1):
-			return 6
+		if (d < 2):
+			return d
 		return 0
 	
 	def setExp(self, exp):

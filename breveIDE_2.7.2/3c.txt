@@ -1,24 +1,27 @@
-                                                            
-                                                            
-                                                        l   
-                                                        l   
-                                                        l   
-       ssssssssssssssssssssssssssssss                   l
-       s                                                l   
-       s                                                l   
-       s                                                l   
-       s                                                l   
-       s                                                l   
-       s         b                                      l   
-       s                                                l   
-       s                                                l   
-                             b                          l   
-                 b                                      l   
-                                                        l   
-                                                        l   
-                                                        l   
-                                                        l   
-                                                        l   
-                                                        l   
-                                                        l   
-ooooooooooooooooooooooooooooooooooooooooooooooooooooooool
+llllllllllllllllllllllllllllllllllllllllllllllllllllllllll    
+ls                 b   b    b   b                        l    
+ls                                 b                     l   
+ls                                                       l   
+ls                                                       l   
+ls      ssssssssssssssssssssssssssssss                   l
+ls      s                                                l   
+ls      s                                                l   
+ls      s                                                l   
+ls      s                                                l   
+ls      s                          b                     l   
+ls      s         b                                      l   
+ls      s                                                l   
+ls      s                                                l   
+ls                            b                          l   
+ls                b                                      l   
+lo                                                       l   
+lo                                                       l   
+lo                                                       l   
+lo                           b                           l   
+lo                                                       l   
+lo                                                       l   
+lo                                                       l   
+looooooooooooooooooooooooooooooooooooooooooooooooooooooool
+l                                                        l
+l                                                        l
+llllllllllllllllllllllllllllllllllllllllllllllllllllllllll
