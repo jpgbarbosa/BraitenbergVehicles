@@ -51,11 +51,11 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.vehicle.move(breve.vector(0,1,9))
 			
 			self.block = breve.createInstances( breve.BraitenbergSound,1)
-			self.block.move( breve.vector (0, 1, 7.5))
+			self.block.move( breve.vector (0, 1, 16))
 			self.block.setIntensity(1.5)
 
 			self.block = breve.createInstances( breve.BraitenbergSound,1)
-			self.block.move( breve.vector (0, 1, -9))
+			self.block.move( breve.vector (0, 1, 0))
 			self.block.setIntensity(1.5)	
 
 

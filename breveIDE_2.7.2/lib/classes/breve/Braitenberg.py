@@ -468,8 +468,8 @@ class BraitenbergEightMaker( breve.BraitenbergVehicle ):
 		rightBound = 0.08
 
 		#Correct values
-		self.lFrontSensor = self.addSensor (breve.vector(1.82, 0.1, -1.8),breve.vector( 1, 0, 0 ),1.570000000, "BraitenbergSounds", "linear")
-		self.rFrontSensor = self.addSensor (breve.vector(1.82, 0.1, 1.8),breve.vector( -1, 0, 0 ),1.570000000, "BraitenbergSounds", "linear")
+		self.lFrontSensor = self.addSensor (breve.vector(1.8, 0.1, -1.8),breve.vector( 1, 0, 0 ),1.570000000, "BraitenbergSounds", "linear")
+		self.rFrontSensor = self.addSensor (breve.vector(1.8, 0.1, 1.8),breve.vector( -1, 0, 0 ),1.570000000, "BraitenbergSounds", "linear")
 		
 		'''Links the sensors to the wheels.'''
 		self.lFrontSensor.link(self.rWheel)
