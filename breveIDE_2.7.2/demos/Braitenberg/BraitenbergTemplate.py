@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Maze'
+		self.scenario = 'Explorer'
 		self.block = None
 		self.obj = None
 		myBraitenbergControl.init( self )
@@ -133,7 +133,37 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 						self.obj = breve.createInstances ( breve.BraitenbergBlock, 1)
 						self.obj.move( breve.vector(i*3, 0, t*2))
 						
-					elif self.scenario == 'None':
+			
+		elif self.scenario == 'Explorer':
+			filename = "Explorer.txt"
+			f = open(filename, "r")
+		
+			#Reads the limits of the maze.
+		
+			#Reads the maze itself.
+			text = f.readlines()
+
+			#Iterates over the lines.
+			for i in xrange(len(text)):
+				for t in xrange(len(text[i])):
+					if (text[i][t] == "o"):
+						self.obj = breve.createInstances ( breve.BraitenbergOlfaction, 1)
+						self.obj.move( breve.vector(i*3, 0, t*2))  
+						self.obj.setIntensity(1.5)
+					elif (text[i][t] == "s"):
+						self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
+						self.obj.move( breve.vector(i*3, 0, t*2))  
+						self.obj.setIntensity(1.5)
+					elif (text[i][t] == "l"):
+						self.obj = breve.createInstances ( breve.BraitenbergLight, 1)
+						self.obj.move( breve.vector(i*3, 0, t*2))  
+						self.obj.setIntensity(1.5)
+					elif (text[i][t] == "b"):
+						self.obj = breve.createInstances ( breve.BraitenbergBlock, 1)
+						self.obj.move( breve.vector(i*3, 0, t*2))
+						
+			
+				elif self.scenario == 'None':
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector(20 , 1, 4))
 			breve.createInstances( breve.BraitenbergBlock, 1 ).move( breve.vector( 20, 1, 17))
 
@@ -155,6 +185,12 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			
 			self.vehicle.move(breve.vector(10,1,60))
 			self.vehicle.rotate(breve.vector(0,1,0),0)
+		elif self.scenario == 'Explorer':
+			'''Creates the first vehicle.'''
+			self.vehicle = breve.createInstances( breve.BraitenbergExplorer, 1 )
+			self.watch( self.vehicle )
+			
+			self.vehicle.rotate(breve.vector(0,1,0),-1.57000000)
 			
 		else:
 			'''Creates the first vehicle.'''

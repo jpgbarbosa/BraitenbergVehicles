@@ -48,14 +48,15 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			'''Creates the vehicle.'''
 			self.vehicle = breve.createInstances( breve.BraitenbergEightMaker, 1 )
 			self.watch( self.vehicle )
-			self.vehicle.move(breve.vector(0,1,10))
-			self.vehicle.rotate(breve.vector(0,1,0),4.14)
+			self.vehicle.move(breve.vector(0,0,0))
 			
-			self.sound = breve.createInstances( breve.BraitenbergSound,1)
-			self.sound.move( breve.vector(2,1,15))
-			self.sound = breve.createInstances( breve.BraitenbergSound,1)
-			self.sound.move( breve.vector(-18,1,15))		
+			self.block = breve.createInstances( breve.BraitenbergSound,1)
+			self.block.move( breve.vector (0, 1, 7.5))
+			self.block.setIntensity(1.5)
 
+			self.block = breve.createInstances( breve.BraitenbergSound,1)
+			self.block.move( breve.vector (0, 1, -9))
+			self.block.setIntensity(1.5)	
 
 
 breve.myBraitenbergControl = myBraitenbergControl
