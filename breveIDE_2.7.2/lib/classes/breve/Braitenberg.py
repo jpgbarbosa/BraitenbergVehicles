@@ -394,8 +394,8 @@ class BraitenbergExplorer( breve.BraitenbergVehicle ):
 		self.lBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "linear")
 		self.rBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "linear")
 		
-		self.lLightSensor.activationObject.setGauss(1,0)
-		self.rLightSensor.activationObject.setGauss(1,0)
+		self.lLightSensor.activationObject.setGauss(1,0.02)
+		self.rLightSensor.activationObject.setGauss(1,0.02)
 		
 		'''Links the sensors to the wheels.'''
 		self.lSoundSensor.link(self.lWheel)
