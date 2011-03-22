@@ -503,6 +503,7 @@ class BraitenbergLight( breve.Stationary):
 
 	def init( self ):
 		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(2.5,5,2.5) ) )
+		#self.setShape( breve.createInstances( breve.Shape, 1 ).initWithPolygonCone( 10,2, 2 ) )
 		self.setColor( breve.vector( 1, 0, 0 ) )
 		
 	def getIntensity( self ):
