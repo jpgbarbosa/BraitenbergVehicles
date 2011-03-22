@@ -246,8 +246,8 @@ class BraitenbergPacman( breve.BraitenbergVehicle ):
 		'''Links the sensors to the wheels.'''
 		self.lTrackSensor.link(self.rWheel)
 		self.rTrackSensor.link(self.lWheel)
-		#self.lLimitsSensor.link(self.lWheel)
-		#self.rLimitsSensor.link(self.rWheel)
+		self.lLimitsSensor.link(self.lWheel)
+		self.rLimitsSensor.link(self.rWheel)
 		
 		'''Block sensors.'''
 		#self.lMonsterSensor.link(self.lWheel)
@@ -262,10 +262,10 @@ class BraitenbergPacman( breve.BraitenbergVehicle ):
 		self.lWheel.setNaturalVelocity(0.50000)
 		self.rWheel.setNaturalVelocity(0.50000)
 		
-		self.lTrackSensor.setBias(30)
-		self.rTrackSensor.setBias(30)
-		self.lLimitsSensor.setBias(3)
-		self.rLimitsSensor.setBias(3)
+		self.lTrackSensor.setBias(50)
+		self.rTrackSensor.setBias(50)
+		self.lLimitsSensor.setBias(10)
+		self.rLimitsSensor.setBias(10)
 		self.lMonsterSensor.setBias(1)
 		self.rMonsterSensor.setBias(1)
 		self.backMonsterSensor.setBias(7)
@@ -492,17 +492,17 @@ class BraitenbergHeavyVehicle( breve.BraitenbergVehicle ):
 
 
 breve.BraitenbergHeavyVehicle = BraitenbergHeavyVehicle
-class BraitenbergLight( breve.Mobile):
+class BraitenbergLight( breve.Stationary):
 	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Mobile.__init__( self )
+		breve.Stationary.__init__( self )
 		self.intensity = 1
 		self.joint = None
 		BraitenbergLight.init( self )
 
 	def init( self ):
-		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
+		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(2.5,5,2.5) ) )
 		self.setColor( breve.vector( 1, 0, 0 ) )
 		
 	def getIntensity( self ):
