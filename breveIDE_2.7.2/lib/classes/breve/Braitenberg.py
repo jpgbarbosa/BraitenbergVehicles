@@ -82,6 +82,8 @@ class BraitenbergVehicle( breve.MultiBody ):
 			sense = breve.createInstances( breve.BraitenbergLight, 1 )
 		elif type == "Olfaction":
 			sense = breve.createInstances( breve.BraitenbergOlfaction, 1 )
+		elif type == "Block":
+			sense = breve.createInstances( breve.BraitenbergBlock, 1 )
 		
 		joint = breve.createInstances( breve.FixedJoint, 1 )
 		joint.setRelativeRotation( axis, angle )
@@ -118,34 +120,6 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.addDependency( sensor )
 		sensor.setColor( breve.vector( 0, 0, 0 ) )
 		self.sensors.append( sensor )
-		return sensor
-		
-	def addLimitSensor( self, location , axis, ang, type):
-		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
-
-		''' This sensor only interacts  with blocks. '''
-		joint = None
-		sensor = None
-
-		sensor = breve.createInstances( breve.BraitenbergLimitSensor, 1 )
-		sensor.setShape( self.sensorShape )
-		
-		activationFunction = breve.createInstances(breve.BraitenbergActivationObject, 1)
-		activationFunction.setType("limitsAvoider")
-		sensor.setActivationObject( activationFunction )
-		
-		joint = breve.createInstances( breve.FixedJoint, 1 )
-		joint.setRelativeRotation( axis, ang )
-			
-		joint.link( location, breve.vector( 0, 0, 0 ), sensor, self.bodyLink )
-		joint.setDoubleSpring( 300, 0.010000, -0.010000 )
-		self.addDependency( joint )
-		self.addDependency( sensor )
-		sensor.setColor( breve.vector( 0, 0, 0 ) )
-		self.sensors.append( sensor )
-		
-		sensor.setType(type)
-		
 		return sensor
 
 	def addWheel( self, location ):
@@ -257,42 +231,44 @@ class BraitenbergPacman( breve.BraitenbergVehicle ):
 		'''Adds wheels and sensors.'''
 		self.lWheel = self.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		self.rWheel = self.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		self.addSense (breve.vector( 0, 0.7, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Light")
-		self.lFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "BraitenbergSounds", "linear")
-		self.rFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "BraitenbergSounds", "linear")
+		self.addSense (breve.vector( 0, 0.7, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Olfaction")
+		self.lTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "BraitenbergSounds", "linear")
+		self.rTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "BraitenbergSounds", "linear")
+		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "BraitenbergLights", "linear")
+		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "BraitenbergLights", "linear")
+
+		'''The monsters will carry a block on their back.'''
+		self.backMonsterSensor = self.addBlockSensor (breve.vector( -2.2, 0.1, 0 ),breve.vector( 0, 0, 1 ),  -1.57000000, "linear")
 		
-		self.frontSensor = self.addLimitSensor (breve.vector( 2.2, 0.1, 0 ),breve.vector( 0, 0, 1 ),  1.57000000,"BraitenbergSounds")
-		
-		self.backOlfactionSensor = self.addSensor (breve.vector( -2.2, 0.1, 0 ),breve.vector( 0, 0, 1 ),  -1.57000000, "BraitenbergOlfactions", "linear")
-		
-		self.lBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "linear", -100, 100)
-		self.rBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "linear", -100, 100)
+		self.lMonsterSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "exponencial")
+		self.rMonsterSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "exponencial")
 		
 		'''Links the sensors to the wheels.'''
-		self.lFrontSensor.link(self.lWheel)
-		self.rFrontSensor.link(self.rWheel)
-		self.backOlfactionSensor.link(self.lWheel)
-		self.backOlfactionSensor.link(self.rWheel)
-		self.frontSensor.link(self.lWheel)
-		self.frontSensor.link(self.rWheel)
-
-		'''Block sensors.'''
-		self.lBlockSensor.link(self.rWheel)
-		self.rBlockSensor.link(self.lWheel)
+		self.lTrackSensor.link(self.rWheel)
+		self.rTrackSensor.link(self.lWheel)
+		#self.lLimitsSensor.link(self.lWheel)
+		#self.rLimitsSensor.link(self.rWheel)
 		
-		#self.lBlockSensor.activationObject.setGauss(0.001,0)
-		#self.rBlockSensor.activationObject.setGauss(0.001,0)
+		'''Block sensors.'''
+		#self.lMonsterSensor.link(self.lWheel)
+		#self.rMonsterSensor.link(self.rWheel)
+		#self.backMonsterSensor.link(self.lWheel)
+		#self.backMonsterSensor.link(self.rWheel)
+		
+		self.lMonsterSensor.activationObject.setGauss(0.001,0)
+		self.rMonsterSensor.activationObject.setGauss(0.001,0)
 
 		
 		self.lWheel.setNaturalVelocity(0.50000)
 		self.rWheel.setNaturalVelocity(0.50000)
 		
-		self.lFrontSensor.setBias(10)
-		self.rFrontSensor.setBias(10)
-		self.lBlockSensor.setBias(5)
-		self.rBlockSensor.setBias(5)
-		self.frontSensor.setBias(-15)
-		self.backOlfactionSensor.setBias(7)
+		self.lTrackSensor.setBias(30)
+		self.rTrackSensor.setBias(30)
+		self.lLimitsSensor.setBias(3)
+		self.rLimitsSensor.setBias(3)
+		self.lMonsterSensor.setBias(1)
+		self.rMonsterSensor.setBias(1)
+		self.backMonsterSensor.setBias(7)
 			
 breve.BraitenbergTwoWheelsVehicle = BraitenbergTwoWheelsVehicle
 
@@ -304,28 +280,39 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		'''Adds wheels and sensors.'''
 		self.lWheel = self.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		self.rWheel = self.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		self.addSense (breve.vector( 0, 0.7, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Olfaction")
-		self.lFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "BraitenbergSounds", "exponencial", -100, 100)
-		self.rFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "BraitenbergSounds", "exponencial", -100, 100)
+		self.addSense (breve.vector( 0, 0.7, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Block")
 		
-		self.lLightSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57000000, "BraitenbergLights", "linear")
-		self.rLightSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "BraitenbergLights", "linear")
+		self.lTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, "BraitenbergSounds", "exponencial")
+		self.rTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, "BraitenbergSounds", "exponencial")
+		
+		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, "BraitenbergLights", "linear")
+		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, "BraitenbergLights", "linear")
+		
+		self.lPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, "BraitenbergOlfactions", "exponencial")
+		self.rPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, "BraitenbergOlfactions", "exponencial")
+
 		
 		'''Links the sensors to the wheels.'''
-		self.lFrontSensor.link(self.lWheel)
-		self.rFrontSensor.link(self.rWheel)
+		self.lTrackSensor.link(self.rWheel)
+		self.rTrackSensor.link(self.lWheel)
 		
 		'''Block sensors.'''
-		self.lLightSensor.link(self.rWheel)
-		self.rLightSensor.link(self.lWheel)
+		self.lLimitsSensor.link(self.rWheel)
+		self.rLimitsSensor.link(self.lWheel)
 		
-		self.lWheel.setNaturalVelocity(1.00000)
-		self.rWheel.setNaturalVelocity(1.00000)
+		self.lTrackSensor.link(self.rWheel)
+		self.rTrackSensor.link(self.lWheel)
+		
+		self.lWheel.setNaturalVelocity(1)
+		self.rWheel.setNaturalVelocity(1)
 	
-		self.lFrontSensor.setBias(10)
-		self.rFrontSensor.setBias(10)
-		self.lLightSensor.setBias(5)
-		self.rLightSensor.setBias(5)
+		self.lTrackSensor.setBias(10)
+		self.rTrackSensor.setBias(10)
+		self.lLimitsSensor.setBias(5)
+		self.rLimitsSensor.setBias(5)
+		self.lPacmanSensor.setBias(10)
+		self.rPacmanSensor.setBias(10)
+		
 			
 breve.BraitenbergMonster = BraitenbergMonster
 
@@ -509,7 +496,6 @@ class BraitenbergLight( breve.Mobile):
 	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		#breve.Link.__init__( self )
 		breve.Mobile.__init__( self )
 		self.intensity = 1
 		self.joint = None
@@ -551,12 +537,11 @@ class BraitenbergSound( breve.Mobile ):
 breve.BraitenbergSound = BraitenbergSound
 
 
-class BraitenbergOlfaction( breve.Mobile ):
+class BraitenbergOlfaction( breve.Link ):
 	'''A BraitenbergOlfaction is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		#breve.Link.__init__( self )
-		breve.Mobile.__init__( self )
+		breve.Link.__init__( self )
 		self.intensity = 1
 		self.joint = None
 		BraitenbergOlfaction.init( self )
@@ -755,50 +740,18 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 		pass
 
 breve.BraitenbergBlockSensor = BraitenbergBlockSensor
-
-class BraitenbergLimitSensor( breve.BraitenbergMainSensor ):
-	'''A BraitenbergBlockSensor is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a sensor to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
-
-	def iterate( self ):
-		'''Calculates the signal strength according to the closest source that it finds within the it's range.'''
-		i = None
-		objects = 0
-		angle = 0
-		strength = 0
-		total = 0
-		transDir = breve.vector()
-		dist = breve.vector()
-		
-		transDir = ( self.getRotation() * self.direction )
-		'''Only detects blocks.'''
-		for i in breve.allInstances( self.sensorType ):
-			dist = ( i.getLocation() - self.getLocation() )
-			angle = breve.breveInternalFunctionFinder.angle( self, dist, transDir )
-			'''It's inside the angle and we are too close to the edge.'''
-			if angle < self.sensorAngle :
-				strength = self.activationObject.activate(breve.length(self.getLocation() - i.getLocation()))
-				total += strength
-
-		total = ( ( 50 * total ) * self.bias )
-		self.wheels.activate( total )
-	
-	def setType( self , type ):
-		self.sensorType = type
-
-
-breve.BraitenbergBlockSensor = BraitenbergBlockSensor
 		
 class BraitenbergBlock( breve.Link ):
 	'''A BraitenbergBlock is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergBlockSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Mobile.__init__( self )
+		breve.Link.__init__( self )
 		self.reflection = 1
 		BraitenbergBlock.init( self )
 
 	def init( self ):
-		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(2,2,2) ) )
-		self.setColor( breve.vector( 10, 0,  0) )
+		self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(0.5,0.5,0.5) ) )
+		self.setColor( breve.vector( 0, 0,  0) )
 	
 	def getReflection( self ):
 		return self.reflection
@@ -842,8 +795,6 @@ class BraitenbergActivationObject( breve.Abstract ):
 				strength = exp(s)
 			elif self.type == "log":
 				strength = log(self.base, s)
-			elif self.type == "limitsAvoider":
-				strength = self.limitsAvoid(s)
 			else:
 				strength = s
 					
@@ -864,12 +815,6 @@ class BraitenbergActivationObject( breve.Abstract ):
 	def setGauss(self, dev, med =0):
 		self.gaussDev = dev
 		self.gaussMov = med
-	
-	def limitsAvoid(self, d):
-		'''We are using here the distance.'''
-		if (d < 2):
-			return d
-		return 0
 	
 	def setExp(self, exp):
 		self.exponent = exp

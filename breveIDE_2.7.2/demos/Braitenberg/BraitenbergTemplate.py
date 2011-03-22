@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Explorer'
+		self.scenario = 'Maze'
 		self.block = None
 		self.obj = None
 		myBraitenbergControl.init( self )
@@ -97,8 +97,9 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 						self.obj.move( breve.vector(i*3, 0, t*2))  
 						self.obj.setIntensity(1.5)
 					elif (text[i][t] == "*"):
-						self.block = breve.createInstances ( breve.BraitenbergBlock, 1)
+						self.block = breve.createInstances ( breve.BraitenbergLight, 1)
 						self.block.move( breve.vector(i*3, 0, t*2))
+						self.block.setIntensity(2.5)
 			
 		elif self.scenario == 'Attraction':
 			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(14 , 1, 17))
