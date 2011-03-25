@@ -154,11 +154,11 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 					elif (text[i][t] == "s"):
 						self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
 						self.obj.move( breve.vector(i*3, 0, t*2))  
-						self.obj.setIntensity(1.5)
+						self.obj.setIntensity(3)
 					elif (text[i][t] == "l"):
 						self.obj = breve.createInstances ( breve.BraitenbergLight, 1)
 						self.obj.move( breve.vector(i*3, 0, t*2))  
-						self.obj.setIntensity(1.5)
+						self.obj.setIntensity(0.5)
 					elif (text[i][t] == "b"):
 						self.obj = breve.createInstances ( breve.BraitenbergBlock, 1)
 						self.obj.move( breve.vector(i*3, 0, t*2))

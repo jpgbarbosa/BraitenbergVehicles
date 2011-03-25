@@ -1,26 +1,26 @@
 ****************************
 *                          *
-*   o  o  o  o  o  o  o    *
+*    ooooooooooooooooo     *
+*   o      o          o    *
+*  o  ****  o  ******  o   *
+*  o  *  *  o  *    *  o   *
+*  o  *  *  o  ******  o   *
+*  o  *  *  o          o   *
+*  o  *  *  o          o   *
+*  o  ****  oooooooooooo   *
 *  o        o          o   *
-*     ****  o  ******      *
-*  o  *  *     *    *  o   *
-*     *  *  o  ******      *
-*  o  *  *             o   *
-*     *  *  o              *
-*  o  ****   o  o  o  o    *
-*           o              *
-*  o  o  o o   ******  o   *
-*           o  *    *      *
-*  o           *    *  o   *
-*     ****  o  ******      *
-*  o  *  *             o   *
-*     *  *  o              *
-*  o  *  *    o  o  o  o   *
-*     *  *  o              *
-*  o  *  *     ******  o   *
-*     *  *  o  *    *      *
-*  o  ****     ******  o   *
-*           o              *
-*    o  o  o  o  o  o  o   *
+*  oooooooooo  ******  o   *
+*  o        o  *    *  o   *
+*  o        o  *    *  o   *
+*  o  ****  o  ******  o   *
+*  o  *  *  o          o   *
+*  o  *  *  o          o   *
+*  o  *  *  oooooooooooo   *
+*  o  *  *  o          o   *
+*  o  *  *  o  ******  o   *
+*  o  *  *  o  *    *  o   *
+*  o  ****  o  ******  o   *
+*   o       o         o    *
+*    ooooooooooooooooo     *
 *                          *
 ****************************

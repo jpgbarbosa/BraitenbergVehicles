@@ -3,25 +3,25 @@ ls                 b   b    b   b                        l
 ls                                 b                     l   
 ls                                                       l   
 ls                                                       l   
-ls      ssssssssssssssssssssssssssssss                   l
-ls      s                                                l   
-ls      s                                                l   
-ls      s                                                l   
-ls      s                                                l   
-ls      s                          b                     l   
-ls      s         b                                      l   
-ls      s                                                l   
-ls      s                                                l   
-ls                            b                          l   
-ls                b                                      l   
-lo                                                       l   
-lo                                                       l   
-lo                                                       l   
-lo                           b                           l   
-lo                                                       l   
-lo                                                       l   
-lo                                                       l   
-looooooooooooooooooooooooooooooooooooooooooooooooooooooool
+ls      ssssssssssssssssssssssssssssssoooooooooooooo     l
+ls      s                                          o     l   
+ls      s                                          o     l   
+ls      s                                          o     l   
+ls      s                                          o     l   
+ls      s                          b               o     l   
+ls      s         b                                o     l   
+ls      s                                          o     l   
+ls      s                                          o     l   
+ls                            b                    o     l   
+ls                b                                o     l   
+lo                                                 o     l   
+lo                                                 o     l   
+lo                                                 o     l   
+lo                           b                     o     l   
+lo                                                 o     l   
+lo                                                 o     l   
+lo                                                 o     l   
+looooooooooooooooooooooooooooooooooooooooooooooooooo     l
 l                                                        l
 l                                                        l
 llllllllllllllllllllllllllllllllllllllllllllllllllllllllll
