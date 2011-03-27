@@ -243,10 +243,6 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		self.rTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, 2 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "BraitenbergSounds", "linear", "SoundRight")
 		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "linear")
 		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "BraitenbergLights", "linear")
-		
-		'''The monsters will carry a block on their back.'''
-		#self.lMonsterSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "linear")
-		#self.rMonsterSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "linear")
 
 		self.lMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 0.8, "BraitenbergOlfactions", "gaussian", "left")
 		self.rMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 0.8, "BraitenbergOlfactions", "gaussian", "right")
@@ -261,9 +257,7 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		'''Links the sensors to the wheels.'''
 		self.lTrackSensor.link(self.rWheel)
 		self.rTrackSensor.link(self.lWheel)
-		#self.lLimitsSensor.link(self.lWheel)
-		#self.rLimitsSensor.link(self.rWheel)
-		
+
 		'''Block sensors.'''
 		self.lMonsterSensor.link(self.lWheel)
 		self.rMonsterSensor.link(self.lWheel)
@@ -273,8 +267,8 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		self.lMonsterSensor.activationObject.setLeftBound(0.001)
 		self.rMonsterSensor.activationObject.setLeftBound(0.001)
 		
-		self.lWheel.setNaturalVelocity(1.0000)
-		self.rWheel.setNaturalVelocity(1.0000)
+		self.lWheel.setNaturalVelocity(0.5)
+		self.rWheel.setNaturalVelocity(0.5)
 		
 		self.lTrackSensor.setBias(5)
 		self.rTrackSensor.setBias(5)
@@ -305,8 +299,8 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "linear")
 		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 3.1, "BraitenbergLights", "linear")
 		
-		self.lPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergOlfactions", "exponencial")
-		self.rPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergOlfactions", "exponencial")
+		self.lPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergLights", "exponencial")
+		self.rPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergLights", "exponencial")
 
 		'''"Hides" the body of the vehicle.'''
 		self.bodyLink.setTransparency(0)
@@ -321,8 +315,8 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		self.rTrackSensor.link(self.lWheel)
 		
 		'''Block sensors.'''
-		self.lLimitsSensor.link(self.rWheel)
-		self.rLimitsSensor.link(self.lWheel)
+		#self.lLimitsSensor.link(self.rWheel)
+		#self.rLimitsSensor.link(self.lWheel)
 		
 		self.lTrackSensor.link(self.rWheel)
 		self.rTrackSensor.link(self.lWheel)
@@ -332,8 +326,8 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 	
 		self.lTrackSensor.setBias(3)
 		self.rTrackSensor.setBias(3)
-		self.lLimitsSensor.setBias(-5)
-		self.rLimitsSensor.setBias(-5)
+		#self.lLimitsSensor.setBias(-5)
+		#self.rLimitsSensor.setBias(-5)
 		self.lPacmanSensor.setBias(1)
 		self.rPacmanSensor.setBias(1)
 		
