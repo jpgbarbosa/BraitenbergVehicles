@@ -92,19 +92,24 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			#Iterates over the lines.
 			for i in xrange(len(text)):
 				for t in xrange(len(text[i])):
-					if (text[i][t] == "o"):
+					if (text[i][t] == "o" or text[i][t] == "f" or text[i][t] == "n"):
 						self.obj = breve.createInstances ( breve.BraitenbergSound, 1)
 						self.obj.move( breve.vector(i*3, 0, t*2))  
 						self.obj.setIntensity(1.5)
 					elif (text[i][t] == "*"):
-						self.block = breve.createInstances ( breve.BraitenbergLight, 1)
+						self.block = breve.createInstances ( breve.BraitenbergBlock, 1)
 						self.block.move( breve.vector(i*3, 0, t*2))
-						self.block.setIntensity(2.5)
+						self.block.setReflection(2.5)
 			
 		elif self.scenario == 'Attraction':
-			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(14 , 1, 17))
-			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(16 , 1, 21))
-			breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector(20, 1, 27))
+		
+			'''Creates the first monster.'''
+			monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
+			monsterOne.move(breve.vector(14,1,17))
+		
+			#breve.createInstances( breve.BraitenbergOlfaction, 1 ).move( breve.vector(14 , 1, 17))
+			'''breve.createInstances( breve.BraitenbergOlfaction, 1 ).move( breve.vector(16 , 1, 21))
+			breve.createInstances( breve.BraitenbergOlfaction, 1 ).move( breve.vector(20, 1, 27))'''
 			
 		elif self.scenario == '3c':
 			filename = "3c.txt"
@@ -174,11 +179,16 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
 			self.watch( self.vehicle )
 				
-			self.vehicle.move(breve.vector(30,1,5))
+			self.vehicle.move(breve.vector(45,0.6,5))
 			
-			'''Creates the second vehicle.'''
+			'''Creates the first monster.'''
 			monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
-			monsterOne.move(breve.vector(20,1,5))
+			monsterOne.move(breve.vector(25,0.6,5))
+			monsterOne.rotate(breve.vector(0,1,0), 3.14)
+			'''Creates the second monster.'''
+			monsterTwo = breve.createInstances( breve.BraitenbergMonster, 1 )
+			monsterTwo.move(breve.vector(35,0.6,46))
+			
 		elif self.scenario == '3c':
 			'''Creates the first vehicle.'''
 			self.vehicle = breve.createInstances( breve.Braitenberg3c, 1 )
@@ -192,13 +202,27 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.watch( self.vehicle )
 			
 			self.vehicle.rotate(breve.vector(0,1,0),-1.57000000)
+		elif self.scenario == 'Attraction':
+			'''Creates the first vehicle.'''
+			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
+			self.watch( self.vehicle )
+			
+			self.vehicle.rotate(breve.vector(0,1,0),-0.5)
 			
 		else:
 			'''Creates the first vehicle.'''
-			self.vehicle = breve.createInstances( breve.BraitenbergTwoWheelsVehicle, 1 )
+			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
 			self.watch( self.vehicle )
 				
-			self.vehicle.move(breve.vector(20,1,10))
+			self.vehicle.move(breve.vector(60,1,1))
+			self.vehicle.rotate(breve.vector(0,1,0), 3.14)
+			
+			self.block = breve.createInstances ( breve.BraitenbergOlfaction, 1)
+			self.block.move( breve.vector(20, 1, 5))
+			
+			'''Creates the first monster.'''
+			#monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
+			#monsterOne.move(breve.vector(20,1,5))
 	
 breve.myBraitenbergControl = myBraitenbergControl
 
