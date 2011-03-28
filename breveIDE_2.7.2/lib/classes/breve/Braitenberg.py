@@ -252,8 +252,8 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "linear")
 		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "BraitenbergLights", "linear")
 
-		self.lMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 0.8, "BraitenbergOlfactions", "gaussian", "left")
-		self.rMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 0.8, "BraitenbergOlfactions", "gaussian", "right")
+		self.lMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 0.8, "BraitenbergOlfactions", "gaussian", "MonsterSensorLeft")
+		self.rMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 0.8, "BraitenbergOlfactions", "gaussian", "MonsterSensorRight")
 		
 		'''"Hides" the body of the vehicle.'''
 		self.bodyLink.setTransparency(0)
@@ -686,8 +686,9 @@ class BraitenbergMainSensor(breve.Link):
 		self.sensorType = None
 		self.counter = 0
 		self.wheels = breve.objectList()
+		self.hasPlayed = 0
 		self.PacmanEating =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/eatingShort.wav' )
-		self.PacmanAlert =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/eating.wav' )
+		self.PacmanAlert =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/siren.wav' )
 		self.PacmanCherry = breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/eating cherry.wav' )
 		BraitenbergMainSensor.init( self )
 
@@ -717,7 +718,7 @@ breve.BraitenbergMainSensor = BraitenbergMainSensor
 
 class BraitenbergSensor( breve.BraitenbergMainSensor ):
 	'''A BraitenbergLightSensor is used in conjunction with OBJECT(BraitenbergVehicle) to build Braitenberg vehicles.  This class is typically not instantiated manually, since OBJECT(BraitenbergVehicle) creates one for you when you add a sensor to the vehicle. <p> <b>NOTE: this class is included as part of the file "Braitenberg.tz".</b>'''
-
+	
 	'''This method can iterate over objects of type sound, olfaction or light.'''
 	def iterate( self ):
 		i = None
@@ -727,6 +728,8 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 		total = 0
 		transDir = breve.vector()
 		toLight = breve.vector()
+		
+		
 
 		transDir = ( self.getRotation() * self.direction )
 		'''It's by the sensorType string that we distinguish between a sound, olfaction or light sensor. '''
@@ -735,6 +738,11 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 			angle = breve.breveInternalFunctionFinder.angle( self, toLight, transDir )
 			if ( angle < self.sensorAngle ):
 				strength = breve.length( ( self.getLocation() - i.getLocation() ))
+				
+				'''The monster is getting closer.'''
+				if self.activationObject.getName() == "MonsterSensorLeft" and breve.length(self.getLocation() - i.getLocation()) < 25 and not self.hasPlayed:
+					self.PacmanAlert.play(1)
+					self.hasPlayed = 1
 				
 				'''We turn invisible the items as we pass by.'''
 				if (self.activationObject.getName() == "SoundLeft" or self.activationObject.getName() == "SoundRight") and breve.length(self.getLocation() - i.getLocation()) < 2.5:
@@ -747,6 +755,10 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 						else:
 							self.PacmanCherry.play(1)
 						self.counter += 1
+						
+						'''This means we played the sirene at least once.'''
+						if self.hasPlayed:
+							self.hasPlayed = (self.hasPlayed + 1 ) % 5
 						#print str(self.counter)
 				
 				'''Avoid by zero exceptions.'''
