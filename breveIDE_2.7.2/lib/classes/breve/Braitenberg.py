@@ -47,6 +47,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.wheelsList = [ ]
 		self.sensorsList = [ ]
 		BraitenbergVehicle.init( self )
+		self.radius = 0.6
 
 	def addSensor( self, location , axis, angle, viewAngle, type, function, name = "Sensor"):
 		'''Adds a sensor at location on the vehicle.  This method returns the sensor which is created, a OBJECT(BraitenbergLightSensor).  You'll use the returned object to connect it to the vehicle's wheels.'''
@@ -166,12 +167,17 @@ class BraitenbergVehicle( breve.MultiBody ):
 		return 1.000000
 
 	def getWheelRadius( self ):
-		return 0.600000
+		return self.radius
+	
+	def setWheelRadius(self, rad):
+		self.radius = rad
+		self.wheelShape.initWithPolygonDisk( 40, self.getWheelWidth(), self.getWheelRadius() )
 
 	def getWheelWidth( self ):
 		return 0.100000
 
 	def init( self ):
+		self.radius = 0.6
 		self.bodyShape = breve.createInstances( breve.Shape, 1 )
 		self.bodyShape.initWithCube( breve.vector( 4.000000, 0.750000, 3.000000 ) )
 		self.wheelShape = breve.createInstances( breve.Shape, 1 )
@@ -431,28 +437,44 @@ class BraitenbergElipser( breve.BraitenbergVehicle ):
 	def __init__( self ):
 		breve.BraitenbergVehicle.__init__(self)
 	
+		sPos = 1
+
+		med = 0.03
+		dpad = 0.3
+		
+		naturalVel = 0.5
+		bias = 0.03 
+	
 		'''Adds wheels and sensors.'''
-		self.lWheel = self.addWheel (breve.vector( 0, 0, -1.5 ))
-		self.rWheel = self.addWheel (breve.vector( 0, 0, 1.5 ))
+		self.setWheelRadius(0.9)
+		
+		self.lWheel = self.addWheel (breve.vector( -0.8, 0, -1.5 ))
+		
+		self.rWheel = self.addWheel (breve.vector( -0.8, 0, 1.5 ))
 		
 		#Correct values
-		self.lFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.75, 0, 1 ), 1.57, 1.6, "BraitenbergSounds", "gaussian")
-		self.rFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.75, 0, 1 ),  1.57, 1.6, "BraitenbergSounds", "gaussian")
+		self.lFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.2 ), breve.vector( sPos, 0, 1 ), 1.57000000, 1.6,"BraitenbergSounds", "gaussian")
+		self.rFrontSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.2 ),breve.vector( -sPos, 0, 1 ),  1.57000000, 1.6,"BraitenbergSounds", "gaussian")
 		
-		self.lFrontSensor.activationObject.setGauss(0.01,0.002)
-		self.rFrontSensor.activationObject.setGauss(0.01,0.002)
+		self.lFrontSensor.activationObject.setGauss(dpad,med)
+		#self.lFrontSensor.activationObject.setLeftBound(0.2)
+		self.lFrontSensor.activationObject.setLowerBound(0)
+		self.rFrontSensor.activationObject.setGauss(dpad,med)
+		#self.rFrontSensor.activationObject.setLeftBound(0.2)
+		self.rFrontSensor.activationObject.setLowerBound(0)
 		
 		'''Links the sensors to the wheels.'''
 		self.lFrontSensor.link(self.rWheel)
 		self.rFrontSensor.link(self.lWheel)
 
 		#Correct values
-		self.lWheel.setNaturalVelocity(1.16)
-		self.rWheel.setNaturalVelocity(1.16)
+		self.lWheel.setNaturalVelocity(naturalVel)
+		self.rWheel.setNaturalVelocity(naturalVel)
 		
 		#Correct values
-		self.lFrontSensor.setBias(0.005)
-		self.rFrontSensor.setBias(0.005)
+		self.lFrontSensor.setBias(bias)
+		self.rFrontSensor.setBias(bias)
+			
 			
 breve.BraitenbergElipser = BraitenbergElipser
 

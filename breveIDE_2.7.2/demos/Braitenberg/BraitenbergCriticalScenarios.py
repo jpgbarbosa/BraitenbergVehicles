@@ -33,6 +33,8 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			'''Creates the vehicle.'''
 			self.vehicle = breve.createInstances( breve.BraitenbergElipser, 1 )
 			self.watch( self.vehicle )
+
+			intensity = 1
 		
 			'''Makes the initial setup of the vehicle and places it in the right position.'''
 			self.vehicle.move(breve.vector(2,1,10))
@@ -41,10 +43,11 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			'''Sets the scenario.'''
 			self.sound = breve.createInstances( breve.BraitenbergSound,1)
 			self.sound.move( breve.vector(2,1,15))
-			self.sound.setIntensity(10)
+			self.sound.setIntensity(intensity)
+
 			self.sound = breve.createInstances( breve.BraitenbergSound,1)
-			self.sound.move( breve.vector(-18,1,15))
-			self.sound.setIntensity(10)
+			self.sound.move( breve.vector(-20,1,15))
+			self.sound.setIntensity(intensity)
 	
 		elif self.scenario == 'Eight':
 			'''Creates the vehicle.'''
