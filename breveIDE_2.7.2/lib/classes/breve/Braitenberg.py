@@ -28,6 +28,8 @@ class BraitenbergControl( breve.PhysicalControl ):
 		self.enableShadows()
 		#self.enableReflections()
 		self.cloudTexture = breve.createInstances( breve.Image, 1 ).load( 'images/SnowBoxTop.jpg' )
+		self.PacmanMusic =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/opening song.wav' )
+		self.PacmanMusic.play(1)
 		self.setBackgroundColor( breve.vector( 0.400000, 0.600000, 0.900000 ) )
 		self.setBackgroundTextureImage( self.cloudTexture )
 
@@ -568,6 +570,7 @@ class BraitenbergSound( breve.Mobile ):
 
 	def __init__( self ):
 		breve.Mobile.__init__( self )
+		self.eaten = 0
 		self.intensity = 1
 		BraitenbergSound.init( self )
 
@@ -583,6 +586,12 @@ class BraitenbergSound( breve.Mobile ):
 	
 	def setIntensity( self, itense ):
 		self.intensity = itense
+		
+	def isEaten ( self ):
+		return self.eaten
+		
+	def setEaten ( self , e):
+		self.eaten = e
 
 
 breve.BraitenbergSound = BraitenbergSound
@@ -677,6 +686,9 @@ class BraitenbergMainSensor(breve.Link):
 		self.sensorType = None
 		self.counter = 0
 		self.wheels = breve.objectList()
+		self.PacmanEating =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/eatingShort.wav' )
+		self.PacmanAlert =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/eating.wav' )
+		self.PacmanCherry = breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/eating cherry.wav' )
 		BraitenbergMainSensor.init( self )
 
 	def init( self ):
@@ -726,10 +738,16 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 				
 				'''We turn invisible the items as we pass by.'''
 				if (self.activationObject.getName() == "SoundLeft" or self.activationObject.getName() == "SoundRight") and breve.length(self.getLocation() - i.getLocation()) < 2.5:
-					i.setTransparency(0)
-					if self.activationObject.getName() == "SoundRight":
+					
+					if not i.isEaten():
+						i.setTransparency(0)
+						i.setEaten(1)
+						if self.counter % 10 != 0:
+							self.PacmanEating.play(1)
+						else:
+							self.PacmanCherry.play(1)
 						self.counter += 1
-						print str(self.counter)
+						#print str(self.counter)
 				
 				'''Avoid by zero exceptions.'''
 				if (strength * strength > 0.0):
