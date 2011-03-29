@@ -25,9 +25,10 @@ class BraitenbergControl( breve.PhysicalControl ):
 		self.enableSmoothDrawing()
 		self.floor = breve.createInstances( breve.Floor, 1 )
 		self.pointCamera( breve.vector( 0, 0, 0 ), breve.vector( 3, 3, 24 ) )
-		self.enableShadows()
+		#self.enableShadows()
+		self.disableShadowVolumes()
 		#self.enableReflections()
-		self.cloudTexture = breve.createInstances( breve.Image, 1 ).load( 'images/SnowBoxTop.jpg' )
+		self.cloudTexture = breve.createInstances( breve.Image, 1 ).load( 'images/clouds.png' )
 		self.PacmanMusic =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/opening song.wav' )
 		self.PacmanMusic.play(1)
 		self.setBackgroundColor( breve.vector( 0.400000, 0.600000, 0.900000 ) )
@@ -193,7 +194,7 @@ class BraitenbergVehicle( breve.MultiBody ):
 		self.bodyLink.setET( 0.800000 )
 		self.setRoot( self.bodyLink )
 		self.move( breve.vector( 0, 0.900000, 0 ) )
-		self.setTextureScale( 1.500000 )
+		self.setTextureScale( 0.500000 )
 		
 		'''The colour of the car.'''
 		self.bodyLink.setColor( breve.vector( 0, 0, 0 ) )
@@ -246,7 +247,7 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		'''Adds wheels and sensors.'''
 		self.lWheel = self.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		self.rWheel = self.addWheel (breve.vector( -0.5, 0, 1.5 ))
-		self.addSense (breve.vector( 0, 1.0, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Light")
+		sense = self.addSense (breve.vector( 0, 1.0, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Light")
 		self.lTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, -2 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "BraitenbergSounds", "linear", "SoundLeft")
 		self.rTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, 2 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "BraitenbergSounds", "linear", "SoundRight")
 		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "linear")
@@ -254,6 +255,11 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 
 		self.lMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 0.8, "BraitenbergOlfactions", "gaussian", "MonsterSensorLeft")
 		self.rMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 0.8, "BraitenbergOlfactions", "gaussian", "MonsterSensorRight")
+		
+		
+		'''Associates the sensors with the sense that constitutes the body of the Pacman.'''
+		sense.setLeftSensor(self.lTrackSensor)
+		sense.setRightSensor(self.rTrackSensor)
 		
 		'''"Hides" the body of the vehicle.'''
 		self.bodyLink.setTransparency(0)
@@ -275,8 +281,8 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		self.lMonsterSensor.activationObject.setLeftBound(0.001)
 		self.rMonsterSensor.activationObject.setLeftBound(0.001)
 		
-		self.lWheel.setNaturalVelocity(0.5)
-		self.rWheel.setNaturalVelocity(0.5)
+		self.lWheel.setNaturalVelocity(1)
+		self.rWheel.setNaturalVelocity(1)
 		
 		self.lTrackSensor.setBias(5)
 		self.rTrackSensor.setBias(5)
@@ -299,16 +305,14 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		self.rWheel = self.addWheel (breve.vector( -0.5, 0, 1.5 ))
 		self.addSense (breve.vector( 0, 1.0, 0 ),breve.vector( 0, 0, 0 ),  1.57000000, "Olfaction")
 		
-		#self.lTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 3.1, "BraitenbergSounds", "exponencial")
-		#self.rTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 3.1, "BraitenbergSounds", "exponencial")
 		self.lTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, -2 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "BraitenbergSounds", "linear")
 		self.rTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, 2 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "BraitenbergSounds", "linear")
 		
 		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "linear")
 		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 3.1, "BraitenbergLights", "linear")
 		
-		self.lPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergLights", "exponencial")
-		self.rPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergLights", "exponencial")
+		self.lPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergLights", "log", "PacmanLeft")
+		self.rPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergLights", "log", "PacmanRight")
 
 		'''"Hides" the body of the vehicle.'''
 		self.bodyLink.setTransparency(0)
@@ -322,20 +326,17 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		self.lTrackSensor.link(self.rWheel)
 		self.rTrackSensor.link(self.lWheel)
 		
-		'''Block sensors.'''
-		#self.lLimitsSensor.link(self.rWheel)
-		#self.rLimitsSensor.link(self.lWheel)
-		
 		self.lTrackSensor.link(self.rWheel)
 		self.rTrackSensor.link(self.lWheel)
 		
-		self.lWheel.setNaturalVelocity(0.5)
-		self.rWheel.setNaturalVelocity(0.5)
+		self.lPacmanSensor.link(self.rWheel)
+		self.rPacmanSensor.link(self.lWheel)
+		
+		self.lWheel.setNaturalVelocity(0.7)
+		self.rWheel.setNaturalVelocity(0.7)
 	
 		self.lTrackSensor.setBias(3)
 		self.rTrackSensor.setBias(3)
-		#self.lLimitsSensor.setBias(-5)
-		#self.rLimitsSensor.setBias(-5)
 		self.lPacmanSensor.setBias(1)
 		self.rPacmanSensor.setBias(1)
 		
@@ -540,6 +541,11 @@ class BraitenbergLight( breve.Link):
 		self.intensity = 1
 		self.joint = None
 		self.shape = None
+		'''These two variables are used so when a monster catches the Pacman, it will put high bias in the wheels,
+		   but one negative and the other positive. This way, the Pacman will jump and get out of the scenario!'''
+		self.lSensor = None
+		self.rSensor = None
+		self.pacmanTexture = None
 		BraitenbergLight.init( self )
 
 	def init( self ):
@@ -549,6 +555,9 @@ class BraitenbergLight( breve.Link):
 			self.shape.setDensity(0.00000000000000001)
 			self.setShape( self.shape )
 			self.setColor( breve.vector( 1, 1, 0 ) )
+			self.pacmanTexture = breve.createInstances( breve.Image, 1 ).load( 'images/pacman.png' )
+			self.setTextureImage( self.pacmanTexture )
+			self.setTextureScale( 1.5000 )
 		else:
 			#self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
 			#self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(2.5,5,2.5) ) )
@@ -560,6 +569,18 @@ class BraitenbergLight( breve.Link):
 		
 	def setIntensity( self, itense ):
 		self.intensity = itense
+		
+	def setLeftSensor ( self, s ):
+		self.lSensor = s
+	
+	def setRightSensor ( self, s ):
+		self.rSensor = s
+		
+	def setLeftSensorBias ( self, b ):
+		self.lSensor.setBias(b)
+	
+	def setRightSensorBias ( self, b ):
+		self.rSensor.setBias(b)
 
 
 breve.BraitenbergLight = BraitenbergLight
@@ -743,6 +764,11 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 				if self.activationObject.getName() == "MonsterSensorLeft" and breve.length(self.getLocation() - i.getLocation()) < 25 and not self.hasPlayed:
 					self.PacmanAlert.play(1)
 					self.hasPlayed = 1
+					
+				if self.activationObject.getName() == "PacmanLeft" or self.activationObject.getName() == "PacmanRight":
+					if  breve.length(self.getLocation() - i.getLocation()) < 4 :
+						i.setLeftSensorBias(-700)
+						i.setRightSensorBias(700)
 				
 				'''We turn invisible the items as we pass by.'''
 				if (self.activationObject.getName() == "SoundLeft" or self.activationObject.getName() == "SoundRight") and breve.length(self.getLocation() - i.getLocation()) < 2.5:

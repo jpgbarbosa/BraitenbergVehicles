@@ -179,11 +179,11 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
 			self.watch( self.vehicle )
 				
-			self.vehicle.move(breve.vector(45,0.6,5))
+			self.vehicle.move(breve.vector(44,0.6,7))
 			
 			'''Creates the first monster.'''
 			monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
-			monsterOne.move(breve.vector(25,0.6,5))
+			monsterOne.move(breve.vector(25,0.6,9))
 			monsterOne.rotate(breve.vector(0,1,0), 3.14)
 			'''Creates the second monster.'''
 			monsterTwo = breve.createInstances( breve.BraitenbergMonster, 1 )
