@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Maze'
+		self.scenario = 'Explorer'
 		self.block = None
 		self.obj = None
 		myBraitenbergControl.init( self )
@@ -80,7 +80,9 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.block.move( breve.vector(-18,1,15))
 		
 		elif self.scenario == 'Maze':
-			
+		
+						self.setIsPacman(1)
+
 			filename = "maze.txt"
 			f = open(filename, "r")
 		
@@ -100,6 +102,10 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 						self.block = breve.createInstances ( breve.BraitenbergBlock, 1)
 						self.block.move( breve.vector(i*3, 0, t*2))
 						self.block.setReflection(2.5)
+				
+			self.disableShadowVolumes()
+			self.PacmanMusic.play(1)
+			
 			
 		elif self.scenario == 'Attraction':
 		

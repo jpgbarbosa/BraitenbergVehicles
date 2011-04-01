@@ -9,7 +9,7 @@ import random
 
 from math import *
 
-isPacman = 1
+isPacman = 0
 
 class BraitenbergControl( breve.PhysicalControl ):
 	'''This class is used for building simple Braitenberg vehicle  simulations.  To create a Braitenberg vehicle simulation,  subclass BraitenbergControl and use the init method to  create OBJECT(BraitenbergLight) and  OBJECT(BraitenbergVehicle) objects.'''
@@ -26,13 +26,18 @@ class BraitenbergControl( breve.PhysicalControl ):
 		self.floor = breve.createInstances( breve.Floor, 1 )
 		self.pointCamera( breve.vector( 0, 0, 0 ), breve.vector( 3, 3, 24 ) )
 		#self.enableShadows()
-		self.disableShadowVolumes()
+		#self.disableShadowVolumes()
 		#self.enableReflections()
 		self.cloudTexture = breve.createInstances( breve.Image, 1 ).load( 'images/clouds.png' )
 		self.PacmanMusic =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/opening song.wav' )
-		self.PacmanMusic.play(1)
+		#self.PacmanMusic.play(1)
 		self.setBackgroundColor( breve.vector( 0.400000, 0.600000, 0.900000 ) )
 		self.setBackgroundTextureImage( self.cloudTexture )
+	
+	def setIsPacman(self,isPac):
+		global isPacman
+		
+		isPacman = isPac
 
 
 breve.BraitenbergControl = BraitenbergControl
@@ -533,11 +538,14 @@ class BraitenbergHeavyVehicle( breve.BraitenbergVehicle ):
 
 
 breve.BraitenbergHeavyVehicle = BraitenbergHeavyVehicle
-class BraitenbergLight( breve.Link):
+class BraitenbergLight( breve.Link, breve.Mobile):
 	'''A BraitenbergLight is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Link.__init__( self )
+		if isPacman == 1:
+			breve.Link.__init__( self )
+		else:
+			breve.Mobile.__init__( self )
 		self.intensity = 1
 		self.joint = None
 		self.shape = None
@@ -561,7 +569,7 @@ class BraitenbergLight( breve.Link):
 		else:
 			#self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.300000 ) )
 			#self.setShape( breve.createInstances( breve.Shape, 1 ).initWithCube( breve.vector(2.5,5,2.5) ) )
-			self.setShape( breve.createInstances( breve.Shape, 1 ).initWithPolygonCone( 10,2, 2 ) )
+			#self.setShape( breve.createInstances( breve.Shape, 1 ).initWithPolygonCone( 10,2, 2 ) )
 			self.setColor( breve.vector( 1, 0, 0 ) )
 		
 	def getIntensity( self ):
@@ -618,11 +626,15 @@ class BraitenbergSound( breve.Mobile ):
 breve.BraitenbergSound = BraitenbergSound
 
 
-class BraitenbergOlfaction( breve.Link ):
+class BraitenbergOlfaction( breve.Link, breve.Mobile ):
 	'''A BraitenbergOlfaction is used in conjunction with OBJECT(BraitenbergControl) and OBJECT(BraitenbergVehicle).  It is what the OBJECT(BraitenbergSensor) objects on the BraitenbergVehicle detect. <p> There are no special behaviors associated with the lights--they're  basically just plain OBJECT(Mobile) objects.'''
 
 	def __init__( self ):
-		breve.Link.__init__( self )
+		if isPacman == 1:
+			breve.Link.__init__( self )
+		else:
+			breve.Mobile.__init__( self )
+		
 		self.intensity = 1
 		self.joint = None
 		self.shape = None
