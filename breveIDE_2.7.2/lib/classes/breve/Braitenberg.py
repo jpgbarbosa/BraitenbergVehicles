@@ -253,13 +253,14 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		self.lWheel = self.addWheel (breve.vector( -0.5, 0, -1.5 ))
 		self.rWheel = self.addWheel (breve.vector( -0.5, 0, 1.5 ))
 		sense = self.addSense (breve.vector( 0, 1.0, 0 ),breve.vector( -0.5, 0, 1 ),  1.57000000, "Light")
+		sense.setIntensity(1.8)
 		self.lTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, -2 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "BraitenbergSounds", "linear", "SoundLeft")
 		self.rTrackSensor = self.addSensor (breve.vector( 2.2, 0.1, 2 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "BraitenbergSounds", "linear", "SoundRight")
 		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "linear")
 		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 3.1, "BraitenbergLights", "linear")
 
-		self.lMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 0.8, "BraitenbergOlfactions", "gaussian", "MonsterSensorLeft")
-		self.rMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 0.8, "BraitenbergOlfactions", "gaussian", "MonsterSensorRight")
+		self.lMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0, 0, 1 ), 1.57, 1.6, "BraitenbergOlfactions", "gaussian", "MonsterSensorLeft")
+		self.rMonsterSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( 0, 0, 1 ),  1.57, 1.6, "BraitenbergOlfactions", "gaussian", "MonsterSensorRight")
 		
 		
 		'''Associates the sensors with the sense that constitutes the body of the Pacman.'''
@@ -286,11 +287,11 @@ class BraitenbergPacman( breve. BraitenbergVehicle ):
 		self.lMonsterSensor.activationObject.setLeftBound(0.001)
 		self.rMonsterSensor.activationObject.setLeftBound(0.001)
 		
-		self.lWheel.setNaturalVelocity(1)
-		self.rWheel.setNaturalVelocity(1)
+		self.lWheel.setNaturalVelocity(0.8)
+		self.rWheel.setNaturalVelocity(0.8)
 		
-		self.lTrackSensor.setBias(5)
-		self.rTrackSensor.setBias(5)
+		self.lTrackSensor.setBias(3)
+		self.rTrackSensor.setBias(3)
 		self.lLimitsSensor.setBias(-1)
 		self.rLimitsSensor.setBias(-1)
 		self.lMonsterSensor.setBias(10)
@@ -316,9 +317,9 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		self.lLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "linear")
 		self.rLimitsSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 3.1, "BraitenbergLights", "linear")
 		
-		self.lPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergLights", "log", "PacmanLeft")
-		self.rPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergLights", "log", "PacmanRight")
-
+		self.lPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 3.1, "BraitenbergLights", "log", "PacmanLeft")
+		self.rPacmanSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 3.1, "BraitenbergLights", "linear", "PacmanRight")
+		
 		'''"Hides" the body of the vehicle.'''
 		self.bodyLink.setTransparency(0)
 		for i in xrange(len(self.wheelsList)):
@@ -326,6 +327,8 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		for i in xrange(len(self.sensorsList)):
 			self.sensorsList[i].setTransparency(0)
 		
+		self.lPacmanSensor.activationObject.setLogBase(0.002)
+		self.rPacmanSensor.activationObject.setLogBase(0.002)
 		
 		'''Links the sensors to the wheels.'''
 		self.lTrackSensor.link(self.rWheel)
@@ -334,16 +337,17 @@ class BraitenbergMonster( breve.BraitenbergVehicle ):
 		self.lTrackSensor.link(self.rWheel)
 		self.rTrackSensor.link(self.lWheel)
 		
-		self.lPacmanSensor.link(self.rWheel)
+		#self.lPacmanSensor.link(self.rWheel)
 		self.rPacmanSensor.link(self.lWheel)
+
 		
 		self.lWheel.setNaturalVelocity(0.7)
 		self.rWheel.setNaturalVelocity(0.7)
 	
 		self.lTrackSensor.setBias(3)
 		self.rTrackSensor.setBias(3)
-		self.lPacmanSensor.setBias(1)
-		self.rPacmanSensor.setBias(1)
+		self.lPacmanSensor.setBias(15)
+		self.rPacmanSensor.setBias(0.1)
 		
 			
 breve.BraitenbergMonster = BraitenbergMonster
@@ -772,9 +776,12 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 			if ( angle < self.sensorAngle ):
 				strength = breve.length( ( self.getLocation() - i.getLocation() ))
 				
+				if self.activationObject.getName() == "MonsterSensorLeft" and breve.length(self.getLocation() - i.getLocation()) > 50:
+					continue;
+				
 				'''The monster is getting closer.'''
 				if self.activationObject.getName() == "MonsterSensorLeft" and breve.length(self.getLocation() - i.getLocation()) < 25 and not self.hasPlayed:
-					self.PacmanAlert.play(1)
+					#self.PacmanAlert.play(1)
 					self.hasPlayed = 1
 					
 				if self.activationObject.getName() == "PacmanLeft" or self.activationObject.getName() == "PacmanRight":
@@ -789,9 +796,11 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 						i.setTransparency(0)
 						i.setEaten(1)
 						if self.counter % 10 != 0:
-							self.PacmanEating.play(1)
+							#self.PacmanEating.play(1)
+							pass
 						else:
-							self.PacmanCherry.play(1)
+							#self.PacmanCherry.play(1)
+							pass
 						self.counter += 1
 						
 						'''This means we played the sirene at least once.'''

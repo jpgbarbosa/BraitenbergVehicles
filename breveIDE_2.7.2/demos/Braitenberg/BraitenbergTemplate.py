@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = 'Explorer'
+		self.scenario = 'Maze'
 		self.block = None
 		self.obj = None
 		myBraitenbergControl.init( self )
@@ -104,7 +104,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 						self.block.setReflection(2.5)
 				
 			self.disableShadowVolumes()
-			self.PacmanMusic.play(1)
+			#self.PacmanMusic.play(1)
 			
 			
 		elif self.scenario == 'Attraction':
@@ -184,17 +184,19 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			'''Creates the first vehicle.'''
 			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
 			self.watch( self.vehicle )
-				
-			self.vehicle.move(breve.vector(44,0.6,7))
+			
+			self.vehicle.move(breve.vector(48,0.6,7))
 			
 			'''Creates the first monster.'''
 			monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
-			monsterOne.move(breve.vector(25,0.6,9))
-			monsterOne.rotate(breve.vector(0,1,0), 3.14)
+			monsterOne.move(breve.vector(20,0.6,15))
+		 	monsterOne.rotate(breve.vector(0,1,0), 3.14)
 			'''Creates the second monster.'''
 			monsterTwo = breve.createInstances( breve.BraitenbergMonster, 1 )
-			monsterTwo.move(breve.vector(35,0.6,46))
+			monsterTwo.move(breve.vector(35,0.6,48))
 			
+			
+		
 		elif self.scenario == '3c':
 			'''Creates the first vehicle.'''
 			self.vehicle = breve.createInstances( breve.Braitenberg3c, 1 )
