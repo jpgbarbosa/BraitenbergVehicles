@@ -104,7 +104,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 						self.block.setReflection(2.5)
 				
 			self.disableShadowVolumes()
-			#self.PacmanMusic.play(1)
+			self.PacmanMusic.play(1)
 			
 			
 		elif self.scenario == 'Attraction':

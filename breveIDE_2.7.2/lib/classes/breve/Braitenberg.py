@@ -781,13 +781,13 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 				
 				'''The monster is getting closer.'''
 				if self.activationObject.getName() == "MonsterSensorLeft" and breve.length(self.getLocation() - i.getLocation()) < 25 and not self.hasPlayed:
-					#self.PacmanAlert.play(1)
+					self.PacmanAlert.play(1)
 					self.hasPlayed = 1
 					
 				if self.activationObject.getName() == "PacmanLeft" or self.activationObject.getName() == "PacmanRight":
 					if  breve.length(self.getLocation() - i.getLocation()) < 4 :
-						i.setLeftSensorBias(-700)
-						i.setRightSensorBias(700)
+						i.setLeftSensorBias(-200)
+						i.setRightSensorBias(200)
 				
 				'''We turn invisible the items as we pass by.'''
 				if (self.activationObject.getName() == "SoundLeft" or self.activationObject.getName() == "SoundRight") and breve.length(self.getLocation() - i.getLocation()) < 2.5:
@@ -796,11 +796,9 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 						i.setTransparency(0)
 						i.setEaten(1)
 						if self.counter % 10 != 0:
-							#self.PacmanEating.play(1)
-							pass
+							self.PacmanEating.play(1)
 						else:
-							#self.PacmanCherry.play(1)
-							pass
+							self.PacmanCherry.play(1)
 						self.counter += 1
 						
 						'''This means we played the sirene at least once.'''
