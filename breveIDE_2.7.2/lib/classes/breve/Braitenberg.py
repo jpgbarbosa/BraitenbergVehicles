@@ -412,41 +412,44 @@ class BraitenbergExplorer( breve.BraitenbergVehicle ):
 		self.rWheel.setCollisionShape(sphere)
 		
 		'''Creates all the types of sensors that it needs.'''
+		'''
 		self.lSoundSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergSounds", "linear")
 		self.rSoundSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergSounds", "linear")
-		self.lLightSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergLights", "gaussian")
-		self.rLightSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergLights", "gaussian")
+		'''
+		self.lLightSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergLights", "inverseLog")
+		self.rLightSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergLights", "inverseLog")
+		'''
 		self.lOlfactionSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "BraitenbergOlfactions", "linear")
 		self.rOlfactionSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "BraitenbergOlfactions", "linear")
 		self.lBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "linear")
 		self.rBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "linear")
-		
+		'''
 		self.lLightSensor.activationObject.setGauss(0.001,0.002)
 		self.rLightSensor.activationObject.setGauss(0.001,0.002)
 		
 		'''Links the sensors to the wheels.'''
-		self.lSoundSensor.link(self.lWheel)
-		self.rSoundSensor.link(self.rWheel)
+		#self.lSoundSensor.link(self.lWheel)
+		#self.rSoundSensor.link(self.rWheel)
 		self.lLightSensor.link(self.rWheel)
 		self.rLightSensor.link(self.lWheel)
-		self.lOlfactionSensor.link(self.rWheel)
-		self.rOlfactionSensor.link(self.lWheel)
+		#self.lOlfactionSensor.link(self.rWheel)
+		#self.rOlfactionSensor.link(self.lWheel)
 		'''Block sensors.'''
-		self.lBlockSensor.link(self.rWheel)
-		self.rBlockSensor.link(self.lWheel)
+		#self.lBlockSensor.link(self.rWheel)
+		#self.rBlockSensor.link(self.lWheel)
 		
 		self.lWheel.setNaturalVelocity(0)
 		self.rWheel.setNaturalVelocity(0)
 	
-		self.lSoundSensor.setBias(5)
-		self.rSoundSensor.setBias(5)
+		#self.lSoundSensor.setBias(5)
+		#self.rSoundSensor.setBias(5)
 		self.lLightSensor.setBias(1)
 		self.rLightSensor.setBias(1)
-		self.lOlfactionSensor.setBias(5)
-		self.rOlfactionSensor.setBias(5)
+		#self.lOlfactionSensor.setBias(5)
+		#self.rOlfactionSensor.setBias(5)
 		'''Block sensors.'''
-		self.lBlockSensor.setBias(5)
-		self.rBlockSensor.setBias(5)
+		#self.lBlockSensor.setBias(5)
+		#self.rBlockSensor.setBias(5)
 			
 breve.BraitenbergExplorer = BraitenbergExplorer
 
@@ -956,6 +959,9 @@ class BraitenbergActivationObject( breve.Abstract ):
 				strength = exp(s)
 			elif self.type == "log":
 				strength = log(self.base, s)
+			elif self.type == "inverseLog":
+				print "here"
+				strength = -log(self.base, s)
 			else:
 				strength = s
 					
