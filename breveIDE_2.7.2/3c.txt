@@ -1,27 +1,27 @@
 llllllllllllllllllllllllllllllllllllllllllllllllllllllllll    
-ls                 b   b    b   b                        l    
-ls                                 b                     l   
-ls                                                       l   
-ls                                                       l   
-ls      ssssssssssssssssssssssssssssssoooooooooooooo     l
-ls      s                                          o     l   
-ls      s                                          o     l   
-ls      s                                          o     l   
-ls      s                                          o     l   
-ls      s                          b               o     l   
-ls      s         b                                o     l   
-ls      s                                          o     l   
-ls      s                                          o     l   
-ls                            b                    o     l   
-ls                b                                o     l   
-lo                                                 o     l   
-lo                                                 o     l   
-lo                                                 o     l   
-lo                           b                     o     l   
-lo                                                 o     l   
-lo                                                 o     l   
-lo                                                 o     l   
-looooooooooooooooooooooooooooooooooooooooooooooooooo     l
+l                                                        l    
+l                                                        l   
+l                                                        l   
+l                                               o        l   
+l                                               o        l
+l                                               o        l   
+l                                               o        l   
+l                                               o        l   
+l                   oooooooo                             l   
+l                                  b                     l   
+l     sssss                                              l   
+l                                                        l   
+l                                                  s     l   
+l                             b                    s     l   
+l                 b                                s     l   
+l                      ssssssssssssssss            s     l   
+l                                                  s     l   
+l                                                  s     l   
+l       ooooooooooo          b                           l   
+l                                                        l   
+l                                                        l   
+l                                                        l   
+l    ssss            sssss                               l
 l                                                        l
 l                                                        l
 llllllllllllllllllllllllllllllllllllllllllllllllllllllllll
