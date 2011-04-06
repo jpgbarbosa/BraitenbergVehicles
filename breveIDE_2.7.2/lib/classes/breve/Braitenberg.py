@@ -417,14 +417,14 @@ class BraitenbergExplorer( breve.BraitenbergVehicle ):
 		self.rWheel.setCollisionShape(sphere)
 		
 		'''Creates all the types of sensors that it needs.'''
-		self.lSoundSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 2, "BraitenbergSounds", "gaussian", "Explorer")
-		self.rSoundSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 2, "BraitenbergSounds", "gaussian", "Explorer")
-		self.lLightSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 2, "BraitenbergLights", "gaussian", "Explorer")
-		self.rLightSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 2, "BraitenbergLights", "gaussian", "Explorer")
-		self.lOlfactionSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 2, "BraitenbergOlfactions", "gaussian", "Explorer")
-		self.rOlfactionSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 2, "BraitenbergOlfactions", "gaussian", "Explorer")
-		self.lBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.6, "linear")
-		self.rBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.6, "linear")
+		self.lSoundSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 2.5, "BraitenbergSounds", "gaussian", "Explorer")
+		self.rSoundSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 2.5, "BraitenbergSounds", "gaussian", "Explorer")
+		self.lLightSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 2.5, "BraitenbergLights", "gaussian", "Explorer")
+		self.rLightSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 2.5, "BraitenbergLights", "gaussian", "Explorer")
+		self.lOlfactionSensor = self.addSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 2.5, "BraitenbergOlfactions", "gaussian", "Explorer")
+		self.rOlfactionSensor = self.addSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 2.5, "BraitenbergOlfactions", "gaussian", "Explorer")
+		self.lBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, -1.4 ), breve.vector( 0.5, 0, 1 ), 1.57, 1.5, "linear")
+		self.rBlockSensor = self.addBlockSensor (breve.vector( 2.2, 0.1, 1.4 ),breve.vector( -0.5, 0, 1 ),  1.57, 1.5, "linear")
 		
 		self.lLightSensor.activationObject.setGauss(50,0)
 		self.rLightSensor.activationObject.setGauss(50,0)
@@ -432,8 +432,16 @@ class BraitenbergExplorer( breve.BraitenbergVehicle ):
 		self.rSoundSensor.activationObject.setGauss(50,0)
 		self.lOlfactionSensor.activationObject.setGauss(50,0)
 		self.rOlfactionSensor.activationObject.setGauss(50,0)
+		self.lBlockSensor.activationObject.setLogBase(0.0)
+		self.rBlockSensor.activationObject.setLogBase(2)
+		self.lBlockSensor.activationObject.setGauss(0.001,1)
+		self.rBlockSensor.activationObject.setGauss(0.001,1)
+		
+		self.lBlockSensor.activationObject.setUpperBound(0.01)
+		self.rBlockSensor.activationObject.setUpperBound(0.01)
 		
 		'''Links the sensors to the wheels.'''
+		'''All are attracting, except for blocks.'''
 		self.lLightSensor.link(self.lWheel)
 		self.rLightSensor.link(self.rWheel)
 		self.lSoundSensor.link(self.lWheel)
@@ -444,20 +452,20 @@ class BraitenbergExplorer( breve.BraitenbergVehicle ):
 		self.lBlockSensor.link(self.rWheel)
 		self.rBlockSensor.link(self.lWheel)
 		
-		self.lWheel.setNaturalVelocity(0)
-		self.rWheel.setNaturalVelocity(0)
+		self.lWheel.setNaturalVelocity(-2)
+		self.rWheel.setNaturalVelocity(-2)
 
-		self.lLightSensor.setBias(10)
-		self.rLightSensor.setBias(10)
-		self.lSoundSensor.setBias(10)
-		self.rSoundSensor.setBias(10)
-		self.lLightSensor.setBias(10)
-		self.rLightSensor.setBias(10)
-		self.lOlfactionSensor.setBias(10)
-		self.rOlfactionSensor.setBias(10)
+		self.lLightSensor.setBias(5)
+		self.rLightSensor.setBias(5)
+		self.lSoundSensor.setBias(5)
+		self.rSoundSensor.setBias(5)
+		self.lLightSensor.setBias(5)
+		self.rLightSensor.setBias(5)
+		self.lOlfactionSensor.setBias(5)
+		self.rOlfactionSensor.setBias(5)
 		'''Block sensors.'''
-		self.lBlockSensor.setBias(10)
-		self.rBlockSensor.setBias(10)
+		self.lBlockSensor.setBias(1)
+		self.rBlockSensor.setBias(1)
 			
 breve.BraitenbergExplorer = BraitenbergExplorer
 
@@ -834,8 +842,6 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 
 					total = ( total + strength )
 					lights = ( lights + 1 )
-			elif self.activationObject.getName() == "Explorer":
-				total = self.activationObject.activate(0)
 				
 			
 		if ( lights != 0 ):
@@ -885,6 +891,9 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 				'''Updates the min distance.'''
 				if minDist == None or t < minDist:
 					minDist = t
+					texture = breve.createInstances( breve.Image, 1 ).load( 'images/checkerpink.png' )
+					i.setTextureImage( texture )
+					i.setTextureScale( 1.5000 )
 					
 					strength = breve.length( ( self.getLocation() - i.getLocation() ))
 					'''Avoid by zero exceptions.'''
@@ -896,7 +905,7 @@ class BraitenbergBlockSensor( breve.BraitenbergMainSensor ):
 
 						if ( strength > 10 ):
 							strength = 10
-
+						
 						total = strength
 
 		total = ( ( 50 * total ) * self.bias )

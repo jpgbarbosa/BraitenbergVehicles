@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = '3c'
+		self.scenario = 'Explorer'
 		self.block = None
 		self.obj = None
 		myBraitenbergControl.init( self )
@@ -147,7 +147,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 						
 			
 		elif self.scenario == 'Explorer':
-			filename = "Explorer.txt"
+			filename = "ExplorerComplex.txt"
 			f = open(filename, "r")
 		
 			#Reads the limits of the maze.
@@ -209,14 +209,11 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			self.vehicle = breve.createInstances( breve.BraitenbergExplorer, 1 )
 			self.watch( self.vehicle )
 			
-			self.vehicle.rotate(breve.vector(0,1,0),-1.57000000)
-		elif self.scenario == 'Attraction':
-			'''Creates the first vehicle.'''
-			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
-			self.watch( self.vehicle )
-			
-			self.vehicle.rotate(breve.vector(0,1,0),-0.5)
-			
+			'''Simple Explorer'''
+			self.vehicle.rotate(breve.vector(0,1,0),-1.57)
+			'''Complex Explorer'''
+			self.vehicle.move(breve.vector(20,1,80))
+			self.vehicle.rotate(breve.vector(0,1,0),0.7)
 		else:
 			'''Creates the first vehicle.'''
 			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
