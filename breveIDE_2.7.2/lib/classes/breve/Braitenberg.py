@@ -11,6 +11,7 @@ from math import *
 
 isPacman = 0
 isPacmanDead = 0
+ghostCounter = 0
 
 class BraitenbergControl( breve.PhysicalControl ):
 	'''This class is used for building simple Braitenberg vehicle  simulations.  To create a Braitenberg vehicle simulation,  subclass BraitenbergControl and use the init method to  create OBJECT(BraitenbergLight) and  OBJECT(BraitenbergVehicle) objects.'''
@@ -643,11 +644,19 @@ class BraitenbergOlfaction( breve.Link, breve.Mobile ):
 		BraitenbergOlfaction.init( self )
 
 	def init( self ):
+		global ghostCounter
 		if isPacman:
 			self.shape = breve.createInstances( breve.Shape, 1 ).initWithSphere( 1.50000 )
 			self.shape.setDensity(0.00000000000000001)
 			self.setShape( self.shape )
-			self.setColor( breve.vector( 0, 0, 1 ) )
+			self.setColor( breve.vector( 1, 1, 1 ) )
+			if ghostCounter == 0:
+				self.ghostTexture = breve.createInstances( breve.Image, 1 ).load( 'images/RedGhost.png' )
+				ghostCounter += 1
+			else:
+				self.ghostTexture = breve.createInstances( breve.Image, 1 ).load( 'images/BlueGhost.png' )
+			self.setTextureImage( self.ghostTexture )
+			self.setTextureScale( 9.5000 )
 		else:
 			self.setShape( breve.createInstances( breve.Shape, 1 ).initWithSphere( 0.30000 ) )
 			self.setColor( breve.vector( 0, 0, 1 ) )
