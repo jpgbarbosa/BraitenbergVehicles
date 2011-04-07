@@ -12,6 +12,9 @@ from math import *
 isPacman = 0
 isPacmanDead = 0
 ghostCounter = 0
+score = 0
+control = None
+gameOver = 0
 
 class BraitenbergControl( breve.PhysicalControl ):
 	'''This class is used for building simple Braitenberg vehicle  simulations.  To create a Braitenberg vehicle simulation,  subclass BraitenbergControl and use the init method to  create OBJECT(BraitenbergLight) and  OBJECT(BraitenbergVehicle) objects.'''
@@ -23,20 +26,26 @@ class BraitenbergControl( breve.PhysicalControl ):
 		BraitenbergControl.init( self )
 
 	def init( self ):
+		global control
 		self.enableLighting()
 		self.enableSmoothDrawing()
 		self.floor = breve.createInstances( breve.Floor, 1 )
+		self.floorImage =  breve.createInstances( breve.Image, 1 ).load( 'images/marble.png' )
+		#self.floor.setTextureScale(1000)
+		self.floor.setTextureImage(self.floorImage )
+		self.floor.setColor( breve.vector(0.2, 0.2, 0.2 ) )
+		
 		self.pointCamera( breve.vector( 0, 0, 0 ), breve.vector( 3, 3, 24 ) )
 		#self.enableShadows()
 		#self.disableShadowVolumes()
 		#self.enableReflections()
-		self.cloudTexture = breve.createInstances( breve.Image, 1 ).load( 'images/clouds.png' )
 		self.PacmanMusic =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/opening song.wav' )
 		#self.PacmanMusic.play(1)
 		self.setBackgroundColor( breve.vector( 0.400000, 0.600000, 0.900000 ) )
-		#self.setBackgroundTextureImage( self.cloudTexture )
 		self.setMountainSkybox()
-	
+
+		control = self
+		
 	def setIsPacman(self,isPac):
 		global isPacman
 		
@@ -765,7 +774,7 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 	
 	'''This method can iterate over objects of type sound, olfaction or light.'''
 	def iterate( self ):
-		global isPacmanDead
+		global isPacmanDead, score, gameOver
 		i = None
 		lights = 0
 		angle = 0
@@ -801,6 +810,7 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 							
 						i.setLeftSensorBias(-200)
 						i.setRightSensorBias(200)
+						gameOver = 1
 				
 				'''We turn invisible the items as we pass by.'''
 				if (self.activationObject.getName() == "SoundLeft" or self.activationObject.getName() == "SoundRight") and breve.length(self.getLocation() - i.getLocation()) < 2.5:
@@ -813,6 +823,12 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 						else:
 							self.PacmanCherry.play(1)
 						self.counter += 1
+						score += 100
+						'''Prints the score or game over.'''
+						if not gameOver:
+							control.setDisplayText( '''Score: %d''' % ( score), 0.5, 0.9 )
+						else:
+							control.setDisplayText( '''GAME OVER!''', 0.5, 0.9 )
 						
 						'''This means we played the sirene at least once.'''
 						if self.hasPlayed:
