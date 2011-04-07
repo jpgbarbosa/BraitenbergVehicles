@@ -17,7 +17,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		self.rightSensor = None
 		self.rightWheel = None
 		self.vehicle = None
-		self.scenario = '3c'
+		self.scenario = 'Tunel'
 		self.block = None
 		self.obj = None
 		myBraitenbergControl.init( self )
@@ -27,50 +27,50 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 		if self.scenario == 'Circle':
 			self.n = 0
 			while ( self.n < 40 ):
-				breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector( ( 20 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 1.570000 ) / 10 ) ) ), 2, ( 20 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 1.570000 ) / 10 ) ) ) ) )
+				breve.createInstances( breve.BraitenbergOlfaction, 1 ).move( breve.vector( ( 20 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 1.570000 ) / 10 ) ) ), 2, ( 20 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 1.570000 ) / 10 ) ) ) ) )
 				self.n = ( self.n + 1 )
 				
 			self.n = 0
 			while ( self.n < 20 ):
-				breve.createInstances( breve.BraitenbergSound, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 1.5, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
+				breve.createInstances( breve.BraitenbergOlfaction, 1 ).move( breve.vector( ( 12 * breve.breveInternalFunctionFinder.sin( self, ( ( self.n * 3.140000 ) / 10 ) ) ), 1.5, ( 12 * breve.breveInternalFunctionFinder.cos( self, ( ( self.n * 3.140000 ) / 10 ) ) ) ) )
 				self.n = ( self.n + 1 )
 				
 		elif self.scenario == 'Tunel':
 			#Blocks	
 			for i in range(10):
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(i*4,0,5))
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(i*4,0,-5))
 				
 			for i in range(10,14):	
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(i*4,0,5))
 			
-			self.block = breve.createInstances( breve.BraitenbergSound,1)
+			self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 			self.block.move( breve.vector(13*4,0,5))
-			self.block = breve.createInstances( breve.BraitenbergSound,1)
+			self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 			self.block.move( breve.vector(13*4,0,0))
 			
 			for i in range(7):
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(13*4,0,-5-i*4))
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(10*4,0,-5-i*4))
 				
 			for i in range(7,9):	
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(13*4,0,-5-i*4))
 			
 			
 			for i in range(10):
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(i*4,0,-30))
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(i*4,0,-40))
 			
 			for i in range(10,14):	
-				self.block = breve.createInstances( breve.BraitenbergSound,1)
+				self.block = breve.createInstances( breve.BraitenbergOlfaction,1)
 				self.block.move( breve.vector(i*4,0,-40))
 			
 		elif self.scenario == 'Eight':
@@ -212,20 +212,20 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 			'''Complex Explorer'''
 			self.vehicle.move(breve.vector(20,1,80))
 			self.vehicle.rotate(breve.vector(0,1,0),0.7)
-		else:
+		elif self.scenario == 'Circle':
 			'''Creates the first vehicle.'''
-			self.vehicle = breve.createInstances( breve.BraitenbergPacman, 1 )
+			self.vehicle = breve.createInstances( breve.BraitenbergTwoWheelsVehicle, 1 )
 			self.watch( self.vehicle )
 				
-			self.vehicle.move(breve.vector(60,1,1))
+			self.vehicle.move(breve.vector(0,1,14))
 			self.vehicle.rotate(breve.vector(0,1,0), 3.14)
-			
-			self.block = breve.createInstances ( breve.BraitenbergOlfaction, 1)
-			self.block.move( breve.vector(20, 1, 5))
-			
-			'''Creates the first monster.'''
-			#monsterOne = breve.createInstances( breve.BraitenbergMonster, 1 )
-			#monsterOne.move(breve.vector(20,1,5))
+		elif self.scenario == 'Tunel':
+			'''Creates the first vehicle.'''
+			self.vehicle = breve.createInstances( breve.BraitenbergTwoWheelsVehicle, 1 )
+			self.watch( self.vehicle )
+				
+			self.vehicle.move(breve.vector(0,1,0))
+			self.vehicle.rotate(breve.vector(0,1,0), 0)
 	
 breve.myBraitenbergControl = myBraitenbergControl
 
