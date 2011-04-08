@@ -9,12 +9,18 @@ import random
 
 from math import *
 
+'''We use this variable to know if we are using the Pacman scenario or not.
+   For example, some senes have different representations if we are inside the Maze or not, as well as the vehicles,
+   ground and so on.'''
 isPacman = 0
+'''Marks the Pacman has dead. It is used to play the end sound, as well as setting the score label to GAME OVER.'''
 isPacmanDead = 0
+'''Used to count and number of ghost inserted already and use different skins for them.'''
 ghostCounter = 0
+'''The total score that will be displayed at the corner.'''
 score = 0
+'''The BraitenbergControl reference, so we can update the label at the upper corner.'''
 control = None
-gameOver = 0
 
 class BraitenbergControl( breve.PhysicalControl ):
 	'''This class is used for building simple Braitenberg vehicle  simulations.  To create a Braitenberg vehicle simulation,  subclass BraitenbergControl and use the init method to  create OBJECT(BraitenbergLight) and  OBJECT(BraitenbergVehicle) objects.'''
@@ -30,10 +36,6 @@ class BraitenbergControl( breve.PhysicalControl ):
 		self.enableLighting()
 		self.enableSmoothDrawing()
 		self.floor = breve.createInstances( breve.Floor, 1 )
-		self.floorImage =  breve.createInstances( breve.Image, 1 ).load( 'images/marble.png' )
-		#self.floor.setTextureScale(1000)
-		self.floor.setTextureImage(self.floorImage )
-		self.floor.setColor( breve.vector(0.2, 0.2, 0.2 ) )
 		
 		self.pointCamera( breve.vector( 0, 0, 0 ), breve.vector( 3, 3, 24 ) )
 		#self.enableShadows()
@@ -50,6 +52,12 @@ class BraitenbergControl( breve.PhysicalControl ):
 		global isPacman
 		
 		isPacman = isPac
+		
+	'''Changes the floor in the Pacman scenario.'''	
+	def changeFloor ( self ):
+		self.floorImage =  breve.createInstances( breve.Image, 1 ).load( 'images/marble.png' )
+		self.floor.setTextureImage(self.floorImage )
+		self.floor.setColor( breve.vector(0.2, 0.2, 0.2 ) )
 
 
 breve.BraitenbergControl = BraitenbergControl
@@ -774,7 +782,7 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 	
 	'''This method can iterate over objects of type sound, olfaction or light.'''
 	def iterate( self ):
-		global isPacmanDead, score, gameOver
+		global isPacmanDead, score
 		i = None
 		lights = 0
 		angle = 0
@@ -807,15 +815,15 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 							pacmanEnd =  breve.createInstances( breve.Sound, 1 ).load( 'sounds/Pacman/pac man dies.wav' )
 							pacmanEnd.play(1)
 							isPacmanDead = 1
+							control.setDisplayText( "GAME OVER! MR. PACMAN, R.I.P.", -0.5, 0)
 							
-						i.setLeftSensorBias(-200)
-						i.setRightSensorBias(200)
-						gameOver = 1
+							i.setLeftSensorBias(-200)
+							i.setRightSensorBias(200)
 				
 				'''We turn invisible the items as we pass by.'''
 				if (self.activationObject.getName() == "SoundLeft" or self.activationObject.getName() == "SoundRight") and breve.length(self.getLocation() - i.getLocation()) < 2.5:
 					
-					if not i.isEaten():
+					if not i.isEaten() and not isPacmanDead:
 						i.setTransparency(0)
 						i.setEaten(1)
 						if self.counter % 10 != 0:
@@ -825,10 +833,9 @@ class BraitenbergSensor( breve.BraitenbergMainSensor ):
 						self.counter += 1
 						score += 100
 						'''Prints the score or game over.'''
-						if not gameOver:
+						if not isPacmanDead:
 							control.setDisplayText( '''Score: %d''' % ( score), 0.5, 0.9 )
-						else:
-							control.setDisplayText( '''GAME OVER!''', 0.5, 0.9 )
+							
 						
 						'''This means we played the sirene at least once.'''
 						if self.hasPlayed:

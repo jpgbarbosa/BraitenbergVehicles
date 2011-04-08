@@ -23,6 +23,7 @@ class myBraitenbergControl( breve.BraitenbergControl ):
 
 	def init( self ):
 				self.setIsPacman(1)
+		self.changeFloor()
 
 		filename = "maze.txt"
 		f = open(filename, "r")
